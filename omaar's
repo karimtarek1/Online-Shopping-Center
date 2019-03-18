@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+using namespace std;
+ 
+void addtocart(string arrname[], int arrprice[], int arrquantity[]) {
+
+	arrname[50];
+	arrprice[50];
+	int j = 0, b;
+
+	arrname[j] = products[j].productName;
+	arrprice[j] = products[j].productPrice;
+	cout << "How many quantity do you want ?";
+	cin >> arrquantity[j];
+	if (arrquantity[j] <= products[j].Quantity) {
+		cout << " Product Added to cart ✔ " << endl;
+	j++;
+}
+	else
+		cout << " Your Quantity is not availble now in the stock !! We have ( "<< products[j].Quantity << " ) only in the stock " << endl;
+	
+	// call l function seif bta3t l view
+	// w feh variable fl main l mafroud byzed 1 kol ma bydos add to cart a3rf l loop mashy lhd fen
+}
+	void cart() {
+		float subtotal[100], total = 0;
+		char s;
+		cout << "********************** - YOUR CART - *********************" << endl;
+		cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
+			for (int i = 0; i < nproduct; i++) {    // l nproduct deh 3adad l product l ethatet fl array 
+				subtotal[i] = ( arrquantity[i] *  products[i].productPrice  );
+				cout << products[i].productName <<  arrquantity [i] << subtotal[i] << '$' << endl;
+				total += subtotal[i];
+            }
+			cout << "Press .V. to View receipt" << endl << "Press .R. to Return shopping" << endl;
+			cin >> s;
+			switch (s)
+			{
+			case 'v':
+			case 'V':
+				cout << "********************* TOTAL ITEMS **********************\n" << endl;
+				cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
+				for (int i = 0; i < nproduct; i++) {    // l nproduct deh 3adad l product l ethatet fl array 
+					subtotal[i] = ("l quantity l seif dkhlha[i]" *  products[i].productPrice );
+					cout << products[i].productName << " l quantity l seif dkhlha[i] \t  " << subtotal[i] << '$' << endl;
+					total += subtotal[i];
+				}
+				cout << "********************** TOTAL PRICE *********************\n" << endl;
+				cout << "Total price : " << total << '$';
+				break;
+			case 'R':
+		    case 'r':
+     	// call l function bta3et l view product
+				break;
+			default: 
+				cout << "!!! Enter valid choice !!!"<<endl;
+             
+			}
+		
+	}
