@@ -1,0 +1,78 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+void view_products()
+{
+	fstream products;
+	products.open("products.txt", ios::in);
+	char name[50];
+	char categories[50];
+	float price;
+	cout << " name of the product and its details \n";
+	while (!products.eof())
+	{
+		products.getline(name, 50);
+		cout << name << endl << price << endl;
+	}
+	products.close();
+}
+
+void search()
+{
+	fstream products;
+	products.open("products.txt", ios::in);
+	char name[50];
+	
+	char a[50];
+	cout << "Enter the product that you want to search for: ";
+	cin.ignore();
+	cin.getline(a, 50);
+	int x = 0;
+	cout << " name of the product \n";
+	while (!products.eof())
+	{
+		products.getline(name, 50);
+		if (strcmp(name, a)==0) {
+			cout << name << endl;
+			x = 1;
+			break;
+		}
+
+	}
+	if (x == 0) {
+		cout << "not found" << endl;
+	}
+	products.close();
+}
+
+int main()
+{
+	
+	bool flag = true;
+	while (flag)
+	{
+		cout << "To search for a product enter: S/s \n " << "To view the product that you searched for enter:V/v \n";
+		char c;
+		cin >> c;
+		switch (c)
+		{
+		case 'S':
+		case 's':
+			search();
+			break;
+		case 'V':
+		case 'v':
+			view_products();
+			break;
+		}
+		cout << "Do you want to continue? (Y/N) \n";
+		char f;
+		cin >> f;
+		if (f != 'Y' || f != 'y')
+		{
+			flag = false;
+		}
+
+	}
+	return 0;
+}
