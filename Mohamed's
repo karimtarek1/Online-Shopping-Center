@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 struct Product {
@@ -12,23 +13,46 @@ struct Product {
 const int maxProducts = 50;
 Product products[maxProducts];
 
+void choice();
 void addProduct();
 void removeProduct();
 void viewProducts();
 
 int main()
 {
-	addProduct();
-	cout << "*************************************";
-	removeProduct();
-	cout << "*************************************" << endl;
-	viewProducts();
+	char choices;
+	do {
+		cout << "To add a product enter A. To remove a product enter R. To view your products enter V. : ";
+		choice();
+		cout << "Do you want to continue (Y/N) : ";
+		cin >> choices;
+	} while(choices == 'y' || choices == 'Y');
 	return 0;
 }
 
+void choice()
+{
+	char choice;
+	cin >> choice;
+	switch (choice) {
+	case 'a':
+	case 'A': addProduct();
+		break;
+	case 'r':
+	case 'R': removeProduct();
+		break;
+	case 'v':
+	case 'V': viewProducts();
+		break;
+	default:
+		cout << "Invalid Answer";
+	}
+}
 
 void addProduct()
 {
+	fstream add;
+	add.open("Products.txt" , ios::app);
 	while (true) {
 
 		char choice;
@@ -60,12 +84,20 @@ void addProduct()
 
 					cout << "Product's Quantity : ";
 					cin >> products[i].Quantity;
-					
+
+					add << products[i].productName << '|' << products[i].productPrice << '|' << products[i].Category << '|' << products[i].Quantity << "\n" ;
+
+					cout << "The product " << products[i].productName << " has been added. \n";
 					break;
 				}
 			}
 		}
+		else {
+			cout << "Invalid choice";
+			continue;
+		}
 	}
+	add.close();
 }
 
 void removeProduct()
@@ -92,6 +124,7 @@ void removeProduct()
 				}
 			}
 			if (same == true) {
+				cout << products[i].productName << " was removed.";
 				products[i].productName = { 0 };
 				products[i].productPrice = 0;
 				products[i].Quantity = 0;
@@ -100,11 +133,17 @@ void removeProduct()
 			else if (same == false)
 				cout << "This product doesn't exist. \n";
 		}
+		else {
+			cout << "Invalid choice";
+			continue;
+		}
 	}
 }
 
 void viewProducts()
 {
+	fstream view;
+	view.open("Products.txt" ,ios::in);
 	char choice;
 	while (true) {
 		cout << "Do you want to view your products? (Y/N) : ";
@@ -122,4 +161,5 @@ void viewProducts()
 		}
 
 	}
+	view.close();
 }
