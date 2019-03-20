@@ -1,0 +1,189 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+using namespace std;
+
+struct Product {
+	string productName = { 0 };
+	double productPrice = 0;
+	string Category = { 0 };
+	int Quantity = 0;
+};
+
+const int maxProducts = 50;
+Product products[maxProducts];
+
+void choice();
+void addProduct();
+void removeProduct();
+void viewProducts();
+
+int main()
+{	
+	choice();
+
+	return 0;
+}
+
+void choice()
+{
+	char choice;
+	do {
+		cout << "To add a product enter A. To remove a product enter R. To view your products enter V. : ";
+	char choices;
+	cin >> choices;
+	switch (choices) {
+	case 'a':
+	case 'A': addProduct();
+		break;
+	case 'r':
+	case 'R': removeProduct();
+		break;
+	case 'v':
+	case 'V': viewProducts();
+		break;
+	default:
+		cout << "Invalid Answer";
+	}
+	cout << "Do you want to continue (Y/N) : ";
+	cin >> choice;
+	cout << endl;
+	} while (choice == 'y' || choice == 'Y');
+}
+
+void addProduct()
+{
+	fstream add;
+	add.open("Products.txt" , ios::app);
+	while (true) {
+
+		char choice;
+
+		cout << "Do you want to enter a product ? (Y / N) : ";
+		cin >> choice;
+		cout << endl;
+
+		if (choice == 'N' || choice == 'n') {
+			break;
+		}
+
+		else if (choice == 'Y' || choice == 'y') {
+			for (int i = 0; i <= maxProducts; i++) {
+
+				if (products[i].productPrice != 0) {
+					continue;
+				}
+
+				else if (products[i].productPrice == 0) {
+
+					cout << "Product's name : ";
+					cin >> products[i].productName;
+
+					cout << "Product's Price : ";
+					cin >> products[i].productPrice;
+
+					cout << "Product's Category : ";
+					cin >> products[i].Category;
+
+					cout << "Product's Quantity : ";
+					cin >> products[i].Quantity;
+
+					add << products[i].productName << '|' << products[i].productPrice << '|' << products[i].Category << '|' << products[i].Quantity << "\n" ;
+
+					cout << "The product " << products[i].productName << " has been added. \n\n";
+					break;
+				}
+			}
+		}
+		else {
+			cout << "Invalid choice";
+			continue;
+		}
+	}
+	add.close();
+}
+
+void removeProduct()
+{
+	fstream removes, temp;
+	removes.open("Products.txt", ios::in);
+	temp.open("temp.txt", ios::out);
+	char name1[25], name2[25], price[25], quantity[25], category[25];
+	bool same = false;
+	char choice;
+	while (true) {
+		cout << "\n Do you want to remove a product? (Y/N) : ";
+		cin >> choice;
+
+		if (choice == 'N' || choice == 'n') {
+			break;
+		}
+
+		else if (choice == 'Y' || choice == 'y') {
+			cout << "What is the name of the product you want to remove : ";
+			cin >> name1;
+			while (!removes.eof()) {
+				removes.getline(name2, 25, '|');
+				removes.getline(price, 25, '|');
+				removes.getline(category, 25, '|');
+				removes.getline(quantity, 25);
+				if (strcmp(name2, name1) == 0) {
+					same = true;
+					continue;
+				}
+				else {
+					temp << name2 << '|' << price << '|' << category << '|' << quantity << "\n";
+				}
+			}
+			removes.close();
+			temp.close();
+
+			removes.open("Products.txt", ios::out);
+			temp.open("temp.txt", ios::in);
+			while (!temp.eof()) {
+				temp.getline(name2, 25, '|');
+				temp.getline(price, 25, '|');
+				temp.getline(category, 25, '|');
+				temp.getline(quantity, 25);
+				removes << name2 << '|' << price << '|' << category << '|' << quantity << "\n";
+			}
+			if (same == false) {
+				cout << "This product doesn't exist. \n";
+			}
+			else
+				cout << "The product " << name1 << " was removed.";
+			removes.close();
+			temp.close();
+		}
+		else {
+			cout << "Invalid choice";
+			continue;
+			}
+		removes.open("Products.txt", ios::in);
+		temp.open("temp.txt", ios::out);
+		while (!removes.eof()) {
+		
+		
+		}
+
+
+
+		remove("temp.txt");
+	}
+}
+
+void viewProducts()
+{
+	fstream view;
+	char name[25], price[25], category[25], quantity[25];
+	view.open("Products.txt" ,ios::in);
+			cout << "Product's Name \t Product's Price \t Product's Category \t Product's Quantity \n";
+			while (!view.eof()) {
+				view.getline(name, 25 ,'|' );
+				view.getline(price, 25, '|');
+				view.getline(category, 25, '|');
+				view.getline(quantity, 25);
+					cout << name << "\t \t " << price << "\t \t \t " << category << "\t  \t    " << quantity << "\n\n" ;
+			}
+	view.close();
+}
