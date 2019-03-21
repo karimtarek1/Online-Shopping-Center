@@ -1,0 +1,353 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <string.h>
+#include <conio.h>
+
+using namespace std;
+
+struct owner {
+	char name[30];
+	int ID;
+	string password;
+	int age;
+	char gender;
+	string address;
+
+};
+struct shop {
+	string shopName;
+	string address;
+	string category;
+};
+
+struct Product {
+	string productName = { 0 };
+	double productPrice = 0;
+	string Category = { 0 };
+	int Quantity = 0;
+};
+
+const int maxProducts = 50;
+Product products[maxProducts];
+
+void search_owner()
+{
+	string LoginPassword, Password, Username, Name;
+	bool flag;
+	cout << " Please enter your login details below " << endl;
+	cout << "Username : ";
+	cin >> Username;
+	cout << "Password : ";
+	cin >> LoginPassword;
+	fstream search;
+	search.open("Owner Registration Data.txt", ios::in);
+	while (!search.eof())
+	{
+		search.getline(Name, 25, );
+		if ((Username, Name) == 0)
+		{
+			search.getline(Password, 25, );
+			if (strcmp(Password, LoginPassword) == 0)
+			{
+				flag = true;
+				cout << "You have successfully logged in" << endl;
+				cout << " Welcome " << Name << endl;
+			}
+
+
+		}
+		else
+		{
+			cout << "The ID or Password are incorrect" << endl;
+			flag = false;
+		}
+	}
+
+}
+
+void edit_owner()
+{
+
+}
+
+void choice();
+void addProduct();
+void removeProduct();
+void viewProducts();
+void own();
+void shoop();
+
+int main()
+{
+own();
+
+	shoop();
+
+	return 0;
+	//************************************* karim
+choice();
+
+	return 0;
+//	*************************************************** Mohamed
+char Loginchoice;
+	cout << "Do you want to login , Y/N ?" << endl;
+	cin >> Loginchoice;
+	switch (Loginchoice)
+	{
+	case'Y':
+	case'y':search_owner();
+		break;
+
+	default:
+		break;
+	}
+
+	char editchoice;
+	cout << "Do you want to edit your data , Y/N ?" << endl;
+	cin >> editchoice;
+	switch (editchoice)
+	{
+	case'Y':
+	case'y':edit_owner();
+		break;
+
+	default:
+		break;
+	}
+	return 0;
+	//*********************************** ahmed
+}
+
+void own() {
+	fstream oowner;
+	oowner.open("owner file", ios::app);
+	const int size = 2;
+	owner owneer[size];
+	char choice;
+	for (int i = 1; i < size; i++) {
+		cout << "Enter your name:";
+		cin.getline(owneer[i].name, 25);
+		for (int j = 1; j < size; j++) {
+			if (owneer[i].name == owneer[j].name) {
+				cout << "This name is taken ";
+
+			}
+			else
+				break;
+		}
+
+		owneer[i].ID = i;
+		cout << "your ID is :" << owneer[i].ID;
+
+		cout << "Enter your password:";
+		cin.getline(owneer[i].password, 25);
+
+		cout << "Enter your age:";
+		cin.getline(owneer[i].age, 25);
+		cout << "Enter your gender:";
+		cin.getline(owneer[i].gender, 25);
+		cout << "Enter your address:";
+		cin.getline(owneer[i].address, 25);
+		oowner << owneer[i].name << '|' << owneer[i].ID << '|' << owneer[i].password << '|' << owneer[i].age << '|' << owneer[i].gender << '|' << owneer[i].address << endl;
+
+		cout << "you have registered succesfully" << endl;
+		cout << "Do you want to create another account?(Y/N):";
+		cin >> choice;
+		if (choice == 'Y' || choice == 'y')
+			continue;
+		else if (choice == 'N' || choice == 'n')
+			break;
+	}
+}
+void shoop() {
+	fstream shopp;
+	const int size = 2;
+	shop owneer[size];
+	for (int i = 0; i < size; i++) {
+		cout << "Enter the name of shop:";
+		cin.getline(owneer[i].shopName, 25)
+			;
+		for (int j = 0; j < i; j++) {
+			if (owneer[i].shopName == owneer[j].shopName) {
+				cout << "this name is taken";
+			}
+			else
+				break;
+			cout << "Enter your address:";
+			cin.getline(owneer[i].address, 25);
+			cout << "Enter your category:";
+			cin.getline(owneer[i].category, 25);
+
+			shopp << owneer[i].shopName << '|' << owneer[i].address << '|' << owneer[i].category << endl;
+
+		}
+
+
+
+	}
+}
+
+
+void choice()
+{
+	char choice;
+	do {
+		cout << "To add a product enter A. To remove a product enter R. To view your products enter V. : ";
+		char choices;
+		cin >> choices;
+		switch (choices) {
+		case 'a':
+		case 'A': addProduct();
+			break;
+		case 'r':
+		case 'R': removeProduct();
+			break;
+		case 'v':
+		case 'V': viewProducts();
+			break;
+		default:
+			cout << "Invalid Answer";
+		}
+		cout << "Do you want to continue (Y/N) : ";
+		cin >> choice;
+		cout << endl;
+	} while (choice == 'y' || choice == 'Y');
+}
+
+void addProduct()
+{
+	fstream add;
+	add.open("Products.txt", ios::app);
+	while (true) {
+
+		char choice;
+
+		cout << "Do you want to enter a product ? (Y / N) : ";
+		cin >> choice;
+		cout << endl;
+
+		if (choice == 'N' || choice == 'n') {
+			break;
+		}
+
+		else if (choice == 'Y' || choice == 'y') {
+			for (int i = 0; i <= maxProducts; i++) {
+
+				if (products[i].productPrice != 0) {
+					continue;
+				}
+
+				else if (products[i].productPrice == 0) {
+
+					cout << "Product's name : ";
+					cin >> products[i].productName;
+
+					cout << "Product's Price : ";
+					cin >> products[i].productPrice;
+
+					cout << "Product's Category : ";
+					cin >> products[i].Category;
+
+					cout << "Product's Quantity : ";
+					cin >> products[i].Quantity;
+
+					add << products[i].productName << '|' << products[i].productPrice << '|' << products[i].Category << '|' << products[i].Quantity << "\n";
+
+					cout << "The product " << products[i].productName << " has been added. \n\n";
+					break;
+				}
+			}
+		}
+		else {
+			cout << "Invalid choice";
+			continue;
+		}
+	}
+	add.close();
+}
+
+void removeProduct()
+{
+	fstream removes, temp;
+	removes.open("Products.txt", ios::in);
+	temp.open("temp.txt", ios::out);
+	char name1[25], name2[25], price[25], quantity[25], category[25];
+	bool same = false;
+	char choice;
+	while (true) {
+		cout << "\n Do you want to remove a product? (Y/N) : ";
+		cin >> choice;
+
+		if (choice == 'N' || choice == 'n') {
+			break;
+		}
+
+		else if (choice == 'Y' || choice == 'y') {
+			cout << "What is the name of the product you want to remove : ";
+			cin >> name1;
+			while (!removes.eof()) {
+				removes.getline(name2, 25, '|');
+				removes.getline(price, 25, '|');
+				removes.getline(category, 25, '|');
+				removes.getline(quantity, 25);
+				if (strcmp(name2, name1) == 0) {
+					same = true;
+					continue;
+				}
+				else {
+					temp << name2 << '|' << price << '|' << category << '|' << quantity << "\n";
+				}
+			}
+			removes.close();
+			temp.close();
+
+			removes.open("Products.txt", ios::out);
+			temp.open("temp.txt", ios::in);
+			while (!temp.eof()) {
+				temp.getline(name2, 25, '|');
+				temp.getline(price, 25, '|');
+				temp.getline(category, 25, '|');
+				temp.getline(quantity, 25);
+				removes << name2 << '|' << price << '|' << category << '|' << quantity << "\n";
+			}
+			if (same == false) {
+				cout << "This product doesn't exist. \n";
+			}
+			else
+				cout << "The product " << name1 << " was removed.";
+			removes.close();
+			temp.close();
+		}
+		else {
+			cout << "Invalid choice";
+			continue;
+		}
+		removes.open("Products.txt", ios::in);
+		temp.open("temp.txt", ios::out);
+		while (!removes.eof()) {
+
+
+		}
+
+
+
+		remove("temp.txt");
+	}
+}
+
+void viewProducts()
+{
+	fstream view;
+	char name[25], price[25], category[25], quantity[25];
+	view.open("Products.txt", ios::in);
+	cout << "Product's Name \t Product's Price \t Product's Category \t Product's Quantity \n";
+	while (!view.eof()) {
+		view.getline(name, 25, '|');
+		view.getline(price, 25, '|');
+		view.getline(category, 25, '|');
+		view.getline(quantity, 25);
+		cout << name << "\t \t " << price << "\t \t \t " << category << "\t  \t    " << quantity << "\n\n";
+	}
+	view.close();
+}
