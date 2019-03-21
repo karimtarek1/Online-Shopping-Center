@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-using namespace std;
- 
+using namespace std; 
+
 void addtocart(string arrname[], int arrprice[], int arrquantity[]) {
 
 	arrname[50];
@@ -17,19 +17,20 @@ void addtocart(string arrname[], int arrprice[], int arrquantity[]) {
 	j++;
 }
 	else
-		cout << " Your Quantity is not availble now in the stock !! We have ( "<< products[j].Quantity << " ) only in the stock " << endl;
+		cout << " Your Quantity is not availble now in the stock !! We have ( " << products[j].Quantity << " ) only in the stock " << endl;
 	
 	// call l function seif bta3t l view
 	// w feh variable fl main l mafroud byzed 1 kol ma bydos add to cart a3rf l loop mashy lhd fen
+	// ha3rf array bara w aswehom bl arrays l fl argument
 }
 	void cart() {
 		float subtotal[100], total = 0;
 		char s;
 		cout << "********************** - YOUR CART - *********************" << endl;
-		cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
+		cout << " NAME \t  " << " QUNATITY \t  " << " PRICE  ";
 			for (int i = 0; i < nproduct; i++) {    // l nproduct deh 3adad l product l ethatet fl array 
 				subtotal[i] = ( arrquantity[i] *  products[i].productPrice  );
-				cout << products[i].productName <<  arrquantity [i] << subtotal[i] << '$' << endl;
+				cout << products[i].productName<< "\t" <<  arrquantity [i] << "\t"  << subtotal[i] << '$' << endl;
 				total += subtotal[i];
             }
 			cout << "Press .V. to View receipt" << endl << "Press .R. to Return shopping" << endl;
@@ -42,7 +43,7 @@ void addtocart(string arrname[], int arrprice[], int arrquantity[]) {
 				cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
 				for (int i = 0; i < nproduct; i++) {    // l nproduct deh 3adad l product l ethatet fl array 
 					subtotal[i] = ("l quantity l seif dkhlha[i]" *  products[i].productPrice );
-					cout << products[i].productName << " l quantity l seif dkhlha[i] \t  " << subtotal[i] << '$' << endl;
+					cout << products[i].productName<< " \t  " << arrquantity[i] << "  \t  " << subtotal[i] << '$' << endl;
 					total += subtotal[i];
 				}
 				cout << "********************** TOTAL PRICE *********************\n" << endl;
@@ -53,8 +54,9 @@ void addtocart(string arrname[], int arrprice[], int arrquantity[]) {
      	// call l function bta3et l view product
 				break;
 			default: 
-				cout << "!!! Enter valid choice !!!"<<endl;
+				cout << "!!! Enter valid choice !!!"<< endl;
              
 			}
 		
 	}
+
