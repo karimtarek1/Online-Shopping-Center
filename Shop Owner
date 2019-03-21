@@ -32,44 +32,7 @@ const int maxProducts = 50;
 Product products[maxProducts];
 
 void search_owner()
-{
-	string LoginPassword, Password, Username, Name;
-	bool flag;
-	cout << " Please enter your login details below " << endl;
-	cout << "Username : ";
-	cin >> Username;
-	cout << "Password : ";
-	cin >> LoginPassword;
-	fstream search;
-	search.open("Owner Registration Data.txt", ios::in);
-	while (!search.eof())
-	{
-		search.getline(Name, 25, );
-		if ((Username, Name) == 0)
-		{
-			search.getline(Password, 25, );
-			if (strcmp(Password, LoginPassword) == 0)
-			{
-				flag = true;
-				cout << "You have successfully logged in" << endl;
-				cout << " Welcome " << Name << endl;
-			}
-
-
-		}
-		else
-		{
-			cout << "The ID or Password are incorrect" << endl;
-			flag = false;
-		}
-	}
-
-}
-
 void edit_owner()
-{
-
-}
 
 void choice();
 void addProduct();
@@ -186,6 +149,46 @@ void shoop() {
 
 
 	}
+}
+
+void search_owner()
+{
+	string LoginPassword, Password, Username, Name;
+	bool flag;
+	cout << " Please enter your login details below " << endl;
+	cout << "Username : ";
+	cin >> Username;
+	cout << "Password : ";
+	cin >> LoginPassword;
+	fstream search;
+	search.open("Owner Registration Data.txt", ios::in);
+	while (!search.eof())
+	{
+		search.getline(Name, 25, );
+		if ((Username, Name) == 0)
+		{
+			search.getline(Password, 25, );
+			if (strcmp(Password, LoginPassword) == 0)
+			{
+				flag = true;
+				cout << "You have successfully logged in" << endl;
+				cout << " Welcome " << Name << endl;
+			}
+
+
+		}
+		else
+		{
+			cout << "The ID or Password are incorrect" << endl;
+			flag = false;
+		}
+	}
+
+}
+
+void edit_owner()
+{
+
 }
 
 
