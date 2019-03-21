@@ -1,0 +1,95 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+struct owner {
+	char name[25];
+	int ID;
+	char password[25];
+	char age[25];
+	char gender[25];
+	char address[25];
+
+};
+struct shop {
+	 char shopName[25];
+	char address[25];
+	 char category[25];
+};
+void own();
+void shoop();
+int main() {
+
+	 own();
+	
+	 shoop();
+
+	return 0;
+
+}
+void own() {
+	fstream oowner;
+	oowner.open("owner file", ios::app);
+	const int size = 2;
+	owner owneer[size];
+	char choice;
+	for (int i = 1;i < size;i++) {
+		cout << "Enter your name:";
+		cin.getline( owneer[i].name,25);
+		for (int j =1;j < size;j++) {
+			if (owneer[i].name == owneer[j].name) {
+				cout << "This name is taken ";
+				
+			}
+			else
+				break;
+		}
+	
+			owneer[i].ID = i;
+			cout << "your ID is :" << owneer[i].ID;
+
+		cout << "Enter your password:";
+		cin.getline( owneer[i].password,25);
+
+		cout << "Enter your age:";
+		cin.getline(owneer[i].age,25);
+		cout << "Enter your gender:";
+		cin.getline(owneer[i].gender,25);
+		cout << "Enter your address:";
+		cin.getline(owneer[i].address,25);
+		oowner << owneer[i].name << '|' << owneer[i].ID << '|' << owneer[i].password << '|' << owneer[i].age << '|' << owneer[i].gender << '|' << owneer[i].address << endl;
+
+		cout << "you have registered succesfully" << endl;
+		cout << "Do you want to create another account?(Y/N):"  ;		
+		cin >> choice;
+		if (choice == 'Y'||choice=='y')
+			continue;
+		else if (choice =='N'||choice=='n')
+			break;
+	}
+}
+void shoop(){
+	fstream shopp;
+	const int size=2;
+	shop owneer[size];
+	for (int i = 0;i < size;i++) {
+		cout << "Enter the name of shop:";
+		cin.getline(owneer[i].shopName,25)
+			;
+		for (int j = 0;j < i;j++) {
+			if (owneer[i].shopName == owneer[j].shopName) {
+				cout << "this name is taken";
+			}
+			else
+				break;
+		cout << "Enter your address:";
+		cin.getline(owneer[i].address,25);
+		cout << "Enter your category:";
+		cin.getline(owneer[i].category,25);
+
+		shopp << owneer[i].shopName << '|' << owneer[i].address << '|' << owneer[i].category << endl;
+
+	}
+
+
+
+}
