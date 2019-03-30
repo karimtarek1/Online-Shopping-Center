@@ -5,6 +5,23 @@
 #include <conio.h>
 
 using namespace std;
+struct cart {
+	int qunatity;
+	string buyproduct = {0};
+	double price;
+	double subtotal;
+
+} pcart[100];
+
+struct Product {
+	string productName = { 0 };
+	double productPrice = 0;
+	string Category = { 0 };
+	int Quantity = 0;
+};
+
+const int maxProducts = 50;
+Product products[maxProducts];
 
 struct shopper1 {
 	char name[1000];
@@ -21,11 +38,15 @@ void update();
 void delete1();
 void view_products();
 void search();
+void cart(int nproduct);
+void addtocart();
 
 int main()
 {
-	char d;
-	char choose = 'y';
+	string arrname;
+	int arrprice[1000], arrquantity[1000], nproducts, nproduct = 0;
+    char d;
+	char choose  = 'y';
 	while (choose == 'y' || choose == 'Y') {
 		cout << "registration : R \nlogin : L \nedit : E \ndelete : D \nenter your answer: ";
 		cin >> d;
@@ -55,11 +76,7 @@ int main()
 		cin >> choose;
 
 	}
-
-
-	return 0;
-	//************************************* Goher
-		bool flag = true;
+	bool flag = true;
 	while (flag)
 	{
 		cout << "To search for a product enter: S/s \n " << "To view the product that you searched for enter:V/v \n";
@@ -72,7 +89,7 @@ int main()
 			search();
 			break;
 		case 'V':
-		case 'v':
+		case 'v':                                                          
 			view_products();
 			break;
 		}
@@ -86,8 +103,8 @@ int main()
 
 	}
 	return 0;
- // ****************************************************** Seif
- 
+	
+
 }
 
 void registration() {
@@ -316,6 +333,7 @@ void view_products()
 	{
 		products.getline(name, 50);
 		cout << name << endl << price << endl;
+		
 	}
 	products.close();
 }
@@ -346,38 +364,37 @@ void search()
 		cout << "not found" << endl;
 	}
 	products.close();
-}
+}                                           
 
 
-void addtocart(string arrname[], int arrprice[], int arrquantity[]) {
+void addtocart () {
 
-	arrname[50];
-	arrprice[50];
-	int j = 0, b;
+	int i = 0,n;
 
-	arrname[j] = products[j].productName;
-	arrprice[j] = products[j].productPrice;
+	pcart[i].buyproduct = products[i].productName;
+	pcart[i].price =  products[i].productPrice;
+   
 	cout << "How many quantity do you want ?";
-	cin >> arrquantity[j];
-	if (arrquantity[j] <= products[j].Quantity) {
-		cout << " Product Added to cart ? " << endl;
-		j++;
+	cin >> n;
+	pcart[i].qunatity = n;
+	if (pcart[i].qunatity <= products[i].Quantity) {
+		cout << "Your Product Added to cart " << endl; 
 	}
 	else
-		cout << " Your Quantity is not availble now in the stock !! We have ( " << products[j].Quantity << " ) only in the stock " << endl;
+		cout << " Your Quantity is not availble now in the stock !! We have ( " << products[i].Quantity << " ) only in the stock " << endl;
 
-	// call l function seif bta3t l view
-	// w feh variable fl main l mafroud byzed 1 kol ma bydos add to cart a3rf l loop mashy lhd fen
+	view_products();
+	
 }
-void cart() {
-	float subtotal[100], total = 0;
+void cart(int nproduct) {
+	double total = 0;
 	char s;
 	cout << "********************** - YOUR CART - *********************" << endl;
 	cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
-	for (int i = 0; i < nproduct; i++) {    // l nproduct deh 3adad l product l ethatet fl array 
-		subtotal[i] = (arrquantity[i] * products[i].productPrice);
-		cout << products[i].productName << arrquantity[i] << subtotal[i] << '$' << endl;
-		total += subtotal[i];
+	for (int i = 0; i < nproduct; i++) {     
+		pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
+		cout << pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
+		total += pcart[i].subtotal;
 	}
 	cout << "Press .V. to View receipt" << endl << "Press .R. to Return shopping" << endl;
 	cin >> s;
@@ -387,17 +404,17 @@ void cart() {
 	case 'V':
 		cout << "********************* TOTAL ITEMS **********************\n" << endl;
 		cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
-		for (int i = 0; i < nproduct; i++) {    // l nproduct deh 3adad l product l ethatet fl array 
-			subtotal[i] = ("l quantity l seif dkhlha[i]" *  products[i].productPrice);
-			cout << products[i].productName << " l quantity l seif dkhlha[i] \t  " << subtotal[i] << '$' << endl;
-			total += subtotal[i];
+		for (int i = 0; i < nproduct; i++) {  
+			pcart[i].subtotal = ( pcart[i].qunatity  *  pcart[i].price);
+			cout << pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
+			total += pcart[i].subtotal;
 		}
 		cout << "********************** TOTAL PRICE *********************\n" << endl;
 		cout << "Total price : " << total << '$';
 		break;
 	case 'R':
 	case 'r':
-		// call l function bta3et l view product
+		 view_products();
 		break;
 	default:
 		cout << "!!! Enter valid choice !!!" << endl;
