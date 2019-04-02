@@ -1,0 +1,165 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+using namespace std;
+
+struct Product {
+	string productName = { 0 };
+	double productPrice = 0;
+	string Category = { 0 };
+	int Quantity = 0;
+};
+
+const int maxProducts = 50;
+Product products[maxProducts];
+
+void choice();
+void addProduct();
+void removeProduct();
+void viewProducts();
+
+int main()
+{
+	char choices;
+	do {
+		cout << "To add a product enter A. To remove a product enter R. To view your products enter V. : ";
+		choice();
+		cout << "Do you want to continue (Y/N) : ";
+		cin >> choices;
+	} while(choices == 'y' || choices == 'Y');
+	return 0;
+}
+
+void choice()
+{
+	char choice;
+	cin >> choice;
+	switch (choice) {
+	case 'a':
+	case 'A': addProduct();
+		break;
+	case 'r':
+	case 'R': removeProduct();
+		break;
+	case 'v':
+	case 'V': viewProducts();
+		break;
+	default:
+		cout << "Invalid Answer";
+	}
+}
+
+void addProduct()
+{
+	fstream add;
+	add.open("Products.txt" , ios::app);
+	while (true) {
+
+		char choice;
+
+		cout << "Do you want to enter a product ? (Y / N) : ";
+		cin >> choice;
+
+		if (choice == 'N' || choice == 'n') {
+			break;
+		}
+
+		else if (choice == 'Y' || choice == 'y') {
+			for (int i = 0; i <= maxProducts; i++) {
+
+				if (products[i].productPrice != 0) {
+					continue;
+				}
+
+				else if (products[i].productPrice == 0) {
+
+					cout << "Product's name : ";
+					cin >> products[i].productName;
+
+					cout << "Product's Price : ";
+					cin >> products[i].productPrice;
+
+					cout << "Product's Category : ";
+					cin >> products[i].Category;
+
+					cout << "Product's Quantity : ";
+					cin >> products[i].Quantity;
+
+					add << products[i].productName << '|' << products[i].productPrice << '|' << products[i].Category << '|' << products[i].Quantity << "\n" ;
+
+					cout << "The product " << products[i].productName << " has been added. \n";
+					break;
+				}
+			}
+		}
+		else {
+			cout << "Invalid choice";
+			continue;
+		}
+	}
+	add.close();
+}
+
+void removeProduct()
+{
+	int i;
+	bool same = false;
+	string name;
+	char choice;
+	while (true) {
+		cout << "\n Do you want to remove a product? (Y/N) : ";
+		cin >> choice;
+
+		if (choice == 'N' || choice == 'n') {
+			break;
+		}
+
+		else if (choice == 'Y' || choice == 'y') {
+			cout << "What is the name of the product you want to remove : ";
+			cin >> name;
+			for (i = 0; i < maxProducts; i++) {
+				if (name == products[i].productName) {
+					same = true;
+					break;
+				}
+			}
+			if (same == true) {
+				cout << products[i].productName << " was removed.";
+				products[i].productName = { 0 };
+				products[i].productPrice = 0;
+				products[i].Quantity = 0;
+				products[i].Category = { 0 };
+			}
+			else if (same == false)
+				cout << "This product doesn't exist. \n";
+		}
+		else {
+			cout << "Invalid choice";
+			continue;
+		}
+	}
+}
+
+void viewProducts()
+{
+	fstream view;
+	view.open("Products.txt" ,ios::in);
+	char choice;
+	while (true) {
+		cout << "Do you want to view your products? (Y/N) : ";
+		cin >> choice;
+		if (choice == 'n' || choice == 'N') {
+			break;
+		}
+		else if (choice == 'y' || choice == 'Y'){
+			cout << "Product's Name \t Product's Price \t Product's Category \t Product's Quantity \n";
+			for (int i = 0; i < maxProducts; i++) {
+				if (products[i].productPrice != 0) {
+					cout << products[i].productName << "\t \t " << products[i].productPrice << "\t \t \t " << products[i].Category << "\t  \t " << products[i].Quantity << endl;
+				}
+			}
+		}
+
+	}
+	view.close();
+}
