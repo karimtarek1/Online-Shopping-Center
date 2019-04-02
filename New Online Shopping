@@ -1,0 +1,151 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Product {
+	string productName = { 0 };
+	double productPrice = 0;
+	string Category = { 0 };
+	int Quantity = 0;
+};
+
+const int maxProducts = 50;
+Product products[maxProducts];
+
+void choice();
+void addProduct();
+void removeProduct();
+void viewProducts();
+
+int main()
+{
+	choice();
+
+	return 0;
+  //***********Mohamed's
+}
+
+void choice()
+{
+	char choice;
+	do {
+		cout << "To add a product enter A. To remove a product enter R. To view your products enter V. : ";
+		char choices;
+		cin >> choices;
+		switch (choices) {
+		case 'a':
+		case 'A': addProduct();
+			break;
+		case 'r':
+		case 'R': removeProduct();
+			break;
+		case 'v':
+		case 'V': viewProducts();
+			break;
+		default:
+			cout << "Invalid Answer";
+		}
+		cout << "Do you want to continue (Y/N) : ";
+		cin >> choice;
+		cout << endl;
+	} while (choice == 'y' || choice == 'Y');
+}
+
+
+void addProduct()
+{
+	do {
+
+		char choice;
+
+			for (int i = 0; i <= maxProducts; i++) {
+
+				if (products[i].productPrice != 0) {
+					continue;
+				}
+
+				else if (products[i].productPrice == 0) {
+
+					cout << "Product's name : ";
+					cin >> products[i].productName;
+
+					cout << "Product's Price : ";
+					cin >> products[i].productPrice;
+
+					cout << "Product's Category : ";
+					cin >> products[i].Category;
+
+					cout << "Product's Quantity : ";
+					cin >> products[i].Quantity;
+
+					break;
+				}
+			}
+		cout << "Do you want to enter a product ? (Y / N) : ";
+		cin >> choice;
+
+		if (choice == 'N' || choice == 'n') {
+			break;
+		}
+		else if (choice == 'Y' || choice == 'y') {
+			continue;
+		}
+	} while (true);
+}
+
+void removeProduct()
+{
+	int i;
+	bool same = false;
+	string name;
+	char choice;
+	do {
+
+			cout << "What is the name of the product you want to remove : ";
+			cin >> name;
+			for (i = 0; i < maxProducts; i++) {
+				if (name == products[i].productName) {
+					same = true;
+					break;
+				}
+			}
+			if (same == true) {
+				products[i].productName = { 0 };
+				products[i].productPrice = 0;
+				products[i].Quantity = 0;
+				products[i].Category = { 0 };
+			}
+			else if (same == false)
+				cout << "This product doesn't exist. \n";
+		cout << "\n Do you want to remove a product? (Y/N) : ";
+		cin >> choice;
+		if (choice == 'N' || choice == 'n') {
+			break;
+		}
+
+		else if (choice == 'Y' || choice == 'y') {
+			continue;
+		}
+	} while (true);
+}
+
+void viewProducts()
+{
+	char choice;
+	do {
+			cout << "Product's Name \t Product's Price \t Product's Category \t Product's Quantity \n";
+			for (int i = 0; i < maxProducts; i++) {
+				if (products[i].productPrice != 0) {
+					cout << products[i].productName << "\t \t " << products[i].productPrice << "\t \t \t " << products[i].Category << "\t  \t " << products[i].Quantity << endl;
+				}
+			}
+		cout << "Do you want to view your products? (Y/N) : ";
+		cin >> choice;
+		if (choice == 'n' || choice == 'N') {
+			break;
+		}
+		else if (choice == 'y' || choice == 'Y') {
+			continue;
+		}
+	} while(true);
+}
