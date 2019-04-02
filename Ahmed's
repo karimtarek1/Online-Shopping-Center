@@ -40,13 +40,87 @@ void search_owner()
 
 }
 
-void edit_owner()
+void updateInfo()
 {
+	char ID[25], Gender[10];
+	string Username, InName, Password, Age, Address;
+	fstream Edited;
+	fstream temp;
+	Edited.open("Registration Data.txt", ios::app);
+	temp.open("temp.txt", ios::out);
+	cin.ignore();
+	cout << "Enter your username :";
+	getline(cin, Username);
+	while (!Edited.eof())
+	{
+		if(Username.compare(InName)){
+		getline(Edited, Username);
+		Edited.getline(ID, 25);
+		getline(Edited, Password);
+		getline(Edited, Age);
+		Edited.getline(Gender, 10);
+		getline(Edited, Address);
+
+			cout << "Username :";
+			getline(cin, Username);
+			cout << "ID :";
+			cin.getline(ID, 25);
+			cout << "Password :";
+			getline(cin, Password);
+			cout << "Age :";
+			getline(cin, Age);
+			cout << "Gender :";
+			cin.getline(Gender, 10);
+			cout << "Address :";
+			getline(cin, Address);
+			temp << Username << endl;
+			temp << ID << endl;
+			temp << Password << endl;
+			temp << Age << endl;
+			temp << Gender << endl;
+			temp << Address << endl;
+		}
+
+		else
+		{
+			temp << Username << endl;
+			temp << ID << endl;
+			temp << Password << endl;
+			temp << Age << endl;
+			temp << Gender << endl;
+			temp << Address << endl;
+		}
+		break;
+	}
+	temp.close();
+	Edited.close();
+
+
+	Edited.open("Registration Data.txt", ios::out);
+	temp.open("temp.txt", ios::in);
+	while (!temp.eof())
+	{
+		getline(temp, Username);
+		temp.getline(ID, 25);
+		getline(temp, Password);
+		getline(temp, Age);
+		temp.getline(Gender, 10);
+		getline(temp, Address);
+		Edited << Username << endl;
+		Edited << ID << endl;
+		Edited << Password << endl;
+		Edited << Age << endl;
+		Edited << Gender << endl;
+		Edited << Address << endl;
+	}
+	temp.close();
+	Edited.close();
+	remove("temp.txt");
 
 }
-int main()
+void main()
 {
-	char Loginchoice;
+	char Loginchoice,editchoice;
 	cout << "Do you want to login , Y/N ?" << endl;
 	cin >> Loginchoice;
 	switch (Loginchoice)
@@ -58,8 +132,6 @@ int main()
 	default:
 		break;
 	}
-
-	char editchoice;
 	cout << "Do you want to edit your data , Y/N ?" << endl;
 	cin >> editchoice;
 	switch (editchoice)
@@ -71,5 +143,17 @@ int main()
 	default:
 		break;
 	}
-	return 0;
+	char Editchoice;
+	cout << "Do you want to edit your data , (Y/N) ?";
+	cin >> Editchoice; 
+	switch(Editchoice) {
+	case('y'):
+	case('Y'):
+		cout << "-- Editing , Please wait --" << endl;
+		updateInfo();
+
+	default:cout << " Invalid Input Entered " << endl;
+		break;
+	}
+	
 }
