@@ -4,17 +4,18 @@ using namespace std;
 const int arrsize = 1000;
 int LoginID;
 string LoginPassword;
-struct RegistrationData
-{
-    string Name;
-    int ID;
-    string Password;
-    int Age;
-    char Gender;
-    string Address;
+//Kareem's Part
+//struct RegistrationData
+//{
+//   string Name;
+//    int ID;
+//    string Password;
+//    int Age;
+//    char Gender;
+//   string Address;
+//};
+//RegistrationData RegData[arrsize];
 
-};
-RegistrationData RegData[arrsize];
 void Edit()
 {
     int editchoices;
@@ -55,7 +56,6 @@ void Edit()
                        default: cout << "Invalid";
                                 break;
                     }
-
                 }
         }
 }
