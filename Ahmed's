@@ -101,7 +101,7 @@ void OwnerLogin()
     cin >> LoginPassword;
     for(int i=0 ; i < arrsize ; i++)
         {
-            if( LoginID == OwnerRegData[i].ID && (LoginPassword.compare(OwnerRegData[i].Password) == 0))
+            if( LoginID == OwnerRegData[i].ID && LoginPassword == OwnerRegData[i].Password)
                 {
                     cout << " You have successfully Logged In ";
                     break;
