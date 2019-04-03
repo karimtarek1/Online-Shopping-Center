@@ -1,159 +1,123 @@
 #include <iostream>
 #include <string>
-#include <fstream>
-#include <string.h>
-
 using namespace std;
-
-void search_owner()
+const int arrsize = 1000;
+int LoginID;
+string LoginPassword;
+struct RegistrationData
 {
-	string LoginPassword, Password, Username, Name;
-	bool flag;
-	cout << " Please enter your login details below " << endl;
-	cout << "Username : ";
-	cin >> Username;
-	cout << "Password : ";
-	cin >> LoginPassword;
-	fstream search;
-	search.open("Owner Registration Data.txt", ios::in);
-	while (!search.eof())
-	{
-		search.getline(Name, 25, );
-			if ((Username, Name) == 0)
-			{
-				search.getline(Password, 25, );
-				if (strcmp(Password, LoginPassword) == 0)
-				{
-					flag = true;
-					cout << "You have successfully logged in" << endl;
-					cout << " Welcome " << Name << endl;
-				}
+    string Name;
+    int ID;
+    string Password;
+    int Age;
+    char Gender;
+    string Address;
 
+};
+RegistrationData RegData[arrsize];
+void Edit()
+{
+    int editchoices;
+    cout << "Editing your information";
+    for(int i=0 ; i < arrsize ; i++)
+        {
+            if( LoginID == RegData[i].ID)
+                {
+                    cout << "What do you want to edit ?" << endl;
+                    cout << " 1-Name \n 2-ID \n 3-Password \n 4-Age \n 5-Gender \n 6-Address" << endl;
+                    cin >> editchoices;
+                    switch(editchoices)
+                    {
+                        case 1: cout << "Name :";
+                                cin >> RegData[i].Name;
+                                break;
 
-			}
-			else
-			{
-				cout << "The ID or Password are incorrect" << endl;
-				flag = false;
-			}
-	}
+                        case 2: cout << "ID :";
+                                cin >> RegData[i].ID;
+                                break;
 
+                        case 3: cout << "Password :";
+                                cin >> RegData[i].Password;
+                                break;
+
+                        case 4: cout << "Age :";
+                                cin >> RegData[i].Age;
+                                break;
+
+                        case 5: cout << "Gender :";
+                                cin >> RegData[i].Gender;
+                                break;
+
+                        case 6: cout << "Address :";
+                                cin >> RegData[i].Address;
+                                break;
+                                
+                       default: cout << "Invalid";
+                                break;
+                    }
+
+                }
+        }
 }
 
-void updateInfo()
+void Login()
 {
-	char ID[25], Gender[10];
-	string Username, InName, Password, Age, Address;
-	fstream Edited;
-	fstream temp;
-	Edited.open("Registration Data.txt", ios::app);
-	temp.open("temp.txt", ios::out);
-	cin.ignore();
-	cout << "Enter your username :";
-	getline(cin, Username);
-	while (!Edited.eof())
-	{
-		if(Username.compare(InName)){
-		getline(Edited, Username);
-		Edited.getline(ID, 25);
-		getline(Edited, Password);
-		getline(Edited, Age);
-		Edited.getline(Gender, 10);
-		getline(Edited, Address);
 
-			cout << "Username :";
-			getline(cin, Username);
-			cout << "ID :";
-			cin.getline(ID, 25);
-			cout << "Password :";
-			getline(cin, Password);
-			cout << "Age :";
-			getline(cin, Age);
-			cout << "Gender :";
-			cin.getline(Gender, 10);
-			cout << "Address :";
-			getline(cin, Address);
-			temp << Username << endl;
-			temp << ID << endl;
-			temp << Password << endl;
-			temp << Age << endl;
-			temp << Gender << endl;
-			temp << Address << endl;
-		}
+    cout << "Please enter your Login Data "<<endl;
+    cout << "ID :";
+    cin >> LoginID;
+    cout << "Password :";
+    cin >> LoginPassword;
+    for(int i=0 ; i < arrsize ; i++)
+        {
+            if( LoginID == RegData[i].ID && (LoginPassword.compare(RegData[i].Password) == 0))
+                {
+                    cout << " You have successfully Logged In ";
+                    break;
+                }
 
-		else
-		{
-			temp << Username << endl;
-			temp << ID << endl;
-			temp << Password << endl;
-			temp << Age << endl;
-			temp << Gender << endl;
-			temp << Address << endl;
-		}
-		break;
-	}
-	temp.close();
-	Edited.close();
+            else
+                {
+                    cout << "Either the ID or Password is incorrect" << endl;
+                    break;
+                }
 
-
-	Edited.open("Registration Data.txt", ios::out);
-	temp.open("temp.txt", ios::in);
-	while (!temp.eof())
-	{
-		getline(temp, Username);
-		temp.getline(ID, 25);
-		getline(temp, Password);
-		getline(temp, Age);
-		temp.getline(Gender, 10);
-		getline(temp, Address);
-		Edited << Username << endl;
-		Edited << ID << endl;
-		Edited << Password << endl;
-		Edited << Age << endl;
-		Edited << Gender << endl;
-		Edited << Address << endl;
-	}
-	temp.close();
-	Edited.close();
-	remove("temp.txt");
-
+        }
 }
-void main()
+int main()
 {
-	char Loginchoice,editchoice;
-	cout << "Do you want to login , Y/N ?" << endl;
-	cin >> Loginchoice;
-	switch (Loginchoice)
-	{
-	case'Y':
-	case'y':search_owner();
-		break;
+    int smolnum=3;
+    cout << " Fill in :-" << endl;
+    for(int i=0 ; i<smolnum ; i++)
+        {
 
-	default:
-		break;
-	}
-	cout << "Do you want to edit your data , Y/N ?" << endl;
-	cin >> editchoice;
-	switch (editchoice)
-	{
-	case'Y':
-	case'y':edit_owner();
-		break;
+            cout << "ID :";
+            cin >> RegData[i].ID;
+            cout << "Password :";
+            cin >> RegData[i].Password;
+        }
+    char loginchoice,Editchoice;
+    cout << "Do you want to login , (Y/N)?";
+    cin >> loginchoice;
+    switch(loginchoice)
+    {
+        case 'y':
+        case 'Y':Login();
+        break;
+        default: cout << "You may continue";
+        break;
 
-	default:
-		break;
-	}
-	char Editchoice;
-	cout << "Do you want to edit your data , (Y/N) ?";
-	cin >> Editchoice; 
-	switch(Editchoice) {
-	case('y'):
-	case('Y'):
-		cout << "-- Editing , Please wait --" << endl;
-		updateInfo();
+    }
+    cout << "Do you want to edit your data , (Y/N)?";
+    cin >> Editchoice;
+    switch(Editchoice)
+    {
+        case 'y':
+        case 'Y':Edit();
+        break;
+        default: cout << "You may continue";
+        break;
 
-	default:cout << " Invalid Input Entered " << endl;
-		break;
-	}
-	
+    }
+return 0;
 }
