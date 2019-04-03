@@ -38,7 +38,7 @@ int main()
 
 void SeifChoice()
 {
-	cout << "To search for a product enter: S \n" << "To View products enter: V \n";
+	cout << "To search for a product enter: S \n" << "To View all products enter: V \n";
 	while (true)
 	{
 		char choice;
