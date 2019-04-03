@@ -76,36 +76,36 @@ void OwnerEdit()
     cout << " 1-Name \n 2-ID \n 3-Password \n 4-Age \n 5-Gender \n 6-Address" << endl;
     cin >> regedit;
     switch(regedit){case 1: cout << "Name :";
-                            cin >> OwnerRegData[i].Name;
+                            cin >> OwnerRegData[j].Name;
                             break;
 
                     case 2: cout << "ID :";
-                            cin >> OwnerRegData[i].ID;
+                            cin >> OwnerRegData[j].ID;
                             break;
 
                     case 3: cout << "Password :";
-                            cin >> OwnerRegData[i].Password;
+                            cin >> OwnerRegData[j].Password;
                             break;
 
                     case 4: cout << "Age :";
-                            cin >> OwnerRegData[i].Age;
+                            cin >> OwnerRegData[j].Age;
                             break;
 
                     case 5: cout << "Gender (F/M) :";
                             cin >> sex;
                              if(sex == 'M' || sex == 'm')
                                 {
-                                    OwnerRegData[i].Gender = "Male";
+                                    OwnerRegData[j].Gender = "Male";
                                 }
                              else if(sex == 'F' || sex == 'f')
                                 {
-                                    OwnerRegData[i].Gender = "Female";
+                                    OwnerRegData[j].Gender = "Female";
                                 }
                              else {cout << "Error";}
                             break;
 
                     case 6: cout << "Address :";
-                            cin >> OwnerRegData[i].Address;
+                            cin >> OwnerRegData[j].Address;
                             break;
 
                     default: cout << "Invalid";
@@ -119,13 +119,13 @@ void OwnerEdit()
                             switch(shopedit)
                             {
                             case 1:cout << "Shop Name :";
-                                cin >> OwnerRegData[i].OwnerShopInfo.ShopName;
+                                cin >> OwnerRegData[j].OwnerShopInfo.ShopName;
                                 break;
                             case 2:cout << "Shop Address :";
-                                cin >> OwnerRegData[i].OwnerShopInfo.ShopAddress;
+                                cin >> OwnerRegData[j].OwnerShopInfo.ShopAddress;
                                 break;
                             case 3:cout << "Category :";
-                                cin >> OwnerRegData[i].OwnerShopInfo.Category;
+                                cin >> OwnerRegData[j].OwnerShopInfo.Category;
                                 break;
                             default: cout << "Invalid Input";
                                 break;
