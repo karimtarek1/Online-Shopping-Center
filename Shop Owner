@@ -1,1 +1,475 @@
+#include<iostream>
+#include<conio.h>
+#include<string>
+using namespace std;
+struct shop {
+	char shopName[25];
+	char address[25];
+	char category[25];
+};
+struct owner {
+	char name[25];
+	int ID;
+	string password;
+	char age[25];
+	char gender[25];
+	char address[25];
+	shop NAC;
+}owneer[1000];
 
+void own();
+void t();
+int main() {
+
+	own();
+	t();
+
+	return 0;
+
+}
+void own() {
+	int a, i, id = 1, j=0;
+	char choice;
+
+	do {
+
+		cout << "Enter your name:";
+		cin.getline(owneer[j].name, 25);
+		owneer[j].ID = id;
+		cout << "your ID is :" << owneer[j].ID << endl;
+
+		id++;
+
+		do {
+			cout << " Enter Your Password of at least 6 digits . : ";
+
+			char a;
+			for (i = 0;;)
+			{
+				a = _getch();
+				if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+
+				{
+					owneer[j].password = a;
+					++i;
+					cout << "*";
+				}
+				if (a == '\b'&&i >= 1)
+
+				{
+					cout << "\b \b";
+					--i;
+				}
+				if (a == '\r')
+				{
+					owneer[j].password = '\0';
+					break;
+				}
+			}
+
+		} while (i <= 5);
+		j++;
+		cout << endl;
+		cout << "Enter your age:";
+		cin.getline(owneer[j].age, 25);
+		cout << "Enter your gender:";
+		cin.getline(owneer[j].gender, 25);
+		cout << "Enter your address:";
+		cin.getline(owneer[j].address, 25);
+		cout << "you have registered succesfully" << endl;
+		cout << "Do you want to create another account?(Y/N):";
+		cin >> choice;
+	} while (choice == 'Y' || choice == 'y');
+	cout << endl;
+
+}
+void t() {
+	int i = 0;
+	do{
+	cout << "enter your shop name:";
+	cin.getline(owneer[i].NAC.shopName, 25);
+	for (int j = 1;j < 1000;j++) {
+		if (owneer[i].NAC.shopName == owneer[j].NAC.shopName) {
+			cout << "this shop name has been entered before ";
+			break;
+		}
+		else
+			continue;
+	}
+	cout << "enter your address:";
+	cin.getline(owneer[i].NAC.address, 25);
+	cout << "enter your category:";
+	cin.getline(owneer[i].NAC.category, 25);
+	cout << endl;
+
+	} while (false)
+
+		;
+	}
+
+
+\\*************************************************************************************************
+#include <iostream>
+#include <string>
+#include <conio.h>
+using namespace std;
+
+const int arrsize = 1000;
+int LogIndex;
+
+struct Shop
+{
+	int ShopName;
+	string ShopAddress;
+	string Category;
+};
+struct Owner
+{
+	string Name;
+	int ID;
+	char Password[32];
+	int Age;
+	string Gender;
+	string Address;
+	Shop Shops;
+}Owners[arrsize];
+
+void OLchoice();
+void OEchoice();
+int Lowner();
+void Eowner(int);
+
+int main()
+{
+	cout << "Fill In :- " << endl;
+	for (int i = 0; i < 3; i++)
+	{
+		cout << "ID : ";
+		cin >> Owners[i].ID;
+		cout << "Password : ";
+		cin >> Owners[i].Password;
+	}
+	OLchoice();
+	OEchoice();
+	return 0;
+}
+
+int Lowner()
+{
+    int j;
+	bool flag = false;
+	int LogID , i;
+	char LogPass[32];
+	cout << "Please enter your Login Data " << endl;
+	cout << "ID :";
+	cin >> LogID;
+	do {
+			cout << " Enter a Password of at least 6 digits." << endl;
+            cout << "Password : ";
+			char a;
+			for (j = 0;;)
+			{
+				a = _getch();
+				if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+				{   LogPass[j] = a;
+					++j;
+					cout << "*";
+				}
+				if (a == '\b'&&j >= 1)
+				{
+					cout << "\b \b";
+					--j;
+				}
+				if (a == '\r')
+				{
+					LogPass[j] = '\0';
+					break;
+				}
+			}
+
+		} while (j <= 5);
+
+	for (i = 0; i < arrsize; i++)
+	{
+		if (LogID == Owners[i].ID && LogPass == Owners[i].Password)
+		{
+			cout << "You have successfully Logged In. \n";
+			flag = true;
+			break;
+		}
+	}
+	if (flag == false) {
+		cout << "Either the ID or Password is incorrect" << endl;
+		i = 1000;
+	}
+	return i;
+}
+
+void Eowner(int j)
+{
+	char editchoices, sex;
+	int regedit, shopEdit;
+	cout << "Editing your information\n";
+	cout << "Would you like to edit your registration data or your Shop data (R/S) ? ";
+	cin >> editchoices;
+	if (editchoices == 'R' || editchoices == 'r') {
+		cout << "What do you want to edit ? " << endl;
+		cout << " 1-Name \n 2-ID \n 3-Password \n 4-Age \n 5-Gender \n 6-Address" << endl;
+		cout << "Choice: "; cin >> regedit;
+		switch (regedit) {
+		case 1: cout << "New Name : ";
+			cin >> Owners[j].Name;
+			break;
+
+		case 2: cout << "New ID : ";
+			cin >> Owners[j].ID;
+			break;
+
+		case 3: cout << "New Password :";
+			cin >> Owners[j].Password;
+			break;
+
+		case 4: cout << "New Age : ";
+			cin >> Owners[j].Age;
+			break;
+
+		case 5: cout << "New Gender(F/M) : ";
+			cin >> sex;
+			if (sex == 'M' || sex == 'm')
+			{
+				Owners[j].Gender = "Male";
+			}
+			else if (sex == 'F' || sex == 'f')
+			{
+				Owners[j].Gender = "Female";
+			}
+			else { cout << "Error"; }
+			break;
+
+		case 6: cout << "New Address : ";
+			cin >> Owners[j].Address;
+			break;
+
+		default: cout << "Invalid";
+			break;
+		}
+	}
+	else if (editchoices == 'S' || editchoices == 's')
+	{
+		cout << "What do you want to edit ?" << endl;
+		cout << " 1-Shop Name \n 2-Address \n 3-Category";
+		cin >> shopEdit;
+		switch (shopEdit)
+		{
+		case 1:cout << "Shop Name : ";
+			cin >> Owners[j].Shops.ShopName;
+			break;
+		case 2:cout << "Shop Address : ";
+			cin >> Owners[j].Shops.ShopAddress;
+			break;
+		case 3:cout << "Category : ";
+			cin >> Owners[j].Shops.Category;
+			break;
+		default: cout << "Invalid Input";
+			break;
+		}
+	}
+	else { cout << "Invalid Choice"; }
+}
+
+void OLchoice()
+{
+	char c;
+	char Loginchoice;
+	cout << "Do you want to login , (Y/N)? ";
+	cin >> Loginchoice;
+	do {
+		switch (Loginchoice)
+		{
+		case 'y':
+		case 'Y': LogIndex = Lowner();
+			break;
+		default: cout << "You may continue";
+			break;
+		}
+		if (LogIndex == 1000) {
+			cout << "Would you like to try again, (Y/N)? ";
+			cin >> c;
+		}
+		else {
+			c = 'n';
+		}
+	} while (c == 'y' || c == 'Y');
+}
+
+void OEchoice()
+{
+	char Editchoice;
+	cout << "Do you want to edit your data , (Y/N)? ";
+	cin >> Editchoice;
+	switch (Editchoice)
+	{
+	case'y':
+	case'Y':Eowner(LogIndex);
+		break;
+	default:cout << "You may continue";
+		break;
+	}
+}
+\\********************************************************************************************
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Product {
+	string productName = { 0 };
+	double productPrice = 0;
+	string Category = { 0 };
+	int Quantity = 0;
+};
+struct shop {
+	string shopName;
+	string address;
+	string category;
+}shop;
+
+const int maxProducts = 50;
+Product products[maxProducts];
+
+void choice();
+void addProduct();
+void removeProduct();
+void viewProducts();
+
+int main()
+{
+	choice();
+
+	return 0;
+}
+
+void choice()
+{
+	char choice;
+	do {
+		cout << "To add a product enter A. To remove a product enter R. To view your products enter V. : ";
+		char choices;
+		cin >> choices;
+		switch (choices) {
+		case 'a':
+		case 'A': addProduct();
+			break;
+		case 'r':
+		case 'R': removeProduct();
+			break;
+		case 'v':
+		case 'V': viewProducts();
+			break;
+		default:
+			cout << "Invalid Answer";
+		}
+		cout << "Do you want to continue (Y/N) : ";
+		cin >> choice;
+		cout << endl;
+	} while (choice == 'y' || choice == 'Y');
+}
+
+
+void addProduct()
+{
+	do {
+
+		char choice;
+
+			for (int i = 0; i <= maxProducts; i++) {
+
+				if (products[i].productPrice != 0) {
+					continue;
+				}
+
+				else if (products[i].productPrice == 0) {
+
+					cout << "Product's name : ";
+					cin >> products[i].productName;
+
+					cout << "Product's Price : $";
+					cin >> products[i].productPrice;
+
+					cout << "Product's Category : ";
+					products[i].Category = shop.category;
+					cout << products[i].Category << endl;
+
+					cout << "Product's Quantity : ";
+					cin >> products[i].Quantity;
+
+					break;
+				}
+			}
+		cout << "Do you want to enter a product ? (Y / N) : ";
+		cin >> choice;
+
+		if (choice == 'N' || choice == 'n') {
+			break;
+		}
+		else if (choice == 'Y' || choice == 'y') {
+			continue;
+		}
+	} while (true);
+}
+
+void removeProduct()
+{
+	int i;
+	bool same = false;
+	string name;
+	char choice;
+	do {
+
+			cout << "What is the name of the product you want to remove : ";
+			cin >> name;
+			for (i = 0; i < maxProducts; i++) {
+				if (name == products[i].productName) {
+					same = true;
+					break;
+				}
+			}
+			if (same == true) {
+				products[i].productName = { 0 };
+				products[i].productPrice = 0;
+				products[i].Quantity = 0;
+				products[i].Category = { 0 };
+			}
+			else if (same == false)
+				cout << "This product doesn't exist. \n";
+		cout << "\nDo you want to remove another product? (Y/N) : ";
+		cin >> choice;
+		if (choice == 'N' || choice == 'n') {
+			break;
+		}
+
+		else if (choice == 'Y' || choice == 'y') {
+			continue;
+		}
+	} while (true);
+}
+
+void viewProducts()
+{
+	char choice;
+	do {
+			cout << "Product's Name \t Product's Price \t Product's Category \t Product's Quantity \n";
+			for (int i = 0; i < maxProducts; i++) {
+				if (products[i].productPrice != 0) {
+					cout << products[i].productName << "\t \t " << products[i].productPrice << "$" << "\t \t \t " << products[i].Category << "\t  \t " << products[i].Quantity << endl;
+				}
+			}
+		cout << "Do you want to view your products? (Y/N) : ";
+		cin >> choice;
+		if (choice == 'n' || choice == 'N') {
+			break;
+		}
+		else if (choice == 'y' || choice == 'Y') {
+			continue;
+		}
+	} while(true);
+}
