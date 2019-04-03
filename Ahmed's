@@ -5,62 +5,94 @@ const int arrsize = 1000;
 int LoginID;
 string LoginPassword;
 //Kareem's Part
-//struct RegistrationData
+//struct OwnerShopData
 //{
-//   string Name;
+    //int ShopName;
+    //string ShopAddress;
+    //string Category;
+//};
+//struct OwnerRegistrationData
+//{
+//    string Name;
 //    int ID;
 //    string Password;
 //    int Age;
 //    char Gender;
-//   string Address;
+//    string Address;
+//    OwnerShopData OwnerShopInfo;
 //};
-//RegistrationData RegData[arrsize];
+//OwnerRegistrationData OwnerRegData[arrsize];
 
 void Edit()
 {
-    int editchoices;
+    char editchoices;
+    int regedit,shopedit;
     cout << "Editing your information";
     for(int i=0 ; i < arrsize ; i++)
         {
-            if( LoginID == RegData[i].ID)
+            if( LoginID == OwnerRegData[i].ID)
                 {
+                    cout << "Would you like to edit your registration data or your Shop data (R/S) ?";
+                    cin << editchoices;
+                    if(editchoices == R || editchoices == r){
                     cout << "What do you want to edit ?" << endl;
                     cout << " 1-Name \n 2-ID \n 3-Password \n 4-Age \n 5-Gender \n 6-Address" << endl;
-                    cin >> editchoices;
-                    switch(editchoices)
+                    cin >> regedit;
+                    switch(regedit)
                     {
                         case 1: cout << "Name :";
-                                cin >> RegData[i].Name;
+                                cin >> OwnerRegData[i].Name;
                                 break;
 
                         case 2: cout << "ID :";
-                                cin >> RegData[i].ID;
+                                cin >> OwnerRegData[i].ID;
                                 break;
 
                         case 3: cout << "Password :";
-                                cin >> RegData[i].Password;
+                                cin >> OwnerRegData[i].Password;
                                 break;
 
                         case 4: cout << "Age :";
-                                cin >> RegData[i].Age;
+                                cin >> OwnerRegData[i].Age;
                                 break;
 
                         case 5: cout << "Gender :";
-                                cin >> RegData[i].Gender;
+                                cin >> OwnerRegData[i].Gender;
                                 break;
 
                         case 6: cout << "Address :";
-                                cin >> RegData[i].Address;
+                                cin >> OwnerRegData[i].Address;
                                 break;
                                 
                        default: cout << "Invalid";
                                 break;
                     }
+                    }
+                    else if(editchoices == S || editchoices == s)
+                        {
+                            cout << "What do you want to edit ?" << endl;
+                            cout << " 1-Shop Name \n 2-Address \n 3-Category";
+                            switch(shopedit)
+                            {
+                            case 1:cout << "Shop Name :";
+                                cin >> OwnerRegData[i].OwnerShopInfo.ShopName;
+                                break;
+                            case 2:cout << "Shop Address :";
+                                cin >> OwnerRegData[i].OwnerShopInfo.ShopAddress;
+                                break;
+                            case 3:cout << "Category";
+                                cin >> OwnerRegData[i].OwnerShopInfo.Category;
+                                break;
+                            default: cout << "Invalid Input";
+                                break;
+                            }
+                        }
+                    else { cout << "Invalid Choice";}
                 }
         }
 }
 
-void Login()
+void OwnerLogin()
 {
 
     cout << "Please enter your Login Data "<<endl;
@@ -84,29 +116,17 @@ void Login()
 
         }
 }
-int main()
-{
-    int smolnum=3;
-    cout << " Fill in :-" << endl;
-    for(int i=0 ; i<smolnum ; i++)
-        {
-
-            cout << "ID :";
-            cin >> RegData[i].ID;
-            cout << "Password :";
-            cin >> RegData[i].Password;
-        }
-    char loginchoice,Editchoice;
+void main()
+{   char Loginchoice,Editchoice;
     cout << "Do you want to login , (Y/N)?";
-    cin >> loginchoice;
-    switch(loginchoice)
+    cin >> Loginchoice;
+    switch(Loginchoice)
     {
         case 'y':
         case 'Y':Login();
         break;
         default: cout << "You may continue";
         break;
-
     }
     cout << "Do you want to edit your data , (Y/N)?";
     cin >> Editchoice;
@@ -117,7 +137,5 @@ int main()
         break;
         default: cout << "You may continue";
         break;
-
     }
-return 0;
 }
