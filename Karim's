@@ -1,109 +1,108 @@
 #include<iostream>
-#include<fstream>
 #include<conio.h>
+#include<string>
 using namespace std;
-
-struct OwnerShopData
-{
-	int ShopName;
-	string ShopAddress;
-	string Category;
-};
-struct OwnerRegistrationData
-{
-    string Name;
-    int ID;
-    string Password;
-    int Age;
-    char Gender;
-    string Address;
-    OwnerShopData OwnerShopInfo;
-}OwnerRegData[arrsize];
-
-
-struct owner {
-	char name[25];
-	int ID;
-	char password[25];
-	char age[25];
-	char gender[25];
-	char address[25];
-	
-	
-
-};
 struct shop {
 	char shopName[25];
 	char address[25];
 	char category[25];
 };
+struct owner {
+	char name[25];
+	int ID;
+	string password;
+	char age[25];
+	char gender[25];
+	char address[25];
+	shop NAC;
+}owneer[1000];
+
 void own();
-void shoop();
+void t();
 int main() {
 
 	own();
-
-	shoop();
+	t();
 
 	return 0;
 
 }
 void own() {
-	fstream oowner;
-	oowner.open("owner file", ios::app);
-	owner owneer;
-	int id = 1, a;
+	int a, i, id = 1, j=0;
 	char choice;
+
 	do {
-		
-			cout << "Enter your name:";
-			cin.getline(owneer.name, 25);
-			owneer.ID = id;
-			cout << "your ID is :" << owneer.ID << endl;
-			id++;
-			cout << "Enter your password:";
-			for (int i = 0;;) {
+
+		cout << "Enter your name:";
+		cin.getline(owneer[j].name, 25);
+		owneer[j].ID = id;
+		cout << "your ID is :" << owneer[j].ID << endl;
+
+		id++;
+
+		do {
+			cout << " Enter Your Password of at least 6 digits . : ";
+
+			char a;
+			for (i = 0;;)
+			{
 				a = _getch();
-				owneer.password[i] = a;
-				cout << "*";
-				i++;
-				if (a == '\r') {
-					owneer.password[i] = '\0';
-					break;
-				}if (a == '\b'&&i >= 1) {
-					cout << "\b\b";
+				if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+
+				{
+					owneer[j].password = a;
+					++i;
+					cout << "*";
+				}
+				if (a == '\b'&&i >= 1)
+
+				{
+					cout << "\b \b";
 					--i;
 				}
+				if (a == '\r')
+				{
+					owneer[j].password = '\0';
+					break;
+				}
 			}
-			cin.getline(owneer.password, 25);
-			cout << "Enter your age:";
-			cin.getline(owneer.age, 25);
-			cout << "Enter your gender:";
-			cin.getline(owneer.gender, 25);
-			cout << "Enter your address:";
-			cin.getline(owneer.address, 25);
-			oowner << owneer.name << '|' << owneer.ID << '|' << owneer.password << '|' << owneer.age << '|' << owneer.gender << '|' << owneer.address << endl;
 
-			cout << "you have registered succesfully" << endl;
-	cout << "Do you want to create another account?(Y/N):";
-		cin >> choice;
-	} while
-		(choice == 'Y' || choice == 'y');
-		
-	
-	cout << endl;
-}
-void shoop() {
-	fstream shopp;
-	
-	shop owneer;
-	cout << "Enter the name of shop:" << " ";
-		cin.getline(owneer.shopName, 25);
+		} while (i <= 5);
+		j++;
+		cout << endl;
+		cout << "Enter your age:";
+		cin.getline(owneer[j].age, 25);
+		cout << "Enter your gender:";
+		cin.getline(owneer[j].gender, 25);
 		cout << "Enter your address:";
-		cin.getline(owneer.address, 25);
-		cout << "Enter your category:";
-		cin.getline(owneer.category, 25);
+		cin.getline(owneer[j].address, 25);
+		cout << "you have registered succesfully" << endl;
+		cout << "Do you want to create another account?(Y/N):";
+		cin >> choice;
+	} while (choice == 'Y' || choice == 'y');
+	cout << endl;
 
-		shopp << owneer.shopName << '|' << owneer.address << '|' << owneer.category << endl;
+}
+void t() {
+	int i = 0;
+	do{
+	cout << "enter your shop name:";
+	cin.getline(owneer[i].NAC.shopName, 25);
+	for (int j = 1;j < 1000;j++) {
+		if (owneer[i].NAC.shopName == owneer[j].NAC.shopName) {
+			cout << "this shop name has been entered before ";
+			break;
+		}
+		else
+			continue;
+	}
+	cout << "enter your address:";
+	cin.getline(owneer[i].NAC.address, 25);
+	cout << "enter your category:";
+	cin.getline(owneer[i].NAC.category, 25);
+	cout << endl;
 
+	} while (false)
+
+		;
 	}
