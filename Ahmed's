@@ -150,13 +150,13 @@ void Eowner(int j)
 		cin >> shopEdit;
 		switch (shopEdit)
 		{
-		case 1:cout << "Shop Name : ";
+		case 1:cout << "New Shop Name : ";
 			cin >> Owners[j].Shops.ShopName;
 			break;
-		case 2:cout << "Shop Address : ";
+		case 2:cout << "New Shop Address : ";
 			cin >> Owners[j].Shops.ShopAddress;
 			break;
-		case 3:cout << "Category : ";
+		case 3:cout << "New Category : ";
 			cin >> Owners[j].Shops.Category;
 			break;
 		default: cout << "Invalid Input";
