@@ -32,8 +32,6 @@ int main()
 	cout << "Fill In :- " << endl;
 	for (int i = 0; i < 3; i++)
 	{
-		cout << "Name : ";
-		cin >> OwnerRegData[i].Name;
 		cout << "ID : ";
 		cin >> OwnerRegData[i].ID;
 		cout << "Password : ";
@@ -46,6 +44,7 @@ int main()
 
 int OwnerLogin()
 {
+	bool flag = false;
 	int LoginID , i;
 	string LoginPassword;
 	cout << "Please enter your Login Data " << endl;
@@ -58,14 +57,13 @@ int OwnerLogin()
 		if (LoginID == OwnerRegData[i].ID && LoginPassword == OwnerRegData[i].Password)
 		{
 			cout << "You have successfully Logged In. \n";
+			flag = true;
 			break;
 		}
-		else
-		{
-			cout << "Either the ID or Password is incorrect" << endl;
-			i = 1000;
-			break;
-		}
+	}
+	if (flag == false) {
+		cout << "Either the ID or Password is incorrect" << endl;
+		i = 1000;
 	}
 	return i;
 }
@@ -74,31 +72,31 @@ void OwnerEdit(int j)
 {
 	char editchoices, sex;
 	int regedit, shopEdit;
-	cout << "Editing your information";
+	cout << "Editing your information\n";
 	cout << "Would you like to edit your registration data or your Shop data (R/S) ? ";
 	cin >> editchoices;
 	if (editchoices == 'R' || editchoices == 'r') {
 		cout << "What do you want to edit ? " << endl;
 		cout << " 1-Name \n 2-ID \n 3-Password \n 4-Age \n 5-Gender \n 6-Address" << endl;
-		cin >> regedit;
+		cout << "Choice: "; cin >> regedit;
 		switch (regedit) {
-		case 1: cout << "Name :";
+		case 1: cout << "New Name :";
 			cin >> OwnerRegData[j].Name;
 			break;
 
-		case 2: cout << "ID :";
+		case 2: cout << "New ID :";
 			cin >> OwnerRegData[j].ID;
 			break;
 
-		case 3: cout << "Password :";
+		case 3: cout << "New Password :";
 			cin >> OwnerRegData[j].Password;
 			break;
 
-		case 4: cout << "Age :";
+		case 4: cout << "New Age :";
 			cin >> OwnerRegData[j].Age;
 			break;
 
-		case 5: cout << "Gender (F/M) :";
+		case 5: cout << "New Gender (F/M) :";
 			cin >> sex;
 			if (sex == 'M' || sex == 'm')
 			{
