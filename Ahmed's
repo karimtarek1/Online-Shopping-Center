@@ -1,15 +1,17 @@
 #include <iostream>
 #include <string>
 using namespace std;
+
 const int arrsize = 1000;
 int i;
-int j=i;
+
 struct OwnerShopData
 {
     int ShopName;
     string ShopAddress;
     string Category;
 };
+
 struct OwnerRegistrationData
 {   string Name;
     int ID;
@@ -19,6 +21,7 @@ struct OwnerRegistrationData
     string Address;
     OwnerShopData OwnerShopInfo;
 }OwnerRegData[arrsize];
+
 void OwnerLoginChoices();
 void OwnerEditChoices();
 int OwnerLogin();
@@ -36,11 +39,10 @@ int main()
             cin >> OwnerRegData[i].Password;
         }
      OwnerLoginChoices();
-     OwnerLogin();
      OwnerEditChoices();
-     OwnerEdit();
      return 0;
 }
+
 int OwnerLogin()
 {
     int LoginID;
@@ -64,8 +66,10 @@ int OwnerLogin()
             }
         }
 }
+
 void OwnerEdit()
 {
+    j = OwnerLogin();
     char editchoices,sex;
     int regedit,shopedit;
     cout << "Editing your information";
@@ -133,6 +137,7 @@ void OwnerEdit()
                         }
                     else { cout << "Invalid Choice";}
 }
+
 void OwnerLoginChoices()
 {
     char Loginchoice;
@@ -147,6 +152,7 @@ void OwnerLoginChoices()
       break;
     }
 }
+
 void OwnerEditChoices()
 {
     char Editchoice;
