@@ -32,11 +32,11 @@ int main()
 	cout << "Fill In :- " << endl;
 	for (int i = 0; i < 3; i++)
 	{
-		cout << "Name :";
+		cout << "Name : ";
 		cin >> OwnerRegData[i].Name;
-		cout << "ID :";
+		cout << "ID : ";
 		cin >> OwnerRegData[i].ID;
-		cout << "Password :";
+		cout << "Password : ";
 		cin >> OwnerRegData[i].Password;
 	}
 	OwnerLoginChoices();
@@ -64,20 +64,22 @@ int OwnerLogin()
 		else
 		{
 			cout << "Either the ID or Password is incorrect" << endl;
+			return 0;
 			break;
 		}
 	}
+	return 0;
 }
 
 void OwnerEdit(int j)
 {
 	char editchoices, sex;
-	int regedit, shopedit;
+	int regedit, shopEdit;
 	cout << "Editing your information";
-	cout << "Would you like to edit your registration data or your Shop data (R/S) ?";
+	cout << "Would you like to edit your registration data or your Shop data (R/S) ? ";
 	cin >> editchoices;
 	if (editchoices == 'R' || editchoices == 'r') {
-		cout << "What do you want to edit ?" << endl;
+		cout << "What do you want to edit ? " << endl;
 		cout << " 1-Name \n 2-ID \n 3-Password \n 4-Age \n 5-Gender \n 6-Address" << endl;
 		cin >> regedit;
 		switch (regedit) {
@@ -122,7 +124,8 @@ void OwnerEdit(int j)
 	{
 		cout << "What do you want to edit ?" << endl;
 		cout << " 1-Shop Name \n 2-Address \n 3-Category";
-		switch (shopedit)
+		cin >> shopEdit;
+		switch (shopEdit)
 		{
 		case 1:cout << "Shop Name :";
 			cin >> OwnerRegData[j].OwnerShopInfo.ShopName;
@@ -142,23 +145,33 @@ void OwnerEdit(int j)
 
 void OwnerLoginChoices()
 {
+	int c;
 	char Loginchoice;
-	cout << "Do you want to login , (Y/N)?";
+	cout << "Do you want to login , (Y/N)? ";
 	cin >> Loginchoice;
-	switch (Loginchoice)
-	{
-	case 'y':
-	case 'Y': LogIndex = OwnerLogin();
-		break;
-	default: cout << "You may continue";
-		break;
+	while (true) {
+		switch (Loginchoice)
+		{
+		case 'y':
+		case 'Y': LogIndex = OwnerLogin();
+			break;
+		default: cout << "You may continue";
+			break;
+		}
+		if (LogIndex == 0) {
+			cout << "Would you like to try again, (Y/N)? ";
+			cin >> c;
+			if (c == 'n' || c == 'N') {
+				break;
+			}
+		}
 	}
 }
 
 void OwnerEditChoices()
 {
 	char Editchoice;
-	cout << "Do you want to edit your data , (Y/N)?";
+	cout << "Do you want to edit your data , (Y/N)? ";
 	cin >> Editchoice;
 	switch (Editchoice)
 	{
