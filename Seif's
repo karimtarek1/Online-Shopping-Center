@@ -1,60 +1,49 @@
 #include <iostream>
-#include <fstream>
+#include <string>
+
 using namespace std;
-void view_products()
-{
-	fstream products;
-	products.open("products.txt", ios::in);
-	char name[50];
-	char categories[50];
-	float price;
-	cout << " name of the product and its details \n";
-	while (!products.eof())
-	{
-		products.getline(name, 50);
-		cout << name << endl << price << endl;
-	}
-	products.close();
-}
 
-void search()
-{
-	fstream products;
-	products.open("products.txt", ios::in);
-	char name[50];
-	
-	char a[50];
-	cout << "Enter the product that you want to search for: ";
-	cin.ignore();
-	cin.getline(a, 50);
-	int x = 0;
-	cout << " name of the product \n";
-	while (!products.eof())
-	{
-		products.getline(name, 50);
-		if (strcmp(name, a)==0) {
-			cout << name << endl;
-			x = 1;
-			break;
-		}
+struct Product {
+	string productName = { 0 };
+	double productPrice = 0;
+	string Category = { 0 };
+	int Quantity = 0;
+};
 
-	}
-	if (x == 0) {
-		cout << "not found" << endl;
-	}
-	products.close();
-}
+struct shop
+{
+	string shopName;
+	string category;
+	Product products[50];
+};
+
+struct owner
+{
+	string name;
+	int ID = 0;
+	shop shops;
+}owners[1000];
+
+
+
+void SeifChoice();
+void view_products();
+void search();
 
 int main()
 {
-	
-	bool flag = true;
-	while (flag)
+	SeifChoice();
+	return 0;
+}
+
+void SeifChoice()
+{
+	cout << "To search for a product enter: S \n" << "To View products enter: V \n";
+	while (true)
 	{
-		cout << "To search for a product enter: S/s \n " << "To view the product that you searched for enter:V/v \n";
-		char c;
-		cin >> c;
-		switch (c)
+		char choice;
+		cin >> choice;
+		switch (choice)
 		{
 		case 'S':
 		case 's':
@@ -70,9 +59,44 @@ int main()
 		cin >> f;
 		if (f != 'Y' || f != 'y')
 		{
-			flag = false;
+			continue;
 		}
-
+		else if (f != 'N' || f != 'n') {
+			break;
+		}
 	}
-	return 0;
+}
+
+void view_products()
+{
+	for (int i = 0; i < 1000; i++)
+	{
+		for (int j = 0; j < 50; j++)
+		{
+			if (owners[i].shops.products[j].productPrice != 0 ) {
+				cout << owners[i].shops.products[j].productName << "\t" << owners[i].shops.products[j].productPrice << "\t" << owners[i].shops.products[j].Category << "\t" << owners[i].shops.products[j].Quantity;
+			}
+		}
+	}
+}
+
+void search()
+{
+	string name;
+	cout << "Enter the Product's name: ";
+	cin >> name;
+	for (int i = 0; i < 1000; i++)
+	{
+		for (int j = 0; j < 50; j++)
+		{
+			if (name == owners[i].shops.products[j].productName)
+			{
+				view_products();
+			}
+			else
+			{
+				cout << "Out of Stock." << endl;
+			}
+		}
+	}
 }
