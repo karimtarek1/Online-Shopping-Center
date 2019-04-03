@@ -2,6 +2,25 @@
 #include<fstream>
 #include<conio.h>
 using namespace std;
+
+struct OwnerShopData
+{
+	int ShopName;
+	string ShopAddress;
+	string Category;
+};
+struct OwnerRegistrationData
+{
+    string Name;
+    int ID;
+    string Password;
+    int Age;
+    char Gender;
+    string Address;
+    OwnerShopData OwnerShopInfo;
+}OwnerRegData[arrsize];
+
+
 struct owner {
 	char name[25];
 	int ID;
