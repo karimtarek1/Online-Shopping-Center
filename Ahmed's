@@ -20,8 +20,7 @@ string LoginPassword;
 //    char Gender;
 //    string Address;
 //    OwnerShopData OwnerShopInfo;
-//};
-//OwnerRegistrationData OwnerRegData[arrsize];
+//}OwnerRegData[arrsize];
 
 void Edit()
 {
@@ -102,7 +101,7 @@ void OwnerLogin()
     cin >> LoginPassword;
     for(int i=0 ; i < arrsize ; i++)
         {
-            if( LoginID == RegData[i].ID && (LoginPassword.compare(RegData[i].Password) == 0))
+            if( LoginID == OwnerRegData[i].ID && (LoginPassword.compare(OwnerRegData[i].Password) == 0))
                 {
                     cout << " You have successfully Logged In ";
                     break;
