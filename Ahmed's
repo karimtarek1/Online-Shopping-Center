@@ -2,69 +2,117 @@
 #include <string>
 using namespace std;
 const int arrsize = 1000;
-int LoginID;
-string LoginPassword;
-//Kareem's Part
-//struct OwnerShopData
-//{
-    //int ShopName;
-    //string ShopAddress;
-    //string Category;
-//};
-//struct OwnerRegistrationData
-//{
-//    string Name;
-//    int ID;
-//    string Password;
-//    int Age;
-//    char Gender;
-//    string Address;
-//    OwnerShopData OwnerShopInfo;
-//}OwnerRegData[arrsize];
+struct OwnerShopData
+{
+    int ShopName;
+    string ShopAddress;
+    string Category;
+};
+struct OwnerRegistrationData
+{   string Name;
+    int ID;
+    string Password;
+    int Age;
+    char Gender;
+    string Address;
+    OwnerShopData OwnerShopInfo;
+}OwnerRegData[arrsize];
+void LoginChoices();
+void EditChoices();
+int OwnerLogin();
+void OwnerEdit();
+void main()
+{    
+     OwnerLoginchoices();
+     OwnerLogin();
+     OwnerEditChoices();
+     OwnerEdit();
+}
+int OwnerLogin()
+{
+    cout << "Please enter your Login Data "<<endl;
+    cout << "ID :";
+    cin >> LoginID;
+    cout << "Password :";
+    cin >> LoginPassword;
+    for(int i=0 ; i < arrsize ; i++)
+        {
+          if( LoginID == OwnerRegData[i].ID && LoginPassword == OwnerRegData[i].Password)
+            {
+              cout << " You have successfully Logged In ";
+              break;
+            }
 
-void Edit()
+          else
+            {
+              cout << "Either the ID or Password is incorrect" << endl;
+              break;
+            }
+        }
+}
+
+    cout << "Please enter your Login Data "<<endl;
+    cout << "ID :";
+    cin >> LoginID;
+    cout << "Password :";
+    cin >> LoginPassword;
+    for(int i=0 ; i < arrsize ; i++)
+        {if( LoginID == OwnerRegData[i].ID && LoginPassword == OwnerRegData[i].Password)
+         {
+             cout << " You have successfully Logged In ";
+             return i;
+             break;
+         }
+         else
+            {
+             cout << "Either the ID or Password is incorrect" << endl;
+             break;
+            }
+        }
+}    
+void OwnerEdit()
 {
     char editchoices;
     int regedit,shopedit;
     cout << "Editing your information";
-    for(int i=0 ; i < arrsize ; i++)
-        {
-            if( LoginID == OwnerRegData[i].ID)
-                {
-                    cout << "Would you like to edit your registration data or your Shop data (R/S) ?";
-                    cin << editchoices;
-                    if(editchoices == R || editchoices == r){
-                    cout << "What do you want to edit ?" << endl;
-                    cout << " 1-Name \n 2-ID \n 3-Password \n 4-Age \n 5-Gender \n 6-Address" << endl;
-                    cin >> regedit;
-                    switch(regedit)
-                    {
-                        case 1: cout << "Name :";
-                                cin >> OwnerRegData[i].Name;
-                                break;
+    int j = i;
+    cout << "Would you like to edit your registration data or your Shop data (R/S) ?";
+    cin << editchoices;
+    if(editchoices == R || editchoices == r){
+    cout << "What do you want to edit ?" << endl;
+    cout << " 1-Name \n 2-ID \n 3-Password \n 4-Age \n 5-Gender \n 6-Address" << endl;
+    cin >> regedit;
+    switch(regedit){case 1: cout << "Name :";
+                            cin >> OwnerRegData[i].Name;
+                            break;
 
-                        case 2: cout << "ID :";
-                                cin >> OwnerRegData[i].ID;
-                                break;
+                    case 2: cout << "ID :";
+                            cin >> OwnerRegData[i].ID;
+                            break;
 
-                        case 3: cout << "Password :";
-                                cin >> OwnerRegData[i].Password;
-                                break;
+                    case 3: cout << "Password :";
+                            cin >> OwnerRegData[i].Password;
+                            break;
 
-                        case 4: cout << "Age :";
-                                cin >> OwnerRegData[i].Age;
-                                break;
+                    case 4: cout << "Age :";
+                            cin >> OwnerRegData[i].Age;
+                            break;
 
-                        case 5: cout << "Gender :";
-                                cin >> OwnerRegData[i].Gender;
-                                break;
+                    case 4: cout << "Gender :";
+                            cin >> OwnerRegData[i].Gender;
+                            if(Gender == M || Gender == m || Gender == F || Gender == f)
+                                {
+                                    continue;
+                                }
+                                else break;
+                            break;
 
-                        case 6: cout << "Address :";
-                                cin >> OwnerRegData[i].Address;
-                                break;
-                                
-                       default: cout << "Invalid";
-                                break;
+                    case 6: cout << "Address :";
+                            cin >> OwnerRegData[i].Address;
+                            break;
+                            
+                    default: cout << "Invalid";
+                            break;
                     }
                     }
                     else if(editchoices == S || editchoices == s)
@@ -79,7 +127,7 @@ void Edit()
                             case 2:cout << "Shop Address :";
                                 cin >> OwnerRegData[i].OwnerShopInfo.ShopAddress;
                                 break;
-                            case 3:cout << "Category";
+                            case 3:cout << "Category :";
                                 cin >> OwnerRegData[i].OwnerShopInfo.Category;
                                 break;
                             default: cout << "Invalid Input";
@@ -87,54 +135,32 @@ void Edit()
                             }
                         }
                     else { cout << "Invalid Choice";}
-                }
-        }
 }
-
-void OwnerLogin()
+void OwnerLoginChoice()
 {
-
-    cout << "Please enter your Login Data "<<endl;
-    cout << "ID :";
-    cin >> LoginID;
-    cout << "Password :";
-    cin >> LoginPassword;
-    for(int i=0 ; i < arrsize ; i++)
-        {
-            if( LoginID == OwnerRegData[i].ID && LoginPassword == OwnerRegData[i].Password)
-                {
-                    cout << " You have successfully Logged In ";
-                    break;
-                }
-
-            else
-                {
-                    cout << "Either the ID or Password is incorrect" << endl;
-                    break;
-                }
-
-        }
-}
-void main()
-{   char Loginchoice,Editchoice;
+    char Loginchoice;
     cout << "Do you want to login , (Y/N)?";
     cin >> Loginchoice;
     switch(Loginchoice)
     {
-        case 'y':
-        case 'Y':Login();
-        break;
-        default: cout << "You may continue";
-        break;
+      case 'y':
+      case 'Y':OwnerLogin();
+      break;
+      default: cout << "You may continue";
+      break;
     }
+}
+void OwnerEditChoices()
+{
+    char Editchoice;
     cout << "Do you want to edit your data , (Y/N)?";
     cin >> Editchoice;
     switch(Editchoice)
     {
-        case 'y':
-        case 'Y':Edit();
-        break;
-        default: cout << "You may continue";
-        break;
+        case'y':
+        case'Y':OwnerEdit();
+                break;
+        default:cout << "You may continue";
+                break;
     }
 }
