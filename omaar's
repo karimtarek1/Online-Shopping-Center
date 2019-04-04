@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-struct cart {
+struct cartt {
 	int qunatity;
 	string buyproduct = { 0 };
 	double price;
@@ -12,21 +12,20 @@ struct cart {
 } pcart[100];
 
 
+void addtocart(int i, int& nproduct,Product products[], cartt pcart[]);
+void cart(int& nproduct,cartt pcart[]);
 
-void cart(int& nproduct);
-void addtocart(int i, int& nproduct);
 
 
 int main() {
 	
 	int nproduct = 0;
 	
-	
 	return 0;
 }
 
 
-void addtocart(int i,int& nproduct) {
+void addtocart(int i,int& nproduct,cartt pcart[],Product products[]) {
 
 	int n;
 	bool done = true;
@@ -48,18 +47,21 @@ void addtocart(int i,int& nproduct) {
 	
 	nproduct++;
 }
-void cart(int nproduct) {
+void cart(int nproduct,cartt pcart[]) {
+
 	double total = 0;
 	char s,d;
-	int g;
+	int g,x=1;
 	cout << "********************** - YOUR CART - *********************" << endl;
 	cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
 	for (int i = 0; i < nproduct; i++) {
 		pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
-		cout << i + 1 << '. '<< pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
+		cout << x << '. '<< pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
 		total += pcart[i].subtotal;
+		x++;
 	}
-	cout << " Do you want to delete any thing ??  [[ y / n ]] ";
+	cout << " TOTAL :  " << total << endl;
+	cout << " Do you want to delete any thing ??  [[ y / n ]] :  ";
 	cin >> d;
 	switch (d)
 	{
@@ -76,6 +78,7 @@ void cart(int nproduct) {
 		cout << "!!! Enter valid choice !!!" << endl;
 	}
 	total = 0;
+	x = 1;
 	cout << "Press .V. to View receipt" << endl << "Press .R. to Return shopping" << endl;
 	cin >> s;
 	switch (s)
@@ -87,7 +90,7 @@ void cart(int nproduct) {
 		for (int i = 0; i < nproduct; i++) {
 			if (pcart[i].price != 0) {
 				pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
-				cout << i +1 << ". "<< pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
+				cout << x << ". "<< pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
 				total += pcart[i].subtotal;
 			}
 		}
