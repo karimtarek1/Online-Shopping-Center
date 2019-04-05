@@ -43,6 +43,7 @@ void addProds(int);
 void removeProds(int);
 void viewProds(int);
 void RegChoice();
+void removeReg(int);
 
 int main()
 {
@@ -50,6 +51,7 @@ int main()
 	OLchoice();
 	OEchoice();
 	ProdChoice();
+	removeReg();
 
 	return 0;
 
@@ -430,4 +432,32 @@ void viewProds(int j)
 			continue;
 		}
 	} while (true);
+}
+void removeReg(int j)
+{
+    int j;
+    char choice;
+    cout << "You are about to delete your account , are you sure ? (Y/N)"
+    cin >> choice;
+    if( choice == 'N' || choice == 'n' )
+        {
+            break;
+        }
+    else
+    {
+        Owners[j].Name = {0};
+        Owners[j].ID = 0;
+        Owners[j].Password = {0};
+        Owners[j].Age = 0;
+        Owners[j].Gender = {0};
+        Owners[j].Address = {0};
+        Owners[j].Shops.ShopName ={0};
+        Owners[j].Shops.Category = {0};
+        Owners[j].Shops.ShopAddress = {0};
+        for(in i=0 ; i < 15 ; i++)
+            {
+                Owners[j].Shops.products[i] = 0;
+            }
+            cout << "Your account has been successfully deleted" << endl;
+    }
 }
