@@ -15,7 +15,7 @@ struct Product {
 };
 struct Shop
 {
-	int ShopName;
+	string ShopName;
 	string ShopAddress;
 	string Category;
 	Product products[maxProds];
@@ -54,18 +54,20 @@ int main()
 	return 0;
 
 }
-void RegChoice() { // el j el5tha mn RegOwner hd5lha f RegShop
+void RegChoice() {
 	int RegIndex;
 	char choice;
-	cout << "Would you like to Register? (Y/N) : "; cin >> choice;
-	if (choice == 'y' || choice == 'Y') {
-		RegIndex = RegOwner();
-		RegShop(RegIndex);
-	}
+	do {
+		cout << "Would you like to Register? (Y/N) : "; cin >> choice;
+		if (choice == 'y' || choice == 'Y') {
+			RegIndex = RegOwner();
+			RegShop(RegIndex);
+			cout << "Would you like to Register again? (Y/N) :"; cin >> choice;
+		}
+	} while (choice == 'Y' || choice == 'y');
 }
 int RegOwner() {
 	int i, j;
-	char choice;
 	for (j = 0; j < maxOwners; j++) {
 		if (Owners[j].Age == 0) {
 			cout << "Enter your name:";
@@ -114,27 +116,28 @@ int RegOwner() {
 }
 
 void RegShop(int i) {
-    
-        string shopName;
-		cout << "enter your shop name:";
-		cin >> shopName;
-		for (int j = 0; j < maxOwners; j++) {
-			if (shopName == Owners[j].Shops.ShopName) 
-            {
-                cout << "This Shop is already taken ";
-				break;
-            }
-				
-			}
-			else {
-                    Owners[i].Shops.ShopName = shopName;
-			     }
-		
+
+	string shopName;
+	bool flag = true;
+	cout << "enter your shop name:";
+	cin >> shopName;
+	for (int j = 0; j < maxOwners; j++) {
+		if (shopName == Owners[j].Shops.ShopName)
+		{
+			cout << "This Shop is already taken";
+			flag = false;
+			break;
+		}
+
+	}
+	if (flag) {
+		Owners[i].Shops.ShopName = shopName;
 		cout << "Enter your shop's address : ";
 		cin >> Owners[i].Shops.ShopAddress;
 		cout << "Enter your shop's category : ";
 		cin >> Owners[i].Shops.Category;
 		cout << endl;
+	}
 }
 
 int Lowner()
@@ -310,15 +313,15 @@ void ProdChoice()
 		cin >> choices;
 		switch (choices) {
 		case 'a':
-		case 'A': 
+		case 'A':
 			addProds(LogIndex);
 			break;
 		case 'r':
-		case 'R': 
+		case 'R':
 			removeProds(LogIndex);
 			break;
 		case 'v':
-		case 'V': 
+		case 'V':
 			viewProds(LogIndex);
 			break;
 		default:
