@@ -242,7 +242,9 @@ void del(int j) {
 
 		Shoppers[j].name = { 0 };
 		Shoppers[j].id = 0;
-		Shoppers[j].pass = { 0 };
+		for (int i = 0; i < 1000; i++) {
+			Shoppers[j].pass[i] = { 0 };
+		}
 		Shoppers[j].age = 0;
 		Shoppers[j].gender = { 0 };
 		Shoppers[j].adress = { 0 };
