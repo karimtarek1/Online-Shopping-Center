@@ -1,0 +1,233 @@
+#include <iostream>
+#include <string>
+#include <string.h>
+#include <conio.h>
+
+using namespace std;
+int LogIndex;
+
+struct shopper {
+	string name;
+	int id;
+	char pass[32];
+	int age;
+	string gender;
+	string adress;
+}Shoppers[1000];
+
+int login();
+void registration();
+void update(int j);
+void SLchoice();
+void SEchoice();
+
+int main() {
+
+	SLchoice();
+	SEchoice();
+
+	return 0;
+}
+void registration() {
+	int j;
+	char choice;
+	char flag;
+	char a;
+	cout << "Do you want to Register a new Account ? (Y/N)" << endl;
+	cin >> flag;
+	if (flag == 'y' || flag == 'Y') {
+		for (int i = 0; i < 32; i++) {
+			cout << "Enter your name : ";
+			cin >> Shoppers[i].name;
+			Shoppers[i].id = i + 1;
+			cout << "Your ID is : " << Shoppers[i].id << endl;
+
+			do {
+				cout << endl << "Enter a password of at least 6 digits" << endl;
+				cout << endl << "Enter your password : ";
+				for (j = 0; j < 32;)
+				{
+					a = _getch();
+					if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+					{
+						Shoppers[j].pass[j] = a;
+						++j;
+						cout << "*";
+					}
+					if (a == '\b'&&j >= 1)
+					{
+						cout << "\b \b";
+						--j;
+					}
+					if (a == '\r')
+					{
+						Shoppers[j].pass[j] = '\0';
+						break;
+					}
+				}
+			} while (j <= 5);
+			cout << endl << endl << "Enter your age :";
+			cin >> Shoppers[i].age;
+			cout << endl << "Enter your Gender : ";
+			cin >> Shoppers[i].gender;
+			cout << endl << "Enter your adress: ";
+			cin >> Shoppers[i].adress;
+
+			cout << endl << "You have registered successfully" << endl;
+			cout << "Do you want to create another Account ? (Y/N)" << endl;
+			cin >> choice;
+			if (choice == 'y' || choice == 'y')
+				continue;
+			else if (choice == 'N' || choice == 'n')
+				break;
+		}
+	}
+
+}
+
+
+int login() {
+	int id;
+	int j, i;
+	char a;
+	char password[32];
+	bool x = false;
+	cout << endl << "Enter your ID : ";
+	cin >> id;
+	do {
+		cout << endl << "Enter a Password of at least 6 digits" << endl;
+		cout << endl << "Enter your Password : ";
+		for (j = 0;;)
+		{
+			a = _getch();
+			if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+			{
+				password[j] = a;
+				++j;
+				cout << "*";
+			}
+			if (a == '\b'&&j >= 1)
+			{
+				cout << "\b \b";
+				--j;
+			}
+			if (a == '\r')
+			{
+				password[j] = '\0';
+				break;
+			}
+		}
+	} while (j <= 5);
+
+	for (i = 0; i < 32; i++) {
+		if (id == Shoppers[i].id && password == Shoppers[i].pass) {
+			x = true;
+		}
+
+	}
+
+	if (x == true) {
+		cout << endl << "you are logged in successfully" << endl;
+	}
+	else {
+		cout << endl << "Either the ID or Password is incorrect" << endl;
+		i = 1000;
+	}
+	return i;
+
+
+}
+void update(int j) {
+	char editchoices, gender;
+	int regedit, shopEdit;
+	cout << "Editing your information\n";
+	cout << "Would you like to edit your registration data (Y/N) ? ";
+	cin >> editchoices;
+	if (editchoices == 'Y' || editchoices == 'y') {
+		cout << "What do you want to edit ? " << endl;
+		cout << " 1-Name \n 2-ID \n 3-Password \n 4-Age \n 5-Gender \n 6-Address" << endl;
+		cout << "Choice: "; cin >> regedit;
+		switch (regedit) {
+		case 1: cout << "New Name : ";
+			cin >> Shoppers[j].name;
+			break;
+
+		case 2:  cout << "New ID : ";
+			cin >> Shoppers[j].id;
+			break;
+
+		case 3: cout << "New Password :";
+			cin >> Shoppers[j].pass;
+			break;
+
+		case 4: cout << "New Age : ";
+			cin >> Shoppers[j].age;
+			break;
+
+		case 5: cout << "New Gender(Female/male) : ";
+			cin >> gender;
+			if (gender == 'M' || gender == 'm')
+				{
+				Shoppers[j].gender = "Male";
+				}
+				else if (gender == 'F' || gender == 'f')
+				{
+				Shoppers[j].gender = "Female";
+				}
+				else { cout << "Error"; }
+			break;
+
+		case 6: cout << "New Address : ";
+			cin >> Shoppers[j].adress;
+			break;
+
+		default: cout << "Invalid";
+			break;
+		}
+	}
+	else { cout << "Invalid Choice"; }
+}
+
+void SLchoice()
+{
+	char c;
+	char Loginchoice;
+	cout << "Do you want to register or login , (R/L)? ";
+	cin >> Loginchoice;
+	do {
+		switch (Loginchoice)
+		{
+		case 'l':
+		case 'L': LogIndex = login();
+			break;
+		case'r':
+		case'R': registration();
+
+		default: cout << "You may continue/n";
+			break;
+		}
+		if (LogIndex == 1000) {
+			cout << "Would you like to try again, (Y/N)? ";
+			cin >> c;
+		}
+		else {
+			c = 'n';
+		}
+	} while (c == 'y' || c == 'Y');
+}
+
+void SEchoice()
+{
+	char Editchoice;
+	cout << "Do you want to edit your data , (Y/N)? ";
+	cin >> Editchoice;
+	switch (Editchoice)
+	{
+	case'y':
+	case'Y':update(LogIndex);
+		break;
+	default:cout << "You may continue/n";
+		break;
+	}
+}
+
