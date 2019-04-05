@@ -174,74 +174,13 @@ void RegShop(int i)
 	}
 }
 
-int Lowner()
-{
-	int j;
-	bool flag1 = false,flag2=false;
-	int LogID, i;
-	char LogPass[maxPass];
-	cout << "Please enter your Login Data" << endl;
-	cout << "ID :";
-	cin >> LogID;
-	do
-	{
-		cout << "Enter a Password of at least 6 digits." << endl;
-		cout << "Password : ";
-		char a;
-		for (j = 0;;)
-		{
-			a = _getch();
-			if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
-			{
-				LogPass[j] = a;
-				++j;
-				cout << "*";
-			}
-			if (a == '\b'&&j >= 1)
-			{
-				cout << "\b \b";
-				--j;
-			}
-			if (a == '\r')
-			{
-				LogPass[j] = '\0';
-				break;
-			}
-		}
-
-	} while (j <= 5);
-
-	for (i = 0; i < maxOwners; i++)
-	{
-	    for(int j=0 ; j < 32 ; j++)
-            {
-                if(LogPass[j] == Owners[i].Password[j])
-                    {
-                        flag2 = true;
-                    };
-            }
-        
-		if (LogID == Owners[i].ID && flag2=true)
-		{
-			cout << "\nYou have successfully Logged In. \n";
-			flag1 = true;
-			break;
-		}
-	}
-	if (flag1 == false && flag2 == false)
-	{
-		cout << "\nEither the ID or Password is incorrect" << endl;
-		i = maxOwners;
-	}
-	return i;
-}
-
 void Eowner(int j)
 {
-	char editchoice, gender;
+	char editchoice, gender,continuechoice;
 	int regedit, shopEdit;
-	bool flag = true;
+	bool flag1 = true ,flag2;
 	cout << "Editing your information\n";
+	while (char == 'Y' || char == 'y'){
 	cout << "Would you like to edit your registration data , your Shop data or delete your account (R/S/D) ? ";
 	cin >> editchoice;
 	if (editchoice == 'R' || editchoice == 'r')
@@ -275,7 +214,7 @@ void Eowner(int j)
 		case 5:
 			cout << "New Gender(F/M) : ";
 			cin >> gender;
-			while (flag)
+			while (flag1)
 			{
 				cin >> gender;
 				if (gender == 'M' || gender == 'm')
@@ -338,6 +277,19 @@ void Eowner(int j)
 	{
 		cout << "Invalid Choice";
 	}
+	while(flag2)
+        {
+	      cout << "Would you like to continue (Y/N) ?";
+	      cin >> continuechoice;
+	      if(continuechoice != 'Y' || continuechoice ='y' || continuechoice !='N' || continuechoice == 'n')
+            {
+              cout << "Invalid Input";
+	        }
+          else
+            {
+              flag2 = false
+            }
+        }
 }
 
 void OLchoice()
