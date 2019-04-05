@@ -230,4 +230,26 @@ void SEchoice()
 		break;
 	}
 }
+void del(int j) {
+		char choice;
+		cout << endl << "are you sure you want to delete your account? (y/n) ";
+		cin >> choice;
+		switch (choice) {
+		case'y':
+		case'Y':
+			
+				s1[j].name = { 0 };
+				s1[j].id = 0;
+				s1[j].pass = { 0 };
+				s1[j].age = 0 ;
+				s1[j].gender = { 0 };
+				s1[j].adress = { 0 };
+			
+			cout << "your account has been deleted" << endl;
+				break;
+		default :
+			break;
 
+			}
+
+		}
