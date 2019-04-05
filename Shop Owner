@@ -238,13 +238,13 @@ void Eowner(int j)
     int regedit, shopEdit;
     bool flag = true;
     cout << "Editing your information\n";
-    cout << "Would you like to edit your registration data or your Shop data (R/S) ? ";
+    cout << "Would you like to edit your registration data , your Shop data or delete your account (R/S/) ? ";
     cin >> editchoice;
     if (editchoice == 'R' || editchoice == 'r')
     {
         cout << "What do you want to edit ? " << endl;
         cout << " 1-Name \n 2-ID \n 3-Password \n 4-Age \n 5-Gender \n 6-Address" << endl;
-        cout << "Choice: ";
+        cout << "Choice : ";
         cin >> regedit;
         switch (regedit)
         {
@@ -294,7 +294,9 @@ void Eowner(int j)
             cout << "New Address : ";
             cin >> Owners[j].Address;
             break;
-
+        case 7:
+            removeReg(LogIndex);
+            break;
         default:
             cout << "Invalid";
             break;
@@ -538,21 +540,26 @@ int removeReg(int j)
     {
 
     case 'y':
-    case 'Y': Owners[j].Name = {0};
-              Owners[j].ID = 0;
-              Owners[j].Password = {0};
-              Owners[j].Age = 0;
-              Owners[j].Gender = {0};
-              Owners[j].Address = {0};
-              Owners[j].Shops.ShopName = {0};
-              Owners[j].Shops.Category = {0};
-              Owners[j].Shops.ShopAddress = {0};
-        for(in i=0 ; i < 15 ; i++)
+    case 'Y':
+        Owners[j].Name = {0};
+        Owners[j].ID = 0;
+        for(int i=0 ; i < 32 ; i++)
+        {
+        Owners[j].Password[i] = {0};
+        }
+        Owners[j].Age = 0;
+        Owners[j].Gender = {0};
+        Owners[j].Address = {0};
+        Owners[j].Shops.ShopName = {0};
+        Owners[j].Shops.Category = {0};
+        Owners[j].Shops.ShopAddress = {0};
+        for(int i=0 ; i < 15 ; i++)
         {
             Owners[j].Shops.products[i] = 0;
         }
         cout << "Your account has been successfully deleted" << endl;
         break;
-    default :break;
+    default :
+        break;
     }
 }
