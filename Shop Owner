@@ -54,8 +54,7 @@ int main()
 	return 0;
 
 }
-
-void RegChoice() {
+void RegChoice() { // el j el5tha mn RegOwner hd5lha f RegShop
 	int RegIndex;
 	char choice;
 	cout << "Would you like to Register? (Y/N) : "; cin >> choice;
@@ -64,7 +63,6 @@ void RegChoice() {
 		RegShop(RegIndex);
 	}
 }
-
 int RegOwner() {
 	int i, j;
 	char choice;
@@ -116,21 +114,27 @@ int RegOwner() {
 }
 
 void RegShop(int i) {
-
+    
+        string shopName;
 		cout << "enter your shop name:";
-		cin >> Owners[i].Shops.ShopName;
+		cin >> shopName;
 		for (int j = 0; j < maxOwners; j++) {
-			if (Owners[i].Shops.ShopName == Owners[j].Shops.ShopName) {
-				cout << "This Shop name has been entered before ";
+			if (shopName == Owners[j].Shops.ShopName) 
+            {
+                cout << "This Shop is already taken ";
 				break;
+            }
+				
 			}
-		}
+			else {
+                    Owners[i].Shops.ShopName = shopName;
+			     }
+		
 		cout << "Enter your shop's address : ";
 		cin >> Owners[i].Shops.ShopAddress;
 		cout << "Enter your shop's category : ";
 		cin >> Owners[i].Shops.Category;
 		cout << endl;
-
 }
 
 int Lowner()
