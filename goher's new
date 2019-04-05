@@ -7,14 +7,14 @@ using namespace std;
 int LogIndex;
 
 struct shopper1 {
-	char name[1000];
-	int id[1000];
-	char pass[1000];
-	char age[1000];
-	char gender[1000];
-	char adress[1000];
-};
-shopper1 s1[1000];
+	string name;
+	int id;
+	char pass[32];
+	int age;
+	char gender;
+	string adress;
+}shopper1 s1[1000];
+
 int login();
 void registration();
 void update(int j);
@@ -32,18 +32,18 @@ void registration() {
 	char choice;
 	char flag;
 	char a;
-	cout << "do you want to register a new email ? (y/n)" << endl;
+	cout << "Do you want to register a new email ? (y/n)" << endl;
 	cin >> flag;
 	if (flag == 'y' || flag == 'Y') {
 		for (int i = 0; i < 1000; i++) {
-			cout << "enter your name : ";
+			cout << "Enter your name : ";
 			cin >> s1[i].name;
 			s1[i].id[i] = i + 1;
 			cout << "you id is : " << s1[i].id[i] << endl;
 
 			do {
-				cout << endl << "enter a password of at least 6 digits" << endl;
-				cout << endl << "enter your password : ";
+				cout << endl << "Enter a password of at least 6 digits" << endl;
+				cout << endl << "Enter your password : ";
 				for (j = 0;;)
 				{
 					a = _getch();
@@ -65,14 +65,14 @@ void registration() {
 					}
 				}
 			} while (j <= 5);
-			cout << endl << endl << "enter your age :";
+			cout << endl << endl << "Enter your age :";
 			cin >> s1[i].age;
-			cout << endl << "enter your Gender : ";
+			cout << endl << "Enter your Gender : ";
 			cin >> s1[i].gender;
-			cout << endl << "enter your adress: ";
+			cout << endl << "Enter your adress: ";
 			cin >> s1[i].adress;
 
-			cout << endl << "your have registered succesfully" << endl;
+			cout << endl << "You have registered successfully" << endl;
 			cout << "do you want to create another email ? (y/n)" << endl;
 			cin >> choice;
 			if (choice == 'y' || choice == 'y')
@@ -89,7 +89,7 @@ void registration() {
 		int id;
 		int j , i;
 		char a;
-		char password[1000];
+		char password[32];
 		bool x = false;
 		cout << endl << "enter your id : ";
 		cin >> id;
@@ -137,7 +137,7 @@ void registration() {
 
 	}
 	void update(int j) {
-		char editchoices, sex;
+		char editchoices, gender;
 		int regedit, shopEdit;
 		cout << "Editing your information\n";
 		cout << "Would you like to edit your registration data (Y/N) ? ";
@@ -164,7 +164,17 @@ void registration() {
 				break;
 
 			case 5: cout << "New Gender(Female/male) : ";
-				cin >> s1[j].gender;
+				cin >> gender
+				if (gender == 'M' || gender == 'm')
+			             {
+				s1[j].gender = "Male";
+			             }
+			        else if (gender == 'F' || gender == 'f')
+			             {
+				s1[j].gender = "Female";
+			             }
+			else { cout << "Error"; }
+			break;
 				
 			case 6: cout << "New Address : ";
 				cin >> s1[j].adress;
