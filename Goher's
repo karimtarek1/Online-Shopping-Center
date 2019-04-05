@@ -5,15 +5,17 @@
 
 using namespace std;
 int LogIndex;
+const int maxShoppers = 50;
+const int passMax = 32;
 
 struct shopper {
 	string name;
 	int id;
-	char pass[32];
+	char pass[passMax];
 	int age;
 	string gender;
 	string adress;
-}Shoppers[1000];
+}Shoppers[maxShoppers];
 
 int login();
 void registration();
@@ -36,7 +38,7 @@ void registration() {
 	cout << "Do you want to Register a new Account ? (Y/N)" << endl;
 	cin >> flag;
 	if (flag == 'y' || flag == 'Y') {
-		for (int i = 0; i < 32; i++) {
+		for (int i = 0; i < passMax; i++) {
 			cout << "Enter your name : ";
 			cin >> Shoppers[i].name;
 			Shoppers[i].id = i + 1;
@@ -45,7 +47,7 @@ void registration() {
 			do {
 				cout << endl << "Enter a password of at least 6 digits" << endl;
 				cout << endl << "Enter your password : ";
-				for (j = 0; j < 32;)
+				for (j = 0; j < passMax;)
 				{
 					a = _getch();
 					if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
@@ -90,7 +92,7 @@ int login() {
 	int id;
 	int j, i;
 	char a;
-	char password[32];
+	char password[passMax];
 	bool x = false;
 	cout << endl << "Enter your ID : ";
 	cin >> id;
@@ -119,7 +121,7 @@ int login() {
 		}
 	} while (j <= 5);
 
-	for (i = 0; i < 32; i++) {
+	for (i = 0; i < passMax; i++) {
 		if (id == Shoppers[i].id && password == Shoppers[i].pass) {
 			x = true;
 		}
@@ -131,7 +133,7 @@ int login() {
 	}
 	else {
 		cout << endl << "Either the ID or Password is incorrect" << endl;
-		i = 1000;
+		i = maxShoppers;
 	}
 	return i;
 
@@ -167,14 +169,14 @@ void update(int j) {
 		case 5: cout << "New Gender(Female/male) : ";
 			cin >> gender;
 			if (gender == 'M' || gender == 'm')
-				{
+			{
 				Shoppers[j].gender = "Male";
-				}
-				else if (gender == 'F' || gender == 'f')
-				{
+			}
+			else if (gender == 'F' || gender == 'f')
+			{
 				Shoppers[j].gender = "Female";
-				}
-				else { cout << "Error"; }
+			}
+			else { cout << "Error"; }
 			break;
 
 		case 6: cout << "New Address : ";
@@ -206,7 +208,7 @@ void SLchoice()
 		default: cout << "You may continue/n";
 			break;
 		}
-		if (LogIndex == 1000) {
+		if (LogIndex == maxShoppers) {
 			cout << "Would you like to try again, (Y/N)? ";
 			cin >> c;
 		}
@@ -231,25 +233,25 @@ void SEchoice()
 	}
 }
 void del(int j) {
-		char choice;
-		cout << endl << "are you sure you want to delete your account? (y/n) ";
-		cin >> choice;
-		switch (choice) {
-		case'y':
-		case'Y':
-			
-				s1[j].name = { 0 };
-				s1[j].id = 0;
-				s1[j].pass = { 0 };
-				s1[j].age = 0 ;
-				s1[j].gender = { 0 };
-				s1[j].adress = { 0 };
-			
-			cout << "your account has been deleted" << endl;
-				break;
-		default :
-			break;
+	char choice;
+	cout << endl << "are you sure you want to delete your account? (y/n) ";
+	cin >> choice;
+	switch (choice) {
+	case'y':
+	case'Y':
 
-			}
+		Shoppers[j].name = { 0 };
+		Shoppers[j].id = 0;
+		Shoppers[j].pass = { 0 };
+		Shoppers[j].age = 0;
+		Shoppers[j].gender = { 0 };
+		Shoppers[j].adress = { 0 };
 
-		}
+		cout << "your account has been deleted" << endl;
+		break;
+	default:
+		break;
+
+	}
+
+}
