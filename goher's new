@@ -35,7 +35,7 @@ void registration() {
 	cout << "Do you want to register a new email ? (y/n)" << endl;
 	cin >> flag;
 	if (flag == 'y' || flag == 'Y') {
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 32; i++) {
 			cout << "Enter your name : ";
 			cin >> s1[i].name;
 			s1[i].id[i] = i + 1;
@@ -118,7 +118,7 @@ void registration() {
 			}
 		} while (j <= 5);
 		
-	for( i = 0; i < 1000; i++) {
+	for( i = 0; i < 32; i++) {
 			if (id == s1[i].id[i] && password == s1[i].pass) {
 				x = true;
 			}
