@@ -3,9 +3,8 @@
 #include<string>
 
 using namespace std;
-const int maxOwners = 1000;
+const int maxOwners = 1000, maxProds = 15,maxPass=32;
 int LogIndex;
-const int maxProds = 15;
 
 struct Product
 {
@@ -25,7 +24,7 @@ struct Owner
 {
     string Name;
     int ID;
-    char Password[32];
+    char Password[maxPass];
     int Age;
     string Gender;
     string Address;
@@ -52,7 +51,6 @@ int main()
     OLchoice();
     OEchoice();
     ProdChoice();
-    removeReg();
 
     return 0;
 
@@ -94,7 +92,7 @@ int RegOwner()
                 cout << " Enter your password of at least 6 digits. : ";
 
                 char a;
-                for (i = 0; i < 32;)
+                for (i = 0; i < maxPass;)
                 {
                     a = _getch();
                     if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
@@ -182,7 +180,7 @@ int Lowner()
     int j;
     bool flag = false;
     int LogID, i;
-    char LogPass[32];
+    char LogPass[maxPass];
     cout << "Please enter your Login Data" << endl;
     cout << "ID :";
     cin >> LogID;
@@ -238,12 +236,12 @@ void Eowner(int j)
     int regedit, shopEdit;
     bool flag = true;
     cout << "Editing your information\n";
-    cout << "Would you like to edit your registration data , your Shop data or delete your account (R/S/) ? ";
+    cout << "Would you like to edit your registration data , your Shop data or delete your account (R/S/D) ? ";
     cin >> editchoice;
     if (editchoice == 'R' || editchoice == 'r')
     {
         cout << "What do you want to edit ? " << endl;
-        cout << " 1-Name \n 2-ID \n 3-Password \n 4-Age \n 5-Gender \n 6-Address" << endl;
+        cout << "1-Name \n2-ID \n3-Password \n4-Age \n5-Gender \n6-Address" << endl;
         cout << "Choice : ";
         cin >> regedit;
         switch (regedit)
@@ -286,7 +284,7 @@ void Eowner(int j)
                 }
                 else
                 {
-                    cout << "Error , Please enter a valid gender(M/F)";
+                    cout << "Please enter a valid gender(M/F)";
                 }
             }
 
@@ -325,6 +323,10 @@ void Eowner(int j)
             cout << "Invalid Input";
             break;
         }
+    }
+    else if (editchoice == 'D' || editchoice == 'd')
+    {
+        removeReg(LogIndex);
     }
     else
     {
@@ -534,8 +536,8 @@ int removeReg(int j)
 {
     int j;
     char choice;
-    cout << "You are about to delete your account , are you sure ? (Y/N)"
-         cin >> choice;
+    cout << "You are about to delete your account , are you sure ? (Y/N)";
+    cin >> choice;
     switch(choice)
     {
 
@@ -543,9 +545,9 @@ int removeReg(int j)
     case 'Y':
         Owners[j].Name = {0};
         Owners[j].ID = 0;
-        for(int i=0 ; i < 32 ; i++)
+        for(int i=0 ; i < maxPass ; i++)
         {
-        Owners[j].Password[i] = {0};
+            Owners[j].Password[i] = {0};
         }
         Owners[j].Age = 0;
         Owners[j].Gender = {0};
@@ -553,9 +555,9 @@ int removeReg(int j)
         Owners[j].Shops.ShopName = {0};
         Owners[j].Shops.Category = {0};
         Owners[j].Shops.ShopAddress = {0};
-        for(int i=0 ; i < 15 ; i++)
+        for(int i=0 ; i < maxProds ; i++)
         {
-            Owners[j].Shops.products[i] = 0;
+            Owners[j].Shops.products[i] = {0};
         }
         cout << "Your account has been successfully deleted" << endl;
         break;
