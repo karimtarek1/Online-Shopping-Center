@@ -54,6 +54,7 @@ int main()
 	return 0;
 
 }
+
 void RegChoice() {
 	int RegIndex;
 	char choice;
@@ -63,6 +64,7 @@ void RegChoice() {
 		RegShop(RegIndex);
 	}
 }
+
 int RegOwner() {
 	int i, j;
 	char choice;
@@ -119,11 +121,9 @@ void RegShop(int i) {
 		cin >> Owners[i].Shops.ShopName;
 		for (int j = 0; j < maxOwners; j++) {
 			if (Owners[i].Shops.ShopName == Owners[j].Shops.ShopName) {
-				cout << "This shop name has been entered before ";
+				cout << "This Shop name has been entered before ";
 				break;
 			}
-			else
-				continue;
 		}
 		cout << "Enter your shop's address : ";
 		cin >> Owners[i].Shops.ShopAddress;
