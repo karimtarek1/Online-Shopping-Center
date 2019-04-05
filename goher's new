@@ -45,7 +45,7 @@ void registration() {
 			do {
 				cout << endl << "Enter a password of at least 6 digits" << endl;
 				cout << endl << "Enter your password : ";
-				for (j = 0;;)
+				for (j = 0; j < 32;)
 				{
 					a = _getch();
 					if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
