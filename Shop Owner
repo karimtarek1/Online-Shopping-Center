@@ -67,7 +67,7 @@ void RegChoice()
 		{
 			RegIndex = RegOwner();
 			RegShop(RegIndex);
-			cout << "Would you like to Register again? (Y/N) :";
+			cout << "Would you like to Register again? (Y/N) : ";
 			cin >> choice;
 		}
 	} while (choice == 'Y' || choice == 'y');
@@ -81,7 +81,7 @@ int RegOwner()
 	{
 		if (Owners[j].Age == 0)
 		{
-			cout << "Enter your name:";
+			cout << "Enter your name: ";
 			cin >> Owners[j].Name;
 			Owners[j].ID = j + 1;
 			cout << "your ID is :" << Owners[j].ID << endl << endl;
@@ -117,7 +117,7 @@ int RegOwner()
 			cout << endl;
 			cout << "Enter your age : ";
 			cin >> Owners[j].Age;
-			cout << "Enter your gender : ";
+			cout << "Enter your gender (M/F) : ";
 			while (flag)
 			{
 				cin >> gender;
@@ -136,10 +136,11 @@ int RegOwner()
 					cout << "Error , Please enter a valid gender(M/F)";
 				}
 			}
-			cin >> Owners[j].Gender;
+			Owners[j].Gender = gender;
 			cout << "Enter your address : ";
 			cin >> Owners[j].Address;
-			cout << "You have registered successfully" << endl;
+			cout << "You have registered successfully" << endl << endl;
+			break;
 		}
 	}
 	return j;
@@ -184,7 +185,7 @@ int Lowner()
 	cin >> LogID;
 	do
 	{
-		cout << " Enter a Password of at least 6 digits." << endl;
+		cout << "Enter a Password of at least 6 digits." << endl;
 		cout << "Password : ";
 		char a;
 		for (j = 0;;)
@@ -214,14 +215,14 @@ int Lowner()
 	{
 		if (LogID == Owners[i].ID && LogPass == Owners[i].Password)
 		{
-			cout << "You have successfully Logged In. \n";
+			cout << "\nYou have successfully Logged In. \n";
 			flag = true;
 			break;
 		}
 	}
 	if (flag == false)
 	{
-		cout << "Either the ID or Password is incorrect" << endl;
+		cout << "\nEither the ID or Password is incorrect" << endl;
 		i = maxOwners;
 	}
 	return i;
@@ -254,7 +255,7 @@ void Eowner(int j)
 			break;
 
 		case 3:
-			cout << "New Password :";
+			cout << "New Password : ";
 			cin >> Owners[j].Password;
 			break;
 
