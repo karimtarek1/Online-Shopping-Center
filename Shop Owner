@@ -54,7 +54,7 @@ int main()
 	return 0;
 
 }
-void RegChoice() { // el j el5tha mn RegOwner hd5lha f RegShop
+void RegChoice() {
 	int RegIndex;
 	char choice;
 	cout << "Would you like to Register? (Y/N) : "; cin >> choice;
