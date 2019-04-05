@@ -3,7 +3,7 @@
 #include<string>
 
 using namespace std;
-const int arrsize = 1000;
+const int maxOwners = 1000;
 int LogIndex;
 const int maxProds = 15;
 
@@ -29,97 +29,95 @@ struct Owner
 	string Gender;
 	string Address;
 	Shop Shops;
-}Owners[arrsize];
+}Owners[maxOwners];
 
 
-void RegOwner();
+int RegOwner();
 void RegShop();
 void OLchoice();
 void OEchoice();
 int Lowner();
 void Eowner(int);
-void prodChoice();
+void ProdChoice();
 void addProds();
 void removeProds();
 void viewProds();
-
+void RegChoice();
 
 int main()
 {
-    RegOwner();
-    RegShop();
+	RegChoice();
 	OLchoice();
 	OEchoice();
-	prodChoice();
-	addProds();
-	removeProds();
-	viewProds();
+	ProdChoice();
 
 	return 0;
 
 }
-void RegOwner() {
-	int a, i, id = 1, j = 0;
-	char choice;
+void RegChoice() { // el j el5tha mn RegOwner hd5lha f RegShop
 
-	do {
 
-		cout << "Enter your name:";
-		cin.getline(Owners[j].Name, 25);
-		Owners[j].ID = id;
-		cout << "your ID is :" << Owners[j].ID << endl;
+	RegOwner();
+	RegShop();
 
-		id++;
-
-		do {
-			cout << " Enter your password of at least 6 digits . : ";
-
-			char a;
-			for (i = 0;;)
-			{
-				a = _getch();
-				if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
-
-				{
-					Owners[j].Password = a;
-					++i;
-					cout << "*";
-				}
-				if (a == '\b'&&i >= 1)
-
-				{
-					cout << "\b \b";
-					--i;
-				}
-				if (a == '\r')
-				{
-					Owners[j].Password = '\0';
-					break;
-				}
-			}
-
-		} while (i <= 5);
-		j++;
-		cout << endl;
-		cout << "Enter your age:";
-		cin.getline(Owners[j].Age, 25);
-		cout << "Enter your gender:";
-		cin.getline(Owners[j].Gender, 25);
-		cout << "Enter your address:";
-		cin.getline(Owners[j].Address, 25);
-		cout << "You have registered successfully" << endl;
-		cout << "Do you want to create another account ? (Y/N):";
-		cin >> choice;
-	} while (choice == 'Y' || choice == 'y');
-	cout << endl;
 
 }
+int RegOwner() {
+	int i , j;
+	char choice;
+	for (j = 0; j < maxOwners; j++) {
+		if (Owners[j].Age == 0) {
+			cout << "Enter your name:";
+			cin >> Owners[j].Name;
+			Owners[j].ID = j + 1;
+			cout << "your ID is :" << Owners[j].ID << endl;
+
+			do {
+				cout << " Enter your password of at least 6 digits. : ";
+
+				char a;
+				for (i = 0; i < 32 ;)
+				{
+					a = _getch();
+					if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+
+					{
+						Owners[j].Password[i] = a;
+						++i;
+						cout << "*";
+					}
+						if (a == '\b'&&i >= 1)
+
+						{
+							cout << "\b \b";
+							--i;
+						}
+						if (a == '\r')
+						{
+							Owners[j].Password[i] = '\0';
+							break;
+						}
+					}
+			} while (i <= 5);
+			cout << endl;
+			cout << "Enter your age:";
+			cin >> Owners[j].Age;
+			cout << "Enter your gender:";
+			cin >> Owners[j].Gender;
+			cout << "Enter your address:";
+			cin >> Owners[j].Address;
+			cout << "You have registered successfully" << endl;
+		}
+	}
+	return j;
+}
+
 void RegShop() {
 	int i = 0;
 	do {
 		cout << "enter your shop name:";
-		cin.getline(Owner[i].Shops.ShopName, 25);
-		for (int j = 1; j < 1000; j++) {
+		cin >> Owners[i].Shops.ShopName;
+		for (int j = 1; j < maxOwners; j++) {
 			if (Owners[i].Shops.ShopName == Owners[j].Shops.ShopName) {
 				cout << "This shop name has been entered before ";
 				break;
@@ -128,9 +126,9 @@ void RegShop() {
 				continue;
 		}
 		cout << "Enter your shop's address : ";
-		cin.getline(Owners[i].Shops.Address, 25);
+		cin >> Owners[i].Shops.ShopAddress;
 		cout << "Enter your shop's category : ";
-		cin.getline(Owners[i].Shops.Category, 25);
+		cin >> Owners[i].Shops.Category;
 		cout << endl;
 
 	} while (false);
@@ -142,7 +140,7 @@ int Lowner()
 	bool flag = false;
 	int LogID, i;
 	char LogPass[32];
-	cout << "Please enter your Login Data " << endl;
+	cout << "Please enter your Login Data" << endl;
 	cout << "ID :";
 	cin >> LogID;
 	do {
@@ -172,7 +170,7 @@ int Lowner()
 
 	} while (j <= 5);
 
-	for (i = 0; i < arrsize; i++)
+	for (i = 0; i < maxOwners; i++)
 	{
 		if (LogID == Owners[i].ID && LogPass == Owners[i].Password)
 		{
@@ -183,7 +181,7 @@ int Lowner()
 	}
 	if (flag == false) {
 		cout << "Either the ID or Password is incorrect" << endl;
-		i = 1000;
+		i = maxOwners;
 	}
 	return i;
 }
@@ -275,7 +273,7 @@ void OLchoice()
 		default: cout << "You may continue";
 			break;
 		}
-		if (LogIndex == 1000) {
+		if (LogIndex == maxOwners) {
 			cout << "Would you like to try again, (Y/N)? ";
 			cin >> c;
 		}
@@ -300,7 +298,7 @@ void OEchoice()
 	}
 }
 
-void prodChoice()
+void ProdChoice()
 {
 	char choice;
 	do {
@@ -334,24 +332,24 @@ void addProds()
 
 		for (int i = 0; i <= maxProds; i++) {
 
-			if (Owners[j].Shops[j].products[i]..productPrice != 0) {
+			if (Owners[j].Shops.products[i].productPrice != 0) {
 				continue;
 			}
 
-			else if (Owners[j].Shops[j].products[i].productPrice == 0) {
+			else if (Owners[j].Shops.products[i].productPrice == 0) {
 
 				cout << "Product's name : ";
-				cin >> Owners[j].Shops[j].products[i].productName;
+				cin >> Owners[j].Shops.products[i].productName;
 
 				cout << "Product's Price : $";
-				cin >> Owners[j].Shops[j].products[i].productPrice;
+				cin >> Owners[j].Shops.products[i].productPrice;
 
 				cout << "Product's Category : ";
 				products[i].Category = shop.category;
-				cout << Owners[j].Shops[j].products[i].Category << endl;
+				cout << Owners[j].Shops.products[i].Category << endl;
 
 				cout << "Product's Quantity : ";
-				cin >> Owners[j].Shops[j].products[i].Quantity;
+				cin >> Owners[j].Shops.products[i].Quantity;
 
 				break;
 			}
@@ -379,16 +377,16 @@ void removeProds()
 		cout << "What is the name of the product you want to remove : ";
 		cin >> name;
 		for (i = 0; i < maxProds; i++) {
-			if (name == Owners[j].Shops[j].products[i].productName) {
+			if (name == Owners[j].Shops.products[i].productName) {
 				same = true;
 				break;
 			}
 		}
 		if (same == true) {
-			Owners[j].Shops[j].products[i].productName = { 0 };
-			Owners[j].Shops[j].products[i].productPrice = 0;
-			Owners[j].Shops[j].products[i].Quantity = 0;
-			Owners[j].Shops[j].products[i].Category = { 0 };
+			Owners[j].Shops.products[i].productName = { 0 };
+			Owners[j].Shops.products[i].productPrice = 0;
+			Owners[j].Shops.products[i].Quantity = 0;
+			Owners[j].Shops.products[i].Category = { 0 };
 		}
 		else if (same == false)
 			cout << "This product doesn't exist. \n";
@@ -411,7 +409,7 @@ void viewProds()
 		cout << "Product's Name \t Product's Price \t Product's Category \t Product's Quantity \n";
 		for (int i = 0; i < maxProds; i++) {
 			if (Owners[j].Shops[j].products[i].productPrice != 0) {
-				cout << Owners[j].Shops[j].products[i].productName << "\t \t " << Owners[j].Shops[j].products[i].productPrice << "$" << "\t \t \t " << Owners[j].Shops[j].products[i].Category << "\t  \t " << Owners[j].Shops[j].products[i].Quantity << endl;
+				cout << Owners[j].Shops.products[i].productName << "\t \t " << Owners[j].Shops.products[i].productPrice << "$" << "\t \t \t " << Owners[j].Shops.products[i].Category << "\t  \t " << Owners[j].Shops.products[i].Quantity << endl;
 			}
 		}
 		cout << "Do you want to view your products? (Y/N) : ";
