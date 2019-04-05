@@ -177,7 +177,7 @@ void RegShop(int i)
 int Lowner()
 {
 	int j;
-	bool flag = false;
+	bool flag1 = false,flag2=false;
 	int LogID, i;
 	char LogPass[maxPass];
 	cout << "Please enter your Login Data" << endl;
@@ -213,14 +213,22 @@ int Lowner()
 
 	for (i = 0; i < maxOwners; i++)
 	{
-		if (LogID == Owners[i].ID && LogPass == Owners[i].Password)
+	    for(int j=0 ; j < 32 ; j++)
+            {
+                if(LogPass[j] == Owners[i].Password[j])
+                    {
+                        flag2 = true;
+                    };
+            }
+        
+		if (LogID == Owners[i].ID && flag2=true)
 		{
 			cout << "\nYou have successfully Logged In. \n";
-			flag = true;
+			flag1 = true;
 			break;
 		}
 	}
-	if (flag == false)
+	if (flag1 == false && flag2 == false)
 	{
 		cout << "\nEither the ID or Password is incorrect" << endl;
 		i = maxOwners;
