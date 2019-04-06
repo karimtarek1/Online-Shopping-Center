@@ -55,6 +55,7 @@ int main()
 	return 0;
 
 }
+
 void RegChoice()
 {
 	int RegIndex;
@@ -72,6 +73,7 @@ void RegChoice()
 		}
 	} while (choice == 'Y' || choice == 'y');
 }
+
 int RegOwner()
 {
 	int i, j;
@@ -239,9 +241,9 @@ int Lowner()
 void Eowner(int j) {
 	char editchoice, gender, continuechoice;
 	int regedit, shopEdit;
-	bool flag1 = true, flag2;
+	bool flag1 = true, flag2 = true;
 	cout << "Editing your information\n";
-	while (continuechoice == 'Y' || continuechoice == 'y') {
+	do {
 		cout << "Would you like to edit your registration data , your Shop data or delete your account (R/S/D) ? ";
 		cin >> editchoice;
 		if (editchoice == 'R' || editchoice == 'r')
@@ -298,9 +300,6 @@ void Eowner(int j) {
 				cout << "New Address : ";
 				cin >> Owners[j].Address;
 				break;
-			case 7:
-				removeReg(LogIndex);
-				break;
 			default:
 				cout << "Invalid";
 				break;
@@ -351,7 +350,7 @@ void Eowner(int j) {
 				flag2 = false;
 			}
 		}
-	}
+	}while (continuechoice == 'Y' || continuechoice == 'y');
 }
 
 void OLchoice()
@@ -473,48 +472,6 @@ void addProds(int j)
 			{
 				break;
 			}
-			else if (choice == 'Y' || choice == 'y')
-			{
-				continue;
-			}
-		} while (true);
-	}
-
-void removeProds(int j)
-	{
-		int i;
-		bool same = false;
-		string name;
-		char choice;
-		do
-		{
-
-			cout << "What is the name of the product you want to remove : ";
-			cin >> name;
-			for (i = 0; i < maxProds; i++)
-			{
-				if (name == Owners[j].Shops.products[i].productName)
-				{
-					same = true;
-					break;
-				}
-			}
-			if (same == true)
-			{
-				Owners[j].Shops.products[i].productName = { 0 };
-				Owners[j].Shops.products[i].productPrice = 0;
-				Owners[j].Shops.products[i].Quantity = 0;
-				Owners[j].Shops.products[i].Category = { 0 };
-			}
-			else if (same == false)
-				cout << "This product doesn't exist. \n";
-			cout << "\nDo you want to remove another product? (Y/N) : ";
-			cin >> choice;
-			if (choice == 'N' || choice == 'n')
-			{
-				break;
-			}
-
 			else if (choice == 'Y' || choice == 'y')
 			{
 				continue;
