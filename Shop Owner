@@ -249,7 +249,7 @@ void Eowner(int j) {
 		if (editchoice == 'R' || editchoice == 'r')
 		{
 			cout << "What do you want to edit ? " << endl;
-			cout << "1-Name \n2-ID \n3-Password \n4-Age \n5-Gender \n6-Address" << endl;
+			cout << "1-Name \n2-Password \n3-Age \n4-Gender \n5-Address" << endl;
 			cout << "Choice : ";
 			cin >> regedit;
 			switch (regedit)
@@ -260,22 +260,17 @@ void Eowner(int j) {
 				break;
 
 			case 2:
-				cout << "New ID : ";
-				cin >> Owners[j].ID;
-				break;
-
-			case 3:
 				cout << "New Password : ";
 				cin >> Owners[j].Password;
 				break;
 
-			case 4:
+			case 3:
 				cout << "New Age : ";
 				cin >> Owners[j].Age;
 				break;
 
-			case 5:
-				cout << "New Gender(F/M) : ";
+			case 4:
+				cout << "New Gender(M/F) : ";
 				cin >> gender;
 				while (flag1)
 				{
@@ -296,7 +291,7 @@ void Eowner(int j) {
 					}
 				}
 
-			case 6:
+			case 5:
 				cout << "New Address : ";
 				cin >> Owners[j].Address;
 				break;
@@ -308,8 +303,8 @@ void Eowner(int j) {
 		else if (editchoice == 'S' || editchoice == 's')
 		{
 			cout << "What do you want to edit ?" << endl;
-			cout << " 1-Shop Name \n 2-Address \n 3-Category \n";
-			cin >> shopEdit;
+			cout << "1-Shop Name \n2-Address \n3-Category \n";
+			cout << "Choice: "; cin >> shopEdit;
 			switch (shopEdit)
 			{
 			case 1:
