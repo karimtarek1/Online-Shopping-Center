@@ -221,7 +221,7 @@ int Lowner()
 			};
 		}
 
-		if (LogID == Owners[i].ID && flag2 = true)
+		if (LogID == Owners[i].ID && (flag2))
 		{
 			cout << "\nYou have successfully Logged In. \n";
 			flag1 = true;
