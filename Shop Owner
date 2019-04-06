@@ -77,7 +77,7 @@ void RegChoice()
 
 int RegOwner()
 {
-	int i , j;
+	int i, j;
 	char gender;
 	bool flag = true;
 	for (j = 0; j < maxOwners; j++)
@@ -87,7 +87,7 @@ int RegOwner()
 			cout << "Enter your name: ";
 			cin >> Owners[j].Name;
 			Owners[j].ID = j + 1;
-			cout << "your ID is :" << Owners[j].ID << endl << endl;
+			cout << "Your ID is :" << Owners[j].ID << endl;
 
 			do
 			{
@@ -96,14 +96,14 @@ int RegOwner()
 				for (i = 0; i < maxPass;)
 				{
 					a = _getch();
-					if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+					if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
 
 					{
 						Owners[j].Password[i] = a;
 						++i;
 						cout << "*";
 					}
-					if (a == '\b'&& i >= 1)
+					if (a == '\b' && i >= 1)
 
 					{
 						cout << "\b \b";
@@ -116,8 +116,8 @@ int RegOwner()
 					}
 					Owners[j].PassNum = i;
 				}
+				cout << endl;
 			} while (i <= 5);
-			cout << endl;
 			cout << "Enter your age : ";
 			cin >> Owners[j].Age;
 			cout << "Enter your gender (M/F) : ";
@@ -194,13 +194,13 @@ int Lowner()
 		for (j = 0;;)
 		{
 			a = _getch();
-			if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+			if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
 			{
 				LogPass[j] = a;
 				++j;
 				cout << "*";
 			}
-			if (a == '\b'&&j >= 1)
+			if (a == '\b' && j >= 1)
 			{
 				cout << "\b \b";
 				--j;
