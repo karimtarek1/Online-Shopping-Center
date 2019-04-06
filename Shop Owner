@@ -10,7 +10,7 @@ struct Product
 {
 	string productName = { 0 };
 	double productPrice = 0;
-	string Category = { 0 };
+	string Category;
 	int Quantity = 0;
 };
 struct shopAddress {
@@ -159,7 +159,8 @@ void RegShop(int i)
 {
 
 	string shopName;
-	bool flag = true;
+	int categoryChoice;
+	bool flag1 = true , flag2 = false;
 	cout << "Enter your shop name: ";
 	cin >> shopName;
 	for (int j = 0; j < maxOwners; j++)
@@ -167,20 +168,48 @@ void RegShop(int i)
 		if (shopName == Owners[j].Shops.ShopName)
 		{
 			cout << "This Shop is already taken";
-			flag = false;
+			flag1 = false;
 			break;
 		}
 
 	}
-	if (flag)
+	if (flag1)
 	{
 		Owners[i].Shops.ShopName = shopName;
 		cout << "Enter your Shop's Address.\nCountry : ";
 		cin >> Owners[i].Shops.Add1.Country;
 		cout << "City : "; cin >> Owners[i].Shops.Add1.City;
-		cout << "Enter your shop's category : ";
-		cin >> Owners[i].Shops.Category;
-		cout << endl;
+		cout << "Choose one of our available Categories : 1) Phones & Tablets. \n2) Electronics. \n3) Makeup & Accessories. \n4) Clothing. \n5) Shoes & Bags. \n6) Books. \n7)Gaming.\n";
+		cout << "choice : "; cin >> categoryChoice;
+		do {
+			switch (categoryChoice) {
+			case 1:
+				Owners[i].Shops.Category = "Phones&Tablets";
+				break;
+			case 2:
+				Owners[i].Shops.Category = "Electronics";
+				break;
+			case 3:
+				Owners[i].Shops.Category = "Makeup&Acessories";
+				break;
+			case 4:
+				Owners[i].Shops.Category = "Clothing";
+				break;
+			case 5:
+				Owners[i].Shops.Category = "Shoes&Bags";
+				break;
+			case 6:
+				Owners[i].Shops.Category = "Books";
+				break;
+			case 7:
+				Owners[i].Shops.Category = "Gaming";
+				break;
+			default:
+				flag2 = true;
+				cout << "Invalid Choice\n";
+				cout << "choice : "; cin >> categoryChoice;
+			}
+		} while (flag2);
 	}
 }
 
@@ -261,7 +290,7 @@ void Eowner(int j) {
 		if (editchoice == 'R' || editchoice == 'r')
 		{
 			cout << "What do you want to edit ? " << endl;
-			cout << "1-Name \n2-Password \n3-Age \n4-Gender \n5-Address" << endl;
+			cout << "1-Name \n2-Password \n3-Age \n4-Gender \n5-Address\n 6-Stop" << endl;
 			cout << "Choice : ";
 			cin >> regedit;
 			switch (regedit)
@@ -307,6 +336,8 @@ void Eowner(int j) {
 				cin >> Owners[j].Add2.Country;
 				cout << "City : "; cin >> Owners[j].Add2.City;
 				break;
+			case 6:
+				break;
 			default:
 				cout << "Invalid";
 				break;
@@ -315,7 +346,7 @@ void Eowner(int j) {
 		else if (editchoice == 'S' || editchoice == 's')
 		{
 			cout << "What do you want to edit ?" << endl;
-			cout << "1-Shop Name \n2-Address \n3-Category \n";
+			cout << "1-Shop Name \n2-Address \n3-Category \n4-Stop";
 			cout << "Choice: "; cin >> shopEdit;
 			switch (shopEdit)
 			{
@@ -331,6 +362,8 @@ void Eowner(int j) {
 			case 3:
 				cout << "Category : ";
 				cin >> Owners[j].Shops.Category;
+				break;
+			case 4:
 				break;
 			default:
 				cout << "Invalid Input";
@@ -363,22 +396,13 @@ void Eowner(int j) {
 
 void OLchoice()
 {
-	char c;
 	char Logchoice;
 	cout << "Do you want to login , (Y/N)? ";
 	cin >> Logchoice;
 	while(Logchoice == 'y' || Logchoice == 'Y')
 	{
-		switch (Logchoice)
-		{
-		case 'y':
-		case 'Y':
-			LogIndex = Lowner();
-			break;
-		default:
-			cout << "You may continue\n";
-			break;
-		}
+		LogIndex = Lowner();
+
 		if (LogIndex == maxOwners)
 		{
 			cout << "Would you like to try again, (Y/N)? ";
