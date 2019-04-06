@@ -4,7 +4,7 @@
 
 using namespace std;
 const int maxOwners = 50, maxProds = 15, maxPass = 32;
-int LogIndex;
+int LogIndex =maxOwners;
 
 struct Product
 {
@@ -13,12 +13,20 @@ struct Product
 	string Category = { 0 };
 	int Quantity = 0;
 };
+struct shopAddress {
+	string Country;
+	string City;
+};
 struct Shop
 {
 	string ShopName;
-	string ShopAddress;
+	shopAddress Add1;
 	string Category;
 	Product products[maxProds];
+};
+struct ownerAddress {
+	string Country;
+	string City;
 };
 struct Owner
 {
@@ -28,7 +36,7 @@ struct Owner
 	int PassNum;
 	int Age;
 	string Gender;
-	string Address;
+	ownerAddress Add2;
 	Shop Shops;
 } Owners[maxOwners];
 
@@ -50,9 +58,6 @@ int main()
 {
 	RegChoice();
 	OLchoice();
-	OEchoice();
-	ProdChoice();
-
 	return 0;
 
 }
@@ -136,12 +141,13 @@ int RegOwner()
 				}
 				else
 				{
-					cout << "Error , Please enter a valid gender(M/F)";
+					cout << "Please enter a valid gender(M/F) : ";
 				}
 			}
 			Owners[j].Gender = gender;
-			cout << "Enter your address : ";
-			cin >> Owners[j].Address;
+			cout << "Enter your Address. \nCountry : ";
+			cin >> Owners[j].Add2.Country;
+			cout << "City : "; cin >> Owners[j].Add2.City;
 			cout << "You have registered successfully" << endl << endl;
 			break;
 		}
@@ -169,8 +175,9 @@ void RegShop(int i)
 	if (flag)
 	{
 		Owners[i].Shops.ShopName = shopName;
-		cout << "Enter your shop's address : ";
-		cin >> Owners[i].Shops.ShopAddress;
+		cout << "Enter your Shop's Address.\nCountry : ";
+		cin >> Owners[i].Shops.Add1.Country;
+		cout << "City : "; cin >> Owners[i].Shops.Add1.City;
 		cout << "Enter your shop's category : ";
 		cin >> Owners[i].Shops.Category;
 		cout << endl;
@@ -291,13 +298,14 @@ void Eowner(int j) {
 					}
 					else
 					{
-						cout << "Please enter a valid gender(M/F)";
+						cout << "Please enter a valid gender(M/F) : ";
 					}
 				}
 				break;
 			case 5:
-				cout << "New Address : ";
-				cin >> Owners[j].Address;
+				cout << "New Address.\nCountry : ";
+				cin >> Owners[j].Add2.Country;
+				cout << "City : "; cin >> Owners[j].Add2.City;
 				break;
 			default:
 				cout << "Invalid";
@@ -316,8 +324,9 @@ void Eowner(int j) {
 				cin >> Owners[j].Shops.ShopName;
 				break;
 			case 2:
-				cout << "Shop Address : ";
-				cin >> Owners[j].Shops.ShopAddress;
+				cout << "Shop Address.\nCountry : ";
+				cin >> Owners[j].Shops.Add1.Country;
+				cout << "City : "; cin >> Owners[j].Shops.Add1.City;
 				break;
 			case 3:
 				cout << "Category : ";
@@ -358,7 +367,7 @@ void OLchoice()
 	char Logchoice;
 	cout << "Do you want to login , (Y/N)? ";
 	cin >> Logchoice;
-	do
+	while(Logchoice == 'y' || Logchoice == 'Y')
 	{
 		switch (Logchoice)
 		{
@@ -373,13 +382,17 @@ void OLchoice()
 		if (LogIndex == maxOwners)
 		{
 			cout << "Would you like to try again, (Y/N)? ";
-			cin >> c;
+			cin >> Logchoice;
 		}
 		else
 		{
-			c = 'n';
+			Logchoice = 'n';
 		}
-	} while (c == 'y' || c == 'Y');
+	} 
+	if (LogIndex != maxOwners) {
+		OEchoice();
+		ProdChoice();
+	}
 }
 
 void OEchoice()
@@ -395,7 +408,7 @@ void OEchoice()
 			Eowner(LogIndex);
 			break;
 		default:
-			cout << "You may continue";
+			cout << "You may continue\n";
 			break;
 		}
 	}
@@ -574,10 +587,12 @@ void removeReg(int j)
 		}
 		Owners[j].Age = 0;
 		Owners[j].Gender = { 0 };
-		Owners[j].Address = { 0 };
+		Owners[j].Add2.Country = { 0 };
+		Owners[j].Add2.City = { 0 };
 		Owners[j].Shops.ShopName = { 0 };
 		Owners[j].Shops.Category = { 0 };
-		Owners[j].Shops.ShopAddress = { 0 };
+		Owners[j].Shops.Add1.Country = { 0 };
+		Owners[j].Shops.Add1.City = { 0 };
 		for (int i = 0; i < maxProds; i++)
 		{
 			Owners[j].Shops.products[i] = { 0 };
