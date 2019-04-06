@@ -5,8 +5,11 @@
 using namespace std;
 
 int LogIndex;
-const int maxShoppers = 50 ,maxOwners = 50 , maxProds = 15, maxPass = 32;
+const int maxShoppers = 50, maxOwners = 50, maxProds = 15, maxPass = 32;
 
+struct num {
+	int nump;
+}c;
 struct cartt {
 	int qunatity;
 	string buyproduct = { 0 };
@@ -61,9 +64,9 @@ void SeifChoice();
 void viewproducts();
 void search();
 void info(int, int);
-void chooseproduct(int& nproduct);
-void addtocart(int& nproduct, int x, int y);
-void cart(int& nproduct);
+void chooseproduct();
+void addtocart( int x, int y);
+void cart();
 void del(int j);
 
 int main() {
@@ -111,23 +114,23 @@ void viewproducts()
 	int nproduct;
 	do {
 		int number = 1;
+		cout << "- Product Name -\t" << "- Product Price  -\t" << "- Product Category -\t" << "- Product Quantity -\n" << endl;
 		for (int i = 0; i < 1000; i++)
 		{
 			for (int j = 0; j < 50; j++)
 			{
 				if (Owners[i].Shops.products[j].productPrice != 0)
 				{
-					cout << "- Product Name -\t" << "- Product Price  -\t" << "- Product Category -\t" << "- Product Quantity -\n" << endl;
 					cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << "\t" << Owners[i].Shops.products[j].Quantity;
 					number++;
 				}
 			}
-		} chooseproduct(nproduct);
+		} chooseproduct();
 		cout << "Do you Want to continue shopping : [ y / n ] ";
 		cin >> flag;
 	} while (flag == 'y' || flag == 'Y');
 
-
+	cart();
 }
 
 void search()
@@ -158,7 +161,7 @@ void info(int i, int j)
 
 }
 
-void chooseproduct(int& nproduct) {
+void chooseproduct() {
 	int searchnum, x, y;
 	cout << " \nEnter The Number Of Product You Want To Add To Cart : ";
 	cin >> searchnum;
@@ -180,23 +183,23 @@ void chooseproduct(int& nproduct) {
 	else if (searchnum >= 50 && searchnum < 700) { y = searchnum - 650;  x = 12; }
 	else if (searchnum >= 700 && searchnum < 750) { y = searchnum - 700;  x = 13; }
 
-	addtocart(nproduct, x, y);
+	addtocart(x, y);
 
 };
 
-void addtocart(int& nproduct, int x, int y) {
+void addtocart( int x, int y) {
 
 	int n;
 	bool done = true;
 
-	pcart[nproduct].buyproduct = Owners[x].Shops.products[y].productName;
-	pcart[nproduct].price = Owners[x].Shops.products[y].productPrice;
+	pcart[c.nump].buyproduct = Owners[x].Shops.products[y].productName;
+	pcart[c.nump].price = Owners[x].Shops.products[y].productPrice;
 	do {
 		cout << "How many quantity do you want ?";
 		cin >> n;
 		if (n <= Owners[x].Shops.products[y].Quantity) {
 			cout << "Your Product Added to cart " << endl;
-			pcart[nproduct].qunatity = n;
+			pcart[c.nump].qunatity = n;
 			Owners[x].Shops.products[y].Quantity -= n;
 			done = false;
 		}
@@ -204,17 +207,17 @@ void addtocart(int& nproduct, int x, int y) {
 			cout << " Your Quantity is not availble now in the stock !! We have ( " << Owners[x].Shops.products[y].Quantity << " ) only in the stock " << endl;
 	} while (done);
 
-	nproduct++;
+	c.nump++;
 }
 
-void cart(int& nproduct) {
+void cart() {
 
 	double total = 0;
 	char s, d;
 	int g, x = 1;
 	cout << "********************** - YOUR CART - *********************" << endl;
 	cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
-	for (int i = 0; i < nproduct; i++) {
+	for (int i = 0; i < c.nump; i++) {
 		pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
 		cout << x << '. ' << pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
 		total += pcart[i].subtotal;
@@ -247,7 +250,7 @@ void cart(int& nproduct) {
 	case 'V':
 		cout << "********************* TOTAL ITEMS **********************\n" << endl;
 		cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
-		for (int i = 0; i < nproduct; i++) {
+		for (int i = 0; i < c.nump; i++) {
 			if (pcart[i].price != 0) {
 				pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
 				cout << x << ". " << pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
