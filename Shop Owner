@@ -3,7 +3,7 @@
 #include<string>
 
 using namespace std;
-const int maxOwners = 1000, maxProds = 15, maxPass = 32;
+const int maxOwners = 50, maxProds = 15, maxPass = 32;
 int LogIndex;
 
 struct Product
@@ -220,12 +220,12 @@ void Eowner(int j)
 				if (gender == 'M' || gender == 'm')
 				{
 					Owners[j].Gender = "Male";
-					flag = false;
+					flag1 = false;
 				}
 				else if (gender == 'F' || gender == 'f')
 				{
 					Owners[j].Gender = "Female";
-					flag = false;
+					flag1 = false;
 				}
 				else
 				{
@@ -287,7 +287,7 @@ void Eowner(int j)
 	        }
           else
             {
-              flag2 = false
+              flag2 = false;
             }
         }
 }
@@ -419,45 +419,91 @@ void addProds(int j)
 }
 
 void removeProds(int j)
+	{
+		int i;
+		bool same = false;
+		string name;
+		char choice;
+		do
+		{
+
+			cout << "What is the name of the product you want to remove : ";
+			cin >> name;
+			for (i = 0; i < maxProds; i++)
+			{
+				if (name == Owners[j].Shops.products[i].productName)
+				{
+					same = true;
+					break;
+				}
+			}
+			if (same == true)
+			{
+				Owners[j].Shops.products[i].productName = { 0 };
+				Owners[j].Shops.products[i].productPrice = 0;
+				Owners[j].Shops.products[i].Quantity = 0;
+				Owners[j].Shops.products[i].Category = { 0 };
+			}
+			else if (same == false)
+				cout << "This product doesn't exist. \n";
+			cout << "\nDo you want to remove another product? (Y/N) : ";
+			cin >> choice;
+			if (choice == 'N' || choice == 'n')
+			{
+				break;
+			}
+
+			else if (choice == 'Y' || choice == 'y')
+			{
+				continue;
+			}
+		} while (true);
+	}
+
+void removeProds(int j)
 {
 	int i;
 	bool same = false;
 	string name;
-	char choice;
+	char choice, continuechoice;
 	do
 	{
-
 		cout << "What is the name of the product you want to remove : ";
 		cin >> name;
-		for (i = 0; i < maxProds; i++)
+		cout << "Are you sure you want to remove this product (Y/N) ?";
+		cin >> continuechoice;
+		if (continuechoice == 'Y' || continuechoice == 'y')
 		{
-			if (name == Owners[j].Shops.products[i].productName)
+			for (i = 0; i < maxProds; i++)
 			{
-				same = true;
-				break;
+				if (name == Owners[j].Shops.products[i].productName)
+				{
+				  same = true;
+				  break;
+				}
 			}
-		}
-		if (same == true)
-		{
-			Owners[j].Shops.products[i].productName = { 0 };
-			Owners[j].Shops.products[i].productPrice = 0;
-			Owners[j].Shops.products[i].Quantity = 0;
-			Owners[j].Shops.products[i].Category = { 0 };
-		}
+			if (same == true)
+			{
+				Owners[j].Shops.products[i].productName = { 0 };
+				Owners[j].Shops.products[i].productPrice = 0;
+				Owners[j].Shops.products[i].Quantity = 0;
+				Owners[j].Shops.products[i].Category = { 0 };
+			}
 		else if (same == false)
 			cout << "This product doesn't exist. \n";
-		cout << "\nDo you want to remove another product? (Y/N) : ";
-		cin >> choice;
-		if (choice == 'N' || choice == 'n')
-		{
-			break;
-		}
+			cout << "\nDo you want to remove another product? (Y/N) : ";
+			cin >> choice;
+			if (choice == 'N' || choice == 'n')
+			{
+				break;
+			}
 
 		else if (choice == 'Y' || choice == 'y')
-		{
-			continue;
-		}
-	} while (true);
+			{
+				continue;
+			}
+else { break; }
+    } while (true);
 }
 
 void viewProds(int j)
