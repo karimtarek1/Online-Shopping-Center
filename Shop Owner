@@ -25,6 +25,7 @@ struct Owner
 	string Name;
 	int ID;
 	char Password[maxPass];
+	int PassNum;
 	int Age;
 	string Gender;
 	string Address;
@@ -76,7 +77,7 @@ void RegChoice()
 
 int RegOwner()
 {
-	int i, j;
+	int i , j;
 	char gender;
 	bool flag = true;
 	for (j = 0; j < maxOwners; j++)
@@ -102,7 +103,7 @@ int RegOwner()
 						++i;
 						cout << "*";
 					}
-					if (a == '\b'&&i >= 1)
+					if (a == '\b'&& i >= 1)
 
 					{
 						cout << "\b \b";
@@ -113,6 +114,7 @@ int RegOwner()
 						Owners[j].Password[i] = '\0';
 						break;
 					}
+					Owners[j].PassNum = i;
 				}
 			} while (i <= 5);
 			cout << endl;
@@ -186,7 +188,7 @@ int Lowner()
 	cin >> LogID;
 	do
 	{
-		cout << "Enter a Password of at least 6 digits." << endl;
+		cout << "Enter your Password." << endl;
 		cout << "Password : ";
 		char a;
 		for (j = 0;;)
@@ -214,14 +216,18 @@ int Lowner()
 
 	for (i = 0; i < maxOwners; i++)
 	{
-		for (int j = 0; j < maxPass; j++)
-		{
-			if (LogPass[j] != Owners[i].Password[j])
+		if (j > Owners[i].PassNum || j < Owners[i].PassNum) {
+			flag = false;
+		}
+		else if (j == Owners[i].PassNum) {
+			for (int x = 0; x < Owners[i].PassNum; x++)
 			{
-				flag = false;
+				if (LogPass[x] != Owners[i].Password[x])
+				{
+					flag = false;
+				}
 			}
 		}
-
 		if (LogID == Owners[i].ID && (flag))
 		{
 			cout << "\nYou have successfully Logged In. \n";
@@ -379,17 +385,19 @@ void OLchoice()
 void OEchoice()
 {
 	char Editchoice;
-	cout << "Do you want to edit your data , (Y/N)? ";
-	cin >> Editchoice;
-	switch (Editchoice)
-	{
-	case'y':
-	case'Y':
-		Eowner(LogIndex);
-		break;
-	default:
-		cout << "You may continue";
-		break;
+	if (LogIndex != maxOwners) {
+		cout << "Do you want to edit your data , (Y/N)? ";
+		cin >> Editchoice;
+		switch (Editchoice)
+		{
+		case'y':
+		case'Y':
+			Eowner(LogIndex);
+			break;
+		default:
+			cout << "You may continue";
+			break;
+		}
 	}
 }
 
