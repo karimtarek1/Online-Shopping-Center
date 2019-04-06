@@ -214,7 +214,7 @@ int Lowner()
 
 	for (i = 0; i < maxOwners; i++)
 	{
-		for (int j = 0; j < 32; j++)
+		for (int j = 0; j < maxPass; j++)
 		{
 			if (LogPass[j] != Owners[i].Password[j])
 			{
