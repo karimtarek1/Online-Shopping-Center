@@ -341,13 +341,13 @@ void Eowner(int j) {
 		{
 			cout << "Would you like to continue (Y/N) ?";
 			cin >> continuechoice;
-			if (continuechoice != 'Y' || continuechoice != 'y' || continuechoice != 'N' || continuechoice != 'n')
+			if (continuechoice == 'Y' || continuechoice == 'y' || continuechoice == 'N' || continuechoice == 'n')
 			{
-				cout << "Invalid Input\n";
+				flag2 = false;
 			}
 			else
 			{
-				flag2 = false;
+				cout << "Invalid Input";
 			}
 		}
 	}while (continuechoice == 'Y' || continuechoice == 'y');
