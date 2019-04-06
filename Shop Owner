@@ -308,7 +308,7 @@ void Eowner(int j) {
 		else if (editchoice == 'S' || editchoice == 's')
 		{
 			cout << "What do you want to edit ?" << endl;
-			cout << " 1-Shop Name \n 2-Address \n 3-Category";
+			cout << " 1-Shop Name \n 2-Address \n 3-Category \n";
 			cin >> shopEdit;
 			switch (shopEdit)
 			{
@@ -335,7 +335,7 @@ void Eowner(int j) {
 		}
 		else
 		{
-			cout << "Invalid Choice";
+			cout << "Invalid Choice\n";
 		}
 		while (flag2)
 		{
@@ -343,7 +343,7 @@ void Eowner(int j) {
 			cin >> continuechoice;
 			if (continuechoice != 'Y' || continuechoice != 'y' || continuechoice != 'N' || continuechoice != 'n')
 			{
-				cout << "Invalid Input";
+				cout << "Invalid Input\n";
 			}
 			else
 			{
