@@ -39,7 +39,6 @@ struct Owner
 	string Name;
 	int ID;
 	char Password[maxPass];
-	int passnum;
 	int PassNum;
 	int Age;
 	string Gender;
@@ -51,6 +50,7 @@ struct shopper {
 	string name;
 	int id;
 	char pass[maxPass];
+	int passnum;
 	int age;
 	string gender;
 	string adress;
