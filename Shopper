@@ -1,13 +1,12 @@
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <string.h>
 #include <conio.h>
-
 using namespace std;
-struct cart {
+
+struct cartt {
 	int qunatity;
-	string buyproduct = {0};
+	string buyproduct = { 0 };
 	double price;
 	double subtotal;
 
@@ -19,78 +18,88 @@ struct Product {
 	string Category = { 0 };
 	int Quantity = 0;
 };
-
 const int maxProducts = 50;
 Product products[maxProducts];
 
-struct shopper1 {
-	char name[1000];
-	char id[1000];
-	char pass[1000];
-	char age[1000];
-	char gender[100];
-	char adress[1000];
-};
-shopper1 s1[1000];
-void login();
-void registration();
-void update();
-void delete1();
-void view_products();
-void search();
-void cart(int nproduct);
-void addtocart();
-
-int main()
+struct shop
 {
-	string arrname;
-	int arrprice[1000], arrquantity[1000], nproducts, nproduct = 0;
-    char d;
-	char choose  = 'y';
-	while (choose == 'y' || choose == 'Y') {
-		cout << "registration : R \nlogin : L \nedit : E \ndelete : D \nenter your answer: ";
-		cin >> d;
-		switch (d) {
-		case 'r':
-		case 'R':
-			registration();
-			break;
-		case 'l':
-		case 'L':
-			login();
-			break;
-		case 'e':
-		case 'E':
-			update();
-			break;
-		case 'd':
-		case 'D':
-			delete1();
-		default:
-			cout << endl << "choose right number" << endl;
+	string shopName;
+	string category;
+	Product products[50];
+};
 
-		}
+struct owner
+{
+	string name;
+	int ID = 0;
+	shop shops;
+}owners[1000];
 
 
-		cout << endl << "do you want to choose another option?(y/n) \n your answer: ";
-		cin >> choose;
 
-	}
-	bool flag = true;
-	while (flag)
+int LogIndex;
+const int maxShoppers = 50;
+const int passMax = 32;
+
+struct shopper {
+	string name;
+	int id;
+	char pass[passMax];
+	int age;
+	string gender;
+	string adress;
+}Shoppers[maxShoppers];
+
+
+int login();
+void registration();
+void update(int j);
+void SLchoice();
+void SEchoice();
+void SeifChoice();
+void viewproducts();
+void search();
+void info(int, int);
+void chooseproduct(int& nproduct);
+void addtocart( int& nproduct,int x,int y);
+void cart(int& nproduct);
+void del(int j);
+
+
+
+
+
+
+int main() {
+	int nproduct = 0;
+	SLchoice();
+	SEchoice();
+    SeifChoice();
+	return 0;
+}
+
+
+
+
+
+
+
+void SeifChoice()
+{
+	cout << "To search for a product enter: S \n" << "To View products enter: V \n";
+	while (true)
 	{
-		cout << "To search for a product enter: S/s \n " << "To view the product that you searched for enter:V/v \n";
-		char c;
-		cin >> c;
-		switch (c)
+		char choice;
+		cin >> choice;
+		switch (choice)
 		{
 		case 'S':
 		case 's':
 			search();
 			break;
 		case 'V':
-		case 'v':                                                          
-			view_products();
+		case 'v':
+			viewproducts();
 			break;
 		}
 		cout << "Do you want to continue? (Y/N) \n";
@@ -98,304 +107,147 @@ int main()
 		cin >> f;
 		if (f != 'Y' || f != 'y')
 		{
-			flag = false;
-		}
-
-	}
-	return 0;
-	
-
-}
-
-void registration() {
-	fstream sho;
-	char choice;
-	char flag;
-	char a;
-	cout << "do you want to register a new email ? (y/n)" << endl;
-	cin >> flag;
-	if (flag == 'y' || flag == 'Y') {
-		for (int i = 0; i < 1000; i++) {
-			bool repeat = false;
-			cout << "enter your name : ";
-			cin >> s1[i].name;
-			for (int j = 0; j < i; j++) {
-				if (s1[j].name == s1[i].name)
-					repeat = true;
-			}
-			if (repeat) {
-				cout << "this name is already used" << endl;
-				continue;
-			}
-			cout << endl << "enter your id : ";
-			cin >> s1[i].id;
-			for (int k = 0; k < i; k++) {
-				if (s1[k].id == s1[i].id)
-					repeat = true;
-			}
-			if (repeat) {
-				cout << "this id is already used" << endl;
-				continue;
-			}
-			cout << endl << "enter your password :";
-			for (int e = 0; ;) {
-				a = _getch();
-				s1->pass[i] = a;
-				cout << "*";
-				++e;
-				if (a == '\r') {
-					s1->pass[i] = '\0';
-					break;
-				}
-				if (a == '\b'&&i >= 1) {
-					cout << "\b \b";
-					--i;
-				}
-			}
-			cout << endl << endl << "enter your age :";
-			cin >> s1[i].age;
-			cout << endl << "enter your Gender : ";
-			cin >> s1[i].gender;
-			cout << endl << "enter your adress: ";
-			cin >> s1[i].adress;
-
-			cout << endl << "your have registered succesfully" << endl;
-			cout << "do you want to create another email ? (y/n)" << endl;
-			cin >> choice;
-			sho.open("shopper.text", ios::app);
-			sho << s1[i].name << '|' << s1[i].id << '|' << s1[i].pass << '|' << s1[i].age << '|' << s1[i].gender << '|' << s1[i].adress << endl;
-			sho.close();
-			if (choice == 'y' || choice == 'y')
-				continue;
-			else if (choice == 'N' || choice == 'n')
-				break;
-		}
-	}
-
-
-
-}
-void login() {
-	char id[1000];
-	char a;
-	char password[1000];
-	bool x = false;
-	fstream sho;
-	sho.open("shopper.text", ios::in);
-	cout << endl << "enter your id : ";
-	cin >> id;
-	cout << endl << "enter your password : ";
-	for (int i = 0;;) {
-		a = _getch();
-		password[i] = a;
-		cout << "*";
-		i++;
-		if (a == '\r') {
-			s1->pass[i] = '\0';
-			break;
-
-		}
-		if (a == '\b'&&i >= 1) {
-			cout << "\b \b";
-			--i;
-		}
-
-	}
-
-	while (!sho.eof()) {
-		sho.getline(s1->id, 1000, '|');
-		if (strcmp(s1->id, id) == 0) {
-			x = true;
-			break;
-
-		}
-	}
-
-	if (x == false) {
-		cout << endl << "invalid" << endl;
-	}
-	else {
-		cout << endl << "you are logged in successfully" << endl;
-	}
-	sho.close();
-
-}
-void update() {
-	fstream sho;
-	fstream temp;
-	sho.open("shopper.text", ios::in);
-	temp.open("temp.text", ios::out);
-	char id[1000];
-	cout << endl << "enter the id to update the record \n your id : ";
-	cin >> id;
-	while (!sho.eof()) {
-		sho.getline(s1->name, 1000, '|');
-		sho.getline(s1->id, 1000, '|');
-		sho.getline(s1->pass, 1000, '|');
-		sho.getline(s1->age, 1000, '|');
-		sho.getline(s1->gender, 1000, '|');
-		sho.getline(s1->adress, 1000, '|');
-		if (strcmp(s1->id, id) == 0) {
-			cout << endl << "enter new values of record  " << endl;
-			cout << endl << "name:";
-			cin >> s1->name;
-			cout << endl << "id:";
-			cin >> s1->id;
-			cout << endl << "password:";
-			cin >> s1->pass;
-			cout << endl << "age:";
-			cin >> s1->adress;
-			cout << endl << "gender:";
-			cin >> s1->gender;
-			cout << endl << "adress:";
-			cin >> s1->adress;
-			temp << s1->name << '|' << s1->id << '|' << s1->pass << '|' << s1->age << '|' << s1->gender << '|' << s1->adress << endl;
-		}
-		else {
-			temp << s1->name << '|' << s1->id << '|' << s1->pass << '|' << s1->age << '|' << s1->gender << '|' << s1->adress << endl;
-		}
-
-	}
-	temp.close();
-	sho.close();
-
-	sho.open("shopper.text", ios::out);
-	temp.open("temp.text", ios::in);
-	while (!temp.eof()) {
-		temp.getline(s1->name, 1000, '|');
-		temp.getline(s1->id, 1000, '|');
-		temp.getline(s1->pass, 1000, '|');
-		temp.getline(s1->age, 1000, '|');
-		temp.getline(s1->gender, 1000, '|');
-		temp.getline(s1->adress, 1000, '|');
-		sho << s1->name << '|' << s1->id << '|' << s1->pass << '|' << s1->age << '|' << s1->gender << '|' << s1->adress << endl;
-	}
-	temp.close();
-	sho.close();
-	remove("temp.text");
-	cout << endl << "done" << endl;
-
-
-}
-void delete1() {
-	fstream sho;
-	fstream temp;
-	sho.open("shopper.text", ios::in);
-	temp.open("temp.text", ios::out);
-	char id[1000];
-	cout << endl << "enter the id to delete the record \n your id : ";
-	cin >> id;
-	while (!sho.eof()) {
-		sho.getline(s1->name, 1000, '|');
-		sho.getline(s1->id, 1000, '|');
-		sho.getline(s1->pass, 1000, '|');
-		sho.getline(s1->age, 1000, '|');
-		sho.getline(s1->gender, 1000, '|');
-		sho.getline(s1->adress, 1000, '|');
-		if (strcmp(s1->id, id) == 0) {
 			continue;
 		}
-		else {
-			temp << s1->name << '|' << s1->id << '|' << s1->pass << '|' << s1->age << '|' << s1->gender << '|' << s1->adress << endl;
+		else if (f != 'N' || f != 'n') {
+			break;
 		}
-
 	}
-	temp.close();
-	sho.close();
-
-	sho.open("shopper.text", ios::out);
-	temp.open("temp.text", ios::in);
-	while (!temp.eof()) {
-		temp.getline(s1->name, 1000, '|');
-		temp.getline(s1->id, 1000, '|');
-		temp.getline(s1->pass, 1000, '|');
-		temp.getline(s1->age, 1000, '|');
-		temp.getline(s1->gender, 1000, '|');
-		temp.getline(s1->adress, 1000, '|');
-		sho << s1->name << '|' << s1->id << '|' << s1->pass << '|' << s1->age << '|' << s1->gender << '|' << s1->adress << endl;
-	}
-	temp.close();
-	sho.close();
-	remove("temp.text");
-	cout << endl << "done" << endl;
-
 }
 
-void view_products()
-{
-	fstream products;
-	products.open("products.txt", ios::in);
-	char name[50];
-	char categories[50];
-	float price;
-	cout << " name of the product and its details \n";
-	while (!products.eof())
-	{
-		products.getline(name, 50);
-		cout << name << endl << price << endl;
+void viewproducts()
+{	
+	char flag;
+	int nproduct;
+	do {
+		int number = 1;
+		for (int i = 0; i < 1000; i++)
+		{
+			for (int j = 0; j < 50; j++)
+			{
+				if (owners[i].shops.products[j].productPrice != 0)
+				{
+					cout << "- Product Name -\t" << "- Product Price  -\t" << "- Product Category -\t" << "- Product Quantity -\n" << endl;
+					cout << number << ". " << owners[i].shops.products[j].productName << "\t" << owners[i].shops.products[j].productPrice << "\t" << owners[i].shops.products[j].Category << "\t" << owners[i].shops.products[j].Quantity;
+					number++;
+				}
+			}
+		} chooseproduct(nproduct);
+		cout << "Do you Want to continue shopping : [ y / n ] ";
+		cin >> flag;
+	} while (flag == 'y' || flag == 'Y'); 
+	
 		
 	}
-	products.close();
-}
 
 void search()
 {
-	fstream products;
-	products.open("products.txt", ios::in);
-	char name[50];
-
-	char a[50];
-	cout << "Enter the product that you want to search for: ";
-	cin.ignore();
-	cin.getline(a, 50);
-	int x = 0;
-	cout << " name of the product \n";
-	while (!products.eof())
+	string name;
+	cout << "Enter the Product's name: ";
+	cin >> name;
+	for (int i = 0; i < 1000; i++)
 	{
-		products.getline(name, 50);
-		if (strcmp(name, a) == 0) {
-			cout << name << endl;
-			x = 1;
-			break;
+		for (int j = 0; j < 50; j++)
+		{
+			if (name == owners[i].shops.products[j].productName)
+			{
+				info(i, j);
+			}
+			else
+			{
+				cout << "Out of Stock." << endl;
+			}
 		}
-
 	}
-	if (x == 0) {
-		cout << "not found" << endl;
-	}
-	products.close();
-}                                           
-
-
-void addtocart () {
-
-	int i = 0,n;
-
-	pcart[i].buyproduct = products[i].productName;
-	pcart[i].price =  products[i].productPrice;
-   
-	cout << "How many quantity do you want ?";
-	cin >> n;
-	pcart[i].qunatity = n;
-	if (pcart[i].qunatity <= products[i].Quantity) {
-		cout << "Your Product Added to cart " << endl; 
-	}
-	else
-		cout << " Your Quantity is not availble now in the stock !! We have ( " << products[i].Quantity << " ) only in the stock " << endl;
-
-	view_products();
-	
 }
-void cart(int nproduct) {
+
+void info(int i, int j)
+{
+	cout << owners[i].shops.products[j].productName << "\t" << owners[i].shops.products[j].productPrice << "\t" << owners[i].shops.products[j].Category << "\t" << owners[i].shops.products[j].Quantity;
+	cout << "************" << endl;
+
+}
+
+void chooseproduct(int& nproduct) {
+	int searchnum,x,y;
+	cout << " \nEnter The Number Of Product You Want To Add To Cart : ";
+	cin >> searchnum;
+	if (searchnum < 50) {
+		y = searchnum - 1;	x = 0;}
+	else if (searchnum >= 50  && searchnum < 100)  { y = searchnum - 50;   x = 1;  }
+	else if (searchnum >= 100 && searchnum < 150)  { y = searchnum - 100;  x = 2;  }
+	else if (searchnum >= 150 && searchnum < 200)  { y = searchnum - 150;  x = 2;  }
+	else if (searchnum >= 200 && searchnum < 250)  { y = searchnum - 200;  x = 3;  }
+	else if (searchnum >= 250 && searchnum < 300)  { y = searchnum - 250;  x = 4;  }
+	else if (searchnum >= 300 && searchnum < 350)  { y = searchnum - 300;  x = 5;  }
+	else if (searchnum >= 350 && searchnum < 400)  { y = searchnum - 450;  x = 6;  }
+	else if (searchnum >= 400 && searchnum < 450)  { y = searchnum - 400;  x = 7;  }
+	else if (searchnum >= 450 && searchnum < 500)  { y = searchnum - 550;  x = 8;  }
+	else if (searchnum >= 500 && searchnum < 550)  { y = searchnum - 500;  x = 9;  }
+	else if (searchnum >= 550 && searchnum < 600)  { y = searchnum - 550;  x = 10; }
+	else if (searchnum >= 600 && searchnum < 650)  { y = searchnum - 600;  x = 11; }
+	else if (searchnum >= 50  && searchnum < 700)  { y = searchnum - 650;  x = 12; }
+	else if (searchnum >= 700 && searchnum < 750)  { y = searchnum - 700;  x = 13; }
+	
+	addtocart(nproduct, x, y);
+
+};
+
+void addtocart(int& nproduct, int x,int y ) {
+
+	int n;
+	bool done = true;
+
+	pcart[nproduct].buyproduct = owners[x].shops.products[y].productName;
+	pcart[nproduct].price = owners[x].shops.products[y].productPrice;
+	do {
+		cout << "How many quantity do you want ?";
+		cin >> n;
+		if (n <= owners[x].shops.products[y].Quantity) {
+			cout << "Your Product Added to cart " << endl;
+			pcart[nproduct].qunatity = n;
+			owners[x].shops.products[y].Quantity -= n;
+			done = false;
+		}
+		else
+			cout << " Your Quantity is not availble now in the stock !! We have ( " << owners[x].shops.products[y].Quantity << " ) only in the stock " << endl;
+	} while (done);
+	
+	nproduct++;
+}
+
+void cart(int& nproduct) {
+
 	double total = 0;
-	char s;
+	char s,d;
+	int g,x=1;
 	cout << "********************** - YOUR CART - *********************" << endl;
 	cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
-	for (int i = 0; i < nproduct; i++) {     
+	for (int i = 0; i < nproduct; i++) {
 		pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
-		cout << pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
+		cout << x << '. '<< pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
 		total += pcart[i].subtotal;
+		x++;
 	}
+	cout << " TOTAL :  " << total << endl;
+	cout << " Do you want to delete any thing ??  [[ y / n ]] :  ";
+	cin >> d;
+	switch (d)
+	{
+	case 'y':
+	case 'Y':
+		cout << "Enter the number of the product you want to delete  : ";
+		cin >> g;
+		pcart[g-1] = { 0 };
+	
+	case 'n':
+	case 'N':
+		break; 
+	default:
+		cout << "!!! Enter valid choice !!!" << endl;
+	}
+	total = 0;
+	x = 1;
 	cout << "Press .V. to View receipt" << endl << "Press .R. to Return shopping" << endl;
 	cin >> s;
 	switch (s)
@@ -404,17 +256,19 @@ void cart(int nproduct) {
 	case 'V':
 		cout << "********************* TOTAL ITEMS **********************\n" << endl;
 		cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
-		for (int i = 0; i < nproduct; i++) {  
-			pcart[i].subtotal = ( pcart[i].qunatity  *  pcart[i].price);
-			cout << pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
-			total += pcart[i].subtotal;
+		for (int i = 0; i < nproduct; i++) {
+			if (pcart[i].price != 0) {
+				pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
+				cout << x << ". "<< pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
+				total += pcart[i].subtotal;
+			}
 		}
 		cout << "********************** TOTAL PRICE *********************\n" << endl;
 		cout << "Total price : " << total << '$';
 		break;
 	case 'R':
 	case 'r':
-		 view_products();
+		viewproducts();
 		break;
 	default:
 		cout << "!!! Enter valid choice !!!" << endl;
@@ -423,3 +277,231 @@ void cart(int nproduct) {
 
 }
 
+void registration() {
+	int j;
+	char choice;
+	char flag;
+	char a;
+	cout << "Do you want to Register a new Account ? (Y/N)" << endl;
+	cin >> flag;
+	if (flag == 'y' || flag == 'Y') {
+		for (int i = 0; i < passMax; i++) {
+			cout << "Enter your name : ";
+			cin >> Shoppers[i].name;
+			Shoppers[i].id = i + 1;
+			cout << "Your ID is : " << Shoppers[i].id << endl;
+
+			do {
+				cout << endl << "Enter a password of at least 6 digits" << endl;
+				cout << endl << "Enter your password : ";
+				for (j = 0; j < passMax;)
+				{
+					a = _getch();
+					if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+					{
+						Shoppers[j].pass[j] = a;
+						++j;
+						cout << "*";
+					}
+					if (a == '\b'&&j >= 1)
+					{
+						cout << "\b \b";
+						--j;
+					}
+					if (a == '\r')
+					{
+						Shoppers[j].pass[j] = '\0';
+						break;
+					}
+				}
+			} while (j <= 5);
+			cout << endl << endl << "Enter your age :";
+			cin >> Shoppers[i].age;
+			cout << endl << "Enter your Gender : ";
+			cin >> Shoppers[i].gender;
+			cout << endl << "Enter your adress: ";
+			cin >> Shoppers[i].adress;
+
+			cout << endl << "You have registered successfully" << endl;
+			cout << "Do you want to create another Account ? (Y/N)" << endl;
+			cin >> choice;
+			if (choice == 'y' || choice == 'y')
+				continue;
+			else if (choice == 'N' || choice == 'n')
+				break;
+		}
+	}
+
+}
+
+int login() {
+	int id;
+	int j, i;
+	char a;
+	char password[passMax];
+	bool x = false;
+	cout << endl << "Enter your ID : ";
+	cin >> id;
+	do {
+		cout << endl << "Enter a Password of at least 6 digits" << endl;
+		cout << endl << "Enter your Password : ";
+		for (j = 0;;)
+		{
+			a = _getch();
+			if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+			{
+				password[j] = a;
+				++j;
+				cout << "*";
+			}
+			if (a == '\b'&&j >= 1)
+			{
+				cout << "\b \b";
+				--j;
+			}
+			if (a == '\r')
+			{
+				password[j] = '\0';
+				break;
+			}
+		}
+	} while (j <= 5);
+
+	for (i = 0; i < passMax; i++) {
+		if (id == Shoppers[i].id && password == Shoppers[i].pass) {
+			x = true;
+		}
+
+	}
+
+	if (x == true) {
+		cout << endl << "you are logged in successfully" << endl;
+	}
+	else {
+		cout << endl << "Either the ID or Password is incorrect" << endl;
+		i = maxShoppers;
+	}
+	return i;
+
+
+}
+
+void update(int j) {
+	char editchoices, gender;
+	int regedit, shopEdit;
+	cout << "Editing your information\n";
+	cout << "Would you like to edit your registration data (Y/N) ? ";
+	cin >> editchoices;
+	if (editchoices == 'Y' || editchoices == 'y') {
+		cout << "What do you want to edit ? " << endl;
+		cout << " 1-Name \n 2-ID \n 3-Password \n 4-Age \n 5-Gender \n 6-Address" << endl;
+		cout << "Choice: "; cin >> regedit;
+		switch (regedit) {
+		case 1: cout << "New Name : ";
+			cin >> Shoppers[j].name;
+			break;
+
+		case 2:  cout << "New ID : ";
+			cin >> Shoppers[j].id;
+			break;
+
+		case 3: cout << "New Password :";
+			cin >> Shoppers[j].pass;
+			break;
+
+		case 4: cout << "New Age : ";
+			cin >> Shoppers[j].age;
+			break;
+
+		case 5: cout << "New Gender(Female/male) : ";
+			cin >> gender;
+			if (gender == 'M' || gender == 'm')
+			{
+				Shoppers[j].gender = "Male";
+			}
+			else if (gender == 'F' || gender == 'f')
+			{
+				Shoppers[j].gender = "Female";
+			}
+			else { cout << "Error"; }
+			break;
+
+		case 6: cout << "New Address : ";
+			cin >> Shoppers[j].adress;
+			break;
+
+		default: cout << "Invalid";
+			break;
+		}
+	}
+	else { cout << "Invalid Choice"; }
+}
+
+void SLchoice()
+{
+	char c;
+	char Loginchoice;
+	cout << "Do you want to register or login , (R/L)? ";
+	cin >> Loginchoice;
+	do {
+		switch (Loginchoice)
+		{
+		case 'l':
+		case 'L': LogIndex = login();
+			break;
+		case'r':
+		case'R': registration();
+
+		default: cout << "You may continue/n";
+			break;
+		}
+		if (LogIndex == maxShoppers) {
+			cout << "Would you like to try again, (Y/N)? ";
+			cin >> c;
+		}
+		else {
+			c = 'n';
+		}
+	} while (c == 'y' || c == 'Y');
+}
+
+void SEchoice()
+{
+	char Editchoice;
+	cout << "Do you want to edit your data , (Y/N)? ";
+	cin >> Editchoice;
+	switch (Editchoice)
+	{
+	case'y':
+	case'Y':update(LogIndex);
+		break;
+	default:cout << "You may continue/n";
+		break;
+	}
+}
+
+void del(int j) {
+	char choice;
+	cout << endl << "are you sure you want to delete your account? (y/n) ";
+	cin >> choice;
+	switch (choice) {
+	case'y':
+	case'Y':
+
+		Shoppers[j].name = { 0 };
+		Shoppers[j].id = 0;
+		for (int i = 0; i < 1000; i++) {
+			Shoppers[j].pass[i] = { 0 };
+		}
+		Shoppers[j].age = 0;
+		Shoppers[j].gender = { 0 };
+		Shoppers[j].adress = { 0 };
+
+		cout << "your account has been deleted" << endl;
+		break;
+	default:
+		break;
+
+	}
+
+}
