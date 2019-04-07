@@ -8,7 +8,7 @@ int LogIndex;
 const int maxShoppers = 50, maxOwners = 50, maxProds = 15, maxPass = 32;
 
 struct addshopper {
-   
+
 	string Country;
 	string City;
 
@@ -296,11 +296,11 @@ void cart() {
 }
 
 void registration() {
-	int j,i;
+	int j, i;
 	char choice;
 	bool flag = true;
-	
-	
+
+
 	for (int i = 0; i < maxShoppers; i++) {
 		if (Shoppers[i].age == 0)
 		{
@@ -318,7 +318,7 @@ void registration() {
 					a = _getch();
 					if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
 					{
-						Shoppers[j].pass[j] = a;
+						Shoppers[i].pass[j] = a;
 						++j;
 						cout << "*";
 					}
@@ -367,15 +367,15 @@ void registration() {
 			break;
 		}
 	}
-		
+
 }
 
 int login() {
 	int j;
-	bool flag = true;
+	bool flag;
 	int LogID, i;
 	char LogPass[maxPass];
-	
+
 	cout << " \n Enter Your Data\n";
 	cout << endl << "Enter your ID : ";
 	cin >> LogID;
@@ -408,6 +408,7 @@ int login() {
 
 	for (i = 0; i < maxShoppers; i++)
 	{
+		flag = true;
 		if (j > Shoppers[i].passnum || j < Shoppers[i].passnum) {
 			flag = false;
 		}
