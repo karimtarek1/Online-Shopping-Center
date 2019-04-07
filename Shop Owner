@@ -252,6 +252,7 @@ int Lowner()
 
 	for (i = 0; i < maxOwners; i++)
 	{
+		flag = true;
 		if (j > Owners[i].PassNum || j < Owners[i].PassNum) {
 			flag = false;
 		}
