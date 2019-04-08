@@ -523,9 +523,9 @@ void SLchoice()
 {
 	char c;
 	char Loginchoice;
-	cout << "Do you want to register or login , [ R / L ] ? : ";
 	cin >> Loginchoice;
 	do {
+		cout << "Do you want to register or login , [ R / L ] ? : ";
 		switch (Loginchoice)
 		{
 		case 'l':
