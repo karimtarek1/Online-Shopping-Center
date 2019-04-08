@@ -8,12 +8,6 @@ using namespace std;
 int LogIndex;
 const int maxShoppers = 25, maxOwners = 25, maxProds = 10, maxPass = 32;
 
-struct Clothing
-{
-	char Size;
-	char Type;
-	string Color;
-};
 struct addshopper {
 
 	string Country;
@@ -35,8 +29,7 @@ struct Product
 {
 	string productName = { 0 };
 	double productPrice = 0;
-	string Category;
-	Clothing Clothes;
+	string Category = { 0 };
 	int Quantity = 0;
 };
 
@@ -45,7 +38,6 @@ struct Shop
 	string ShopName;
 	string ShopAddress;
 	string Category;
-	Clothing Clothes;
 	Product products[maxProds];
 };
 
@@ -87,7 +79,7 @@ void cart();
 void del(int j);
 
 int main() {
-	SeifChoice();
+	welcome();
 	return 0;
 }
 void welcome() {
@@ -136,12 +128,7 @@ void viewproducts()
 			{
 				if (Owners[i].Shops.products[j].productPrice != 0)
 				{
-					if (Owners[j].Shops.products[i].Category == "Clothing") {
-						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << " " << Owners[j].Shops.products[i].Clothes.Type << " " << Owners[j].Shops.products[i].Clothes.Color << " " << Owners[j].Shops.products[i].Clothes.Size << "\t" << Owners[i].Shops.products[j].Quantity;
-					}
-					else {
-						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << "\t" << Owners[i].Shops.products[j].Quantity;
-					}
+					cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << "\t" << Owners[i].Shops.products[j].Quantity;
 					number++;
 				}
 			}
@@ -404,7 +391,7 @@ int login() {
 	bool tri = false;
 	int LogID, i, x;
 	char LogPass[maxPass];
-	do {
+
 		cout << " \n Enter Your Data\n";
 		cout << endl << "Enter your ID : ";
 		cin >> LogID;
@@ -461,19 +448,13 @@ int login() {
 		{
 			cout << "\nEither the ID or Password is incorrect\n\n" << endl;
 			i = maxShoppers;
-			cout << "Press --1-- TO try Again:\n\n ";
-			cout << "Press --2-- TO Registration:\n\n ";
-			cout << " Choice :  ";
-		}cin >> x;
-	} while (x == 1);
-	if (x == 2) {
-		registration();
-	}
+			SLchoice();
+		}
 
-	return i;
-	SeifChoice();
+		return i;
+	
+
 }
-
 void update(int j) {
 
 	char editchoices, gender;
