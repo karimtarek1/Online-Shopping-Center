@@ -336,7 +336,7 @@ void Eowner(int j) {
 	cout << "Editing your information\n";
 	do {
 		flag = true;
-		cout << "Would you like to edit your registration data , your Shop data or delete your account (R/S/D) ? ";
+		cout << "Would you like to edit your registration data , your Shop data , delete your account or exit. (R/S/D/X) ? ";
 		cin >> editchoice;
 		if (editchoice == 'R' || editchoice == 'r')
 		{
@@ -496,6 +496,9 @@ void Eowner(int j) {
 		{
 			removeReg(LogIndex);
 		}
+		else if (editchoice == 'X' || editchoice == 'x') {
+			break;
+		}
 		else
 		{
 			cout << "Invalid Choice\n";
@@ -621,8 +624,7 @@ void addProds(int j)
 					Owners[j].Shops.products[i].Clothes.Size = Owners[j].Shops.Clothes.Size;
 					cout << "Product's Category : ";
 					Owners[j].Shops.products[i].Category = Owners[j].Shops.Category;
-					cout << Owners[j].Shops.products[i].Category << endl;
-					cout << "Type : " << Owners[j].Shops.products[i].Clothes.Type << "   Color : " << Owners[j].Shops.products[i].Clothes.Color << "   Size : " << Owners[j].Shops.products[i].Clothes.Size;
+					cout << Owners[j].Shops.products[i].Category;
 				}
 				else {
 					cout << "Product's Category : ";
