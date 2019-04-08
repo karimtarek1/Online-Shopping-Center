@@ -29,7 +29,6 @@ struct Shop
 	string ShopName;
 	shopAddress Add1;
 	string Category;
-	Clothing Clothes;
 	Product products[maxProds];
 };
 struct ownerAddress {
@@ -202,9 +201,6 @@ void RegShop(int i)
 				break;
 			case 4:
 				Owners[i].Shops.Category = "Clothing";
-				cout << "Type (M/F) : "; cin >> Owners[i].Shops.Clothes.Type;
-				cout << "Color : "; cin >> Owners[i].Shops.Clothes.Color;
-				cout << "Size (S/M/L) : "; cin >> Owners[i].Shops.Clothes.Size;
 				break;
 			case 5:
 				Owners[i].Shops.Category = "Shoes&Bags";
@@ -619,9 +615,9 @@ void addProds(int j)
 				cin >> Owners[j].Shops.products[i].productPrice;
 
 				if (Owners[j].Shops.products[i].Category == "Clothing") {
-					Owners[j].Shops.products[i].Clothes.Type = Owners[j].Shops.Clothes.Type;
-					Owners[j].Shops.products[i].Clothes.Color = Owners[j].Shops.Clothes.Color;
-					Owners[j].Shops.products[i].Clothes.Size = Owners[j].Shops.Clothes.Size;
+					cout << "Type (M/F) : "; cin >> Owners[i].Shops.Clothes.Type;
+					cout << "Color : "; cin >> Owners[i].Shops.Clothes.Color;
+					cout << "Size (S/M/L) : "; cin >> Owners[i].Shops.Clothes.Size;
 					cout << "Product's Category : ";
 					Owners[j].Shops.products[i].Category = Owners[j].Shops.Category;
 					cout << Owners[j].Shops.products[i].Category;
@@ -756,15 +752,7 @@ void removeReg(int j)
 		Owners[j].Add2.Country = { 0 };
 		Owners[j].Add2.City = { 0 };
 		Owners[j].Shops.ShopName = { 0 };
-		if (Owners[j].Shops.Category == "Clothing") {
-			Owners[j].Shops.Clothes.Type = { 0 };
-			Owners[j].Shops.Clothes.Color = { 0 };
-			Owners[j].Shops.Clothes.Size = { 0 };
-			Owners[j].Shops.Category = { 0 };
-		}
-		else {
-			Owners[j].Shops.Category = { 0 };
-		}
+		Owners[j].Shops.Category = { 0 };
 		Owners[j].Shops.Category = { 0 };
 		Owners[j].Shops.Add1.Country = { 0 };
 		Owners[j].Shops.Add1.City = { 0 };
