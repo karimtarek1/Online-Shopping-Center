@@ -3,7 +3,7 @@
 #include<string>
 
 using namespace std;
-const int maxOwners = 25, maxProds = 10, maxPass = 32;
+const int maxOwners = 25, maxProds = 15, maxPass = 32;
 int LogIndex = maxOwners;
 
 struct Clothing
