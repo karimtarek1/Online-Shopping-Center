@@ -72,19 +72,30 @@ int main()
 void RegChoice()
 {
 	int RegIndex;
-	char choice;
-	do
-	{
-		cout << "Would you like to Register? (Y/N) : ";
-		cin >> choice;
-		if (choice == 'y' || choice == 'Y')
+	int choice;
+	cout << " \n***************************************************   WELCOME  ****************************************************** \n";
+	cout << "\nPress -- 1 -- To Login.\n ";
+	cout << "\nPress -- 2 -- T0 Register.\n";
+	cout << "\n\n Choice :  ";
+	cin >> choice;
+	system("cls");
+	if (choice == 2) {
+		do
 		{
-			RegIndex = RegOwner();
-			RegShop(RegIndex);
-			cout << "Would you like to Register again? (Y/N) : ";
-			cin >> choice;
-		}
-	} while (choice == 'Y' || choice == 'y');
+
+			{
+				RegIndex = RegOwner();
+				system("cls");
+				RegShop(RegIndex);
+				system("cls");
+				cout << "\nPress -- 1 --  T0 Continue. \n\n";
+				cout << "\nPress -- 2 --  T0 Register Again. \n\n";
+				cin >> choice;
+			}
+		} while (choice == 2);
+	}
+	else
+		Lowner();
 }
 
 int RegOwner()
@@ -96,14 +107,14 @@ int RegOwner()
 	{
 		if (Owners[j].Age == 0)
 		{
-			cout << "Enter your name: ";
+			cout << "\nEnter Your Name: ";
 			cin >> Owners[j].Name;
 			Owners[j].ID = j + 1;
-			cout << "Your ID is :" << Owners[j].ID << endl;
+			cout << "\nYour ID Is :" << Owners[j].ID << endl;
 
 			do
 			{
-				cout << "Enter your password of at least 6 digits. : ";
+				cout << "\nEnter Your Password Of At Least 6 Digits. : ";
 				char a;
 				for (i = 0; i < maxPass;)
 				{
@@ -130,9 +141,9 @@ int RegOwner()
 				}
 				cout << endl;
 			} while (i <= 5);
-			cout << "Enter your age : ";
+			cout << "\nEnter Your Age : ";
 			cin >> Owners[j].Age;
-			cout << "Enter your gender (M/F) : ";
+			cout << "\nEnter Your Gender [ M / F ] : ";
 			while (flag)
 			{
 				cin >> gender;
@@ -148,14 +159,14 @@ int RegOwner()
 				}
 				else
 				{
-					cout << "Please enter a valid gender(M/F) : ";
+					cout << "Please Enter A Valid Gender [ M / F ] : ";
 				}
 			}
 			Owners[j].Gender = gender;
-			cout << "Enter your Address. \nCountry : ";
+			cout << "\nEnter your Address. \n\nCountry : ";
 			cin >> Owners[j].Add2.Country;
 			cout << "City : "; cin >> Owners[j].Add2.City;
-			cout << "You have registered successfully" << endl << endl;
+			cout << "You Have Registered Successfully" << endl << endl;
 			break;
 		}
 	}
@@ -168,7 +179,7 @@ void RegShop(int i)
 	string shopName;
 	int categoryChoice, gameChoice, bookChoice;
 	bool flag1 = true, flag2 = false, flag3 = false, flag4 = false;
-	cout << "Enter your shop name: ";
+	cout << "\nEnter your shop name: ";
 	cin >> shopName;
 	for (int j = 0; j < maxOwners; j++)
 	{
@@ -183,11 +194,12 @@ void RegShop(int i)
 	if (flag1)
 	{
 		Owners[i].Shops.ShopName = shopName;
-		cout << "Enter your Shop's Address.\nCountry : ";
+		cout << "\nEnter Your Shop's Address. \n\nCountry : ";
 		cin >> Owners[i].Shops.Add1.Country;
-		cout << "City : "; cin >> Owners[i].Shops.Add1.City;
-		cout << "Choose one of our available Categories : 1) Phones & Tablets. \n2) Electronics. \n3) Makeup & Accessories. \n4) Clothing. \n5) Shoes & Bags. \n6) Books. \n7)Gaming.\n";
-		cout << "Choice : "; cin >> categoryChoice;
+		cout << "City : ";
+		cin >> Owners[i].Shops.Add1.City;
+		cout << "\n\nChoose One Of Our Available Categories :\n\n[ 1 ] Phones & Tablets. \n\n[ 2 ] Electronics. \n\n[ 3 ] Makeup & Accessories. \n\n[ 4 ] Clothing. \n\n[ 5 ] Shoes & Bags. \n\n[ 7 ] Books. \n\n[ 7 ] Gaming.\n";
+		cout << endl << "\nChoice : "; cin >> categoryChoice;
 		do {
 			switch (categoryChoice) {
 			case 1:
@@ -263,12 +275,12 @@ int Lowner()
 	bool flag = true;
 	int LogID, i;
 	char LogPass[maxPass];
-	cout << "Please enter your Login Data" << endl;
-	cout << "ID :";
+	cout << "\nPlease Enter Your Login Data :" << endl;
+	cout << "\n\nID :";
 	cin >> LogID;
 	do
 	{
-		cout << "Enter your Password." << endl;
+		cout << "\nEnter your Password." << endl;
 		cout << "Password : ";
 		char a;
 		for (j = 0;;)
@@ -399,11 +411,11 @@ void Eowner(int j) {
 				switch (shopEdit)
 				{
 				case 1:
-					cout << "Shop Name : ";
+					cout << "New Shop Name : ";
 					cin >> Owners[j].Shops.ShopName;
 					break;
 				case 2:
-					cout << "Shop Address.\nCountry : ";
+					cout << "New Shop Address.\nCountry : ";
 					cin >> Owners[j].Shops.Add1.Country;
 					cout << "City : "; cin >> Owners[j].Shops.Add1.City;
 					break;
@@ -423,9 +435,6 @@ void Eowner(int j) {
 							break;
 						case 4:
 							Owners[j].Shops.Category = "Clothing";
-							cout << "Type (M/F) : "; cin >> Owners[j].Shops.Clothes.Type;
-							cout << "Color : "; cin >> Owners[j].Shops.Clothes.Color;
-							cout << "Size (S/M/L) : "; cin >> Owners[j].Shops.Clothes.Size;
 							break;
 						case 5:
 							Owners[j].Shops.Category = "Shoes&Bags";
@@ -615,9 +624,9 @@ void addProds(int j)
 				cin >> Owners[j].Shops.products[i].productPrice;
 
 				if (Owners[j].Shops.products[i].Category == "Clothing") {
-					cout << "Type (M/F) : "; cin >> Owners[i].Shops.Clothes.Type;
-					cout << "Color : "; cin >> Owners[i].Shops.Clothes.Color;
-					cout << "Size (S/M/L) : "; cin >> Owners[i].Shops.Clothes.Size;
+					cout << "Type [ M / F ] : "; cin >> Owners[i].Shops.products[i].Clothes.Type;
+					cout << "Color : "; cin >> Owners[i].Shops.products[i].Clothes.Color;
+					cout << "Size [ S / M / L ] : "; cin >> Owners[i].Shops.products[i].Clothes.Size;
 					cout << "Product's Category : ";
 					Owners[j].Shops.products[i].Category = Owners[j].Shops.Category;
 					cout << Owners[j].Shops.products[i].Category;
