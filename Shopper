@@ -6,7 +6,7 @@
 using namespace std;
 
 int LogIndex;
-const int maxShoppers = 50, maxOwners = 50, maxProds = 15, maxPass = 32;
+const int maxShoppers = 25, maxOwners = 25, maxProds = 10, maxPass = 32;
 
 struct addshopper {
 
@@ -83,7 +83,7 @@ int main() {
 	return 0;
 }
 void welcome() {
-	
+
 	system("cls");
 	cout << " *************************************** ------ WELCOME ------ ************************************************\n" << endl;
 	SLchoice();
@@ -122,9 +122,9 @@ void viewproducts()
 	do {
 		int number = 1;
 		cout << "- Product Name -\t" << "- Product Price  -\t" << "- Product Category -\t" << "- Product Quantity -\n" << endl;
-		for (int i = 0; i < 1000; i++)
+		for (int i = 0; i < maxShoppers; i++)
 		{
-			for (int j = 0; j < 50; j++)
+			for (int j = 0; j < maxProds; j++)
 			{
 				if (Owners[i].Shops.products[j].productPrice != 0)
 				{
@@ -146,19 +146,19 @@ void search()
 	int x = 1;
 	cout << "Enter the Product's name: ";
 	cin >> name;
-	for (int i = 0; i < 1000; i++)
+	for (int i = 0; i < maxShoppers; i++)
 	{
-		for (int j = 0; j < 50; j++)
+		for (int j = 0; j < maxProds; j++)
 		{
 			if (name == Owners[i].Shops.products[j].productName)
 			{
 				info(i, j);
 				x++;
 			}
-			
+
 		}
-	}if (x > 1)
-		cout << " Out Of Stock.  ";
+	}if (x == 1)
+		cout << "Out Of Stock.  ";
 }
 
 void info(int i, int j)
@@ -176,16 +176,16 @@ void info(int i, int j)
 		addtocart(i, j);
 		SeifChoice();
 		break;
-		
+
 	case 'n':
 	case'N':
 
 		SeifChoice();
 
-	default :
+	default:
 		cout << "\n\n !!! Invalid Choice  \n\n";
 	}
-	
+
 
 }
 
@@ -315,7 +315,7 @@ void registration() {
 	bool flag = true;
 
 
-	for (int i = 0; i < maxShoppers; i++) {
+	for (i = 0; i < maxShoppers; i++) {
 		if (Shoppers[i].age == 0)
 		{
 			cout << "\n\nEnter your name : ";
@@ -385,11 +385,11 @@ void registration() {
 }
 
 int login() {
-	
+
 	int j;
 	bool flag;
 	bool tri = false;
-	int LogID, i,x;
+	int LogID, i, x;
 	char LogPass[maxPass];
 	do {
 		cout << " \n Enter Your Data\n";
@@ -447,16 +447,16 @@ int login() {
 		if (flag == false)
 		{
 			cout << "\nEither the ID or Password is incorrect\n\n" << endl;
-			i = maxShoppers;	
+			i = maxShoppers;
 			cout << "Press --1-- TO try Again:\n\n ";
 			cout << "Press --2-- TO Registration:\n\n ";
 			cout << " Choice :  ";
 		}cin >> x;
-	} while (x == 1 );
+	} while (x == 1);
 	if (x == 2) {
 		registration();
 	}
-	
+
 	return i;
 	SeifChoice();
 }
@@ -507,12 +507,12 @@ void update(int j) {
 			break;
 
 		default: cout << "Invalid";
-			
-		} cout << "\nDo you want to edit anything else  ? [ Y \ N ]\n"<<endl;
+
+		} cout << "\nDo you want to edit anything else  ? [ Y \ N ]\n" << endl;
 		cin >> editchoices;
 	}
-       cout << "Invalid Choice !!!!"; 
-	   SeifChoice();
+	cout << "Invalid Choice !!!!";
+	SeifChoice();
 }
 
 void SLchoice()
@@ -531,9 +531,9 @@ void SLchoice()
 		case'R': registration();
 			login();
 			break;
-		
+
 		default: cout << "!!! Invalid Choice !!!";
-	
+
 		}
 		if (LogIndex == maxShoppers) {
 			cout << "Would you like to try again, (Y/N)? : ";
@@ -555,7 +555,7 @@ void del(int j) {
 
 		Shoppers[j].name = { 0 };
 		Shoppers[j].id = 0;
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < maxShoppers; i++) {
 			Shoppers[j].pass[i] = { 0 };
 		}
 		Shoppers[j].age = 0;
