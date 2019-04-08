@@ -91,7 +91,9 @@ void RegChoice()
 				system("cls");
 				cout << "\nPress -- 1 --  T0 Continue. \n\n";
 				cout << "\nPress -- 2 --  T0 Register Again. \n\n";
+				cout << "Choice : ";
 				cin >> choice;
+				system("cls");
 			}
 		} while (choice == 2);
 	}
@@ -102,7 +104,7 @@ void RegChoice()
 int RegOwner()
 {
 	int i, j;
-	char gender,cont;
+	char gender, cont;
 	bool flag = true;
 	for (j = 0; j < maxOwners; j++)
 	{
@@ -278,6 +280,7 @@ int Lowner()
 	int j;
 	bool flag = true;
 	int LogID, i;
+	char cont;
 	char LogPass[maxPass];
 	cout << "\nPlease Enter Your Login Data :" << endl;
 	cout << "\n\nID :";
@@ -328,8 +331,12 @@ int Lowner()
 		if (LogID == Owners[i].ID && (flag))
 		{
 			cout << "\n             ***************************  You have successfully Logged In. ************************* \n";
+			cout << "\n\n Press Key To Continue ";
+			cin >> cont;
+			system("cls");
 			break;
 		}
+
 	}
 	if (flag == false)
 	{
@@ -545,7 +552,7 @@ void OLchoice()
 		if (LogIndex == maxOwners)
 		{
 			cout << "\n\nWould You Like To Try Again.?  [ Y / N ]  \n\n";
-			cout << "Choice : "; 
+			cout << "Choice : ";
 			cin >> Logchoice;
 		}
 		else
@@ -650,14 +657,14 @@ void addProds(int j)
 					Owners[j].Shops.products[i].Category = Owners[j].Shops.Category;
 					cout << Owners[j].Shops.products[i].Category << endl;
 				}
-				cout << "\n\nProduct's Quantity : ";
+				cout << "\n\nProduct's Quantity : \n\n";
 				cin >> Owners[j].Shops.products[i].Quantity;
 
 				break;
 			}
 		}
 		cout << "Do You Want To Enter a Product ? [ Y / N ] : \n\n";
-			cout << "Choice :  ";
+		cout << "Choice :  ";
 		cin >> choice;
 
 		if (choice == 'N' || choice == 'n')
@@ -743,7 +750,7 @@ void viewProds(int j)
 		{
 			if (Owners[j].Shops.products[i].productPrice != 0)
 			{
-				cout << Owners[j].Shops.products[i].productName << "  \t  " << Owners[j].Shops.products[i].productPrice << "$" << "   \t  " << Owners[j].Shops.products[i].Category << "  \t " << Owners[j].Shops.products[i].Quantity <<endl << endl;
+				cout << Owners[j].Shops.products[i].productName << "  \t  " << Owners[j].Shops.products[i].productPrice << "$" << "   \t  " << Owners[j].Shops.products[i].Category << "  \t " << Owners[j].Shops.products[i].Quantity << endl << endl;
 			}
 		}
 		cout << "\n\nDo you want to view your products? [ Y / N ] : \n\n";
