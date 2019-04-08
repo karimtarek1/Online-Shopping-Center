@@ -75,7 +75,7 @@ void RegChoice()
 	int choice;
 	cout << " \n***************************************************   WELCOME  ****************************************************** \n";
 	cout << "\nPress -- 1 -- To Login.\n ";
-	cout << "\nPress -- 2 -- T0 Register.\n";
+	cout << "\nPress -- 2 -- To Register.\n";
 	cout << "\n\n Choice :  ";
 	cin >> choice;
 	system("cls");
