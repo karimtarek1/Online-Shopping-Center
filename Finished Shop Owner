@@ -4,13 +4,20 @@
 
 using namespace std;
 const int maxOwners = 50, maxProds = 15, maxPass = 32;
-int LogIndex =maxOwners;
+int LogIndex = maxOwners;
 
+struct Clothing
+{
+	char Size;
+	char Type;
+	string Color;
+};
 struct Product
 {
 	string productName = { 0 };
 	double productPrice = 0;
 	string Category;
+	Clothing Clothes;
 	int Quantity = 0;
 };
 struct shopAddress {
@@ -22,6 +29,7 @@ struct Shop
 	string ShopName;
 	shopAddress Add1;
 	string Category;
+	Clothing Clothes;
 	Product products[maxProds];
 };
 struct ownerAddress {
@@ -159,8 +167,8 @@ void RegShop(int i)
 {
 
 	string shopName;
-	int categoryChoice;
-	bool flag1 = true , flag2 = false;
+	int categoryChoice, gameChoice, bookChoice;
+	bool flag1 = true, flag2 = false, flag3 = false, flag4 = false;
 	cout << "Enter your shop name: ";
 	cin >> shopName;
 	for (int j = 0; j < maxOwners; j++)
@@ -180,7 +188,7 @@ void RegShop(int i)
 		cin >> Owners[i].Shops.Add1.Country;
 		cout << "City : "; cin >> Owners[i].Shops.Add1.City;
 		cout << "Choose one of our available Categories : 1) Phones & Tablets. \n2) Electronics. \n3) Makeup & Accessories. \n4) Clothing. \n5) Shoes & Bags. \n6) Books. \n7)Gaming.\n";
-		cout << "choice : "; cin >> categoryChoice;
+		cout << "Choice : "; cin >> categoryChoice;
 		do {
 			switch (categoryChoice) {
 			case 1:
@@ -194,15 +202,55 @@ void RegShop(int i)
 				break;
 			case 4:
 				Owners[i].Shops.Category = "Clothing";
+				cout << "Type (M/F) : "; cin >> Owners[i].Shops.Clothes.Type;
+				cout << "Color : "; cin >> Owners[i].Shops.Clothes.Color;
+				cout << "Size (S/M/L) : "; cin >> Owners[i].Shops.Clothes.Size;
 				break;
 			case 5:
 				Owners[i].Shops.Category = "Shoes&Bags";
 				break;
 			case 6:
 				Owners[i].Shops.Category = "Books";
+				cout << "1) Novels.\t2) Magazines.\t3) Short Stories.\n Choice :";
+				cin >> bookChoice;
+				do {
+					switch (bookChoice) {
+					case 1:
+						Owners[i].Shops.Category = "Books_Novels";
+						break;
+					case 2:
+						Owners[i].Shops.Category = "Books_Magazines";
+						break;
+					case 3:
+						Owners[i].Shops.Category = "Books_ShortStories";
+						break;
+					default:
+						cout << "Invalid choice.";
+						flag4 = true;
+						break;
+					}
+				} while (flag4);
 				break;
 			case 7:
-				Owners[i].Shops.Category = "Gaming";
+				cout << "1) Pc Games.\t2) PS4 Games.\t3) Xbox Games.\n Choice : ";
+				cin >> gameChoice;
+				do {
+					switch (gameChoice) {
+					case 1:
+						Owners[i].Shops.Category = "Gaming_PC";
+						break;
+					case 2:
+						Owners[i].Shops.Category = "Gaming_PS4";
+						break;
+					case 3:
+						Owners[i].Shops.Category = "Gaming_Xbox";
+						break;
+					default:
+						cout << "Invalid choice.";
+						flag3 = true;
+						break;
+					}
+				} while (flag3);
 				break;
 			default:
 				flag2 = true;
@@ -283,6 +331,8 @@ void Eowner(int j) {
 	char editchoice, gender, continuechoice;
 	int regedit, shopEdit;
 	bool flag = true;
+	int categoryChoice, gameChoice, bookChoice;
+	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false;
 	cout << "Editing your information\n";
 	do {
 		flag = true;
@@ -349,27 +399,98 @@ void Eowner(int j) {
 			cout << "What do you want to edit ?" << endl;
 			cout << "1-Shop Name \n2-Address \n3-Category \n4-Stop";
 			cout << "Choice: "; cin >> shopEdit;
-			switch (shopEdit)
-			{
-			case 1:
-				cout << "Shop Name : ";
-				cin >> Owners[j].Shops.ShopName;
-				break;
-			case 2:
-				cout << "Shop Address.\nCountry : ";
-				cin >> Owners[j].Shops.Add1.Country;
-				cout << "City : "; cin >> Owners[j].Shops.Add1.City;
-				break;
-			case 3:
-				cout << "Category : ";
-				cin >> Owners[j].Shops.Category;
-				break;
-			case 4:
-				break;
-			default:
-				cout << "Invalid Input";
-				break;
-			}
+			do {
+				switch (shopEdit)
+				{
+				case 1:
+					cout << "Shop Name : ";
+					cin >> Owners[j].Shops.ShopName;
+					break;
+				case 2:
+					cout << "Shop Address.\nCountry : ";
+					cin >> Owners[j].Shops.Add1.Country;
+					cout << "City : "; cin >> Owners[j].Shops.Add1.City;
+					break;
+				case 3:
+					cout << "Choose one of our available Categories : 1) Phones & Tablets. \n2) Electronics. \n3) Makeup & Accessories. \n4) Clothing. \n5) Shoes & Bags. \n6) Books. \n7)Gaming.\n";
+					cout << "Choice : "; cin >> categoryChoice;
+					do {
+						switch (categoryChoice) {
+						case 1:
+							Owners[j].Shops.Category = "Phones&Tablets";
+							break;
+						case 2:
+							Owners[j].Shops.Category = "Electronics";
+							break;
+						case 3:
+							Owners[j].Shops.Category = "Makeup&Acessories";
+							break;
+						case 4:
+							Owners[j].Shops.Category = "Clothing";
+							cout << "Type (M/F) : "; cin >> Owners[j].Shops.Clothes.Type;
+							cout << "Color : "; cin >> Owners[j].Shops.Clothes.Color;
+							cout << "Size (S/M/L) : "; cin >> Owners[j].Shops.Clothes.Size;
+							break;
+						case 5:
+							Owners[j].Shops.Category = "Shoes&Bags";
+							break;
+						case 6:
+							Owners[j].Shops.Category = "Books";
+							cout << "1) Novels.\t2) Magazines.\t3) Short Stories.\n Choice :";
+							cin >> bookChoice;
+							do {
+								switch (bookChoice) {
+								case 1:
+									Owners[j].Shops.Category = "Books_Novels";
+									break;
+								case 2:
+									Owners[j].Shops.Category = "Books_Magazines";
+									break;
+								case 3:
+									Owners[j].Shops.Category = "Books_ShortStories";
+									break;
+								default:
+									cout << "Invalid choice.";
+									flag4 = true;
+									break;
+								}
+							} while (flag4);
+							break;
+						case 7:
+							cout << "1) Pc Games.\t2) PS4 Games.\t3) Xbox Games.\n Choice : ";
+							cin >> gameChoice;
+							do {
+								switch (gameChoice) {
+								case 1:
+									Owners[j].Shops.Category = "Gaming_PC";
+									break;
+								case 2:
+									Owners[j].Shops.Category = "Gaming_PS4";
+									break;
+								case 3:
+									Owners[j].Shops.Category = "Gaming_Xbox";
+									break;
+								default:
+									cout << "Invalid choice.";
+									flag3 = true;
+									break;
+								}
+							} while (flag3);
+							break;
+						default:
+							flag2 = true;
+							cout << "Invalid Choice\n";
+							cout << "choice : "; cin >> categoryChoice;
+						}
+					} while (flag2);
+				case 4:
+					break;
+				default:
+					cout << "Invalid Input";
+					flag1 = true;
+					break;
+				}
+			} while (flag1);
 		}
 		else if (editchoice == 'D' || editchoice == 'd')
 		{
@@ -400,7 +521,7 @@ void OLchoice()
 	char Logchoice;
 	cout << "Do you want to login , (Y/N)? ";
 	cin >> Logchoice;
-	while(Logchoice == 'y' || Logchoice == 'Y')
+	while (Logchoice == 'y' || Logchoice == 'Y')
 	{
 		LogIndex = Lowner();
 
@@ -413,7 +534,7 @@ void OLchoice()
 		{
 			Logchoice = 'n';
 		}
-	} 
+	}
 	if (LogIndex != maxOwners) {
 		OEchoice();
 		ProdChoice();
@@ -494,10 +615,20 @@ void addProds(int j)
 				cout << "Product's Price : $";
 				cin >> Owners[j].Shops.products[i].productPrice;
 
-				cout << "Product's Category : ";
-				Owners[j].Shops.products[i].Category = Owners[j].Shops.Category;
-				cout << Owners[j].Shops.products[i].Category << endl;
-
+				if (Owners[j].Shops.products[i].Category == "Clothing") {
+					Owners[j].Shops.products[i].Clothes.Type = Owners[j].Shops.Clothes.Type;
+					Owners[j].Shops.products[i].Clothes.Color = Owners[j].Shops.Clothes.Color;
+					Owners[j].Shops.products[i].Clothes.Size = Owners[j].Shops.Clothes.Size;
+					cout << "Product's Category : ";
+					Owners[j].Shops.products[i].Category = Owners[j].Shops.Category;
+					cout << Owners[j].Shops.products[i].Category << endl;
+					cout << "Type : " << Owners[j].Shops.products[i].Clothes.Type << "   Color : " << Owners[j].Shops.products[i].Clothes.Color << "   Size : " << Owners[j].Shops.products[i].Clothes.Size;
+				}
+				else {
+					cout << "Product's Category : ";
+					Owners[j].Shops.products[i].Category = Owners[j].Shops.Category;
+					cout << Owners[j].Shops.products[i].Category << endl;
+				}
 				cout << "Product's Quantity : ";
 				cin >> Owners[j].Shops.products[i].Quantity;
 
@@ -545,7 +676,15 @@ void removeProds(int j)
 				Owners[j].Shops.products[i].productName = { 0 };
 				Owners[j].Shops.products[i].productPrice = 0;
 				Owners[j].Shops.products[i].Quantity = 0;
-				Owners[j].Shops.products[i].Category = { 0 };
+				if (Owners[j].Shops.products[i].Category == "Clothing") {
+					Owners[j].Shops.products[i].Clothes.Type = { 0 };
+					Owners[j].Shops.products[i].Clothes.Color = { 0 };
+					Owners[j].Shops.products[i].Clothes.Size = { 0 };
+					Owners[j].Shops.products[i].Category = { 0 };
+				}
+				else {
+					Owners[j].Shops.products[i].Category = { 0 };
+				}
 			}
 			else if (same == false)
 				cout << "This product doesn't exist. \n";
@@ -615,6 +754,15 @@ void removeReg(int j)
 		Owners[j].Add2.Country = { 0 };
 		Owners[j].Add2.City = { 0 };
 		Owners[j].Shops.ShopName = { 0 };
+		if (Owners[j].Shops.Category == "Clothing") {
+			Owners[j].Shops.Clothes.Type = { 0 };
+			Owners[j].Shops.Clothes.Color = { 0 };
+			Owners[j].Shops.Clothes.Size = { 0 };
+			Owners[j].Shops.Category = { 0 };
+		}
+		else {
+			Owners[j].Shops.Category = { 0 };
+		}
 		Owners[j].Shops.Category = { 0 };
 		Owners[j].Shops.Add1.Country = { 0 };
 		Owners[j].Shops.Add1.City = { 0 };
