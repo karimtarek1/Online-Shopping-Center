@@ -589,6 +589,7 @@ void OEchoice()
 void ProdChoice()
 {
 	char choice;
+	system("cls");
 	do
 	{
 		cout << "Press  -- A -- To Add A Product.\n\n Press -- R -- To Remove A Product.\n\npress -- V -- To View Your Products.\n\n";
@@ -601,14 +602,18 @@ void ProdChoice()
 		case 'a':
 		case 'A':
 			addProds(LogIndex);
+			system("cls");
 			break;
+			
 		case 'r':
 		case 'R':
 			removeProds(LogIndex);
+			system("cls");
 			break;
 		case 'v':
 		case 'V':
 			viewProds(LogIndex);
+			system("cls");
 			break;
 		default:
 			cout << "\n\n !! Invalid answer !! \n\n";
@@ -801,5 +806,5 @@ void removeReg(int j)
 		break;
 	default:
 		break;
-	}
+	} system("cls");
 }
