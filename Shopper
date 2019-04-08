@@ -8,6 +8,12 @@ using namespace std;
 int LogIndex;
 const int maxShoppers = 25, maxOwners = 25, maxProds = 10, maxPass = 32;
 
+struct Clothing
+{
+	char Size;
+	char Type;
+	string Color;
+};
 struct addshopper {
 
 	string Country;
@@ -29,7 +35,8 @@ struct Product
 {
 	string productName = { 0 };
 	double productPrice = 0;
-	string Category = { 0 };
+	string Category;
+	Clothing Clothes;
 	int Quantity = 0;
 };
 
@@ -38,6 +45,7 @@ struct Shop
 	string ShopName;
 	string ShopAddress;
 	string Category;
+	Clothing Clothes;
 	Product products[maxProds];
 };
 
@@ -128,7 +136,12 @@ void viewproducts()
 			{
 				if (Owners[i].Shops.products[j].productPrice != 0)
 				{
-					cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << "\t" << Owners[i].Shops.products[j].Quantity;
+					if (Owners[j].Shops.products[i].Category == "Clothing") {
+						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << " " << Owners[j].Shops.products[i].Clothes.Type << " " << Owners[j].Shops.products[i].Clothes.Color << " " << Owners[j].Shops.products[i].Clothes.Size << "\t" << Owners[i].Shops.products[j].Quantity;
+					}
+					else {
+						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << "\t" << Owners[i].Shops.products[j].Quantity;
+					}
 					number++;
 				}
 			}
