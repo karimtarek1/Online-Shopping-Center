@@ -1,10 +1,10 @@
 #include<iostream>
-
+#include<fstream>
 #include<conio.h>
 #include<string>
 
 using namespace std;
-const int maxOwners = 25, maxProds = 10, maxPass = 32;
+const int maxOwners = 25, maxShoppers = 25 , maxProds = 10, maxPass = 32;
 int LogIndex = maxOwners;
 
 struct Clothing
@@ -21,20 +21,16 @@ struct Product
 	Clothing Clothes;
 	int Quantity = 0;
 };
-struct shopAddress {
+struct Address {
 	string Country;
 	string City;
 };
 struct Shop
 {
 	string ShopName;
-	shopAddress Add1;
+	Address Add;
 	string Category;
 	Product products[maxProds];
-};
-struct ownerAddress {
-	string Country;
-	string City;
 };
 struct Owner
 {
@@ -44,9 +40,18 @@ struct Owner
 	int PassNum;
 	int Age;
 	string Gender;
-	ownerAddress Add2;
+	Address Add;
 	Shop Shops;
 } Owners[maxOwners];
+struct shopper {
+	string name;
+	int id;
+	char pass[maxPass];
+	int passnum;
+	int age;
+	string gender;
+	Address Add;
+}Shoppers[maxShoppers];
 
 
 int RegOwner();
@@ -61,11 +66,13 @@ void removeProds(int);
 void viewProds(int);
 void RegChoice();
 void removeReg(int);
+void save();
 
 int main()
 {
 	RegChoice();
 	OLchoice();
+	save();
 	return 0;
 
 }
@@ -167,8 +174,8 @@ int RegOwner()
 			}
 			Owners[j].Gender = gender;
 			cout << "\nEnter your Address. \n\nCountry : ";
-			cin >> Owners[j].Add2.Country;
-			cout << "City : "; cin >> Owners[j].Add2.City;
+			cin >> Owners[j].Add.Country;
+			cout << "City : "; cin >> Owners[j].Add.City;
 			cout << "         *  ************************** You Have Registered Successfully ************************* *" << endl << endl;
 			cout << "Press Anything To Continue........ ";
 			cin >> cont;
@@ -200,9 +207,9 @@ void RegShop(int i)
 	{
 		Owners[i].Shops.ShopName = shopName;
 		cout << "\nEnter Your Shop's Address. \n\nCountry : ";
-		cin >> Owners[i].Shops.Add1.Country;
+		cin >> Owners[i].Shops.Add.Country;
 		cout << "City : ";
-		cin >> Owners[i].Shops.Add1.City;
+		cin >> Owners[i].Shops.Add.City;
 		cout << "\n\nChoose One Of Our Available Categories :\n\n[ 1 ] Phones & Tablets. \n\n[ 2 ] Electronics. \n\n[ 3 ] Makeup & Accessories. \n\n[ 4 ] Clothing. \n\n[ 5 ] Shoes & Bags. \n\n[ 7 ] Books. \n\n[ 7 ] Gaming.\n";
 		cout << endl << "\nChoice : "; cin >> categoryChoice;
 		do {
@@ -405,8 +412,8 @@ void Eowner(int j) {
 				break;
 			case 5:
 				cout << "\n\nNew Address.\nCountry : ";
-				cin >> Owners[j].Add2.Country;
-				cout << "City : "; cin >> Owners[j].Add2.City;
+				cin >> Owners[j].Add.Country;
+				cout << "City : "; cin >> Owners[j].Add.City;
 				break;
 			case 6:
 				break;
@@ -430,8 +437,8 @@ void Eowner(int j) {
 					break;
 				case 2:
 					cout << "New Shop Address.\nCountry : ";
-					cin >> Owners[j].Shops.Add1.Country;
-					cout << "City : "; cin >> Owners[j].Shops.Add1.City;
+					cin >> Owners[j].Shops.Add.Country;
+					cout << "City : "; cin >> Owners[j].Shops.Add.City;
 					break;
 				case 3:
 					cout << "Choose one of our available Categories : [ 1 ] Phones & Tablets. \n\n[ 2 ] Electronics. \n\n[ 3 ] Makeup & Accessories. \n\n[ 4 ] Clothing. \n\n[ 5 ] Shoes & Bags. \n\n[ 6 ] Books. \n\n[ 7 ] Gaming.\n";
@@ -589,7 +596,6 @@ void OEchoice()
 void ProdChoice()
 {
 	char choice;
-	system("cls");
 	do
 	{
 		cout << "Press  -- A -- To Add A Product.\n\n Press -- R -- To Remove A Product.\n\npress -- V -- To View Your Products.\n\n";
@@ -602,18 +608,14 @@ void ProdChoice()
 		case 'a':
 		case 'A':
 			addProds(LogIndex);
-			system("cls");
 			break;
-			
 		case 'r':
 		case 'R':
 			removeProds(LogIndex);
-			system("cls");
 			break;
 		case 'v':
 		case 'V':
 			viewProds(LogIndex);
-			system("cls");
 			break;
 		default:
 			cout << "\n\n !! Invalid answer !! \n\n";
@@ -791,13 +793,13 @@ void removeReg(int j)
 		}
 		Owners[j].Age = 0;
 		Owners[j].Gender = { 0 };
-		Owners[j].Add2.Country = { 0 };
-		Owners[j].Add2.City = { 0 };
+		Owners[j].Add.Country = { 0 };
+		Owners[j].Add.City = { 0 };
 		Owners[j].Shops.ShopName = { 0 };
 		Owners[j].Shops.Category = { 0 };
 		Owners[j].Shops.Category = { 0 };
-		Owners[j].Shops.Add1.Country = { 0 };
-		Owners[j].Shops.Add1.City = { 0 };
+		Owners[j].Shops.Add.Country = { 0 };
+		Owners[j].Shops.Add.City = { 0 };
 		for (int i = 0; i < maxProds; i++)
 		{
 			Owners[j].Shops.products[i] = { 0 };
@@ -806,5 +808,22 @@ void removeReg(int j)
 		break;
 	default:
 		break;
-	} system("cls");
+	}
+}
+
+void save() {
+	ofstream Owner , Shopper;
+	Owner.open("Owners.txt" , ios::trunc);
+	for (int i = 0; i < maxOwners; i++) {
+		if (Owners[i].Age != 0) {
+			Owner << Owners[i].Name << "|" << Owners[i].ID << Owners[i].Age << "|" << Owners[i].Gender << "|" << Owners[i].Add.Country << "|" << Owners[i].Add.City << "|" << Owners[i].Password << "|" << Owners[i].PassNum << "|" << Owners[i].Shops.ShopName << "|" << Owners[i].Shops.Category << "|" << Owners[i].Shops.Add.Country << "|" << Owners[i].Shops.Add.City << '\n';
+		}
+	}
+	Shopper.open("Shopper.txt", ios::trunc);
+	for (int i = 0; i < maxOwners; i++) {
+		if (Shoppers[i].age != 0) {
+			Shopper << Shoppers[i].name << "|" << Shoppers[i].id << Shoppers[i].age << "|" << Shoppers[i].gender << "|" << Shoppers[i].Add.Country << "|" << Shoppers[i].Add.City << "|" << Shoppers[i].pass << "|" << Shoppers[i].passnum << '\n';
+		}
+	}
+	
 }
