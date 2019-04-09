@@ -1,7 +1,7 @@
 #include <iostream>
-
 #include <string>
 #include <string.h>
+
 #include <conio.h>
 using namespace std;
 
@@ -30,7 +30,6 @@ struct cartt {
 	double subtotal;
 
 } pcart[100];
-
 struct Product
 {
 	string productName = { 0 };
@@ -39,7 +38,6 @@ struct Product
 	Clothing Clothes;
 	int Quantity = 0;
 };
-
 struct Shop
 {
 	string ShopName;
@@ -48,7 +46,6 @@ struct Shop
 	Clothing Clothes;
 	Product products[maxProds];
 };
-
 struct Owner
 {
 	string Name;
@@ -60,7 +57,6 @@ struct Owner
 	string Address;
 	Shop Shops;
 } Owners[maxOwners];
-
 struct shopper {
 	string name;
 	int id;
@@ -88,40 +84,74 @@ void del(int j);
 
 int main() {
 	welcome();
+
 	return 0;
 }
 void welcome() {
 
-	system("cls");
-	cout << " *************************************** ------ WELCOME ------ ************************************************\n" << endl;
 	SLchoice();
-	system("cls");
 	SeifChoice();
 }
 
 void SeifChoice()
 {
 	int choice;
-	cout << "\nPress -- 1-- To search for a product. \n" << "\nPress --2-- To View All products: \n" << "\nPess -- 3 -- To Edit Your Information\n ";
-
-	cout << "\nChoice : ";
+	char cont;
+	system("cls"); 
+	do {
+		cout << "\nPress -- 1 -- To Search For A Product. \n\nPress -- 2 -- To View All Products. \n\nPress -- 3 -- To Edit Your Information. \n\npress -- 4 -- To Delete Your Account. \n\n";
+    cout << "Choice : ";
 	cin >> choice;
-	switch (choice)
+		switch (choice)
+		{
+		case 1:
+			search();
+			system("cls");
+			break;
+		case 2:
+			viewproducts();
+			system("cls");
+			break;
+		case 3:
+			update(LogIndex);
+			system("cls");
+			break;
+		case 4:
+			del(LogIndex);
+			system("cls");
+			break;
+		default:
+			cout << "\n\n!!!  Invalid Choice  !!!\n\n";
+		}
+		cout << "Press -- Y -- To Return To Menu. \n\npress -- E -- To Exit The Program\n\n";
+		cout << "Choice  : ";
+			 cin >> cont;
+			 system("cls");
+	} while (cont == 'y' || cont == 'Y');	
+}
+
+void search()
+{
+	int cont;
+	string name;
+	int x = 1;
+	cout << "\n\nEnter the Product's name: ";
+	cin >> name;
+	for (int i = 0; i < maxShoppers; i++)
 	{
-	case 1:
-		search();
-		break;
-	case 2:
-		viewproducts();
-		break;
-	case 3:
-		update(LogIndex);
-		break;
-	default:
-		cout << "!!!  Invalid Choice  !!!";
-	}
+		for (int j = 0; j < maxProds; j++)
+		{
+			if (name == Owners[i].Shops.products[j].productName)
+			{
+				info(i, j);
+				x++;
+			}
 
-
+		}
+	}if (x == 1)
+		cout << "                                     Out Of Stock. \n\n\n ";
+	cout << "Press Any Key To Continue........";
+	cin >> cont;
 }
 
 void viewproducts()
@@ -147,31 +177,11 @@ void viewproducts()
 			}
 		} chooseproduct();
 		cout << "Do you Want to continue shopping : [ y / n ] ";
+		cout << "Choice : ";
 		cin >> flag;
 	} while (flag == 'y' || flag == 'Y');
 
 	cart();
-}
-
-void search()
-{
-	string name;
-	int x = 1;
-	cout << "Enter the Product's name: ";
-	cin >> name;
-	for (int i = 0; i < maxShoppers; i++)
-	{
-		for (int j = 0; j < maxProds; j++)
-		{
-			if (name == Owners[i].Shops.products[j].productName)
-			{
-				info(i, j);
-				x++;
-			}
-
-		}
-	}if (x == 1)
-		cout << "Out Of Stock.  ";
 }
 
 void info(int i, int j)
@@ -204,7 +214,7 @@ void info(int i, int j)
 
 void chooseproduct() {
 	int searchnum, x, y;
-	cout << " \n Enter The Number Of Product You Want To Add To Cart : ";
+	cout << " \n\n Enter The Number Of Product You Want To Add To Cart : \n\n";
 	cout << " Choice : ";
 	cin >> searchnum;
 
@@ -242,11 +252,13 @@ void addtocart(int x, int y) {
 
 	int n;
 	bool done = true;
+	char cont;
 
 	pcart[c.nump].buyproduct = Owners[x].Shops.products[y].productName;
 	pcart[c.nump].price = Owners[x].Shops.products[y].productPrice;
 	do {
-		cout << "\n How many quantity do you want ?";
+		cout << "\n\n How many quantity do you want ?\n\n ";
+		cout << "Number : ";
 		cin >> n;
 		if (n <= Owners[x].Shops.products[y].Quantity) {
 			cout << "Your Product Added to cart " << endl;
@@ -255,33 +267,38 @@ void addtocart(int x, int y) {
 			done = false;
 		}
 		else
-			cout << " \n Your Quantity is not availble now in the stock !! We have ( " << Owners[x].Shops.products[y].Quantity << " ) only in the stock " << endl;
+			cout << " \n\n Your Quantity is not availble now in the stock !! We have ( " << Owners[x].Shops.products[y].Quantity << " ) only in the stock \n\n" << endl;
 	} while (done);
 
 	c.nump++;
+	cout << "\nPress Any Key To Continue....... \n";
+	cin >> cont;
+	system("cls");
 }
 
 void cart() {
-
+	system("cls");
 	double total = 0;
 	char s, d;
 	int g, x = 1;
-	cout << "********************** - YOUR CART - *********************" << endl;
-	cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
+	cout << "\n\n************************************ - YOUR CART - *************************************\n\n" << endl;
+	cout << " NAME \t\t  " << " QUNATITY \t\t  " << " PRICE  \n\n ";
 	for (int i = 0; i < c.nump; i++) {
 		pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
-		cout << x << '. ' << pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
+		cout << x << '. ' << pcart[i].buyproduct << "\t\t" << pcart[i].qunatity << "\t\t" << pcart[i].subtotal << '$\n' << endl;
 		total += pcart[i].subtotal;
 		x++;
 	}
-	cout << " TOTAL :  " << total << endl;
-	cout << " Do you want to delete any items ?  [[ y / n ]] :  ";
+	cout << endl << "\nTOTAL :  " << total << endl;
+	cout << "\n\n\nDo you want to delete any items ?  [ y / n ]   \n\n";
+	cout << "Choice : ";
 	cin >> d;
 	switch (d)
 	{
 	case 'y':
 	case 'Y':
-		cout << "Enter the number of the product you want to delete  : ";
+		cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
+		cout << "Number : ";
 		cin >> g;
 		pcart[g - 1] = { 0 };
 
@@ -293,26 +310,29 @@ void cart() {
 	}
 	total = 0;
 	x = 1;
-	cout << "Press .V. to View receipt" << endl << "Press .R. to Return shopping" << endl;
+	cout << "Press -- V --  to View receipt. \n\n Press -- R -- to Return shopping. \n\n" << endl;
+	cout << "Choice : ";
 	cin >> s;
 	switch (s)
 	{
 	case 'v':
 	case 'V':
-		cout << "********************* TOTAL ITEMS **********************\n" << endl;
-		cout << " NAME \t  " << " QUNATITY \t  " << " PRICE \t  ";
+		system("cls");
+		cout << "\n\n********************************** TOTAL ITEMS *********************************\n\n\n" << endl;
+		cout << " NAME \t\t  " << " QUNATITY \t\t  " << " PRICE \n\n  ";
 		for (int i = 0; i < c.nump; i++) {
 			if (pcart[i].price != 0) {
 				pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
-				cout << x << ". " << pcart[i].buyproduct << "\t" << pcart[i].qunatity << "\t" << pcart[i].subtotal << '$' << endl;
+				cout << x << ". " << pcart[i].buyproduct << "\t\t" << pcart[i].qunatity << "\t\t" << pcart[i].subtotal << '$' << endl;
 				total += pcart[i].subtotal;
 			}
 		}
-		cout << "********************** TOTAL PRICE *********************\n" << endl;
+		cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
 		cout << "Total price : " << total << '$';
 		break;
 	case 'R':
 	case 'r':
+		system("cls");
 		viewproducts();
 		break;
 	default:
@@ -324,7 +344,7 @@ void cart() {
 
 void registration() {
 	int i, j;
-	char choice;
+	char choice,cont;
 	bool flag = true;
 
 
@@ -338,7 +358,7 @@ void registration() {
 
 			do {
 				char a;
-				cout << endl << "Enter a password of at least 6 digits" << endl;
+				cout << endl << "\nEnter a password of at least 6 digits\n";
 				cout << "Enter your password : ";
 				for (j = 0; j < maxPass;)
 				{
@@ -390,7 +410,9 @@ void registration() {
 			cin >> Shoppers[i].address[i].City;
 			cout << " Country : ";
 			cin >> Shoppers[i].address[i].Country;
-			cout << endl << "\n ************  You Have Registered Successfully ************ \n" << endl;
+			cout << endl << "\n ************  You Have Registered Successfully ************ \n\n" << endl;
+			cout << " \n\nPress any key to continue........";
+			cin >> cont;
 			break;
 		}
 	}
@@ -403,93 +425,136 @@ int login() {
 	bool flag;
 	bool tri = false;
 	int LogID, i, x;
-	char LogPass[maxPass];
-		cout << " \n Enter Your Data\n";
-		cout << endl << "Enter your ID : ";
-		cin >> LogID;
-		do {
-			char a;
-			cout << endl << "Enter a Password of at least 6 digits." << endl;
-			cout << endl << "Enter your Password : ";
-			for (j = 0;;)
-			{
-				a = _getch();
-				if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
-				{
-					LogPass[j] = a;
-					++j;
-					cout << "*";
-				}
-				if (a == '\b'&&j >= 1)
-				{
-					cout << "\b \b";
-					--j;
-				}
-				if (a == '\r')
-				{
-					LogPass[j] = '\0';
-					break;
-				}
-			}
-		} while (j <= 5);
-
-
-		for (i = 0; i < maxShoppers; i++)
+	char LogPass[maxPass],cont;
+	cout << " \n Enter Your Data\n";
+	cout << endl << "Enter your ID : ";
+	cin >> LogID;
+	do {
+		char a;
+		cout << endl << "Enter your Password : ";
+		for (j = 0;;)
 		{
-			flag = true;
-			if (j > Shoppers[i].passnum || j < Shoppers[i].passnum) {
-				flag = false;
-			}
-			else if (j == Shoppers[i].passnum) {
-				for (int x = 0; x < Shoppers[i].passnum; x++)
-				{
-					if (LogPass[x] != Shoppers[i].pass[x])
-					{
-						flag = false;
-					}
-				}
-			}
-			if (LogID == Shoppers[i].id && (flag))
+			a = _getch();
+			if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
 			{
-				cout << "\nYou have successfully Logged In. \n";
-				tri = false;
+				LogPass[j] = a;
+				++j;
+				cout << "*";
+			}
+			if (a == '\b'&&j >= 1)
+			{
+				cout << "\b \b";
+				--j;
+			}
+			if (a == '\r')
+			{
+				LogPass[j] = '\0';
 				break;
 			}
 		}
-		if (flag == false)
-		{
-			cout << "\nEither the ID or Password is incorrect\n\n" << endl;
-			i = maxShoppers;	
+	} while (j <= 5);
+
+
+	for (i = 0; i < maxShoppers; i++)
+	{
+		flag = true;
+		if (j > Shoppers[i].passnum || j < Shoppers[i].passnum) {
+			flag = false;
 		}
+		else if (j == Shoppers[i].passnum) {
+			for (int x = 0; x < Shoppers[i].passnum; x++)
+			{
+				if (LogPass[x] != Shoppers[i].pass[x])
+				{
+					flag = false;
+				}
+			}
+		}
+		if (LogID == Shoppers[i].id && (flag))
+		{
+			cout << "\n\n ************************* You have successfully Logged In. ************************* \n\n";
+			tri = false;
+			cout << " \n\nPress any key to continue........";
+			cin >> cont;
+			break;
+		}
+	}
+	if (flag == false)
+	{
+		cout << "\n\n\nEither the ID or Password is incorrect\n\n" << endl;
+		i = maxShoppers;
+	}
 	return i;
+}
+
+void SLchoice()
+{
+	char c;
+	bool bass=true;
+	int Loginchoice;
+	
+	do {
+		
+		do {
+			system("cls");
+			cout << "\n\nPress -- 1 -- To Login. \n\nPress -- 2 -- To Register\n\n";
+		cout << "Choice :  ";
+		cin >> Loginchoice;
+			if (Loginchoice == 1) {
+				LogIndex = login();
+				bass = false;
+				break;
+			}
+			else if (Loginchoice == 2) {
+				registration();
+				bass = false;
+
+				break;
+			}
+			else
+				cout << "\n\n!!! Invalid Choice !!!\n\n";
+
+		} while (true);
+
+	
+		if (LogIndex == maxShoppers) {
+			cout << "\n\nWould You Like To Try Again ?  [ Y / N ] \n\n ";
+			cout << "Choice : ";
+            cin >> c;
+		}
+		else {
+			c = 'n';
+		}
+		system("cls");
+	} while (c == 'y' || c == 'Y');
 }
 
 void update(int j) {
 
 	char editchoices, gender;
 	int regedit;
-	cout << "Editing your information\n\n";
-	cout << "Would you like to edit your registration data (Y/N) ? : \n";
+	cout << "\n\n\n ***************  Editing your information ****************************\n\n";
+	cout << "Would You Like To Edit Your Registration Data. ?  [ Y / N ] ? : \n\n";
 	cout << "Choice : ";
 	cin >> editchoices;
 	while (editchoices == 'Y' || editchoices == 'y') {
-		cout << "What do you want to edit ? : \n\n" << endl;
-		cout << "1-Name \n2-Password \n3-Age \n4-Gender \n5-Address\n\n" << endl;
+		cout << "What Do You Want To Edit ? : \n\n" << endl;
+		cout << "[ 1 ] Name. \n\n[ 2 ] Password. \n\n[ 3 ] Age. \n\n[ 4 ] Gender. \n\n[ 5 ] Address. \n\n" << endl;
 		cout << "Choice : "; cin >> regedit;
 		switch (regedit) {
-		case 1: cout << "New Name : ";
+		case 1: cout << "\n\nNew Name : ";
 			cin >> Shoppers[j].name;
 			break;
 
-		case 2: cout << "New Password :";
+		case 2: cout << "\n\nNew Password :";
 			cin >> Shoppers[j].pass;
 			break;
 
-		case 3: cout << "New Age : ";
+		case 3: cout << "\n\nNew Age : ";
 			cin >> Shoppers[j].age;
 			break;
 
-		case 4: cout << "New Gender(Female/male) : ";
+		case 4: cout << "\n\nNew Gender [ M / F ] : ";
 			cin >> gender;
 			if (gender == 'M' || gender == 'm')
 			{
@@ -502,56 +567,28 @@ void update(int j) {
 			else { cout << "Error"; }
 			break;
 
-		case 5: cout << "New Address : ";
-			cout << "City :  ";
+		case 5: cout << "\n\nNew Address : ";
+			cout << "\n\nCity :  ";
 			cin >> Shoppers[j].address[j].City;
-			cout << "Country : ";
+			cout << "\n\nCountry : ";
 			cin >> Shoppers[j].address[j].Country;
 			break;
 
 		default:
 			cout << "Invalid";
-		} 
-		cout << "\nDo you want to edit anything else  ? [ Y \ N ]\n" << endl;
+		}
+		cout << "\nDo you want to edit anything else  ? [ Y \ N ]\n\n" << endl;
+		cout << "Choice : ";
 		cin >> editchoices;
 	}
-	cout << "Invalid Choice !!!!";
 	SeifChoice();
-}
 
-void SLchoice()
-{
-	char c;
-	char Loginchoice;
-	cin >> Loginchoice;
-	do {
-		cout << "Do you want to register or login , [ R / L ] ? : ";
-		switch (Loginchoice)
-		{
-		case 'l':
-		case 'L': LogIndex = login();
-			break;
-		case'r':
-		case'R': registration();
-			login();
-			break;
-
-		default: cout << "!!! Invalid Choice !!!";
-
-		}
-		if (LogIndex == maxShoppers) {
-			cout << "Would you like to try again, (Y/N)? : ";
-			cin >> c;
-		}
-		else {
-			c = 'n';
-		}
-	} while (c == 'y' || c == 'Y');
 }
 
 void del(int j) {
 	char choice;
-	cout << endl << "Are you sure you want to Delete your Account? (Y/N) ? : ";
+	cout << endl << "Are you sure you want to Delete your Account. ? [ Y / N ] \n\n ";
+	cout << "Choice : ";
 	cin >> choice;
 	switch (choice) {
 	case'y':
@@ -566,7 +603,7 @@ void del(int j) {
 		Shoppers[j].gender = { 0 };
 		Shoppers[j].address[j] = { 0 };
 
-		cout << "Your Account has been Deleted." << endl;
+		cout << "\n\n               ***  Your Account has been Deleted. *** \n\n" << endl;
 		break;
 	default:
 		break;
