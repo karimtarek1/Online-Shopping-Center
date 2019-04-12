@@ -358,7 +358,7 @@ void cart() {
 	char s, d;
 	int g, x = 1;
 	cout << "\n\n************************************ - YOUR CART - *************************************\n\n" << endl;
-	cout << "   NAME \t\t\t  " << " QUNATITY \t\t\t  " << " PRICE  \n\n ";
+	cout << "   NAME \t\t\t  " << " QUANTITY \t\t\t  " << " PRICE  \n\n ";
 	for (int i = 0; i < c.nump; i++) {
 		pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
 		cout << x << '. ' << pcart[i].buyproduct << "\t\t" << pcart[i].qunatity << "\t\t" << pcart[i].subtotal << '$\n' << endl;
@@ -1446,7 +1446,6 @@ void removeReg(int j)
 		Owners[j].Add.Country = { 0 };
 		Owners[j].Add.City = { 0 };
 		Owners[j].Shops.ShopName = { 0 };
-		Owners[j].Shops.Category = { 0 };
 		Owners[j].Shops.Category = { 0 };
 		Owners[j].Shops.Add.Country = { 0 };
 		Owners[j].Shops.Add.City = { 0 };
