@@ -1451,7 +1451,7 @@ void removeReg(int j)
 		for (int i = 0; i < maxProds; i++)
 		{
 			Owners[j].Shops.products[i] = { 0 };
-			if (Owners[j].Shops.Products[i].Category == "Cloathing")
+			if (Owners[j].Shops.products[i].Category == "Cloathing")
 			{
 			  Owners[j].Shops.products[i].Clothes.Size = {0};
 			  Owners[j].Shops.products[i].Clothes.Type = {0};
