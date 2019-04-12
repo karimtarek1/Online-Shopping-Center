@@ -98,7 +98,7 @@ int main() {
 	Open();
 	int choice, cont;
 	cout << "*****************************************----------------***********************************************\n";
-	cout << "*****************************---- WELCOME TO ONLINE SHOPING STORE --- **********************************\n";
+	cout << "*****************************---- WELCOME TO THE ONLINE SHOPPING STORE --- **********************************\n";
 	cout << "*****************************************----------------*************************************************\n\n\n";
 	do {
 		cout << " [ 1 ] Shopper. \n\n";
@@ -569,7 +569,7 @@ int login() {
 void SLchoice()
 {
 	char c;
-	bool bass = true;
+	bool pass = true;
 	int Loginchoice;
 
 	do {
@@ -581,12 +581,12 @@ void SLchoice()
 			cin >> Loginchoice;
 			if (Loginchoice == 1) {
 				LogIndex = login();
-				bass = false;
+				pass = false;
 				break;
 			}
 			else if (Loginchoice == 2) {
 				registration();
-				bass = false;
+				pass = false;
 
 				break;
 			}
