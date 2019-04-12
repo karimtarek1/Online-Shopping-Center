@@ -94,9 +94,9 @@ void RegChoice();
 void removeReg(int);
 
 int main() {
-	
+
 	Open();
-	int choice,cont;
+	int choice, cont;
 	cout << "*****************************************----------------***********************************************\n";
 	cout << "*****************************---- WELCOME TO ONLINE SHOPING STORE --- **********************************\n";
 	cout << "*****************************************----------------*************************************************\n\n\n";
@@ -109,13 +109,13 @@ int main() {
 		switch (choice)
 		{
 		case 1:
-			
+
 			welcome();
 			break;
 		case 2:
 			RegChoice();
 			OLchoice();
-			
+
 			break;
 
 		default:
@@ -137,24 +137,24 @@ void Open() {
 	ifstream Owner, Shopper, Products;
 	Owner.open("Owners.txt", ios::trunc);
 	for (int i = 0; i < maxOwners; i++) {
-		
+
 	}
 	Shopper.open("Shopper.txt", ios::trunc);
 	for (int i = 0; i < maxShoppers; i++) {
 		if (Shoppers[i].age != 0) {
-			Shopper.getline(Shoppers[i].pass,25,'|');
+			Shopper.getline(Shoppers[i].pass, 25, '|');
 		}
 	}
 	Products.open("Products.txt", ios::trunc);
 	for (int i = 0; i < maxOwners; i++) {
 		for (int j = 0; j < maxProds; j++) {
-			
+
 		}
 	}
 	Owner.close();
 	Shopper.close();
 	Products.close();
-	
+
 }
 
 void welcome() {
@@ -169,7 +169,7 @@ void SeifChoice()
 	char cont;
 	system("cls");
 	do {
-			cout << "\nPress -- 1 -- To Search For A Product. \n\nPress -- 2 -- To View All Products. \n\nPress -- 3 -- To Edit Your Information. \n\npress -- 4 -- To Delete Your Account. \n\n";
+		cout << "\nPress -- 1 -- To Search For A Product. \n\nPress -- 2 -- To View All Products. \n\nPress -- 3 -- To Edit Your Information. \n\npress -- 4 -- To Delete Your Account. \n\n";
 		cout << "Choice : ";
 		cin >> choice;
 		switch (choice)
@@ -182,19 +182,19 @@ void SeifChoice()
 			break;
 		case 3:
 			update(LogIndex);
-		    break;
+			break;
 		case 4:
 			del(LogIndex);
 			break;
 		default:
 			cout << "\n\n!!!  Invalid Choice  !!!\n\n";
-	
+
 		}
 		system("cls");
 		cout << "\n\nPress -- Y -- To Return To Menu. \n\npress -- E -- To Exit The Program\n\n";
 		cout << "Choice  : ";
 		cin >> cont;
-	
+
 	} while (cont == 'y' || cont == 'Y');
 }
 
@@ -351,7 +351,7 @@ void addtocart(int x, int y) {
 }
 
 void cart() {
-	
+
 	char cont;
 	system("cls");
 	double total = 0;
@@ -502,7 +502,7 @@ int login() {
 	int j;
 	bool flag;
 	bool tri = false;
-	int LogID, i, x;
+	int LogID, i;
 	char LogPass[maxPass], cont;
 	system("cls");
 	cout << " \n Enter Your Data\n";
@@ -665,7 +665,7 @@ void update(int j) {
 }
 
 void del(int j) {
-	char choice,cont;
+	char choice, cont;
 	cout << endl << "Are you sure you want to Delete your Account. ? [ Y / N ] \n\n ";
 	cout << "Choice : ";
 	cin >> choice;
@@ -851,86 +851,86 @@ void RegShop(int i)
 				cout << "\n\n !! This Shop is already taken. !!";
 				flag1 = false;
 				break;
-				
+
 			}
 
 		}
 	} while (flag1 == false);
-		Owners[i].Shops.ShopName = shopName;
-		cout << "\nEnter Your Shop's Address. \n\nCountry : ";
-		cin >> Owners[i].Shops.Add.Country;
-		cout << "City : ";
-		cin >> Owners[i].Shops.Add.City;
-		cout << "\n\nChoose One Of Our Available Categories :\n\n[ 1 ] Phones & Tablets. \n\n[ 2 ] Electronics. \n\n[ 3 ] Makeup & Accessories. \n\n[ 4 ] Clothing. \n\n[ 5 ] Shoes & Bags. \n\n[ 7 ] Books. \n\n[ 7 ] Gaming.\n";
-		cout << endl << "\nChoice : "; cin >> categoryChoice;
-		do {
-			switch (categoryChoice) {
-			case 1:
-				Owners[i].Shops.Category = "Phones&Tablets";
-				break;
-			case 2:
-				Owners[i].Shops.Category = "Electronics";
-				break;
-			case 3:
-				Owners[i].Shops.Category = "Makeup&Acessories";
-				break;
-			case 4:
-				Owners[i].Shops.Category = "Clothing";
-				break;
-			case 5:
-				Owners[i].Shops.Category = "Shoes&Bags";
-				break;
-			case 6:
-				Owners[i].Shops.Category = "Books";
-				cout << "[ 1 ] Novels.\t[ 2 ] Magazines.\t[ 3 ] Short Stories.\n\n Choice :";
-				cin >> bookChoice;
-				do {
-					switch (bookChoice) {
-					case 1:
-						Owners[i].Shops.Category = "Books_Novels";
-						break;
-					case 2:
-						Owners[i].Shops.Category = "Books_Magazines";
-						break;
-					case 3:
-						Owners[i].Shops.Category = "Books_ShortStories";
-						break;
-					default:
-						cout << "\n\n!! Invalid choice. !!\n\n";
-						flag4 = true;
-						break;
-					}
-				} while (flag4);
-				break;
-			case 7:
-				cout << "[ 1 ] Pc Games.\t[ 2 ] PS4 Games.\t[ 3 ] Xbox Games.\n\n Choice : ";
-				cin >> gameChoice;
-				do {
-					switch (gameChoice) {
-					case 1:
-						Owners[i].Shops.Category = "Gaming_PC";
-						break;
-					case 2:
-						Owners[i].Shops.Category = "Gaming_PS4";
-						break;
-					case 3:
-						Owners[i].Shops.Category = "Gaming_Xbox";
-						break;
-					default:
-						cout << "\n\n!!  Invalid choice. !! \n\n";
-						flag3 = true;
-						break;
-					}
-				} while (flag3);
-				break;
-			default:
-				flag2 = true;
-				cout << "\n\n !! Invalid Choice !! \n\n";
-				cout << "choice : "; cin >> categoryChoice;
-				cout << "\n " << endl;
-			}
-		} while (flag2);
-	}
+	Owners[i].Shops.ShopName = shopName;
+	cout << "\nEnter Your Shop's Address. \n\nCountry : ";
+	cin >> Owners[i].Shops.Add.Country;
+	cout << "City : ";
+	cin >> Owners[i].Shops.Add.City;
+	cout << "\n\nChoose One Of Our Available Categories :\n\n[ 1 ] Phones & Tablets. \n\n[ 2 ] Electronics. \n\n[ 3 ] Makeup & Accessories. \n\n[ 4 ] Clothing. \n\n[ 5 ] Shoes & Bags. \n\n[ 7 ] Books. \n\n[ 7 ] Gaming.\n";
+	cout << endl << "\nChoice : "; cin >> categoryChoice;
+	do {
+		switch (categoryChoice) {
+		case 1:
+			Owners[i].Shops.Category = "Phones&Tablets";
+			break;
+		case 2:
+			Owners[i].Shops.Category = "Electronics";
+			break;
+		case 3:
+			Owners[i].Shops.Category = "Makeup&Acessories";
+			break;
+		case 4:
+			Owners[i].Shops.Category = "Clothing";
+			break;
+		case 5:
+			Owners[i].Shops.Category = "Shoes&Bags";
+			break;
+		case 6:
+			Owners[i].Shops.Category = "Books";
+			cout << "[ 1 ] Novels.\t[ 2 ] Magazines.\t[ 3 ] Short Stories.\n\n Choice :";
+			cin >> bookChoice;
+			do {
+				switch (bookChoice) {
+				case 1:
+					Owners[i].Shops.Category = "Books_Novels";
+					break;
+				case 2:
+					Owners[i].Shops.Category = "Books_Magazines";
+					break;
+				case 3:
+					Owners[i].Shops.Category = "Books_ShortStories";
+					break;
+				default:
+					cout << "\n\n!! Invalid choice. !!\n\n";
+					flag4 = true;
+					break;
+				}
+			} while (flag4);
+			break;
+		case 7:
+			cout << "[ 1 ] Pc Games.\t[ 2 ] PS4 Games.\t[ 3 ] Xbox Games.\n\n Choice : ";
+			cin >> gameChoice;
+			do {
+				switch (gameChoice) {
+				case 1:
+					Owners[i].Shops.Category = "Gaming_PC";
+					break;
+				case 2:
+					Owners[i].Shops.Category = "Gaming_PS4";
+					break;
+				case 3:
+					Owners[i].Shops.Category = "Gaming_Xbox";
+					break;
+				default:
+					cout << "\n\n!!  Invalid choice. !! \n\n";
+					flag3 = true;
+					break;
+				}
+			} while (flag3);
+			break;
+		default:
+			flag2 = true;
+			cout << "\n\n !! Invalid Choice !! \n\n";
+			cout << "choice : "; cin >> categoryChoice;
+			cout << "\n " << endl;
+		}
+	} while (flag2);
+}
 
 int Lowner()
 {
