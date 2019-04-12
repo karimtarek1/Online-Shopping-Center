@@ -41,7 +41,6 @@ struct Shop
 	string ShopName;
 	Address Add;
 	string Category;
-	Clothing Clothes;
 	Product products[maxProds];
 };
 struct Owner
@@ -1452,6 +1451,12 @@ void removeReg(int j)
 		for (int i = 0; i < maxProds; i++)
 		{
 			Owners[j].Shops.products[i] = { 0 };
+			if (Owners[j].Shops.Products[i].Category == "Cloathing")
+			{
+			  Owners[j].Shops.products[i].Clothes.Size = {0};
+			  Owners[j].Shops.products[i].Clothes.Type = {0};
+			  Owners[j].Shops.products[i].Clothes.Color = {0};
+			}
 		}
 		cout << "\n\n\n                ************  Your Account Has Been Successfully Deleted **********" << endl;
 		break;
