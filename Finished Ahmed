@@ -10,6 +10,34 @@ struct Product
 };
 
 void Rating();
+int logOut();
+
+int logOut()
+{
+	char choice;
+	bool flag=false;
+	cout << "Would you like to logout (Y/N) ?";
+	do {
+		cin >> choice;
+		switch (choice)
+		{
+		case 'y':
+		case 'Y': LogIndex = -1;
+			      return LogIndex;
+				  flag = false;
+			      break;
+
+		case 'n':
+		case 'N': //move to another function
+			      flag = false;
+			      break;
+
+		default: cout << "Invalid Input" << endl;
+			     flag = true;
+			     break;
+		}
+	} while (true);
+}
 
 void Rating()
 {
