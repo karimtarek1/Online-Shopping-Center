@@ -229,10 +229,10 @@ void viewproducts()
 				if (Owners[i].Shops.products[j].productPrice != 0)
 				{
 					if (Owners[j].Shops.products[i].Category == "Clothing") {
-						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << " " << Owners[j].Shops.products[i].Clothes.Type << " " << Owners[j].Shops.products[i].Clothes.Color << " " << Owners[j].Shops.products[i].Clothes.Size << "\t" << Owners[i].Shops.products[j].Quantity;
+						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << " " << Owners[j].Shops.products[i].Clothes.Type << " " << Owners[j].Shops.products[i].Clothes.Color << " " << Owners[j].Shops.products[i].Clothes.Size << "\t" << Owners[i].Shops.products[j].Quantity << "t" << Owners[i].Shops.products[j].avgRating;
 					}
 					else {
-						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << "\t" << Owners[i].Shops.products[j].Quantity;
+						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << "\t" << Owners[i].Shops.products[j].Quantity << "t" << Owners[i].Shops.products[j].avgRating;
 					}
 					number++;
 				}
