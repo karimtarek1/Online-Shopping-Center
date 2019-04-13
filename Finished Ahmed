@@ -21,7 +21,7 @@ void Rating()
 	cin >> choice;
 	do
 	{
-		cout << "Enter the name of the product you'd like to rate : ";
+		cout << "Enter the name of the product you'd like to rate (Case Sensitive) : ";
 		cin >> prodName;
 		
 		for (int l = 0; l < maxOwners; l++)
