@@ -35,6 +35,8 @@ struct Product
 	string Category;
 	Clothing Clothes;
 	int Quantity = 0;
+	float ratings[25];
+	float avgRating;
 };
 struct Shop
 {
@@ -91,6 +93,7 @@ void removeProds(int);
 void viewProds(int);
 void RegChoice();
 void removeReg(int);
+void Rating();
 
 int main() {
 
@@ -160,7 +163,7 @@ void welcome() {
 
 void SeifChoice()
 {
-	char choice , cont;
+	char choice, cont;
 	system("cls");
 	do {
 		cout << "\nPress -- 1 -- To Search For A Product. \n\nPress -- 2 -- To View All Products. \n\nPress -- 3 -- To Edit Your Information. \n\npress -- 4 -- To Delete Your Account. \n\n";
@@ -347,7 +350,7 @@ void addtocart(int x, int y) {
 
 void cart() {
 	system("cls");
-	bool flag = true , flag1 = true;
+	bool flag = true, flag1 = true;
 	double total = 0;
 	char s, d;
 	int g, x = 1;
@@ -360,30 +363,30 @@ void cart() {
 		x++;
 	}
 	cout << endl << "\nTOTAL :  " << total << endl;
-	do{
-	cout << "\n\n\nDo you want to Delete any Items ?  [ Y / N ]   \n\n";
-	cout << "Choice : ";
-	cin >> d;
-	switch (d)
-	{
-	case 'y':
-	case 'Y':
-		cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
-		cout << "Number : ";
-		cin >> g;
-		pcart[g - 1] = { 0 };
-		flag = false;
-		break;
-	case 'n':
-	case 'N':
-		flag = false;
-		break;
-	default:
-		cout << "!!! Enter a valid choice !!!" << endl;
-		flag = true;
-		break;
+	do {
+		cout << "\n\n\nDo you want to Delete any Items ?  [ Y / N ]   \n\n";
+		cout << "Choice : ";
+		cin >> d;
+		switch (d)
+		{
+		case 'y':
+		case 'Y':
+			cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
+			cout << "Number : ";
+			cin >> g;
+			pcart[g - 1] = { 0 };
+			flag = false;
+			break;
+		case 'n':
+		case 'N':
+			flag = false;
+			break;
+		default:
+			cout << "!!! Enter a valid choice !!!" << endl;
+			flag = true;
+			break;
 		}
-	}while (flag);
+	} while (flag);
 	total = 0;
 	x = 1;
 	do {
@@ -407,6 +410,7 @@ void cart() {
 			cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
 			cout << "Total price : " << total << '$';
 			flag1 = false;
+			Rating();
 			system("pause");
 			break;
 		case 'R':
@@ -611,7 +615,7 @@ void SLchoice()
 
 void update(int j) {
 
-	char editchoices, gender , regedit;
+	char editchoices, gender, regedit;
 	cout << "\n\n\n ***************  Editing your information ****************************\n\n";
 	cout << "Would You Like To Edit Your Registration Data. ?  [ Y / N ] ? : \n\n";
 	cout << "Choice : ";
@@ -1000,7 +1004,7 @@ int Lowner()
 }
 
 void Eowner(int j) {
-	char editchoice, gender, continuechoice , regedit, shopEdit , categoryChoice, gameChoice, bookChoice;
+	char editchoice, gender, continuechoice, regedit, shopEdit, categoryChoice, gameChoice, bookChoice;
 	bool flag = true;
 	int c;
 	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false;
@@ -1455,7 +1459,7 @@ void removeReg(int j)
 				Owners[j].Shops.products[i].Clothes.Type = { 0 };
 				Owners[j].Shops.products[i].Clothes.Color = { 0 };
 			}
-			else{
+			else {
 				Owners[j].Shops.products[i] = { 0 };
 			}
 		}
@@ -1464,4 +1468,59 @@ void removeReg(int j)
 	default:
 		break;
 	}
+}
+
+void Rating()
+{
+	int counter = 0;
+	char choice;
+	string prodName;
+	bool flag = false;
+	float rating, sum = 0;
+	do
+	{
+	cout << "Would you like to rate a product (Y/N) ?";
+	cin >> choice;
+	if (choice == 'y' || choice == 'Y') {
+		cout << "Enter the name of the product you'd like to rate (Case Sensitive) : ";
+		cin >> prodName;
+
+		for (int l = 0; l < maxOwners; l++)
+		{
+			for (int j = 0; l < maxProds; l++)
+			{
+				if (Owners[l].Shops.products[j].productName == prodName)
+				{
+					cout << "It's rating is : ";
+					cout << Owners[l].Shops.products[j].avgRating;
+					do {
+						cout << "Enter your rating (1 --> 5) : ";
+						cin >> rating;
+						if (rating >= 1 && rating <= 5)
+						{
+							for (int k = 0; k < 25; k++)
+							{
+								if (Owners[l].Shops.products[j].ratings[k] == 0)
+								{
+									Owners[l].Shops.products[j].ratings[k] = rating;
+									break;
+								}
+								counter++;
+								sum += Owners[l].Shops.products[j].ratings[k];
+							}
+							Owners[l].Shops.products[j].avgRating = round(sum / counter);
+						}
+						else
+						{
+							cout << "Error , Invalid rating entered";
+							flag = true;
+						}
+					} while (flag);
+						cout << "The current rating of " << Owners[l].Shops.products[j].productName << "is" << Owners[l].Shops.products[j].avgRating;
+						break;
+					}
+				}
+			}
+		}
+	} while (choice == 'y' || choice == 'Y');
 }
