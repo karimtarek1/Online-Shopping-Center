@@ -1451,11 +1451,15 @@ void removeReg(int j)
 		for (int i = 0; i < maxProds; i++)
 		{
 			Owners[j].Shops.products[i] = { 0 };
-			if (Owners[j].Shops.products[i].Category == "Cloathing")
+			if (Owners[j].Shops.products[i].Category == "Clothing")
 			{
-			  Owners[j].Shops.products[i].Clothes.Size = {0};
-			  Owners[j].Shops.products[i].Clothes.Type = {0};
-			  Owners[j].Shops.products[i].Clothes.Color = {0};
+				Owners[j].Shops.products[i] = { 0 };
+				Owners[j].Shops.products[i].Clothes.Size = { 0 };
+				Owners[j].Shops.products[i].Clothes.Type = { 0 };
+				Owners[j].Shops.products[i].Clothes.Color = { 0 };
+			}
+			else{
+				Owners[j].Shops.products[i] = { 0 };
 			}
 		}
 		cout << "\n\n\n                ************  Your Account Has Been Successfully Deleted **********" << endl;
