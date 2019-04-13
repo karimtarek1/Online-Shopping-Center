@@ -41,6 +41,7 @@ void Rating()
 							if (Owners[l].Shops.products[j].ratings[k] == 0)
 							{
 								Owners[l].Shops.products[j].ratings[k] = rating;
+								break;
 							}
 							counter++;
 							sum += Owners[l].Shops.products[j].ratings[k];
