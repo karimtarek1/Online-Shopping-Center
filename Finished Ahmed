@@ -16,45 +16,47 @@ void Rating()
 	int counter = 0;
 	char choice;
 	string prodName;
-	float rating,sum=0;
+	float rating, sum = 0;
 	cout << "Would you like to rate a product (Y/N) ?";
 	cin >> choice;
 	do
 	{
 		cout << "Enter the name of the product you'd like to rate (Case Sensitive) : ";
 		cin >> prodName;
-		
+
 		for (int l = 0; l < maxOwners; l++)
 		{
 			for (int j = 0; l < maxProds; l++)
 			{
 				if (Owners[l].Shops.products[j].productName == prodName)
-				{       
-				        cout << "It's rating is : ";
+				{
+					cout << "It's rating is : ";
 					cout << Owners[l].Shops.products[j].avgRating;
-				        do{
-					cout << "Enter your rating (1 --> 5) : ";
-					cin >> rating;
-					bool flag = false;
-					if (rating >= 1 && rating <= 5)
-					{
-						for (int k = 0; k < 25; k++)
-						{
-							if (Owners[l].Shops.products[j].ratings[k] == 0)
+					bool flag;
+					do {
+						cout << "Enter your rating (1 --> 5) : ";
+						cin >> rating;
+						if (rating >= 1 && rating <= 5)
+						{   flag = false;
+							for (int k = 0; k < 25; k++)
 							{
-								Owners[l].Shops.products[j].ratings[k] = rating;
-								break;
+								
+								if (Owners[l].Shops.products[j].ratings[k] == 0)
+								{
+									Owners[l].Shops.products[j].ratings[k] = rating;
+									break;
+								}
+								counter++;
+								sum += Owners[l].Shops.products[j].ratings[k];
 							}
-							counter++;
-							sum += Owners[l].Shops.products[j].ratings[k];
+							Owners[l].Shops.products[j].avgRating = round(sum / counter);
 						}
-						Owners[l].Shops.products[j].avgRating = round(sum / counter);
-					}
-					else 
-					{       cout << "Error , Invalid rating entered";
-					        flag = true;
-					}
-					}while(flag);
+						else
+						    {
+							cout << "Error , Invalid rating entered";
+							flag = true;
+						    }
+					    } while (flag);
 					cout << "The current rating of " << Owners[l].Shops.products[j].productName << "is" << Owners[l].Shops.products[j].avgRating;
 					break;
 				}
