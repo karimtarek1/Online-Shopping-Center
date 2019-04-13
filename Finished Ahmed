@@ -1,0 +1,57 @@
+struct Product
+{
+	string productName = { 0 };
+	double productPrice = 0;
+	string Category;
+	Clothing Clothes;
+	int Quantity = 0;
+	float ratings[25];
+	float avgRating;
+};
+
+void Rating();
+
+void Rating()
+{
+	int counter = 0, sum = 0;
+	char choice;
+	string prodName;
+	float rating;
+	cout << "Would you like to rate a product (Y/N) ?";
+	cin >> choice;
+	do
+	{
+		cout << "Enter the name of the product you'd like to rate : ";
+		cin >> prodName;
+		cout << "It's rating is : ";
+		for (int l = 0; l < maxOwners; l++)
+		{
+			for (int j = 0; l < maxProds; l++)
+			{
+				if (Owners[l].Shops.products[j].productName == prodName)
+				{
+					cout << "Enter your rating (1 --> 5) : ";
+					cin >> rating;
+					if (rating >= 1 && rating <= 5)
+					{
+						for (int k = 0; k < 25; k++)
+						{
+							
+
+							if (Owners[l].Shops.products[j].ratings[k] == 0)
+							{
+								Owners[l].Shops.products[j].ratings[k] = rating;
+							}
+							counter++;
+							sum += Owners[l].Shops.products[j].ratings[k];
+						}
+						Owners[l].Shops.products[j].avgRating = round(sum / counter);
+					}
+					cout << "The current rating of " << Owners[l].Shops.products[j].productName << "is" << Owners[l].Shops.products[j].avgRating;
+					break;
+				}
+				else { cout << "Error , Invalid rating entered"; }
+			}
+		}
+	} while (choice == 'y' || choice == 'Y');
+}
