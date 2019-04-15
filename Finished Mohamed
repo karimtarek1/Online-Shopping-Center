@@ -22,13 +22,12 @@ struct Address {
 struct num {
 	int nump;
 }c;
-struct cartt {
-	int qunatity;
+struct cart {
+	int quantity;
 	string buyproduct = { 0 };
 	double price;
 	double subtotal;
-
-} pcart[100];
+} shopperCart[100];
 struct Product
 {
 	string productName = { 0 };
@@ -65,6 +64,7 @@ struct shopper {
 	int age;
 	string gender;
 	Address Add;
+	double purchaseHistory[10];
 }Shoppers[maxShoppers];
 
 void Open();
@@ -72,7 +72,7 @@ int login();
 void registration();
 void update(int j);
 void SLchoice();
-void SeifChoice();
+void sChoice();
 void viewproducts();
 void search();
 void info(int, int);
@@ -90,6 +90,7 @@ void Eowner(int);
 void ProdChoice();
 void addProds(int);
 void removeProds(int);
+void editProds(int j);
 void viewProds(int);
 void RegChoice();
 void removeReg(int);
@@ -101,7 +102,7 @@ int main() {
 	char choice, c;
 	bool flag = true;
 	cout << "*****************************************----------------***********************************************\n";
-	cout << "*****************************---- WELCOME TO THE ONLINE SHOPPING STORE --- **********************************\n";
+	cout << "*****************************---- WELCOME TO THE ONLINE SHOPPING STORE ----**********************************\n";
 	cout << "*****************************************----------------*************************************************\n\n\n";
 	do {
 		cout << " [ 1 ] Shopper. \n\n";
@@ -112,7 +113,7 @@ int main() {
 		system("cls");
 		if (choice == '1') {
 			SLchoice();
-			SeifChoice();
+			sChoice();
 		}
 		else if (choice == '2') {
 			RegChoice();
@@ -139,7 +140,7 @@ int main() {
 				}
 				else if (c == 'N' || c == 'n') {
 					if (choice == '1') {
-						SeifChoice();
+						sChoice();
 					}
 					else if (choice == '2') {
 						OEchoice();
@@ -223,7 +224,7 @@ void save() {
 	Products.close();
 }
 
-void SeifChoice()
+void sChoice()
 {
 	char choice, cont;
 	system("cls");
@@ -325,14 +326,14 @@ void info(int i, int j)
 		case 'y':
 		case'Y':
 			addtocart(i, j);
-			SeifChoice();
+			sChoice();
 			flag = false;
 			break;
 
 		case 'n':
 		case'N':
 
-			SeifChoice();
+			sChoice();
 			flag = false;
 
 		default:
@@ -381,29 +382,29 @@ void chooseproduct() {
 
 void addtocart(int x, int y) {
 
-	int n;
+	int amount;
 	bool done = true;
 
-	pcart[c.nump].buyproduct = Owners[x].Shops.products[y].productName;
-	pcart[c.nump].price = Owners[x].Shops.products[y].productPrice;
+	shopperCart[c.nump].buyproduct = Owners[x].Shops.products[y].productName;
+	shopperCart[c.nump].price = Owners[x].Shops.products[y].productPrice;
 	do {
-		cout << "\n\n How many quantity do you want ?                                  ***press .0. to exit.*** \n\n ";
-		cout << "Number : ";
-		cin >> n;
-		if (n <= Owners[x].Shops.products[y].Quantity) {
-			if (n != 0) {
-				cout << "Your Product Added to cart " << endl;
-				pcart[c.nump].qunatity = n;
-				Owners[x].Shops.products[y].Quantity -= n;
+		cout << "\n\n How many do you want ?                                  ***press .0. to exit.*** \n\n ";
+		cout << "Amount : ";
+		cin >> amount;
+		if (amount <= Owners[x].Shops.products[y].Quantity) {
+			if (amount != 0) {
+				cout << "Your Product was added to cart " << endl;
+				shopperCart[c.nump].quantity = amount;
+				Owners[x].Shops.products[y].Quantity -= amount;
 				done = false;
 			}
 			else
 				break;
 		}
-		else if (n == 0)
+		else if (amount == 0)
 			break;
 		else
-			cout << " \n\n Your Quantity is not availble now in the stock !! We have ( " << Owners[x].Shops.products[y].Quantity << " ) only in the stock \n\n" << endl;
+			cout << " \n\n Your desired amount is unavailable , there are only ( " << Owners[x].Shops.products[y].Quantity << " ) in stock \n\n" << endl;
 	} while (done);
 
 	c.nump++;
@@ -415,29 +416,29 @@ void cart() {
 	system("cls");
 	bool flag = true, flag1 = true;
 	double total = 0;
-	char s, d;
-	int g, x = 1;
+	char choice, delChoice;
+	int deleteNum, x = 1;
 	cout << "\n\n************************************ - YOUR CART - *************************************\n\n" << endl;
 	cout << "   NAME \t\t\t  " << " QUANTITY \t\t\t  " << " PRICE  \n\n ";
 	for (int i = 0; i < c.nump; i++) {
-		pcart[i].subtotal = (pcart[i].qunatity * pcart[i].price);
-		cout << x << '. ' << pcart[i].buyproduct << "\t\t" << pcart[i].qunatity << "\t\t" << pcart[i].subtotal << '$\n' << endl;
-		total += pcart[i].subtotal;
+		shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
+		cout << x << '. ' << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << '$\n' << endl;
+		total += shopperCart[i].subtotal;
 		x++;
 	}
 	cout << endl << "\nTOTAL :  " << total << endl;
 	do {
 		cout << "\n\n\nDo you want to Delete any Items ?  [ Y / N ]   \n\n";
 		cout << "Choice : ";
-		cin >> d;
-		switch (d)
+		cin >> delChoice;
+		switch (delChoice)
 		{
 		case 'y':
 		case 'Y':
 			cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
 			cout << "Number : ";
-			cin >> g;
-			pcart[g - 1] = { 0 };
+			cin >> deleteNum;
+			shopperCart[deleteNum - 1] = { 0 };
 			flag = false;
 			break;
 		case 'n':
@@ -455,8 +456,8 @@ void cart() {
 	do {
 		cout << "Press -- V --  to View receipt. \n\n Press -- R -- to Return to Shopping. \n\n" << endl;
 		cout << "Choice : ";
-		cin >> s;
-		switch (s)
+		cin >> choice;
+		switch (choice)
 		{
 		case 'v':
 		case 'V':
@@ -464,10 +465,10 @@ void cart() {
 			cout << "\n\n********************************** TOTAL ITEMS *********************************\n\n\n" << endl;
 			cout << " NAME \t\t\t  " << " QUNATITY \t\t\t  " << " PRICE \n\n  ";
 			for (int i = 0; i < c.nump; i++) {
-				if (pcart[i].price != 0) {
-					pcart[i].subtotal = (pcart[i].qunatity * pcart[i].price);
-					cout << x << ". " << pcart[i].buyproduct << "\t\t" << pcart[i].qunatity << "\t\t" << pcart[i].subtotal << '$' << endl;
-					total += pcart[i].subtotal;
+				if (shopperCart[i].price != 0) {
+					shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
+					cout << x << ". " << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << '$' << endl;
+					total += shopperCart[i].subtotal;
 				}
 			}
 			cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
@@ -616,11 +617,11 @@ void registration() {
 			}
 			Shoppers[i].gender = choice;
 			cout << "\nEnter Your Address: \n\n";
-			cout << " City : ";
+			cout << "               City : ";
 			cin >> Shoppers[i].Add.City;
-			cout << " Country : ";
+			cout << "               Country : ";
 			cin >> Shoppers[i].Add.Country;
-			cout << endl << "\n ************  You Have Registered Successfully ************ \n\n" << endl;
+			cout << endl << "\n ************ You Have Registered Successfully ************ \n\n" << endl;
 			system("pause");
 			break;
 		}
@@ -641,7 +642,7 @@ int login() {
 	cin >> LogID;
 	do {
 		char a;
-		cout << endl << "Enter your Password : ";
+		cout << endl << "Password : ";
 		for (j = 0;;)
 		{
 			a = _getch();
@@ -927,7 +928,7 @@ void update(int j) {
 		cout << "Choice : ";
 		cin >> editchoices;
 	}
-	SeifChoice();
+	sChoice();
 
 }
 
@@ -1114,9 +1115,9 @@ int RegOwner()
 				}
 			}
 			Owners[j].Gender = gender;
-			cout << "\nEnter your Address. \n\nCountry : ";
+			cout << "\nEnter your Address. \n\n    Country : ";
 			cin >> Owners[j].Add.Country;
-			cout << "City : "; cin >> Owners[j].Add.City;
+			cout << "    City : "; cin >> Owners[j].Add.City;
 			cout << "         \n\n  ************************** You Have Registered Successfully ************************* *" << endl << endl;
 			system("pause");
 			break;
@@ -1132,7 +1133,7 @@ void RegShop(int i)
 	char categoryChoice, gameChoice, bookChoice;
 	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false;
 	do {
-		cout << "\nEnter your shop name: ";
+		cout << "\nEnter your Shop name: ";
 		cin >> shopName;
 		for (int j = 0; j < maxOwners; j++)
 		{
@@ -1672,7 +1673,7 @@ void ProdChoice()
 	char choice;
 	do
 	{
-		cout << "Press  -- A -- To Add A Product.\n\nPress -- R -- To Remove A Product.\n\nPress -- V -- To View Your Products.\n\nPress-- D -- To Discount a product\n\n";
+		cout << "Press  -- A -- To Add A Product.\n\nPress -- R -- To Remove A Product.\n\nPress -- V -- To View Your Products.\n\nPress -- E -- To Edit a product\n\nPress -- D -- To Discount a product\n\n";
 		cout << "Choice : ";
 		char choices;
 		cin >> choices;
@@ -1694,9 +1695,14 @@ void ProdChoice()
 			viewProds(LogIndex);
 			break;
 		case 'd':
-		case 'D':system("cls");
-			addProds(LogIndex);
+		case 'D':
+			system("cls");
 			discount(LogIndex);
+			break;
+		case 'e':
+		case 'E':
+			system("cls");
+			editProds(LogIndex);
 			break;
 		default:
 			cout << "\n\n !! Invalid answer !! \n\n";
@@ -1830,6 +1836,66 @@ void removeProds(int j)
 
 }
 
+void editProds(int j) {
+
+	int i;
+	bool same = false;
+	string name;
+	char choice, continuechoice, c;
+	do
+	{
+		cout << "\n\nWhat is the name of the product you want to edit ?? \n\n";
+		cout << "Name : ";
+		cin >> name;
+			for (i = 0; i < maxProds; i++)
+			{
+				if (name == Owners[j].Shops.products[i].productName)
+				{
+					same = true;
+					break;
+				}
+			}
+			if (same == true)
+			{
+				cout << "1 ) Product's Name\n\n2 ) Product's Price\n\n3 ) Product's Quantity\n\n";
+				cout << "Choice : "; cin >> c;
+				switch (c)
+				{
+				case '1':
+					cout << "\nProduct's Name : "; cin >> Owners[j].Shops.products[i].productName;
+					break;
+				case '2':
+					cout << "\nPrice : "; cin >> Owners[j].Shops.products[i].productPrice;
+					break;
+				case '3':
+					cout << "\nQuantity : "; cin >> Owners[j].Shops.products[i].Quantity;
+					break;
+				default:
+					cout << "\nInvalid Choice";
+					break;
+				}			
+			}
+			else if (same == false)
+			cout << "This product doesn't exist. \n\n";
+			cout << "\nDo You Want To Edit Another Product? [ Y / N ] : ";
+			cout << " Choice : ";
+			cin >> choice;
+			cout << "\n" << endl;
+			if (choice == 'N' || choice == 'n')
+			{
+				break;
+			}
+
+			else if (choice == 'Y' || choice == 'y')
+			{
+				continue;
+			}
+			else {
+				break;
+			}
+		} while (true);
+	} 
+
 void viewProds(int j)
 {
 	char choice;
@@ -1852,7 +1918,6 @@ void viewProds(int j)
 		}
 		else if (choice == 'y' || choice == 'Y')
 		{
-			system("cls");
 			continue;
 		}
 	} while (true);
@@ -1862,7 +1927,7 @@ void removeReg(int j)
 {
 	char choice;
 	cout << "\n\nYou Are About To Delete Your Account , Are You Sure ? [ Y / N ] \n\n";
-	cout << "choice : ";
+	cout << "Choice : ";
 	cin >> choice;
 	switch (choice)
 	{
@@ -1914,7 +1979,7 @@ void Rating()
 	cin >> choice;
 	do
 	{
-		cout << "Enter the name of the product you'd like to rate (Case Sensitive) : ";
+		cout << "Enter the name of the Product you'd like to rate (Case Sensitive) : ";
 		cin >> prodName;
 
 		for (int l = 0; l < maxOwners; l++)
@@ -1963,7 +2028,7 @@ void discount(int j)
 {
 	double percentage, discount;
 	string nameofProduct;
-	bool flag = false, choice = true ;
+	bool flag = false, choice = true;
 	do {
 		cout << "Enter the name of a Product : ";
 		cin >> nameofProduct;
@@ -1990,11 +2055,16 @@ void discount(int j)
 					}
 				}
 			}
-		} 
+		}
 		if (flag)
 		{
 			cout << "The product you have entered does not exist , please re-enter it\n";
 			flag = true;
 		}
 	} while (flag);
+}
+
+void purchaseHistory()
+{
+
 }
