@@ -99,6 +99,7 @@ int main() {
 
 	Open();
 	char choice , c;
+	bool flag = true;
 	cout << "*****************************************----------------***********************************************\n";
 	cout << "*****************************---- WELCOME TO THE ONLINE SHOPPING STORE --- **********************************\n";
 	cout << "*****************************************----------------*************************************************\n\n\n";
@@ -126,13 +127,14 @@ int main() {
 		system("cls");
 		}
 		if ((choice == '1' || choice == '2' || choice == 'x' || choice == 'X') && LogIndex != maxOwners) {
-			while (true) {
+			while (flag) {
 				cout << "Would you like to Log Out (Y/N)? ";
 				cin >> c;
 				if ((c == 'Y') || (c == 'y')) {
 					LogIndex = -1;
 					choice = 'y';
 					cout << "You logged out Successfully";
+					flag = false;
 					break;
 				}
 				else if (c == 'N' || c == 'n') {
@@ -143,7 +145,6 @@ int main() {
 						OEchoice();
 						ProdChoice();
 					}
-					break;
 				}
 				else {
 					cout << "Invalid Choice";
@@ -160,14 +161,17 @@ void Open() {
 
 	ifstream Owner, Shopper, Products;
 	Owner.open("Owners.txt");
+	string temp1[274] ;
 	for (int i = 0; i < maxOwners; i++) {
 		string str;
 		getline(Owner, str);
 		istringstream ss(str);
 		string temp;
-		while (getline(ss, temp, '|'))
-		{
-			cout << temp << endl;
+		for (int j = 0; j < 274; j++) {
+			while (getline(ss, temp, '|')) {
+					temp1[j] = temp;
+					break;
+				}
 		}
 	}
 	Shopper.open("Shopper.txt");
@@ -191,13 +195,13 @@ void save() {
 	Owner.open("Owners.txt", ios::trunc);
 	for (int i = 0; i < maxOwners; i++) {
 		if (Owners[i].Age != 0) {
-			Owner << Owners[i].Name << "|" << Owners[i].ID << Owners[i].Age << "|" << Owners[i].Gender << "|" << Owners[i].Add.Country << "|" << Owners[i].Add.City << "|" << Owners[i].Password << "|" << Owners[i].PassNum << "|" << Owners[i].Shops.ShopName << "|" << Owners[i].Shops.Category << "|" << Owners[i].Shops.Add.Country << "|" << Owners[i].Shops.Add.City << '\n';
+			Owner << Owners[i].Name <<  "|" << Owners[i].Gender << "|" << Owners[i].Add.Country << "|" << Owners[i].Add.City << "|" <<  Owners[i].Shops.ShopName << "|" << Owners[i].Shops.Category << "|" << Owners[i].Shops.Add.Country << "|" << Owners[i].Shops.Add.City << "|" << Owners[i].ID << "|" << Owners[i].Age << "|" << Owners[i].PassNum << "|" << Owners[i].Password << '\n';
 		}
 	}
 	Shopper.open("Shopper.txt", ios::trunc);
 	for (int i = 0; i < maxShoppers; i++) {
 		if (Shoppers[i].age != 0) {
-			Shopper << Shoppers[i].name << "|" << Shoppers[i].id << Shoppers[i].age << "|" << Shoppers[i].gender << "|" << Shoppers[i].Add.Country << "|" << Shoppers[i].Add.City << "|" << Shoppers[i].pass << "|" << Shoppers[i].passnum << '\n';
+			Shopper << Shoppers[i].name << "|" << Shoppers[i].gender << "|" << Shoppers[i].Add.Country << "|" << Shoppers[i].Add.City << "|" << Shoppers[i].id << "|" << Shoppers[i].age << "|" << Shoppers[i].passnum << "|" << Shoppers[i].pass << '\n';
 		}
 	}
 	Products.open("Products.txt", ios::trunc);
@@ -205,10 +209,10 @@ void save() {
 		for (int j = 0; j < maxProds; j++) {
 			if (Owners[i].Shops.products[j].productPrice != 0) {
 				if (Owners[i].Shops.products[j].Category == "Clothes") {
-					Products << Owners[i].Shops.products[j].productName << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].Clothes.Type << "|" << Owners[i].Shops.products[j].Clothes.Color << "|" << Owners[i].Shops.products[j].Clothes.Size << '\n';
+					Products << Owners[i].Shops.products[j].productName <<  "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].Clothes.Type << "|" << Owners[i].Shops.products[j].Clothes.Color << "|" << Owners[i].Shops.products[j].Clothes.Size << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << '\n';
 				}
 				else {
-					Products << Owners[i].Shops.products[j].productName << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << "|" << Owners[i].Shops.products[j].Category << '\n';
+					Products << Owners[i].Shops.products[j].productName << "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << '\n';
 				}
 			}
 		}
