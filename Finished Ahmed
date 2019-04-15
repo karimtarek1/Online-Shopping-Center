@@ -1974,7 +1974,7 @@ void discount(int j)
 				while (choice)
 				{
 					cout << "Enter the Discount percentage : ";
-					cin >> discount;
+					cin >> percentage;
 					cout << "%" << endl;
 					if (percentage <= 100)
 					{
