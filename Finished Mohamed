@@ -709,10 +709,10 @@ void update(int j) {
 			break;
 
 		case '5': cout << "\n\nNew Address : ";
-			cout << "\n\nCity :  ";
-			cin >> Shoppers[j].Add.City;
-			cout << "\n\nCountry : ";
+			cout << "\n\nCountry :  ";
 			cin >> Shoppers[j].Add.Country;
+			cout << "\n\nCity : ";
+			cin >> Shoppers[j].Add.City;
 			break;
 
 		default:
