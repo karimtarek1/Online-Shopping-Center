@@ -97,8 +97,8 @@ void Rating();
 
 int main() {
 
-	Open();
-	char choice, c;
+	char choice , c;
+	bool flag = true;
 	cout << "*****************************************----------------***********************************************\n";
 	cout << "*****************************---- WELCOME TO THE ONLINE SHOPPING STORE --- **********************************\n";
 	cout << "*****************************************----------------*************************************************\n\n\n";
@@ -120,19 +120,20 @@ int main() {
 		else if (choice == 'x' || choice == 'X') {
 			break;
 		}
-		else {
-			cout << "\n\n!! Invalid choice. !!\n\n";
-			system("pause");
-			system("cls");
+		else{
+		cout << "\n\n!! Invalid choice. !!\n\n";
+		system("pause");
+		system("cls");
 		}
 		if ((choice == '1' || choice == '2' || choice == 'x' || choice == 'X') && LogIndex != maxOwners) {
-			while (true) {
+			while (flag) {
 				cout << "Would you like to Log Out (Y/N)? ";
 				cin >> c;
 				if ((c == 'Y') || (c == 'y')) {
 					LogIndex = -1;
 					choice = 'y';
 					cout << "You logged out Successfully";
+					flag = false;
 					break;
 				}
 				else if (c == 'N' || c == 'n') {
@@ -143,14 +144,13 @@ int main() {
 						OEchoice();
 						ProdChoice();
 					}
-					break;
 				}
 				else {
 					cout << "Invalid Choice";
 				}
 			}
 		}
-	} while (choice != '1' || choice != '2' || choice != 'x' || choice != 'X');
+	} while (choice != '1' || choice != '2' || choice != 'x' || choice != 'X' );
 	save();
 	return 0;
 }
@@ -160,19 +160,22 @@ void Open() {
 
 	ifstream Owner, Shopper, Products;
 	Owner.open("Owners.txt");
+	string temp1[274] ;
 	for (int i = 0; i < maxOwners; i++) {
 		string str;
 		getline(Owner, str);
 		istringstream ss(str);
 		string temp;
-		while (getline(ss, temp, '|'))
-		{
-			cout << temp << endl;
+		for (int j = 0; j < 274; j++) {
+			while (getline(ss, temp, '|')) {
+					temp1[j] = temp;
+					break;
+				}
 		}
 	}
 	Shopper.open("Shopper.txt");
 	for (int i = 0; i < maxShoppers; i++) {
-
+		
 	}
 	Products.open("Products.txt");
 	for (int i = 0; i < maxOwners; i++) {
@@ -191,13 +194,13 @@ void save() {
 	Owner.open("Owners.txt", ios::trunc);
 	for (int i = 0; i < maxOwners; i++) {
 		if (Owners[i].Age != 0) {
-			Owner << Owners[i].Name << "|" << Owners[i].ID << Owners[i].Age << "|" << Owners[i].Gender << "|" << Owners[i].Add.Country << "|" << Owners[i].Add.City << "|" << Owners[i].Password << "|" << Owners[i].PassNum << "|" << Owners[i].Shops.ShopName << "|" << Owners[i].Shops.Category << "|" << Owners[i].Shops.Add.Country << "|" << Owners[i].Shops.Add.City << '\n';
+			Owner << Owners[i].Name <<  "|" << Owners[i].Gender << "|" << Owners[i].Add.Country << "|" << Owners[i].Add.City << "|" <<  Owners[i].Shops.ShopName << "|" << Owners[i].Shops.Category << "|" << Owners[i].Shops.Add.Country << "|" << Owners[i].Shops.Add.City << "|" << Owners[i].ID << "|" << Owners[i].Age << "|" << Owners[i].PassNum << "|" << Owners[i].Password << '\n';
 		}
 	}
 	Shopper.open("Shopper.txt", ios::trunc);
 	for (int i = 0; i < maxShoppers; i++) {
 		if (Shoppers[i].age != 0) {
-			Shopper << Shoppers[i].name << "|" << Shoppers[i].id << Shoppers[i].age << "|" << Shoppers[i].gender << "|" << Shoppers[i].Add.Country << "|" << Shoppers[i].Add.City << "|" << Shoppers[i].pass << "|" << Shoppers[i].passnum << '\n';
+			Shopper << Shoppers[i].name << "|" << Shoppers[i].gender << "|" << Shoppers[i].Add.Country << "|" << Shoppers[i].Add.City << "|" << Shoppers[i].id << "|" << Shoppers[i].age << "|" << Shoppers[i].passnum << "|" << Shoppers[i].pass << '\n';
 		}
 	}
 	Products.open("Products.txt", ios::trunc);
@@ -205,10 +208,10 @@ void save() {
 		for (int j = 0; j < maxProds; j++) {
 			if (Owners[i].Shops.products[j].productPrice != 0) {
 				if (Owners[i].Shops.products[j].Category == "Clothes") {
-					Products << Owners[i].Shops.products[j].productName << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].Clothes.Type << "|" << Owners[i].Shops.products[j].Clothes.Color << "|" << Owners[i].Shops.products[j].Clothes.Size << '\n';
+					Products << Owners[i].Shops.products[j].productName <<  "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].Clothes.Type << "|" << Owners[i].Shops.products[j].Clothes.Color << "|" << Owners[i].Shops.products[j].Clothes.Size << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << '\n';
 				}
 				else {
-					Products << Owners[i].Shops.products[j].productName << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << "|" << Owners[i].Shops.products[j].Category << '\n';
+					Products << Owners[i].Shops.products[j].productName << "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << '\n';
 				}
 			}
 		}
@@ -415,7 +418,7 @@ void cart() {
 	cout << "\n\n************************************ - YOUR CART - *************************************\n\n" << endl;
 	cout << "   NAME \t\t\t  " << " QUANTITY \t\t\t  " << " PRICE  \n\n ";
 	for (int i = 0; i < c.nump; i++) {
-		pcart[i].subtotal = (pcart[i].qunatity * pcart[i].price);
+		pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
 		cout << x << '. ' << pcart[i].buyproduct << "\t\t" << pcart[i].qunatity << "\t\t" << pcart[i].subtotal << '$\n' << endl;
 		total += pcart[i].subtotal;
 		x++;
@@ -460,7 +463,7 @@ void cart() {
 			cout << " NAME \t\t\t  " << " QUNATITY \t\t\t  " << " PRICE \n\n  ";
 			for (int i = 0; i < c.nump; i++) {
 				if (pcart[i].price != 0) {
-					pcart[i].subtotal = (pcart[i].qunatity * pcart[i].price);
+					pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
 					cout << x << ". " << pcart[i].buyproduct << "\t\t" << pcart[i].qunatity << "\t\t" << pcart[i].subtotal << '$' << endl;
 					total += pcart[i].subtotal;
 				}
@@ -506,13 +509,13 @@ void registration() {
 				for (j = 0; j < maxPass;)
 				{
 					a = _getch();
-					if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+					if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
 					{
 						Shoppers[i].pass[j] = a;
 						++j;
 						cout << "*";
 					}
-					if (a == '\b' && j >= 1)
+					if (a == '\b'&&j >= 1)
 					{
 						cout << "\b \b";
 						--j;
@@ -578,13 +581,13 @@ int login() {
 		for (j = 0;;)
 		{
 			a = _getch();
-			if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+			if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
 			{
 				LogPass[j] = a;
 				++j;
 				cout << "*";
 			}
-			if (a == '\b' && j >= 1)
+			if (a == '\b'&&j >= 1)
 			{
 				cout << "\b \b";
 				--j;
@@ -787,9 +790,9 @@ void RegChoice()
 
 int RegOwner()
 {
-	int i, j,k,passNum1 ,passNum2;
-	char gender , pass1[maxPass] , pass2[maxPass];
-	bool flag = true , passFlag = true, genflag = true;
+	int i, j, k, passNum1, passNum2;
+	char gender, pass1[maxPass], pass2[maxPass];
+	bool flag = true, passFlag = true, genflag = true;
 	for (j = 0; j < maxOwners; j++)
 	{
 		if (Owners[j].Age == 0)
@@ -799,12 +802,13 @@ int RegOwner()
 			Owners[j].ID = j + 1;
 			cout << "\nYour ID Is :" << Owners[j].ID << endl;
 
-			while (flag) 
+			while (flag)
 			{
 				do
 				{
 					cout << "\nPassword (at least 6 digits): ";
 					char a;
+					passFlag = true;
 					for (i = 0; i < maxPass;)
 					{
 						a = _getch();
@@ -824,6 +828,7 @@ int RegOwner()
 							pass1[i] = '\0';
 							break;
 						}
+						Owners[j].PassNum = i;
 						passNum1 = i;
 					}
 					cout << endl;
@@ -1085,8 +1090,8 @@ int Lowner()
 }
 
 void Eowner(int j) {
-	char editchoice, gender, continuechoice, regedit, shopEdit, categoryChoice, gameChoice, bookChoice;
-	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false, flagSame = true, flag = true, flagPass = true, choiceFlag = true;
+	char editchoice, gender, continuechoice, regedit, shopEdit, categoryChoice, gameChoice, bookChoice; 
+	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false , flagSame = true , flag = true, flagPass = true , choiceFlag = true;
 	int l;
 	cout << "**************  Editing your information **************** \n";
 	do {
@@ -1116,6 +1121,7 @@ void Eowner(int j) {
 				{
 					cout << "Old Password : ";
 					char a;
+					flagPass = true;
 					for (l = 0;;)
 					{
 						a = _getch();
