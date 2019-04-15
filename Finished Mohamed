@@ -97,7 +97,6 @@ void Rating();
 
 int main() {
 
-	Open();
 	char choice , c;
 	bool flag = true;
 	cout << "*****************************************----------------***********************************************\n";
@@ -791,9 +790,9 @@ void RegChoice()
 
 int RegOwner()
 {
-	int i, j;
-	char gender;
-	bool flag = true;
+	int i, j, k, passNum1, passNum2;
+	char gender, pass1[maxPass], pass2[maxPass];
+	bool flag = true, passFlag = true, genflag = true;
 	for (j = 0; j < maxOwners; j++)
 	{
 		if (Owners[j].Age == 0)
@@ -803,50 +802,109 @@ int RegOwner()
 			Owners[j].ID = j + 1;
 			cout << "\nYour ID Is :" << Owners[j].ID << endl;
 
-			do
+			while (flag)
 			{
-				cout << "\nEnter Your Password Of At Least 6 Digits. : ";
-				char a;
-				for (i = 0; i < maxPass;)
+				do
 				{
-					a = _getch();
-					if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
-
+					cout << "\nPassword (at least 6 digits): ";
+					char a;
+					passFlag = true;
+					for (i = 0; i < maxPass;)
 					{
-						Owners[j].Password[i] = a;
-						++i;
-						cout << "*";
+						a = _getch();
+						if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+						{
+							pass1[i] = a;
+							++i;
+							cout << "*";
+						}
+						if (a == '\b' && i >= 1)
+						{
+							cout << "\b \b";
+							--i;
+						}
+						if (a == '\r')
+						{
+							pass1[i] = '\0';
+							break;
+						}
+						Owners[j].PassNum = i;
+						passNum1 = i;
 					}
-					if (a == '\b' && i >= 1)
+					cout << endl;
+				} while (i <= 5);
 
+				do
+				{
+					cout << "\nConfirm Password : ";
+					char a;
+					for (k = 0; k < maxPass;)
 					{
-						cout << "\b \b";
-						--i;
+						a = _getch();
+						if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+
+						{
+							pass2[k] = a;
+							++k;
+							cout << "*";
+						}
+						if (a == '\b' && k >= 1)
+						{
+							cout << "\b \b";
+							--k;
+						}
+						if (a == '\r')
+						{
+							pass2[k] = '\0';
+							break;
+						}
+						passNum2 = k;
 					}
-					if (a == '\r')
+					cout << endl;
+				} while (k <= 5);
+
+				if (passNum1 == passNum2)
+				{
+					for (int num = 0; num < passNum1; num++)
 					{
-						Owners[j].Password[i] = '\0';
+						if (pass1[num] != pass2[num])
+						{
+							cout << "\nPasswords do not match" << endl;
+							passFlag = false;
+							break;
+						}
+					}
+					if (passFlag)
+					{
+						for (int m = 0; m < passNum1; m++)
+						{
+							Owners[j].Password[m] = pass1[m];
+						}
+						flag = false;
 						break;
 					}
-					Owners[j].PassNum = i;
 				}
-				cout << endl;
-			} while (i <= 5);
+				else
+				{
+					cout << "Passwords do not match" << endl;
+					flag = true;
+				}
+			}
 			cout << "\nEnter Your Age : ";
 			cin >> Owners[j].Age;
 			cout << "\nEnter Your Gender [ M / F ] : ";
-			while (flag)
+			while (genflag)
 			{
 				cin >> gender;
 				if (gender == 'M' || gender == 'm')
 				{
 					Owners[j].Gender = "Male";
-					flag = false;
+					genflag = false;
 				}
 				else if (gender == 'F' || gender == 'f')
 				{
 					Owners[j].Gender = "Female";
-					flag = false;
+					genflag = false;
 				}
 				else
 				{
@@ -1063,6 +1121,7 @@ void Eowner(int j) {
 				{
 					cout << "Old Password : ";
 					char a;
+					flagPass = true;
 					for (l = 0;;)
 					{
 						a = _getch();
