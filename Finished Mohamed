@@ -759,12 +759,12 @@ void update(int j) {
 		case '2':
 			int i, newPassNum1, newPassNum2;
 			flag = true;
-			flagSame = true;
 			do {
 				do {
 					cout << "\nOld Password : ";
 					char a;
 					flagPass = true;
+					flagSame = true;
 					for (l = 0;;)
 					{
 						a = _getch();
@@ -922,7 +922,7 @@ void update(int j) {
 		default:
 			cout << "Invalid Choice";
 		}
-		cout << "\nDo you want to edit anything else  ? [ Y \ N ]\n\n" << endl;
+		cout << "\nDo you want to edit anything else  ? [ Y / N ]\n\n" << endl;
 		cout << "Choice : ";
 		cin >> editchoices;
 	}
@@ -1315,13 +1315,13 @@ void Eowner(int j) {
 
 			case '2':
 				int i, newPassNum1, newPassNum2;
-				flag = true;
-				flagSame = true;
+				flag = true;	
 				do{
 				do{
 					cout << "Old Password : ";
 					char a;
 					flagPass = true;
+					flagSame = true;
 					for (l = 0;;)
 					{
 						a = _getch();
