@@ -94,10 +94,11 @@ void viewProds(int);
 void RegChoice();
 void removeReg(int);
 void Rating();
+void discount(int);
 
 int main() {
 
-	char choice , c;
+	char choice, c;
 	bool flag = true;
 	cout << "*****************************************----------------***********************************************\n";
 	cout << "*****************************---- WELCOME TO THE ONLINE SHOPPING STORE --- **********************************\n";
@@ -120,10 +121,10 @@ int main() {
 		else if (choice == 'x' || choice == 'X') {
 			break;
 		}
-		else{
-		cout << "\n\n!! Invalid choice. !!\n\n";
-		system("pause");
-		system("cls");
+		else {
+			cout << "\n\n!! Invalid choice. !!\n\n";
+			system("pause");
+			system("cls");
 		}
 		if ((choice == '1' || choice == '2' || choice == 'x' || choice == 'X') && LogIndex != maxOwners) {
 			while (flag) {
@@ -150,7 +151,7 @@ int main() {
 				}
 			}
 		}
-	} while (choice != '1' || choice != '2' || choice != 'x' || choice != 'X' );
+	} while (choice != '1' || choice != '2' || choice != 'x' || choice != 'X');
 	save();
 	return 0;
 }
@@ -160,7 +161,7 @@ void Open() {
 
 	ifstream Owner, Shopper, Products;
 	Owner.open("Owners.txt");
-	string temp1[274] ;
+	string temp1[274];
 	for (int i = 0; i < maxOwners; i++) {
 		string str;
 		getline(Owner, str);
@@ -168,14 +169,14 @@ void Open() {
 		string temp;
 		for (int j = 0; j < 274; j++) {
 			while (getline(ss, temp, '|')) {
-					temp1[j] = temp;
-					break;
-				}
+				temp1[j] = temp;
+				break;
+			}
 		}
 	}
 	Shopper.open("Shopper.txt");
 	for (int i = 0; i < maxShoppers; i++) {
-		
+
 	}
 	Products.open("Products.txt");
 	for (int i = 0; i < maxOwners; i++) {
@@ -194,7 +195,7 @@ void save() {
 	Owner.open("Owners.txt", ios::trunc);
 	for (int i = 0; i < maxOwners; i++) {
 		if (Owners[i].Age != 0) {
-			Owner << Owners[i].Name <<  "|" << Owners[i].Gender << "|" << Owners[i].Add.Country << "|" << Owners[i].Add.City << "|" <<  Owners[i].Shops.ShopName << "|" << Owners[i].Shops.Category << "|" << Owners[i].Shops.Add.Country << "|" << Owners[i].Shops.Add.City << "|" << Owners[i].ID << "|" << Owners[i].Age << "|" << Owners[i].PassNum << "|" << Owners[i].Password << '\n';
+			Owner << Owners[i].Name << "|" << Owners[i].Gender << "|" << Owners[i].Add.Country << "|" << Owners[i].Add.City << "|" << Owners[i].Shops.ShopName << "|" << Owners[i].Shops.Category << "|" << Owners[i].Shops.Add.Country << "|" << Owners[i].Shops.Add.City << "|" << Owners[i].ID << "|" << Owners[i].Age << "|" << Owners[i].PassNum << "|" << Owners[i].Password << '\n';
 		}
 	}
 	Shopper.open("Shopper.txt", ios::trunc);
@@ -208,7 +209,7 @@ void save() {
 		for (int j = 0; j < maxProds; j++) {
 			if (Owners[i].Shops.products[j].productPrice != 0) {
 				if (Owners[i].Shops.products[j].Category == "Clothes") {
-					Products << Owners[i].Shops.products[j].productName <<  "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].Clothes.Type << "|" << Owners[i].Shops.products[j].Clothes.Color << "|" << Owners[i].Shops.products[j].Clothes.Size << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << '\n';
+					Products << Owners[i].Shops.products[j].productName << "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].Clothes.Type << "|" << Owners[i].Shops.products[j].Clothes.Color << "|" << Owners[i].Shops.products[j].Clothes.Size << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << '\n';
 				}
 				else {
 					Products << Owners[i].Shops.products[j].productName << "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << '\n';
@@ -230,6 +231,7 @@ void SeifChoice()
 		cout << "\nPress -- 1 -- To Search For A Product. \n\nPress -- 2 -- To View All Products. \n\nPress -- 3 -- To Edit Your Information. \n\npress -- 4 -- To Delete Your Account. \n\n";
 		cout << "Choice : ";
 		cin >> choice;
+		system("cls");
 		switch (choice)
 		{
 		case '1':
@@ -418,7 +420,7 @@ void cart() {
 	cout << "\n\n************************************ - YOUR CART - *************************************\n\n" << endl;
 	cout << "   NAME \t\t\t  " << " QUANTITY \t\t\t  " << " PRICE  \n\n ";
 	for (int i = 0; i < c.nump; i++) {
-		pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
+		pcart[i].subtotal = (pcart[i].qunatity * pcart[i].price);
 		cout << x << '. ' << pcart[i].buyproduct << "\t\t" << pcart[i].qunatity << "\t\t" << pcart[i].subtotal << '$\n' << endl;
 		total += pcart[i].subtotal;
 		x++;
@@ -463,7 +465,7 @@ void cart() {
 			cout << " NAME \t\t\t  " << " QUNATITY \t\t\t  " << " PRICE \n\n  ";
 			for (int i = 0; i < c.nump; i++) {
 				if (pcart[i].price != 0) {
-					pcart[i].subtotal = (pcart[i].qunatity  *  pcart[i].price);
+					pcart[i].subtotal = (pcart[i].qunatity * pcart[i].price);
 					cout << x << ". " << pcart[i].buyproduct << "\t\t" << pcart[i].qunatity << "\t\t" << pcart[i].subtotal << '$' << endl;
 					total += pcart[i].subtotal;
 				}
@@ -489,9 +491,10 @@ void cart() {
 }
 
 void registration() {
-	int i, j;
+	int i, j, k, passNum1, passNum2;
+	char  pass1[maxPass], pass2[maxPass];
+	bool flag = true, passFlag = true, genflag = true;
 	char choice;
-	bool flag = true;
 
 	system("cls");
 	for (i = 0; i < maxShoppers; i++) {
@@ -502,48 +505,109 @@ void registration() {
 			Shoppers[i].id = i + 1;
 			cout << "\nYour ID is : " << Shoppers[i].id << endl;
 
-			do {
-				char a;
-				cout << endl << "\nEnter a password of at least 6 digits\n";
-				cout << "Enter your password : ";
-				for (j = 0; j < maxPass;)
+			while (flag)
+			{
+				do
 				{
-					a = _getch();
-					if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+					cout << "\nPassword (at least 6 digits): ";
+					char a;
+					passFlag = true;
+					for (j = 0; j < maxPass;)
 					{
-						Shoppers[i].pass[j] = a;
-						++j;
-						cout << "*";
+						a = _getch();
+						if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+						{
+							pass1[j] = a;
+							++j;
+							cout << "*";
+						}
+						if (a == '\b' && j >= 1)
+						{
+							cout << "\b \b";
+							--j;
+						}
+						if (a == '\r')
+						{
+							pass1[j] = '\0';
+							break;
+						}
+						Shoppers[i].passnum = j;
+						passNum1 = j;
 					}
-					if (a == '\b'&&j >= 1)
+					cout << endl;
+				} while (j <= 5);
+
+				do
+				{
+					cout << "\nConfirm Password : ";
+					char a;
+					for (k = 0; k < maxPass;)
 					{
-						cout << "\b \b";
-						--j;
+						a = _getch();
+						if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+
+						{
+							pass2[k] = a;
+							++k;
+							cout << "*";
+						}
+						if (a == '\b' && k >= 1)
+						{
+							cout << "\b \b";
+							--k;
+						}
+						if (a == '\r')
+						{
+							pass2[k] = '\0';
+							break;
+						}
+						passNum2 = k;
 					}
-					if (a == '\r')
+					cout << endl;
+				} while (k <= 5);
+
+				if (passNum1 == passNum2)
+				{
+					for (int num = 0; num < passNum1; num++)
 					{
-						Shoppers[i].pass[j] = '\0';
+						if (pass1[num] != pass2[num])
+						{
+							cout << "\nPasswords do not match" << endl;
+							passFlag = false;
+							break;
+						}
+					}
+					if (passFlag)
+					{
+						for (int m = 0; m < passNum1; m++)
+						{
+							Shoppers[i].pass[m] = pass1[m];
+						}
+						flag = false;
 						break;
 					}
-					Shoppers[i].passnum = j;
 				}
-
-			} while (j <= 5);
+				else
+				{
+					cout << "Passwords do not match" << endl;
+					flag = true;
+				}
+			}
 			cout << endl << "\nEnter Your Age : ";
 			cin >> Shoppers[i].age;
 			cout << "\nEnter Your Gender [ M / F ] : ";
-			while (flag)
+			while (genflag)
 			{
 				cin >> choice;
 				if (choice == 'M' || choice == 'm')
 				{
 					Shoppers[i].gender = "Male";
-					flag = false;
+					genflag = false;
 				}
 				else if (choice == 'F' || choice == 'f')
 				{
 					Shoppers[i].gender = "Female";
-					flag = false;
+					genflag = false;
 				}
 				else
 				{
@@ -581,13 +645,13 @@ int login() {
 		for (j = 0;;)
 		{
 			a = _getch();
-			if ((a >= 'a'&&a <= 'z') || (a >= 'A'&&a <= 'Z') || (a >= '0'&&a <= '9'))
+			if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
 			{
 				LogPass[j] = a;
 				++j;
 				cout << "*";
 			}
-			if (a == '\b'&&j >= 1)
+			if (a == '\b' && j >= 1)
 			{
 				cout << "\b \b";
 				--j;
@@ -676,11 +740,14 @@ void SLchoice()
 
 void update(int j) {
 
-	char editchoices, gender, regedit;
+	char editchoices, gender, regedit, newPass1[maxPass], newPass2[maxPass], oldPass[maxPass];
+	bool flagSame = true, flag = true, flagPass = true, flagnum = true;
+	int l;
 	cout << "\n\n\n ***************  Editing your information ****************************\n\n";
 	cout << "Would You Like To Edit Your Registration Data. ?  [ Y / N ] ? : \n\n";
 	cout << "Choice : ";
 	cin >> editchoices;
+	system("cls");
 	while (editchoices == 'Y' || editchoices == 'y') {
 		cout << "What Do You Want To Edit ? : \n\n" << endl;
 		cout << "[ 1 ] Name. \n\n[ 2 ] Password. \n\n[ 3 ] Age. \n\n[ 4 ] Gender. \n\n[ 5 ] Address. \n\n" << endl;
@@ -690,8 +757,143 @@ void update(int j) {
 			cin >> Shoppers[j].name;
 			break;
 
-		case '2': cout << "\n\nNew Password :";
-			cin >> Shoppers[j].pass;
+		case '2':
+			int i, newPassNum1, newPassNum2;
+			flag = true;
+			do {
+				do {
+					cout << "\nOld Password : ";
+					char a;
+					flagPass = true;
+					flagSame = true;
+					for (l = 0;;)
+					{
+						a = _getch();
+						if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+						{
+							oldPass[l] = a;
+							++l;
+							cout << "*";
+						}
+						if (a == '\b' && l >= 1)
+						{
+							cout << "\b \b";
+							--l;
+						}
+						if (a == '\r')
+						{
+							oldPass[l] = '\0';
+							break;
+						}
+					}
+				} while (l <= 5);
+				if (l == Shoppers[j].passnum) {
+					for (int o = 0; o < Shoppers[j].passnum; o++) {
+						if (oldPass[o] != Shoppers[j].pass[o]) {
+							flagSame = false;
+						}
+					}
+				}
+				else {
+					flagSame = false;
+				}
+				if (flagSame) {
+					while (flag) {
+						do
+						{
+							cout << "\nNew Password : ";
+							char a;
+							for (i = 0; i < maxPass;)
+							{
+								a = _getch();
+								if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+
+								{
+									newPass1[i] = a;
+									++i;
+									cout << "*";
+								}
+								if (a == '\b' && i >= 1)
+
+								{
+									cout << "\b \b";
+									--i;
+								}
+								if (a == '\r')
+								{
+									newPass1[i] = '\0';
+									break;
+								}
+								newPassNum1 = i;
+							}
+							cout << endl;
+						} while (i <= 5);
+
+						int k;
+						do
+						{
+							cout << "\nConfirm Password : ";
+							char a;
+							for (k = 0; k < maxPass;)
+							{
+								a = _getch();
+								if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+
+								{
+									newPass2[k] = a;
+									++k;
+									cout << "*";
+								}
+								if (a == '\b' && k >= 1)
+
+								{
+									cout << "\b \b";
+									--k;
+								}
+								if (a == '\r')
+								{
+									newPass2[k] = '\0';
+									break;
+								}
+								newPassNum2 = k;
+							}
+							cout << endl;
+						} while (k <= 5);
+						if (newPassNum1 == newPassNum2)
+						{
+							for (int num = 0; num < newPassNum1; num++)
+							{
+								if (newPass1[num] != newPass2[num])
+								{
+									flagPass = false;
+								}
+							}
+							if (flagPass)
+							{
+								for (int m = 0; m < newPassNum1; m++)
+								{
+									Shoppers[j].pass[m] = newPass1[m];
+									flagnum = false;
+								}
+								flag = false;
+								break;
+							}
+							else {
+								cout << "The Passwords don't match.\n";
+								flag = true;
+							}
+						}
+						else {
+							cout << "The Passwords don't match.\n";
+							flag = true;
+						}
+					}
+				}
+				else {
+					cout << "\nWrong Password";
+					flagnum = true;
+				}
+			} while (flagnum);
 			break;
 
 		case '3': cout << "\n\nNew Age : ";
@@ -721,7 +923,7 @@ void update(int j) {
 		default:
 			cout << "Invalid Choice";
 		}
-		cout << "\nDo you want to edit anything else  ? [ Y \ N ]\n\n" << endl;
+		cout << "\nDo you want to edit anything else  ? [ Y / N ]\n\n" << endl;
 		cout << "Choice : ";
 		cin >> editchoices;
 	}
@@ -945,11 +1147,11 @@ void RegShop(int i)
 		}
 	} while (flag1);
 	Owners[i].Shops.ShopName = shopName;
-	cout << "\nEnter Your Shop's Address. \n\nCountry : ";
+	cout << "\nEnter Your Shop's Address. \n\n      Country : ";
 	cin >> Owners[i].Shops.Add.Country;
-	cout << "City : ";
+	cout << "      City : ";
 	cin >> Owners[i].Shops.Add.City;
-	cout << "\n\nChoose One Of Our Available Categories :\n\n[ 1 ] Phones & Tablets. \n\n[ 2 ] Electronics. \n\n[ 3 ] Makeup & Accessories. \n\n[ 4 ] Clothing. \n\n[ 5 ] Shoes & Bags. \n\n[ 7 ] Books. \n\n[ 7 ] Gaming.\n";
+	cout << "\n\nChoose One Of Our Available Categories :\n\n[ 1 ] Phones & Tablets. \n\n[ 2 ] Electronics. \n\n[ 3 ] Makeup & Accessories. \n\n[ 4 ] Clothing. \n\n[ 5 ] Shoes & Bags. \n\n[ 6 ] Books. \n\n[ 7 ] Gaming.\n";
 	cout << endl << "\nChoice : "; cin >> categoryChoice;
 	do {
 		switch (categoryChoice) {
@@ -991,7 +1193,7 @@ void RegShop(int i)
 			} while (flag4);
 			break;
 		case '7':
-			cout << "[ 1 ] Pc Games.\t[ 2 ] PS4 Games.\t[ 3 ] Xbox Games.\n\n Choice : ";
+			cout << "[ 1 ] Pc Games.    [ 2 ] PS4 Games.    [ 3 ] Xbox Games.\n\n Choice : ";
 			cin >> gameChoice;
 			do {
 				switch (gameChoice) {
@@ -1031,8 +1233,7 @@ int Lowner()
 	cin >> LogID;
 	do
 	{
-		cout << "\nEnter your Password." << endl;
-		cout << "Password : ";
+		cout << "\nPassword." << endl;
 		char a;
 		for (j = 0;;)
 		{
@@ -1090,15 +1291,15 @@ int Lowner()
 }
 
 void Eowner(int j) {
-	char editchoice, gender, continuechoice, regedit, shopEdit, categoryChoice, gameChoice, bookChoice; 
-	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false , flagSame = true , flag = true, flagPass = true , choiceFlag = true;
+	char editchoice, gender, continuechoice, regedit, shopEdit, categoryChoice, gameChoice, bookChoice, newPass1[maxPass], newPass2[maxPass], oldPass[maxPass];
+	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false, flagSame = true, flag = true, flagPass = true, choiceFlag = true, flagnum = true;
 	int l;
 	cout << "**************  Editing your information **************** \n";
 	do {
 		cout << "\n\nPress -- R -- to edit your registration data. \n\npress -- S -- to Edit Your Shop Data.  \n\nPress -- D -- To Delete Your Account. \n\nPress -- x --  To Exit. \n\n ";
 		cout << "\n Choice : ";
 		cin >> editchoice;
-		char newPass1[maxPass], newPass2[maxPass], oldPass[maxPass];
+
 		system("cls");
 		if (editchoice == 'R' || editchoice == 'r')
 		{
@@ -1116,137 +1317,140 @@ void Eowner(int j) {
 			case '2':
 				int i, newPassNum1, newPassNum2;
 				flag = true;
-				flagSame = true;
-				do
-				{
-					cout << "Old Password : ";
-					char a;
-					flagPass = true;
-					for (l = 0;;)
-					{
-						a = _getch();
-						if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+				do {
+					do {
+						cout << "Old Password : ";
+						char a;
+						flagPass = true;
+						flagSame = true;
+						for (l = 0;;)
 						{
-							oldPass[l] = a;
-							++l;
-							cout << "*";
-						}
-						if (a == '\b' && l >= 1)
-						{
-							cout << "\b \b";
-							--l;
-						}
-						if (a == '\r')
-						{
-							oldPass[l] = '\0';
-							break;
-						}
-					}
-				} while (l <= 5);
-				if (l == Owners[j].PassNum) {
-					for (int o = 0; o < Owners[j].PassNum; o++) {
-						if (oldPass[o] != Owners[j].Password[o]) {
-							flagSame = false;
-						}
-					}
-				}
-				else {
-					cout << "Wrong Password";
-				}
-				if (flagSame) {
-					while (flag) {
-						do
-						{
-							cout << "\nNew Password : ";
-							char a;
-							for (i = 0; i < maxPass;)
+							a = _getch();
+							if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
 							{
-								a = _getch();
-								if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
-
-								{
-									newPass1[i] = a;
-									++i;
-									cout << "*";
-								}
-								if (a == '\b' && i >= 1)
-
-								{
-									cout << "\b \b";
-									--i;
-								}
-								if (a == '\r')
-								{
-									newPass1[i] = '\0';
-									break;
-								}
-								newPassNum1 = i;
+								oldPass[l] = a;
+								++l;
+								cout << "*";
 							}
-							cout << endl;
-						} while (i <= 5);
-
-						int k;
-						do
-						{
-							cout << "\nConfirm Password : ";
-							char a;
-							for (k = 0; k < maxPass;)
+							if (a == '\b' && l >= 1)
 							{
-								a = _getch();
-								if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
-
-								{
-									newPass2[k] = a;
-									++k;
-									cout << "*";
-								}
-								if (a == '\b' && k >= 1)
-
-								{
-									cout << "\b \b";
-									--k;
-								}
-								if (a == '\r')
-								{
-									newPass2[k] = '\0';
-									break;
-								}
-								newPassNum2 = k;
+								cout << "\b \b";
+								--l;
 							}
-							cout << endl;
-						} while (k <= 5);
-						if (newPassNum1 == newPassNum2)
-						{
-							for (int num = 0; num < newPassNum1; num++)
+							if (a == '\r')
 							{
-								if (newPass1[num] != newPass2[num])
-								{
-									flagPass = false;
-								}
-							}
-							if (flagPass)
-							{
-								for (int m = 0; m < newPassNum1; m++)
-								{
-									Owners[j].Password[m] = newPass1[m];
-								}
-								flag = false;
+								oldPass[l] = '\0';
 								break;
+							}
+						}
+					} while (l <= 5);
+					if (l == Owners[j].PassNum) {
+						for (int o = 0; o < Owners[j].PassNum; o++) {
+							if (oldPass[o] != Owners[j].Password[o]) {
+								flagSame = false;
+							}
+						}
+					}
+					else {
+						flagSame = false;
+					}
+					if (flagSame) {
+						while (flag) {
+							do
+							{
+								cout << "\nNew Password : ";
+								char a;
+								for (i = 0; i < maxPass;)
+								{
+									a = _getch();
+									if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+
+									{
+										newPass1[i] = a;
+										++i;
+										cout << "*";
+									}
+									if (a == '\b' && i >= 1)
+
+									{
+										cout << "\b \b";
+										--i;
+									}
+									if (a == '\r')
+									{
+										newPass1[i] = '\0';
+										break;
+									}
+									newPassNum1 = i;
+								}
+								cout << endl;
+							} while (i <= 5);
+
+							int k;
+							do
+							{
+								cout << "\nConfirm Password : ";
+								char a;
+								for (k = 0; k < maxPass;)
+								{
+									a = _getch();
+									if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+
+									{
+										newPass2[k] = a;
+										++k;
+										cout << "*";
+									}
+									if (a == '\b' && k >= 1)
+
+									{
+										cout << "\b \b";
+										--k;
+									}
+									if (a == '\r')
+									{
+										newPass2[k] = '\0';
+										break;
+									}
+									newPassNum2 = k;
+								}
+								cout << endl;
+							} while (k <= 5);
+							if (newPassNum1 == newPassNum2)
+							{
+								for (int num = 0; num < newPassNum1; num++)
+								{
+									if (newPass1[num] != newPass2[num])
+									{
+										flagPass = false;
+									}
+								}
+								if (flagPass)
+								{
+									for (int m = 0; m < newPassNum1; m++)
+									{
+										Owners[j].Password[m] = newPass1[m];
+										flagnum = false;
+									}
+									flag = false;
+									break;
+								}
+								else {
+									cout << "The Passwords don't match.\n";
+									flag = true;
+								}
 							}
 							else {
 								cout << "The Passwords don't match.\n";
 								flag = true;
 							}
 						}
-						else {
-							cout << "The Passwords don't match.\n";
-							flag = true;
-						}
 					}
-				}
-				else {
-					cout << "Wrong Password";
-				}
+					else {
+						cout << "\nWrong Password";
+						flagnum = true;
+					}
+				} while (flagnum);
 				break;
 
 			case '3':
@@ -1445,7 +1649,7 @@ void OLchoice()
 
 		if (LogIndex == maxOwners)
 		{
-			cout << "\n\nWould You Like To Try Again.?  [ Y / N ]  \n\n";
+			cout << "\n\nWould You Like To Try Again?  [ Y / N ]  \n\n";
 			cout << "Choice : ";
 			cin >> Logchoice;
 		}
@@ -1468,7 +1672,7 @@ void ProdChoice()
 	char choice;
 	do
 	{
-		cout << "Press  -- A -- To Add A Product.\n\nPress -- R -- To Remove A Product.\n\npress -- V -- To View Your Products.\n\n";
+		cout << "Press  -- A -- To Add A Product.\n\nPress -- R -- To Remove A Product.\n\npress -- V -- To View Your Products.\n\n -- D -- To Discount a product\n\n";
 		cout << "Choice : ";
 		char choices;
 		cin >> choices;
@@ -1489,6 +1693,11 @@ void ProdChoice()
 			system("cls");
 			viewProds(LogIndex);
 			break;
+		case 'd':
+		case 'D':system("cls");
+		         addProds(LogIndex);
+			 discount(LogIndex);
+			 break;
 		default:
 			cout << "\n\n !! Invalid answer !! \n\n";
 		}
@@ -1748,4 +1957,51 @@ void Rating()
 			}
 		}
 	} while (choice == 'y' || choice == 'Y');
+}
+
+void discount(int j)
+{
+	double percentage, discount;
+	string nameofProduct;
+	bool flag = false, choice = true;
+	do {
+		cout << "Enter the name of a Product : ";
+		cin >> nameofProduct;
+		for (int i = 0; i < maxProds; i++)
+		{
+			if (Owners[j].Shops.products[i].productName == nameofProduct)
+			{
+				while (choice)
+				{
+					cout << "Enter the Discount percentage : ";
+					cin >> discount;
+					cout << "%" << endl;
+					if (percentage <= 100)
+					{
+						cout << Owners[j].Shops.products[i].productPrice << endl;
+						discount = Owners[j].Shops.products[i].productPrice * (percentage / 100);
+						Owners[j].Shops.products[i].productPrice = Owners[j].Shops.products[i].productPrice - discount;
+						cout << "The Discounted price is : " << Owners[j].Shops.products[i].productPrice << endl;
+						flag = false;
+						choice = false;
+						break;
+					}
+					else
+					{
+						cout << "The Discount cannot be more than a 100% ";
+						choice = true;
+					}
+				}
+			}
+		}
+			if(flag == false)
+			{
+				break;
+			}
+			else
+			{
+				cout << "The product you have entered does not exist , please re-enter it";
+				flag = true;
+			}
+	} while (flag);
 }
