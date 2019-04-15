@@ -95,6 +95,7 @@ void RegChoice();
 void removeReg(int);
 void Rating();
 void discount(int);
+void purchaseHistory(int);
 
 int main() {
 
@@ -228,7 +229,7 @@ void sChoice()
 	char choice, cont;
 	system("cls");
 	do {
-		cout << "\nPress -- 1 -- To Search For A Product. \n\nPress -- 2 -- To View All Products. \n\nPress -- 3 -- To Edit Your Information. \n\npress -- 4 -- To Delete Your Account. \n\n";
+		cout << "\nPress -- 1 -- To Search For A Product. \n\nPress -- 2 -- To View All Products. \n\nPress -- 3 -- To Edit Your Information. \n\npress -- 4 -- To view your Purchase History \n\n -- 5-- To Delete Your Account. \n\n";
 		cout << "Choice : ";
 		cin >> choice;
 		system("cls");
@@ -244,6 +245,9 @@ void sChoice()
 			update(LogIndex);
 			break;
 		case '4':
+		        purchaseHistory(LogIndex);
+			break;
+		case '5':
 			del(LogIndex);
 			break;
 		default:
@@ -462,7 +466,7 @@ void cart() {
 		case 'V':
 			system("cls");
 			cout << "\n\n********************************** TOTAL ITEMS *********************************\n\n\n" << endl;
-			cout << " NAME \t\t\t  " << " QUNATITY \t\t\t  " << " PRICE \n\n  ";
+			cout << " NAME \t\t\t  " << " QUANTITY \t\t\t  " << " PRICE \n\n  ";
 			for (int i = 0; i < c.nump; i++) {
 				if (shopperCart[i].price != 0) {
 					shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
@@ -1999,7 +2003,34 @@ void discount(int j)
 	} while (flag);
 }
 
-void purchaseHistory()
+void purchaseHistory(int k)
 {
-
+	int x=1;
+	double total=0;
+	for (int i = 0; i < c.nump; i++)
+	{
+		if (shopperCart[i].price != 0)
+		{
+			shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
+			cout << x << ". " << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << '$' << endl;
+			total += shopperCart[i].subtotal;
+			for (int j = 0; j < 10; j++)
+			{
+				if (Shoppers[k].purchaseHistory[j] == 0)
+				{
+					Shoppers[k].purchaseHistory[j] = total;
+					break;
+				}
+			}
+		}
+	}
+	cout << "Your purchase History is : ";
+	for(int l=0 ; l<10 ;l++)
+	{
+		if(Shoppers[k].purchaseHistory[l]!= 0)
+		{
+			cout << Shoppers[k].purchaseHistory[l] << endl;
+			continue;
+		}
+	}
 }
