@@ -1029,19 +1029,19 @@ int Lowner()
 
 void Eowner(int j) {
 	char editchoice, gender, continuechoice, regedit, shopEdit, categoryChoice, gameChoice, bookChoice; 
-	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false , flagSame = true , flag = true, flagPass = true;
+	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false , flagSame = true , flag = true, flagPass = true , choiceFlag = true;
 	int l;
 	cout << "**************  Editing your information **************** \n";
 	do {
 		cout << "\n\nPress -- R -- to edit your registration data. \n\npress -- S -- to Edit Your Shop Data.  \n\nPress -- D -- To Delete Your Account. \n\nPress -- x --  To Exit. \n\n ";
 		cout << "\n Choice : ";
 		cin >> editchoice;
-		char newPass1[maxPass], newPass2[maxPass] ,oldPass[maxPass];
+		char newPass1[maxPass], newPass2[maxPass], oldPass[maxPass];
 		system("cls");
 		if (editchoice == 'R' || editchoice == 'r')
 		{
 			cout << "\n\n What do you want to edit ? " << endl;
-			cout << "[ 1 ] Name \n\n[  2 ] Password \n\n[ 3 ] Age \n\n[ 4 ] Gender \n\n[ 5 ] Address \n\n[ 6 ] Stop \n\n" << endl;
+			cout << "[ 1 ] Name \n\n[ 2 ] Password \n\n[ 3 ] Age \n\n[ 4 ] Gender \n\n[ 5 ] Address \n\n[ 6 ] Stop \n\n" << endl;
 			cout << "Choice : ";
 			cin >> regedit;
 			switch (regedit)
@@ -1081,7 +1081,7 @@ void Eowner(int j) {
 					}
 				} while (l <= 5);
 				if (l == Owners[j].PassNum) {
-					for (int o = 0; o < maxPass; o++) {
+					for (int o = 0; o < Owners[j].PassNum; o++) {
 						if (oldPass[o] != Owners[j].Password[o]) {
 							flagSame = false;
 						}
@@ -1331,14 +1331,14 @@ void Eowner(int j) {
 		{
 			cout << "\n\nInvalid Choice\n";
 		}
-		while (flag)
+		while (choiceFlag)
 		{
 			cout << "Would You Like To Continue  ? [ Y / N ] \n\n";
 			cout << "Choice : ";
 			cin >> continuechoice;
 			if (continuechoice == 'Y' || continuechoice == 'y' || continuechoice == 'N' || continuechoice == 'n')
 			{
-				flag = false;
+				choiceFlag = false;
 			}
 			else
 			{
@@ -1359,6 +1359,7 @@ void OEchoice()
 		{
 		case'y':
 		case'Y':
+			system("cls");
 			Eowner(LogIndex);
 			break;
 		default:
