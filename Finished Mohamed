@@ -20,13 +20,13 @@ struct Address {
 	string City;
 };
 struct num {
-	int nump;
+	int nump = 0;
 }c;
 struct cart {
 	int quantity;
 	string buyproduct = { 0 };
 	double price;
-	double subtotal;
+	double subtotal = 0;
 } shopperCart[100];
 struct Product
 {
@@ -44,7 +44,12 @@ struct Shop
 	Address Add;
 	string Category;
 	Product products[maxProds];
+	int countProd = 0;
 };
+struct counts {
+	int countOwn = 0;
+	int countShopper = 0;
+}s;
 struct Owner
 {
 	string Name;
@@ -96,9 +101,11 @@ void RegChoice();
 void removeReg(int);
 void Rating();
 void discount(int);
+void purchaseHistory(int k);
 
 int main() {
 
+	Open();
 	char choice, c;
 	bool flag = true;
 	cout << "*****************************************----------------***********************************************\n";
@@ -134,7 +141,8 @@ int main() {
 				if ((c == 'Y') || (c == 'y')) {
 					LogIndex = -1;
 					choice = 'y';
-					cout << "You logged out Successfully";
+					cout << "You logged out Successfully\n";
+					system("pause");
 					flag = false;
 					break;
 				}
@@ -162,27 +170,54 @@ void Open() {
 
 	ifstream Owner, Shopper, Products;
 	Owner.open("Owners.txt");
-	string temp1[274];
-	for (int i = 0; i < maxOwners; i++) {
-		string str;
-		getline(Owner, str);
-		istringstream ss(str);
-		string temp;
-		for (int j = 0; j < 274; j++) {
-			while (getline(ss, temp, '|')) {
-				temp1[j] = temp;
-				break;
-			}
-		}
+	Owner >> s.countOwn;
+	for (int i = 0; i < s.countOwn; i++) {
+		Owner.ignore();
+		getline(Owner , Owners[i].Name);
+		getline(Owner, Owners[i].Gender);
+		getline(Owner, Owners[i].Add.Country);
+		getline(Owner, Owners[i].Add.City);
+		getline(Owner, Owners[i].Shops.ShopName);
+		getline(Owner, Owners[i].Shops.Category);
+		getline(Owner, Owners[i].Shops.Add.Country);
+		getline(Owner, Owners[i].Shops.Add.City);
+		Owner >> Owners[i].ID;
+		Owner >> Owners[i].Age;
+		Owner >> Owners[i].PassNum;
+		Owner >> Owners[i].Password;
 	}
 	Shopper.open("Shopper.txt");
-	for (int i = 0; i < maxShoppers; i++) {
-
+	Shopper >> s.countShopper;
+	for (int i = 0; i < s.countShopper; i++) {
+		Shopper.ignore();
+		getline(Shopper, Shoppers[i].name);
+		getline(Shopper, Shoppers[i].gender);
+		getline(Shopper, Owners[i].Add.Country);
+		getline(Shopper, Owners[i].Add.City);
+		Shopper >> Shoppers[i].id;
+		Shopper >> Shoppers[i].age;
+		Shopper >> Shoppers[i].passnum;
+		Shopper >> Shoppers[i].pass;
 	}
 	Products.open("Products.txt");
 	for (int i = 0; i < maxOwners; i++) {
-		for (int j = 0; j < maxProds; j++) {
-
+		Products >> Owners[i].Shops.countProd;
+		for (int j = 0; j < Owners[i].Shops.countProd; j++) {
+			Products.ignore();
+			getline(Products, Owners[i].Shops.products[j].productName);
+			getline(Products, Owners[i].Shops.products[j].Category);
+			if (Owners[i].Shops.products[j].Category == "Clothes") {
+				
+				getline(Products, Owners[i].Shops.products[j].Clothes.Color);
+				Products >> Owners[i].Shops.products[j].Clothes.Type;
+				Products >> Owners[i].Shops.products[j].Clothes.Size;
+				Products >> Owners[i].Shops.products[j].productPrice;
+				Products >> Owners[i].Shops.products[j].Quantity;
+			}
+			else {
+				Products >> Owners[i].Shops.products[j].productPrice;
+				Products >> Owners[i].Shops.products[j].Quantity;
+			}
 		}
 	}
 	Owner.close();
@@ -194,30 +229,29 @@ void Open() {
 void save() {
 	ofstream Owner, Shopper, Products;
 	Owner.open("Owners.txt", ios::trunc);
-	for (int i = 0; i < maxOwners; i++) {
-		if (Owners[i].Age != 0) {
-			Owner << Owners[i].Name << "|" << Owners[i].Gender << "|" << Owners[i].Add.Country << "|" << Owners[i].Add.City << "|" << Owners[i].Shops.ShopName << "|" << Owners[i].Shops.Category << "|" << Owners[i].Shops.Add.Country << "|" << Owners[i].Shops.Add.City << "|" << Owners[i].ID << "|" << Owners[i].Age << "|" << Owners[i].PassNum << "|" << Owners[i].Password << '\n';
-		}
+	Owner << s.countOwn << endl;
+	for (int i = 0; i < s.countOwn; i++) {
+			Owner << Owners[i].Name << endl << Owners[i].Gender << endl << Owners[i].Add.Country << endl << Owners[i].Add.City << endl << Owners[i].Shops.ShopName << endl << Owners[i].Shops.Category << endl << Owners[i].Shops.Add.Country << endl << Owners[i].Shops.Add.City << endl << Owners[i].ID << endl << Owners[i].Age << endl << Owners[i].PassNum << endl << Owners[i].Password << '\n';
 	}
 	Shopper.open("Shopper.txt", ios::trunc);
-	for (int i = 0; i < maxShoppers; i++) {
-		if (Shoppers[i].age != 0) {
-			Shopper << Shoppers[i].name << "|" << Shoppers[i].gender << "|" << Shoppers[i].Add.Country << "|" << Shoppers[i].Add.City << "|" << Shoppers[i].id << "|" << Shoppers[i].age << "|" << Shoppers[i].passnum << "|" << Shoppers[i].pass << '\n';
-		}
+	Shopper << s.countShopper << endl;
+	for (int i = 0; i < s.countShopper; i++) {
+			Shopper << Shoppers[i].name << endl << Shoppers[i].gender << endl << Shoppers[i].Add.Country << endl << Shoppers[i].Add.City << endl << Shoppers[i].id << endl << Shoppers[i].age << endl << Shoppers[i].passnum << endl << Shoppers[i].pass << endl;
 	}
+
 	Products.open("Products.txt", ios::trunc);
 	for (int i = 0; i < maxOwners; i++) {
-		for (int j = 0; j < maxProds; j++) {
-			if (Owners[i].Shops.products[j].productPrice != 0) {
+		if (Owners[i].Shops.countProd == 0) {
+			Products << Owners[i].Shops.countProd << endl;
+			for (int j = 0; j < Owners[i].Shops.countProd; j++) {
 				if (Owners[i].Shops.products[j].Category == "Clothes") {
-					Products << Owners[i].Shops.products[j].productName << "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].Clothes.Type << "|" << Owners[i].Shops.products[j].Clothes.Color << "|" << Owners[i].Shops.products[j].Clothes.Size << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << '\n';
+					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].Clothes.Color << endl << Owners[i].Shops.products[j].Clothes.Type << endl << Owners[i].Shops.products[j].Clothes.Size << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n';
 				}
 				else {
-					Products << Owners[i].Shops.products[j].productName << "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << '\n';
+					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n';
 				}
 			}
 		}
-		Products << "*****************************";
 	}
 	Owner.close();
 	Shopper.close();
@@ -475,8 +509,9 @@ void cart() {
 				}
 			}
 			cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
-			cout << "Total price : " << total << '$';
+			cout << "Total price : " << total << "$\n";
 			flag1 = false;
+			c.nump = 0;
 			Rating();
 			system("pause");
 			break;
@@ -620,11 +655,12 @@ void registration() {
 			}
 			Shoppers[i].gender = choice;
 			cout << "\nEnter Your Address: \n\n";
-			cout << "               City : ";
-			cin >> Shoppers[i].Add.City;
 			cout << "               Country : ";
 			cin >> Shoppers[i].Add.Country;
+			cout << "               City : ";
+			cin >> Shoppers[i].Add.City;
 			cout << endl << "\n ************ You Have Registered Successfully ************ \n\n" << endl;
+			s.countShopper++;
 			system("pause");
 			break;
 		}
@@ -716,18 +752,14 @@ void SLchoice()
 			if (Loginchoice == '1') {
 				LogIndex = login();
 				pass = false;
-				break;
 			}
 			else if (Loginchoice == '2') {
 				registration();
-				pass = false;
-
-				break;
 			}
 			else
 				cout << "\n\n!!! Invalid Choice !!!\n\n";
 
-		} while (true);
+		} while (pass);
 
 
 		if (LogIndex == maxShoppers) {
@@ -951,7 +983,9 @@ void del(int j) {
 		}
 		Shoppers[j].age = 0;
 		Shoppers[j].gender = { 0 };
-		Shoppers[j].Add = { 0 };
+		Shoppers[j].Add.City = { 0 };
+		Shoppers[j].Add.Country = { 0 };
+		s.countShopper--;
 
 		cout << "\n\n               ***  Your Account has been Deleted. *** \n\n" << endl;
 		system("pause");
@@ -1122,6 +1156,7 @@ int RegOwner()
 			cin >> Owners[j].Add.Country;
 			cout << "    City : "; cin >> Owners[j].Add.City;
 			cout << "         \n\n  ************************** You Have Registered Successfully ************************* *" << endl << endl;
+			s.countOwn++;
 			system("pause");
 			break;
 		}
@@ -1758,7 +1793,7 @@ void addProds(int j)
 				cout << "\n\nProduct's Quantity : ";
 				cin >> Owners[j].Shops.products[i].Quantity;
 				cout << endl;
-
+				Owners[j].Shops.countProd++;
 				break;
 			}
 		}
@@ -1806,6 +1841,7 @@ void removeProds(int j)
 				Owners[j].Shops.products[i].productName = { 0 };
 				Owners[j].Shops.products[i].productPrice = 0;
 				Owners[j].Shops.products[i].Quantity = 0;
+				Owners[j].Shops.countProd--;
 				if (Owners[j].Shops.products[i].Category == "Clothing") {
 					Owners[j].Shops.products[i].Clothes.Type = { 0 };
 					Owners[j].Shops.products[i].Clothes.Color = { 0 };
@@ -1844,60 +1880,60 @@ void editProds(int j) {
 	int i;
 	bool same = false;
 	string name;
-	char choice, continuechoice, c;
+	char choice, c;
 	do
 	{
 		cout << "\n\nWhat is the name of the product you want to edit ?? \n\n";
 		cout << "Name : ";
 		cin >> name;
-			for (i = 0; i < maxProds; i++)
+		for (i = 0; i < maxProds; i++)
+		{
+			if (name == Owners[j].Shops.products[i].productName)
 			{
-				if (name == Owners[j].Shops.products[i].productName)
-				{
-					same = true;
-					break;
-				}
+				same = true;
+				break;
 			}
-			if (same == true)
+		}
+		if (same == true)
+		{
+			cout << "1 ) Product's Name\n\n2 ) Product's Price\n\n3 ) Product's Quantity\n\n";
+			cout << "Choice : "; cin >> c;
+			switch (c)
 			{
-				cout << "1 ) Product's Name\n\n2 ) Product's Price\n\n3 ) Product's Quantity\n\n";
-				cout << "Choice : "; cin >> c;
-				switch (c)
-				{
-				case '1':
-					cout << "\nProduct's Name : "; cin >> Owners[j].Shops.products[i].productName;
-					break;
-				case '2':
-					cout << "\nPrice : "; cin >> Owners[j].Shops.products[i].productPrice;
-					break;
-				case '3':
-					cout << "\nQuantity : "; cin >> Owners[j].Shops.products[i].Quantity;
-					break;
-				default:
-					cout << "\nInvalid Choice";
-					break;
-				}			
+			case '1':
+				cout << "\nProduct's Name : "; cin >> Owners[j].Shops.products[i].productName;
+				break;
+			case '2':
+				cout << "\nPrice : "; cin >> Owners[j].Shops.products[i].productPrice;
+				break;
+			case '3':
+				cout << "\nQuantity : "; cin >> Owners[j].Shops.products[i].Quantity;
+				break;
+			default:
+				cout << "\nInvalid Choice";
+				break;
 			}
-			else if (same == false)
+		}
+		else if (same == false)
 			cout << "This product doesn't exist. \n\n";
-			cout << "\nDo You Want To Edit Another Product? [ Y / N ] : ";
-			cout << " Choice : ";
-			cin >> choice;
-			cout << "\n" << endl;
-			if (choice == 'N' || choice == 'n')
-			{
-				break;
-			}
+		cout << "\nDo You Want To Edit Another Product? [ Y / N ] : ";
+		cout << " Choice : ";
+		cin >> choice;
+		cout << "\n" << endl;
+		if (choice == 'N' || choice == 'n')
+		{
+			break;
+		}
 
-			else if (choice == 'Y' || choice == 'y')
-			{
-				continue;
-			}
-			else {
-				break;
-			}
-		} while (true);
-	} 
+		else if (choice == 'Y' || choice == 'y')
+		{
+			continue;
+		}
+		else {
+			break;
+		}
+	} while (true);
+}
 
 void viewProds(int j)
 {
@@ -1951,6 +1987,7 @@ void removeReg(int j)
 		Owners[j].Shops.Category = { 0 };
 		Owners[j].Shops.Add.Country = { 0 };
 		Owners[j].Shops.Add.City = { 0 };
+		s.countOwn--;
 		for (int i = 0; i < maxProds; i++)
 		{
 			Owners[j].Shops.products[i] = { 0 };
@@ -1980,7 +2017,7 @@ void Rating()
 	float rating, sum = 0;
 	cout << "Would you like to rate a product (Y/N) ?";
 	cin >> choice;
-	do
+	while(choice == 'y' || choice == 'Y')
 	{
 		cout << "Enter the name of the Product you'd like to rate (Case Sensitive) : ";
 		cin >> prodName;
@@ -2024,7 +2061,7 @@ void Rating()
 				}
 			}
 		}
-	} while (choice == 'y' || choice == 'Y');
+	};
 }
 
 void discount(int j)
