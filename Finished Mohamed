@@ -239,10 +239,9 @@ void save() {
 	for (int i = 0; i < s.countShopper; i++) {
 		Shopper << Shoppers[i].name << endl << Shoppers[i].gender << endl << Shoppers[i].Add.Country << endl << Shoppers[i].Add.City << endl << Shoppers[i].id << endl << Shoppers[i].age << endl << Shoppers[i].passnum << endl << Shoppers[i].pass << endl;
 	}
-
 	Products.open("Products.txt", ios::trunc);
 	for (int i = 0; i < maxOwners; i++) {
-		if (Owners[i].Shops.countProd == 0) {
+		if (Owners[i].Shops.countProd != 0) {
 			Products << Owners[i].Shops.countProd << endl;
 			for (int j = 0; j < Owners[i].Shops.countProd; j++) {
 				if (Owners[i].Shops.products[j].Category == "Clothes") {
@@ -1183,6 +1182,7 @@ void RegShop(int i)
 	do {
 		cout << "\nEnter your Shop name: ";
 		cin >> shopName;
+		flag1 = false;
 		for (int j = 0; j < maxOwners; j++)
 		{
 			if (shopName == Owners[j].Shops.ShopName)
@@ -1190,9 +1190,7 @@ void RegShop(int i)
 				cout << "\n\n !! This Shop is already taken. !!";
 				flag1 = true;
 				break;
-
 			}
-
 		}
 	} while (flag1);
 	Owners[i].Shops.ShopName = shopName;
