@@ -1908,84 +1908,98 @@ void removeReg(int j)
 	}
 }
 
-void Rating()
 {
-	int counter = 0;
-	char choice;
-	string prodName;
-	float rating, sum = 0;
-	cout << "Would you like to rate a product (Y/N) ?";
-	cin >> choice;
+	string shopName, prodName;
+	bool flag = true,notfound = true,flag2 = true;
+	int rating = 0;
+	double avg;
 	do
 	{
-		cout << "Enter the name of the Product you'd like to rate (Case Sensitive) : ";
-		cin >> prodName;
-
-		for (int l = 0; l < maxOwners; l++)
+		cout << "Enter Shop's name : ";
+		cin >> shopName;
+		for (int i = 0; i < c.nump; i++)
 		{
-			for (int j = 0; l < maxProds; l++)
+			if (shopperCart[i].shop == shopName)
 			{
-				if (Owners[l].Shops.products[j].productName == prodName)
+				do
 				{
-					cout << "It's rating is : ";
-					cout << Owners[l].Shops.products[j].avgRating;
-					bool flag;
-					do {
-						cout << "Enter your rating (1 --> 5) : ";
-						cin >> rating;
-						if (rating >= 1 && rating <= 5)
+					cout << "Enter the Product's name : ";
+					cin >> prodName;
+					for (int j = 0; j < c.nump; j++)
+					{
+						if (shopperCart[j].buyproduct == prodName)
 						{
-							flag = false;
-							for (int k = 0; k < 25; k++)
-							{
-
-								if (Owners[l].Shops.products[j].ratings[k] == 0)
+							do{
+								cout << "Enter your Rating : ";
+								cin >> rating;
+								if(rating >= 1 && rating <=5)
 								{
-									Owners[l].Shops.products[j].ratings[k] = rating;
-									break;
+									flag2 = false;
+									for(int x ; x<maxOwners ; x++)
+									{
+										if(Owners[x].Shops.ShopName == shopName)
+										{
+											for(int y = 0 ; y<maxProds ; y++)
+											{
+												if(Owners[x].Shops.products[y].productName == prodName)
+												{
+													Owners[x].Shops.products[y].counter++;
+													Owners[x].Shops.products[y].sum += rating;
+													Owners[x].Shops.products[y].avgRating = round(Owners[x].Shops.products[y].sum / Owners[x].Shops.products[y].counter);
+													cout << "The Rating of " << Owners[x].Shops.products[y].productName << " is " << Owners[x].Shops.products[y].avgRating;
+													break;
+												}
+											}
+										}
+									}
 								}
-								counter++;
-								sum += Owners[l].Shops.products[j].ratings[k];
-							}
-							Owners[l].Shops.products[j].avgRating = round(sum / counter);
+							} while (flag2);
 						}
-						else
-						{
-							cout << "Error , Invalid rating entered";
-							flag = true;
-						}
-					} while (flag);
-					cout << "The current rating of " << Owners[l].Shops.products[j].productName << "is" << Owners[l].Shops.products[j].avgRating;
-					break;
-				}
+					}
+				} while (notfound);
 			}
 		}
-	} while (choice == 'y' || choice == 'Y');
+	} while (flag);
 }
 
 void discount(int j)
 {
+	int d, m;
 	double percentage, discount;
-	string nameofProduct;
-	bool flag = false, choice = true;
+	string prodName;
+	bool flag = false, choice = true,flag2 = true;
 	do {
 		cout << "Enter the name of a Product : ";
-		cin >> nameofProduct;
+		cin >> prodName;
 		for (int i = 0; i < maxProds; i++)
 		{
-			if (Owners[j].Shops.products[i].productName == nameofProduct)
+			if (Owners[j].Shops.products[i].productName == prodName)
 			{
 				while (choice)
 				{
-					cout << "Enter the Discount percentage : %";
+					cout << "Enter the Discount percentage : ";
 					cin >> percentage;
+					cout << "%";
 					if (percentage <= 100)
 					{
-						discount = Owners[j].Shops.products[i].productPrice * (percentage / 100);
-						Owners[j].Shops.products[i].productPrice = Owners[j].Shops.products[i].productPrice - discount;
-						flag = false;
-						choice = false;
-						break;
+						do{
+							cout << "Please Enter the day and month when the sale ends ";
+							cin >> d >> m;
+							if (day <= 31 && month < 12)
+							{
+								if(m == month)
+								{
+									if(d == day)
+									{
+										flag2 = false;
+								        flag = false;
+								        discount = Owners[j].Shops.products[i].productPrice * (percentage / 100);
+								        Owners[j].Shops.products[i].newPrice = Owners[j].Shops.products[i].productPrice - discount;
+									}
+								}
+								
+							}
+						}while (flag2);
 					}
 					else
 					{
