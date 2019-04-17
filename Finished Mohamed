@@ -27,6 +27,7 @@ struct cart {
 	string buyproduct = { 0 };
 	double price;
 	double subtotal = 0;
+	string shop = { 0 };
 } shopperCart[100];
 struct Product
 {
@@ -506,17 +507,16 @@ void cart() {
 		case 'V':
 			system("cls");
 			cout << "\n\n********************************** TOTAL ITEMS *********************************\n\n\n" << endl;
-			cout << "       NAME \t\t\t  " << "   QUANTITY \t\t\t  " << "    PRICE \n\n  ";
+			cout << "       NAME \t\t\t  " << "   QUANTITY \t\t\t  " << "    PRICE \t\t\t  " << "   SHOP \n\n";
 
 			for (int i = 0; i < c.nump; i++) {
 				if (shopperCart[i].price != 0 || shopperCart[i].quantity != 0) {
 
 					shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
-					cout << x << ". " << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << '$' << endl;
+					cout << x << ". " << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << '$' << "\t\t" << shopperCart[i].shop  << endl;
 					total += shopperCart[i].subtotal;
 					cout << "\n";
 					x++;
-
 				}
 			}
 			cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
@@ -542,7 +542,7 @@ void cart() {
 		shopperCart[i].buyproduct = { 0 };
 		shopperCart[i].quantity = 0;
 		shopperCart[i].subtotal = 0;
-
+		shopperCart[i].shop = { 0 };
 	}
 	c.nump = 0;
 
