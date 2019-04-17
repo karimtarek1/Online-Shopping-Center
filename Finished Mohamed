@@ -206,7 +206,7 @@ void Open() {
 			Products.ignore();
 			getline(Products, Owners[i].Shops.products[j].productName);
 			getline(Products, Owners[i].Shops.products[j].Category);
-			if (Owners[i].Shops.products[j].Category == "Clothes") {
+			if (Owners[i].Shops.products[j].Category == "Clothing") {
 
 				getline(Products, Owners[i].Shops.products[j].Clothes.Color);
 				Products >> Owners[i].Shops.products[j].Clothes.Type;
@@ -243,7 +243,7 @@ void save() {
 		if (Owners[i].Shops.countProd != 0) {
 			Products << Owners[i].Shops.countProd << endl;
 			for (int j = 0; j < Owners[i].Shops.countProd; j++) {
-				if (Owners[i].Shops.products[j].Category == "Clothes") {
+				if (Owners[i].Shops.Category == "Clothing") {
 					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].Clothes.Color << endl << Owners[i].Shops.products[j].Clothes.Type << endl << Owners[i].Shops.products[j].Clothes.Size << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n';
 				}
 				else {
@@ -456,7 +456,7 @@ void cart() {
 	char choice, delChoice;
 	int deleteNum, x = 1;
 	cout << "\n\n************************************ - YOUR CART - *************************************\n\n" << endl;
-	cout << "    NAME \t  " << "    QUANTITY \t  " << "    PRICE  \n\n";
+	cout << "    NAME \t  " << "    QUANTITY \t  " << "    PRICE  \n\n ";
 	for (int i = 0; i < c.nump; i++) {
 		shopperCart[i].subtotal = 1;
 	}
@@ -506,7 +506,7 @@ void cart() {
 		case 'V':
 			system("cls");
 			cout << "\n\n********************************** TOTAL ITEMS *********************************\n\n\n" << endl;
-			cout << "       NAME \t\t\t  " << "   QUANTITY \t\t\t  " << "    PRICE \n\n";
+			cout << "       NAME \t\t\t  " << "   QUANTITY \t\t\t  " << "    PRICE \n\n  ";
 
 			for (int i = 0; i < c.nump; i++) {
 				if (shopperCart[i].price != 0 || shopperCart[i].quantity != 0) {
@@ -1021,42 +1021,45 @@ void del(int j) {
 void RegChoice()
 {
 	int RegIndex;
-	bool flag = false;
+	bool flag = false , flag1 = true;
 	char choice;
 	cout << " \n***************************************************   WELCOME  ****************************************************** \n";
-	cout << "\nPress -- 1 -- To Login.\n ";
-	cout << "\nPress -- 2 -- To Register.\n";
-	cout << "\n\n Choice :  ";
-	cin >> choice;
-	system("cls");
 	do {
-		switch (choice) {
-		case '1':
-			OLchoice();
-			break;
-		case '2':
-			do
-			{
-
+		cout << "\nPress -- 1 -- To Login.\n ";
+		cout << "\nPress -- 2 -- To Register.\n";
+		cout << "\n\n Choice :  ";
+		cin >> choice;
+		system("cls");
+		do {
+			switch (choice) {
+			case '1':
+				OLchoice();
+				flag1 = false;
+				break;
+			case '2':
+				do
 				{
-					RegIndex = RegOwner();
-					system("cls");
-					RegShop(RegIndex);
-					system("cls");
-					cout << "\nPress -- 1 --  T0 Continue. \n\n";
-					cout << "\nPress -- 2 --  T0 Register Again. \n\n";
-					cout << "Choice : ";
-					cin >> choice;
-					system("cls");
-				}
-			} while (choice == '2');
-			break;
-		default:
-			cout << "Invalid Choice";
-			flag = true;
-			break;
-		}
-	} while (flag);
+
+					{
+						RegIndex = RegOwner();
+						system("cls");
+						RegShop(RegIndex);
+						system("cls");
+						cout << "\nPress -- 1 --  T0 Continue. \n\n";
+						cout << "\nPress -- 2 --  T0 Register Again. \n\n";
+						cout << "Choice : ";
+						cin >> choice;
+						system("cls");
+					}
+				} while (choice == '2');
+				break;
+			default:
+				cout << "Invalid Choice";
+				flag = true;
+				break;
+			}
+		} while (flag);
+	} while (flag1);
 }
 
 int RegOwner()
@@ -1808,9 +1811,9 @@ void addProds(int j)
 				cin >> Owners[j].Shops.products[i].productPrice;
 
 				if (Owners[j].Shops.Category == "Clothing") {
-					cout << "\n\nType [ M / F ] : "; cin >> Owners[i].Shops.products[i].Clothes.Type;
-					cout << "\n\nColor : "; cin >> Owners[i].Shops.products[i].Clothes.Color;
-					cout << "\n\nSize [ S / M / L ] : "; cin >> Owners[i].Shops.products[i].Clothes.Size;
+					cout << "\n\nType [ M / F ] : "; cin >> Owners[j].Shops.products[i].Clothes.Type;
+					cout << "\n\nColor : "; cin >> Owners[j].Shops.products[i].Clothes.Color;
+					cout << "\n\nSize [ S / M / L ] : "; cin >> Owners[j].Shops.products[i].Clothes.Size;
 					cout << "\n\nProduct's Category : ";
 					Owners[j].Shops.products[i].Category = Owners[j].Shops.Category;
 					cout << Owners[j].Shops.products[i].Category;
