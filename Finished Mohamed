@@ -515,6 +515,7 @@ void cart() {
 					cout << x << ". " << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << '$' << endl;
 					total += shopperCart[i].subtotal;
 					cout << "\n";
+					x++;
 
 				}
 			}
