@@ -126,7 +126,6 @@ int main() {
 		}
 		else if (choice == '2') {
 			RegChoice();
-			OLchoice();
 		}
 		else if (choice == 'x' || choice == 'X') {
 			break;
@@ -1009,6 +1008,7 @@ void del(int j) {
 void RegChoice()
 {
 	int RegIndex;
+	bool flag = false;
 	char choice;
 	cout << " \n***************************************************   WELCOME  ****************************************************** \n";
 	cout << "\nPress -- 1 -- To Login.\n ";
@@ -1016,25 +1016,34 @@ void RegChoice()
 	cout << "\n\n Choice :  ";
 	cin >> choice;
 	system("cls");
-	if (choice == '2') {
-		do
-		{
-
+	do {
+		switch (choice) {
+		case '1':
+			OLchoice();
+			break;
+		case '2':
+			do
 			{
-				RegIndex = RegOwner();
-				system("cls");
-				RegShop(RegIndex);
-				system("cls");
-				cout << "\nPress -- 1 --  T0 Continue. \n\n";
-				cout << "\nPress -- 2 --  T0 Register Again. \n\n";
-				cout << "Choice : ";
-				cin >> choice;
-				system("cls");
-			}
-		} while (choice == '2');
-	}
-	else
-		Lowner();
+
+				{
+					RegIndex = RegOwner();
+					system("cls");
+					RegShop(RegIndex);
+					system("cls");
+					cout << "\nPress -- 1 --  T0 Continue. \n\n";
+					cout << "\nPress -- 2 --  T0 Register Again. \n\n";
+					cout << "Choice : ";
+					cin >> choice;
+					system("cls");
+				}
+			} while (choice == '2');
+			break;
+		default:
+			cout << "Invalid Choice";
+			flag = true;
+			break;
+		}
+	} while (flag);
 }
 
 int RegOwner()
