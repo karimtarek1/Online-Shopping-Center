@@ -103,14 +103,16 @@ void Rating();
 void discount(int);
 void purchaseHistory(int k);
 
+
 int main() {
 
 	Open();
-	char choice, c;
+	
+    char c, choice;
 	bool flag = true;
-	cout << "*****************************************----------------***********************************************\n";
-	cout << "*****************************---- WELCOME TO THE ONLINE SHOPPING STORE ----**********************************\n";
-	cout << "*****************************************----------------*************************************************\n\n\n";
+	cout << "**************************************************----------------******************************************************\n";
+	cout << "************************************---- WELCOME TO THE ONLINE SHOPPING STORE ----**************************************\n";
+	cout << "**************************************************----------------******************************************************\n\n\n";
 	do {
 		cout << " [ 1 ] Shopper. \n\n";
 		cout << " [ 2 ] Shop Owner. \n\n";
@@ -165,7 +167,6 @@ int main() {
 	return 0;
 }
 
-
 void Open() {
 
 	ifstream Owner, Shopper, Products;
@@ -173,7 +174,7 @@ void Open() {
 	Owner >> s.countOwn;
 	for (int i = 0; i < s.countOwn; i++) {
 		Owner.ignore();
-		getline(Owner , Owners[i].Name);
+		getline(Owner, Owners[i].Name);
 		getline(Owner, Owners[i].Gender);
 		getline(Owner, Owners[i].Add.Country);
 		getline(Owner, Owners[i].Add.City);
@@ -207,7 +208,7 @@ void Open() {
 			getline(Products, Owners[i].Shops.products[j].productName);
 			getline(Products, Owners[i].Shops.products[j].Category);
 			if (Owners[i].Shops.products[j].Category == "Clothes") {
-				
+
 				getline(Products, Owners[i].Shops.products[j].Clothes.Color);
 				Products >> Owners[i].Shops.products[j].Clothes.Type;
 				Products >> Owners[i].Shops.products[j].Clothes.Size;
@@ -231,12 +232,12 @@ void save() {
 	Owner.open("Owners.txt", ios::trunc);
 	Owner << s.countOwn << endl;
 	for (int i = 0; i < s.countOwn; i++) {
-			Owner << Owners[i].Name << endl << Owners[i].Gender << endl << Owners[i].Add.Country << endl << Owners[i].Add.City << endl << Owners[i].Shops.ShopName << endl << Owners[i].Shops.Category << endl << Owners[i].Shops.Add.Country << endl << Owners[i].Shops.Add.City << endl << Owners[i].ID << endl << Owners[i].Age << endl << Owners[i].PassNum << endl << Owners[i].Password << '\n';
+		Owner << Owners[i].Name << endl << Owners[i].Gender << endl << Owners[i].Add.Country << endl << Owners[i].Add.City << endl << Owners[i].Shops.ShopName << endl << Owners[i].Shops.Category << endl << Owners[i].Shops.Add.Country << endl << Owners[i].Shops.Add.City << endl << Owners[i].ID << endl << Owners[i].Age << endl << Owners[i].PassNum << endl << Owners[i].Password << '\n';
 	}
 	Shopper.open("Shopper.txt", ios::trunc);
 	Shopper << s.countShopper << endl;
 	for (int i = 0; i < s.countShopper; i++) {
-			Shopper << Shoppers[i].name << endl << Shoppers[i].gender << endl << Shoppers[i].Add.Country << endl << Shoppers[i].Add.City << endl << Shoppers[i].id << endl << Shoppers[i].age << endl << Shoppers[i].passnum << endl << Shoppers[i].pass << endl;
+		Shopper << Shoppers[i].name << endl << Shoppers[i].gender << endl << Shoppers[i].Add.Country << endl << Shoppers[i].Add.City << endl << Shoppers[i].id << endl << Shoppers[i].age << endl << Shoppers[i].passnum << endl << Shoppers[i].pass << endl;
 	}
 
 	Products.open("Products.txt", ios::trunc);
@@ -263,7 +264,7 @@ void sChoice()
 	char choice, cont;
 	system("cls");
 	do {
-		cout << "\nPress -- 1 -- To Search For A Product. \n\nPress -- 2 -- To View All Products. \n\nPress -- 3 -- To Edit Your Information. \n\npress -- 4 -- To view your Purchase History \n\n -- 5-- To Delete Your Account. \n\n";
+		cout << "\n Press -- 1 -- To Search For A Product. \n\n Press -- 2 -- To View All Products. \n\n Press -- 3 -- To Edit Your Information. \n\n press -- 4 -- To view your Purchase History \n\n Press -- 5 -- To Delete Your Account. \n\n";
 		cout << "Choice : ";
 		cin >> choice;
 		system("cls");
@@ -322,7 +323,7 @@ void viewproducts()
 	char flag;
 	do {
 		int number = 1;
-		cout << "- Product Name -\t" << "- Product Price  -\t" << "- Product Category -\t" << "- Product Quantity -\n" << endl;
+		cout << " - Product Name --     " << "-- Product Price --      " << "-- Product Category --      " << "-- Product Quantity -\n" << endl;
 		for (int i = 0; i < maxShoppers; i++)
 		{
 			for (int j = 0; j < maxProds; j++)
@@ -330,12 +331,13 @@ void viewproducts()
 				if (Owners[i].Shops.products[j].productPrice != 0)
 				{
 					if (Owners[j].Shops.products[i].Category == "Clothing") {
-						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << " " << Owners[j].Shops.products[i].Clothes.Type << " " << Owners[j].Shops.products[i].Clothes.Color << " " << Owners[j].Shops.products[i].Clothes.Size << "\t" << Owners[i].Shops.products[j].Quantity << "t" << Owners[i].Shops.products[j].avgRating;
+						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t\t" << Owners[i].Shops.products[j].Category << "\t\t\t" << Owners[i].Shops.products[j].Quantity << "      " << Owners[i].Shops.products[j].avgRating << "      " << Owners[j].Shops.products[i].Clothes.Size << "     " << Owners[j].Shops.products[i].Clothes.Type << "     " << Owners[j].Shops.products[i].Clothes.Color;
 					}
 					else {
-						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << "\t" << Owners[i].Shops.products[j].Quantity << "t" << Owners[i].Shops.products[j].avgRating;
+						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t\t" << Owners[i].Shops.products[j].Category << "\t\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating;
 					}
 					number++;
+					cout << '\n';
 				}
 			}
 		} chooseproduct();
@@ -500,7 +502,7 @@ void cart() {
 		case 'V':
 			system("cls");
 			cout << "\n\n********************************** TOTAL ITEMS *********************************\n\n\n" << endl;
-			cout << " NAME \t\t\t  " << " QUANTITY \t\t\t  " << " PRICE \n\n  ";
+			cout << "  NAME \t\t\t  " << " QUANTITY \t\t\t  " << " PRICE \n\n  ";
 			for (int i = 0; i < c.nump; i++) {
 				if (shopperCart[i].price != 0) {
 					shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
@@ -511,7 +513,6 @@ void cart() {
 			cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
 			cout << "Total price : " << total << "$\n";
 			flag1 = false;
-			c.nump = 0;
 			Rating();
 			system("pause");
 			break;
@@ -527,6 +528,15 @@ void cart() {
 			break;
 		}
 	} while (flag1);
+	for (int i = 0; i > c.nump; i++) {
+		
+		shopperCart[i].buyproduct = { 0 };
+		shopperCart[i].quantity = 0;
+		shopperCart[i].subtotal = 0;
+
+	}
+		c.nump = 0;
+	
 }
 
 void registration() {
@@ -746,7 +756,7 @@ void SLchoice()
 
 		do {
 			system("cls");
-			cout << "\n\nPress -- 1 -- To Login. \n\nPress -- 2 -- To Register\n\n";
+			cout << "\n\n Press -- 1 -- To Login. \n\n Press -- 2 -- To Register\n\n";
 			cout << "Choice :  ";
 			cin >> Loginchoice;
 			if (Loginchoice == '1') {
@@ -757,14 +767,14 @@ void SLchoice()
 				registration();
 			}
 			else
-				cout << "\n\n!!! Invalid Choice !!!\n\n";
+				cout << "\n\n !!! Invalid Choice !!!\n\n";
 
 		} while (pass);
 
 
 		if (LogIndex == maxShoppers) {
-			cout << "\n\nWould You Like To Try Again ?  [ Y / N ] \n\n ";
-			cout << "Choice : ";
+			cout << "\n\n Would You Like To Try Again ?  [ Y / N ] \n\n ";
+			cout << " Choice : ";
 			cin >> c;
 		}
 		else {
@@ -2017,7 +2027,7 @@ void Rating()
 	float rating, sum = 0;
 	cout << "Would you like to rate a product (Y/N) ?";
 	cin >> choice;
-	while(choice == 'y' || choice == 'Y')
+	while (choice == 'y' || choice == 'Y')
 	{
 		cout << "Enter the name of the Product you'd like to rate (Case Sensitive) : ";
 		cin >> prodName;
@@ -2135,4 +2145,3 @@ void purchaseHistory(int k)
 		}
 	}
 }
-
