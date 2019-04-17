@@ -1785,7 +1785,7 @@ void addProds(int j)
 				cout << "\n\nProduct's Price : $";
 				cin >> Owners[j].Shops.products[i].productPrice;
 
-				if (Owners[j].Shops.products[i].Category == "Clothing") {
+				if (Owners[j].Shops.Category == "Clothing") {
 					cout << "\n\nType [ M / F ] : "; cin >> Owners[i].Shops.products[i].Clothes.Type;
 					cout << "\n\nColor : "; cin >> Owners[i].Shops.products[i].Clothes.Color;
 					cout << "\n\nSize [ S / M / L ] : "; cin >> Owners[i].Shops.products[i].Clothes.Size;
