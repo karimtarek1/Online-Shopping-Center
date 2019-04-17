@@ -2042,61 +2042,6 @@ void removeReg(int j)
 	}
 }
 
-void Rating()
-{
-	int counter = 0;
-	char choice;
-	string prodName;
-	float rating, sum = 0;
-	cout << "Would you like to rate a product (Y/N) ?";
-	cin >> choice;
-	while (choice == 'y' || choice == 'Y')
-	{
-		cout << "Enter the name of the Product you'd like to rate (Case Sensitive) : ";
-		cin >> prodName;
-
-		for (int l = 0; l < maxOwners; l++)
-		{
-			for (int j = 0; l < maxProds; l++)
-			{
-				if (Owners[l].Shops.products[j].productName == prodName)
-				{
-					cout << "It's rating is : ";
-					cout << Owners[l].Shops.products[j].avgRating;
-					bool flag;
-					do {
-						cout << "Enter your rating (1 --> 5) : ";
-						cin >> rating;
-						if (rating >= 1 && rating <= 5)
-						{
-							flag = false;
-							for (int k = 0; k < 25; k++)
-							{
-
-								if (Owners[l].Shops.products[j].ratings[k] == 0)
-								{
-									Owners[l].Shops.products[j].ratings[k] = rating;
-									break;
-								}
-								counter++;
-								sum += Owners[l].Shops.products[j].ratings[k];
-							}
-							Owners[l].Shops.products[j].avgRating = round(sum / counter);
-						}
-						else
-						{
-							cout << "Error , Invalid rating entered";
-							flag = true;
-						}
-					} while (flag);
-					cout << "The current rating of " << Owners[l].Shops.products[j].productName << "is" << Owners[l].Shops.products[j].avgRating;
-					break;
-				}
-			}
-		}
-	};
-}
-
 void discount(int j)
 {
 	double percentage, discount;
@@ -2169,56 +2114,57 @@ void purchaseHistory(int k)
 	}
 }
 
-void Rating2()
+void Rating()
 {
-	bool notfound = true,flag2=true;
-	string prodName;
-	double rating,sum=0,avg=0;
-	int maxRatings=25,counter=0;
-	do{
-		cout << "Enter the name of the product you'd like to rate (Case Sensetive) : ";
-		cin >> prodName;
-		for(int i=0 ; i<maxOwners ; i++)
+	string shopName, prodName;
+	bool flag = true,notfound = true,flag2 = true;
+	int rating = 0;
+	double avg;
+	do
+	{
+		cout << "Enter Shop's name : ";
+		cin >> shopName;
+		for (int i = 0; i < c.nump; i++)
 		{
-			for(int j=0 ; j<maxProds ; j++)
+			if (shopperCart[i].shop == shopName)
 			{
-				if(Owners[i].Shops.products[j].productName == prodName)
+				do
 				{
-					cout << "The current rating of " << Owners[i].Shops.products[j].productName << "is " << Owners[i].Shops.products[j].avgRating;
-					notfound = false;
-					bool flag = true;
-					for(int k =0 ; k<maxRatings ; k++)
+					cout << "Enter the Product's name : ";
+					cin >> prodName;
+					for (int j = 0; j < c.nump; j++)
 					{
-						if(Owners[i].Shops.products[j].ratings[k] == 0)
+						if (shopperCart[j].buyproduct == prodName)
 						{
-							flag2 = false;
 							do{
-						       cout << "Enter your rating (1 --> 5) : ";
-						       cin >> rating;
-						       if(rating >=1 || rating <=5)
-							   {
-								   flag = false;
-								   sum += Owners[i].Shops.products[j].ratings[k];
-								   counter++;
-								   avg = round(sum / counter);
-								   Owners[i].Shops.products[j].avgRating = avg;
-								   cout << "The new rating of " << Owners[i].Shops.products[j].productName << " is " << Owners[i].Shops.products[j].avgRating;
-								   break;
-							   }
-					           } while (flag);
+								cout << "Enter your Rating : ";
+								cin >> rating;
+								if(rating >= 1 && rating <=5)
+								{
+									flag2 = false;
+									for(int x ; x<maxOwners ; x++)
+									{
+										if(Owners[x].Shops.ShopName == shopName)
+										{
+											for(int y = 0 ; y<maxProds ; y++)
+											{
+												if(Owners[x].Shops.products[y].productName == prodName)
+												{
+													Owners[x].Shops.products[y].counter++;
+													Owners[x].Shops.products[y].sum += rating;
+													Owners[x].Shops.products[y].avgRating = round(Owners[x].Shops.products[y].sum / Owners[x].Shops.products[y].counter);
+													cout << "The Rating of " << Owners[x].Shops.products[y].productName << " is " << Owners[x].Shops.products[y].avgRating;
+													break;
+												}
+											}
+										}
+									}
+								}
+							} while (flag2);
 						}
-						sum += Owners[i].Shops.products[j].ratings[k];
-						counter++;
 					}
-					if(flag2)
-					{
-						notfound = true;
-						cout << "Rating is not avaiable right now , sorry for the inconvenience";
-					}
-					
-
-				}
+				} while (notfound);
 			}
 		}
-	} while (notfound);
+	} while (flag);
 }
