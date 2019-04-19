@@ -1,11 +1,4 @@
 #include <iostream>
-
-
-
-
-
-
-
 #include <string>
 #include <string.h>
 #include <conio.h>
@@ -23,7 +16,7 @@ struct views {
 };
 struct num {
 	int nump = 0;
-	int index =0;
+	int index = 0;
 	views num[100];
 
 }c;
@@ -390,7 +383,7 @@ void viewproducts()
 	char flag;
 
 	do {
-        int z = 0;
+		int z = 0;
 		int number = 1;
 		cout << "-Product Name- " << "-  Product Price  -" << "-  Product Category  -" << "-  Product Quantity  -" << "-  Avg. Rating  -" << "- Size -" << "- Type -" << "- Color -" << "\n" << endl;
 		for (int i = 0; i < maxShoppers; i++)
@@ -466,7 +459,7 @@ void cart() {
 	system("cls");
 	bool flag = true, flag1 = true, del = true;
 	double total = 0;
-	char choice, delChoice, dele;
+	char choice, delChoice;
 	int deleteNum, x = 1;
 	cout << "\n\n************************************ - YOUR CART - *************************************\n\n" << endl;
 	cout << "    NAME \t  " << "    QUANTITY \t  " << "    PRICE  \n\n";
@@ -485,26 +478,24 @@ void cart() {
 	cout << "\n\n\nDo you want to Delete any Items ?  [ Y / N ]   \n\n";
 	cout << "Choice : ";
 	cin >> delChoice;
- 
+
 	do {
 		if (delChoice == 'y' || delChoice == 'Y') {
 			cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
 			cout << "Number : ";
 			cin >> deleteNum;
 			Owners[k.sav[deleteNum - 1].x].Shops.products[k.sav[deleteNum - 1].y].Quantity += k.amount[delChoice - 1];
-			k.amount[delChoice - 1] = 0;
-				
-		}
-		cout << "\n\nDo You Want To  Delete Antthingb Else  [ Y / N ] :";
-		cout << "\nchoice  : ";
-		cin >> dele;
-		if (dele == 'y' || dele == 'Y') {
-			flag = true;
+			k.amount[deleteNum - 1] = 0;
 
+			cout << "\n\nDo You Want To  Delete Anything Else  [ Y / N ] :";
+			cout << "\nchoice  : ";
+			cin >> delChoice;
+			if (delChoice == 'y' || delChoice == 'Y') {
+				flag = true;
+			}
+			else if (delChoice == 'n' || delChoice == 'N')
+				flag = false;
 		}
-		else if ( dele == 'n'|| dele == 'N')
-			flag = false; 
-
 	} while (flag);
 	total = 0;
 	x = 1;
