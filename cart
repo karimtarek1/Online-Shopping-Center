@@ -1,4 +1,25 @@
 #include <iostream>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include <string>
 #include <string.h>
 #include <conio.h>
@@ -104,13 +125,13 @@ void registration();
 void update(int j);
 void SLchoice();
 void sChoice();
-void viewproducts();
+
 void search();
-void info(int, int);
+void viewproducts();
 void chooseproduct();
-void cart();
 void viewcart();
 void deletee();
+void cart();
 void del(int j);
 void save();
 int RegOwner();
@@ -324,56 +345,58 @@ void sChoice()
 void search()
 {
 	string name;
-	int x = 1;
+	char add;
+	bool flag = false;
+	int x = 1,amount,l,z;
 	cout << "\n\nEnter the Product's name: ";
 	cin >> name;
+	cout << "\n\n";
+	
 	for (int i = 0; i < maxShoppers; i++)
 	{
 		for (int j = 0; j < maxProds; j++)
 		{
 			if (name == Owners[i].Shops.products[j].productName)
 			{
-				info(i, j);
-				x++;
+				cout << "-Product Name- " << "-  Product Price  -" << "-  Product Category  -" << "-  Product Quantity  -" << "-  Avg. Rating  -" << "- Size -" << "- Type -" << "- Color -" << "\n" << endl;
+				if (Owners[i].Shops.products[j].Category == "Clothing") {
+					cout << x << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "          " << Owners[i].Shops.products[j].Clothes.Size << "       " << Owners[i].Shops.products[j].Clothes.Type << "      " << Owners[i].Shops.products[j].Clothes.Color << "\n";
+				}
+				else {
+					cout << x << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+				}
+				flag = true;
+				l = i;
+				z = j;
+				break;
 			}
 
 		}
-	}if (x == 1)
+
+	}if (flag == false) 
 		cout << "                                     Out Of Stock. \n\n\n ";
-	system("pause");
-}
+	else {
+		cout << "\n\nAdd to to Cart [ Y / N ] :\n\n";
+		cout << "choice : ";
+		cin >> add;
+		if (add == 'y' || add == 'Y') {
 
-void info(int i, int j)
-{
-	char x;
-	bool flag;
-	cout << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << "\t" << Owners[i].Shops.products[j].Quantity;
-	cout << "\n" << endl;
-	do {
-		cout << " Do You Want To Add To Cart ?? [ Y / N  ]\n\n";
-		cout << "Choice : ";
-		cin >> x;
-		switch (x)
-		{
-		case 'y':
-		case'Y':
-			chooseproduct();
-			sChoice();
-			flag = false;
-			break;
+			cout << "\n\n How many do you want ?                                  ***press .0. to exit.*** \n\n ";
+			cout << "Amount : ";
+			cin >> amount;
 
-		case 'n':
-		case'N':
+			k.amount[c.index] = amount;
+			Owners[l].Shops.products[z].Quantity -= amount;
+			k.sav[c.index].x = l;
+			k.sav[c.index].y = z;
+			c.nump++;
+			c.index++;
 
-			sChoice();
-			flag = false;
-
-		default:
-			cout << "\n\n !!! Invalid Choice  \n\n";
-			flag = true;
 		}
-	} while (flag);
 
+	}
+	system("pause");
+	cart();
 }
 
 void viewproducts()
@@ -555,7 +578,7 @@ void cart() {
 		{
 
 			system("cls");
-			viewproducts();
+			sChoice();
 			flag1 = false;
 			break;
 
