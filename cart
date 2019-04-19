@@ -506,6 +506,7 @@ void cart() {
 	char choice;
 	int deleteNum;
 	do {
+		system("cls");
 		int x = 1;
 		cout << "Press -- V --  to View receipt. \n\nPress -- R -- to Return to Shopping. \n\nPress -- D -- to Delete From Your Cart\n\n" << endl;
 		cout << "Choice : ";
