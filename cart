@@ -23,7 +23,6 @@ struct num {
 struct  save
 {
 	views sav[100];
-	int inc = 0;
 	int amount[100];
 	double sub[100];
 
@@ -491,9 +490,12 @@ void cart() {
 				if (i > deleteNum - 1) {
 					k.sav[i - 1].x = k.sav[i].x;
 					k.sav[i - 1].y = k.sav[i].y;
+					k.amount[i - 1] = k.amount[i];
+					k.sub[i - 1] = k.sub[i];
 				}
 			}
-
+			c.nump--;
+			c.index--;
 			cout << "\n\nDo You Want To  Delete Anything Else  [ Y / N ] :";
 			cout << "\nchoice  : ";
 			cin >> delChoice;
@@ -519,9 +521,9 @@ void cart() {
 		case 'V':
 			for (int i = 0; i < c.nump; i++) {
 
-				shopperCart[i].buyproduct = Owners[k.sav[k.inc].x].Shops.products[k.sav[k.inc].y].productName;
-				shopperCart[i].price = Owners[k.sav[k.inc].x].Shops.products[k.sav[k.inc].y].productPrice;
-				shopperCart[i].quantity = Owners[k.sav[k.inc].x].Shops.products[k.sav[k.inc].y].Quantity;
+				shopperCart[i].buyproduct = Owners[k.sav[i].x].Shops.products[k.sav[i].y].productName;
+				shopperCart[i].price = Owners[k.sav[i].x].Shops.products[k.sav[i].y].productPrice;
+				shopperCart[i].quantity = Owners[k.sav[i].x].Shops.products[k.sav[i].y].Quantity;
 
 			}
 			system("cls");
