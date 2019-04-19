@@ -465,14 +465,15 @@ void cart() {
 	cout << "    NAME \t  " << "    QUANTITY \t  " << "    PRICE  \n\n";
 
 	for (int i = 0; i < c.nump; i++) {
-		if (Owners[k.sav[i].x].Shops.products[k.sav[i].y].Quantity != 0) {
-			k.sub[i] = (k.amount[i] * Owners[k.sav[i].x].Shops.products[k.sav[i].y].productPrice);
-			cout << x << ". " << Owners[k.sav[i].x].Shops.products[k.sav[i].y].productName << "\t\t" << k.amount[i] << "\t\t" << k.sub[i] << "$\n" << endl;
-			total += k.sub[i];
-			x++;
-			cout << "\n";
+		if (Owners[k.sav[i].x].Shops.products[k.sav[i].y].productPrice != 0) {
+			if (k.amount[i] != 0) {
+				k.sub[i] = (k.amount[i] * Owners[k.sav[i].x].Shops.products[k.sav[i].y].productPrice);
+				cout << x << ". " << Owners[k.sav[i].x].Shops.products[k.sav[i].y].productName << "\t\t" << k.amount[i] << "\t\t" << k.sub[i] << "$\n" << endl;
+				total += k.sub[i];
+				x++;
+				cout << "\n";
+			}
 		}
-
 	}
 	cout << endl << "\nTOTAL :  $" << total << endl;
 	cout << "\n\n\nDo you want to Delete any Items ?  [ Y / N ]   \n\n";
@@ -484,8 +485,14 @@ void cart() {
 			cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
 			cout << "Number : ";
 			cin >> deleteNum;
-			Owners[k.sav[deleteNum - 1].x].Shops.products[k.sav[deleteNum - 1].y].Quantity += k.amount[delChoice - 1];
+			Owners[k.sav[deleteNum - 1].x].Shops.products[k.sav[deleteNum - 1].y].Quantity += k.amount[deleteNum - 1];
 			k.amount[deleteNum - 1] = 0;
+			for (int i = 0; i < c.nump; i++) {
+				if (i > deleteNum - 1) {
+					k.sav[i - 1].x = k.sav[i].x;
+					k.sav[i - 1].y = k.sav[i].y;
+				}
+			}
 
 			cout << "\n\nDo You Want To  Delete Anything Else  [ Y / N ] :";
 			cout << "\nchoice  : ";
