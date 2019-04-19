@@ -484,14 +484,16 @@ void cart() {
 		cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
 		cout << "Number : ";
 		cin >> deleteNum;
-		Owners[k.sav[k.inc].x].Shops.products[k.sav[k.inc].y].Quantity = 0;
+		Owners[k.sav[deleteNum-1].x].Shops.products[k.sav[deleteNum-1].y].Quantity = 0;
 		cout << "\n\nDo You Want To  Delete Antthingb Else  [ Y / N ] :";
-		cout << "\nchoise  : ";
+		cout << "\nchoice  : ";
 		cin >> dele;
 		if (dele == 'y' || dele == 'Y') {
 			flag = true;
+
 		}
-		else { flag = false; }
+		else if ( dele == 'n'|| dele == 'N')
+			flag = false; 
 
 	} while (flag);
 	total = 0;
