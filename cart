@@ -496,6 +496,9 @@ void cart() {
 			else if (delChoice == 'n' || delChoice == 'N')
 				flag = false;
 		}
+		else {
+			break;
+		}
 	} while (flag);
 	total = 0;
 	x = 1;
