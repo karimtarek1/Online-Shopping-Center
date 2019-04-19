@@ -1,4 +1,25 @@
 #include <iostream>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include <string>
 #include <string.h>
 #include <conio.h>
@@ -109,6 +130,8 @@ void search();
 void info(int, int);
 void chooseproduct();
 void cart();
+void viewcart();
+void deletee();
 void del(int j);
 void save();
 int RegOwner();
@@ -341,8 +364,6 @@ void search()
 	system("pause");
 }
 
-
-
 void info(int i, int j)
 {
 	char x;
@@ -375,7 +396,6 @@ void info(int i, int j)
 	} while (flag);
 
 }
-
 
 void viewproducts()
 {
@@ -453,13 +473,9 @@ void chooseproduct() {
 	system("cls");
 };
 
-void cart() {
+void viewcart() {
 
-	system("cls");
-	bool flag = true, flag1 = true, del = true;
-	double total = 0;
-	char choice, delChoice;
-	int deleteNum, x = 1;
+	double total = 0,x = 1;
 	cout << "\n\n************************************ - YOUR CART - *************************************\n\n" << endl;
 	cout << "    NAME \t  " << "    QUANTITY \t  " << "    PRICE  \n\n";
 
@@ -475,12 +491,16 @@ void cart() {
 		}
 	}
 	cout << endl << "\nTOTAL :  $" << total << endl;
-	cout << "\n\n\nDo you want to Delete any Items ?  [ Y / N ]   \n\n";
-	cout << "Choice : ";
-	cin >> delChoice;
 
-	do {
-		if (delChoice == 'y' || delChoice == 'Y') {
+}
+
+void deletee() {
+	
+	system("cls");
+	bool flag = true;
+	int deleteNum, x = 1;
+	viewcart();
+
 			cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
 			cout << "Number : ";
 			cin >> deleteNum;
@@ -490,46 +510,49 @@ void cart() {
 				if (i > deleteNum - 1) {
 					k.sav[i - 1].x = k.sav[i].x;
 					k.sav[i - 1].y = k.sav[i].y;
-					k.amount[i - 1] = k.amount[i];
+		 			k.amount[i - 1] = k.amount[i];
 					k.sub[i - 1] = k.sub[i];
 				}
 			}
 			c.nump--;
 			c.index--;
-			cout << "\n\nDo You Want To  Delete Anything Else  [ Y / N ] :";
-			cout << "\nchoice  : ";
-			cin >> delChoice;
-			if (delChoice == 'y' || delChoice == 'Y') {
-				flag = true;
-			}
-			else if (delChoice == 'n' || delChoice == 'N')
-				flag = false;
-		}
-		else {
-			break;
-		}
-	} while (flag);
-	total = 0;
-	x = 1;
+			
+}
+
+void cart() {
+
+	double total;
+	system("cls");
+	bool flag = true, flag1 = true, del = true;
+	char choice;
+	int deleteNum;
 	do {
-		cout << "Press -- V --  to View receipt. \n\n Press -- R -- to Return to Shopping. \n\n" << endl;
+		int x = 1;
+		cout << "Press -- V --  to View receipt. \n\nPress -- R -- to Return to Shopping. \n\nPress -- D -- to Delete From Your Cart\n\n" << endl;
 		cout << "Choice : ";
 		cin >> choice;
 		switch (choice)
 		{
+		case 'd':
+		case 'D':
+		{
+			deletee();
+			break;
+		}
 		case 'v':
 		case 'V':
+		{
+			total = 0;
 			for (int i = 0; i < c.nump; i++) {
 
 				shopperCart[i].buyproduct = Owners[k.sav[i].x].Shops.products[k.sav[i].y].productName;
 				shopperCart[i].price = Owners[k.sav[i].x].Shops.products[k.sav[i].y].productPrice;
-				shopperCart[i].quantity = Owners[k.sav[i].x].Shops.products[k.sav[i].y].Quantity;
+				shopperCart[i].quantity = k.amount[i];
 
 			}
 			system("cls");
 			cout << "\n\n********************************** TOTAL ITEMS *********************************\n\n\n" << endl;
-			cout << "       NAME \t\t\t  " << "   QUANTITY \t\t\t  " << "    PRICE \n\n  ";
-
+			cout << "       NAME \t\t\t  " << "   QUANTITY \t\t\t  " << "    PRICE \n\n";
 			for (int i = 0; i < c.nump; i++) {
 
 				shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
@@ -542,31 +565,32 @@ void cart() {
 			}
 			cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
 			cout << "Total price : " << total << "$\n";
-			flag1 = false;
-			Rating();
+			flag = false;
+
 			system("pause");
 			break;
+		}
 		case 'R':
 		case 'r':
+		{
+
 			system("cls");
 			viewproducts();
 			flag1 = false;
 			break;
+
+		}
 		default:
+		{
 			cout << "!!! Enter a valid choice !!!" << endl;
-			flag1 = true;
+
 			break;
 		}
-	} while (flag1);
-	for (int i = 0; i > c.nump; i++) {
+		}
 
-		shopperCart[i].buyproduct = { 0 };
-		shopperCart[i].quantity = 0;
-		shopperCart[i].subtotal = 0;
+	} while (flag);
 
-	}
-	c.nump = 0;
-
+  	Rating();
 }
 
 void registration() {
