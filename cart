@@ -1,4 +1,11 @@
 #include <iostream>
+
+
+
+
+
+
+
 #include <string>
 #include <string.h>
 #include <conio.h>
@@ -478,13 +485,16 @@ void cart() {
 	cout << "\n\n\nDo you want to Delete any Items ?  [ Y / N ]   \n\n";
 	cout << "Choice : ";
 	cin >> delChoice;
-
-	while (delChoice == 'y' || delChoice == 'Y')
-	{
-		cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
-		cout << "Number : ";
-		cin >> deleteNum;
-		Owners[k.sav[deleteNum-1].x].Shops.products[k.sav[deleteNum-1].y].Quantity = 0;
+ 
+	do {
+		if (delChoice == 'y' || delChoice == 'Y') {
+			cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
+			cout << "Number : ";
+			cin >> deleteNum;
+			Owners[k.sav[deleteNum - 1].x].Shops.products[k.sav[deleteNum - 1].y].Quantity += k.amount[delChoice - 1];
+			k.amount[delChoice - 1] = 0;
+				
+		}
 		cout << "\n\nDo You Want To  Delete Antthingb Else  [ Y / N ] :";
 		cout << "\nchoice  : ";
 		cin >> dele;
