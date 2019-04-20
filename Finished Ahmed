@@ -142,7 +142,6 @@ int main() {
 	cout << "**************************************************----------------******************************************************\n";
 	cout << "************************************---- WELCOME TO THE ONLINE SHOPPING STORE ----**************************************\n";
 	cout << "**************************************************----------------******************************************************\n\n\n";
-	cout << "Please Enter today's Date : ";
 	do {
 		cout << "Please Enter today's Date : \n";
 		cout << "Day : ";
@@ -151,7 +150,7 @@ int main() {
 		cin >> month;
 	} while (day > 31 || month > 12);
 
-	cout << day << " / " << month << " / 2019 \n";
+	cout << day << " / " << month << " / 2019 \n\n";
 
 	do {
 		cout << " [ 1 ] Shopper. \n\n";
@@ -519,7 +518,7 @@ void cart() {
 	double total;
 	system("cls");
 	bool flag = true, flag1 = true, del = true;
-	char choice , ratechoice;
+	char choice, ratechoice;
 	do {
 		system("cls");
 		int x = 1;
