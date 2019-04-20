@@ -326,11 +326,11 @@ void search()
 	string name;
 	char add;
 	bool flag = false;
-	int x = 1,amount,l,z;
+	int x = 1, amount, l, z;
 	cout << "\n\nEnter the Product's name: ";
 	cin >> name;
 	cout << "\n\n";
-	
+
 	for (int i = 0; i < maxShoppers; i++)
 	{
 		for (int j = 0; j < maxProds; j++)
@@ -352,7 +352,7 @@ void search()
 
 		}
 
-	}if (flag == false) 
+	}if (flag == false)
 		cout << "                                     Out Of Stock. \n\n\n ";
 	else {
 		cout << "\n\nAdd to to Cart [ Y / N ] :\n\n";
@@ -380,9 +380,9 @@ void search()
 
 void viewproducts()
 {
-	char flag;
 
-	do {
+	char choice;
+	
 		int z = 0;
 		int number = 1;
 		cout << "-Product Name- " << "-  Product Price  -" << "-  Product Category  -" << "-  Product Quantity  -" << "-  Avg. Rating  -" << "- Size -" << "- Type -" << "- Color -" << "\n" << endl;
@@ -406,15 +406,20 @@ void viewproducts()
 					number++;
 				}
 			}
-		} chooseproduct();
-		cout << "\n\nDo you Want to continue Shopping : [ Y / N ] ";
-		cout << "\n\nChoice : ";
-		cin >> flag;
-		cout << "\n\n";
-		system("cls");
-	} while (flag == 'y' || flag == 'Y');
-
-	cart();
+		} 
+		cout << "\n\nDo You Want To Buy Anything ? [ Y / N ]. \n\n";
+		cout << "choice : ";
+		cin >> choice;
+		if (choice == 'y' || choice == 'Y') {
+             chooseproduct();
+			 cart();
+		}
+		else
+		{
+			sChoice();
+		}
+	
+	
 }
 
 void chooseproduct() {
@@ -457,7 +462,7 @@ void chooseproduct() {
 
 void viewcart() {
 
-	double total = 0,x = 1;
+	double total = 0, x = 1;
 	cout << "\n\n************************************ - YOUR CART - *************************************\n\n" << endl;
 	cout << "    NAME \t  " << "    QUANTITY \t  " << "    PRICE  \n\n";
 
@@ -477,28 +482,28 @@ void viewcart() {
 }
 
 void deletee() {
-	
+
 	system("cls");
 	bool flag = true;
 	int deleteNum, x = 1;
 	viewcart();
 
-			cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
-			cout << "Number : ";
-			cin >> deleteNum;
-			Owners[k.sav[deleteNum - 1].x].Shops.products[k.sav[deleteNum - 1].y].Quantity += k.amount[deleteNum - 1];
-			k.amount[deleteNum - 1] = 0;
-			for (int i = 0; i < c.nump; i++) {
-				if (i > deleteNum - 1) {
-					k.sav[i - 1].x = k.sav[i].x;
-					k.sav[i - 1].y = k.sav[i].y;
-		 			k.amount[i - 1] = k.amount[i];
-					k.sub[i - 1] = k.sub[i];
-				}
-			}
-			c.nump--;
-			c.index--;
-			
+	cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
+	cout << "Number : ";
+	cin >> deleteNum;
+	Owners[k.sav[deleteNum - 1].x].Shops.products[k.sav[deleteNum - 1].y].Quantity += k.amount[deleteNum - 1];
+	k.amount[deleteNum - 1] = 0;
+	for (int i = 0; i < c.nump; i++) {
+		if (i > deleteNum - 1) {
+			k.sav[i - 1].x = k.sav[i].x;
+			k.sav[i - 1].y = k.sav[i].y;
+			k.amount[i - 1] = k.amount[i];
+			k.sub[i - 1] = k.sub[i];
+		}
+	}
+	c.nump--;
+	c.index--;
+
 }
 
 void cart() {
@@ -567,7 +572,7 @@ void cart() {
 			system("pause");
 			break;
 		}
-		
+
 		case 'c':
 		case 'C':
 		{
@@ -596,7 +601,7 @@ void cart() {
 
 	} while (flag);
 
-  	Rating();
+	Rating();
 }
 
 void registration() {
@@ -2271,4 +2276,4 @@ void Rating2()
 			}
 		}
 	} while (notfound);
-}
+} 
