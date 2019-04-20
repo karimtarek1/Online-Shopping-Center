@@ -6,8 +6,8 @@
 #include <sstream>
 using namespace std;
 
-int LogIndex, day = 0, month = 0;
 const int maxShoppers = 25, maxOwners = 25, maxProds = 10, maxPass = 32;
+int LogIndex = maxOwners, day = 0, month = 0;
 
 struct views {
 
@@ -396,41 +396,46 @@ void search()
 
 void viewproducts()
 {
-	char flag;
 
-	do {
-		int z = 0;
-		int number = 1;
-		cout << "-Product Name- " << "-  Product Price  -" << "-  Product Category  -" << "-  Product Quantity  -" << "-  Avg. Rating  -" << "- Size -" << "- Type -" << "- Color -" << "\n" << endl;
-		for (int i = 0; i < maxShoppers; i++)
+	char choice;
+
+	int z = 0;
+	int number = 1;
+	cout << "-Product Name- " << "-  Product Price  -" << "-  Product Category  -" << "-  Product Quantity  -" << "-  Avg. Rating  -" << "- Size -" << "- Type -" << "- Color -" << "\n" << endl;
+	for (int i = 0; i < maxShoppers; i++)
+	{
+		for (int j = 0; j < maxProds; j++)
 		{
-			for (int j = 0; j < maxProds; j++)
+
+			if (Owners[i].Shops.products[j].productPrice != 0)
 			{
-
-				if (Owners[i].Shops.products[j].productPrice != 0)
-				{
-					if (Owners[i].Shops.products[j].Category == "Clothing") {
-						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "          " << Owners[i].Shops.products[j].Clothes.Size << "       " << Owners[i].Shops.products[j].Clothes.Type << "      " << Owners[i].Shops.products[j].Clothes.Color << "\n";
-					}
-					else {
-						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
-					}
-
-					c.num[z].x = i;
-					c.num[z].y = j;
-					z++;
-					number++;
+				if (Owners[i].Shops.products[j].Category == "Clothing") {
+					cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "          " << Owners[i].Shops.products[j].Clothes.Size << "       " << Owners[i].Shops.products[j].Clothes.Type << "      " << Owners[i].Shops.products[j].Clothes.Color << "\n";
 				}
-			}
-		} chooseproduct();
-		cout << "\n\nDo you Want to continue Shopping : [ Y / N ] ";
-		cout << "\n\nChoice : ";
-		cin >> flag;
-		cout << "\n\n";
-		system("cls");
-	} while (flag == 'y' || flag == 'Y');
+				else {
+					cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+				}
 
-	cart();
+				c.num[z].x = i;
+				c.num[z].y = j;
+				z++;
+				number++;
+			}
+		}
+	}
+	cout << "\n\nDo You Want To Buy Anything ? [ Y / N ]. \n\n";
+	cout << "choice : ";
+	cin >> choice;
+	if (choice == 'y' || choice == 'Y') {
+		chooseproduct();
+		cart();
+	}
+	else
+	{
+		sChoice();
+	}
+
+
 }
 
 void chooseproduct() {
@@ -2205,6 +2210,9 @@ void discount(int j)
 
 									}
 								}
+							}
+							if (flag2) {
+								cout << "Wrong Date.";
 							}
 						} while (flag2);
 					}
