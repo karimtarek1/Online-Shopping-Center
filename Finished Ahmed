@@ -2126,9 +2126,9 @@ void discount(int j)
 							cin >> d >> m;
 							if (day <= 31 && month < 12)
 							{
-								if (m == month)
+								if (m >= month)
 								{
-									if (d == day)
+									if (d >= day)
 									{
 										flag2 = false;
 										flag = false;
@@ -2136,8 +2136,23 @@ void discount(int j)
 										Owners[j].Shops.products[i].newPrice = Owners[j].Shops.products[i].productPrice - discount;
 									}
 								}
+								if(m <= month)
+								{
+									if(d <= day)
+									{
+										flag2 = false;
+										flag = false;
+										Owners[j].Shops.products[i].newPrice = Owners[j].Shops.products[i].productPrice;
+									}
+								}
+								
 
 							}
+							else
+							{
+									cout << "The day or month you have entered is invalid";
+							}
+
 						} while (flag2);
 					}
 					else
