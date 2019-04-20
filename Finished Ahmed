@@ -32,10 +32,12 @@ struct Product
 {
 	string productName = { 0 };
 	double productPrice = 0;
+	double newPrice = 0;
 	string Category;
 	Clothing Clothes;
 	int Quantity = 0;
-	float ratings[25];
+	int counter = 0;
+	double sum = 0;
 	float avgRating;
 };
 struct Shop
