@@ -407,9 +407,10 @@ void viewproducts()
 				}
 			}
 		} chooseproduct();
-		cout << "Do you Want to continue Shopping : [ Y / N ] ";
-		cout << "Choice : ";
+		cout << "\n\nDo you Want to continue Shopping : [ Y / N ] ";
+		cout << "\n\nChoice : ";
 		cin >> flag;
+		cout << "\n\n";
 		system("cls");
 	} while (flag == 'y' || flag == 'Y');
 
@@ -432,7 +433,7 @@ void chooseproduct() {
 		cin >> amount;
 		if (amount <= Owners[c.num[searchnum - 1].x].Shops.products[c.num[searchnum - 1].y].Quantity) {
 			if (amount != 0) {
-				cout << "  Your Product was added to cart " << endl;
+				cout << "\n\n  *-Your Product was added to cart-* \n\n" << endl;
 				k.amount[c.index] = amount;
 				Owners[c.num[searchnum - 1].x].Shops.products[c.num[searchnum - 1].y].Quantity -= amount;
 				k.sav[c.index].x = c.num[searchnum - 1].x;
@@ -510,7 +511,7 @@ void cart() {
 	do {
 		system("cls");
 		int x = 1;
-		cout << "Press -- V --  to View receipt. \n\nPress -- R -- to Return to Shopping. \n\nPress -- D -- to Delete From Your Cart\n\n" << endl;
+		cout << "Press -- V --  to View receipt. \n\nPress -- R -- to Return to Shopping. \n\nPress -- D -- to Delete From Your Cart\n\nPress -- C --  to Your Cart.\n\n" << endl;
 		cout << "Choice : ";
 		cin >> choice;
 		switch (choice)
@@ -548,7 +549,30 @@ void cart() {
 			cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
 			cout << "Total price : " << total << "$\n";
 			flag = false;
+			for (int i = 0; i > c.nump; i++) {
+				k.sav[i].x = 0;
+				k.sav[i].y = 0;
+				k.sub[i] = 0;
+				k.amount[i] = 0;
+				shopperCart[i].buyproduct = { 0 };
+				shopperCart[i].price = 0;
+				shopperCart[i].quantity = 0;
+				shopperCart[i].subtotal = 1;
 
+			}
+
+			c.index = 0;
+			c.nump = 0;
+
+			system("pause");
+			break;
+		}
+		
+		case 'c':
+		case 'C':
+		{
+			viewcart();
+			cout << "\n\n";
 			system("pause");
 			break;
 		}
