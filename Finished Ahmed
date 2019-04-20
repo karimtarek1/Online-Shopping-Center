@@ -515,7 +515,7 @@ void cart(){
 	do {
 		system("cls");
 		int x = 1;
-		cout << "Press -- V --  to View receipt. \n\nPress -- R -- to Return to Shopping. \n\nPress -- D -- to Delete From Your Cart\n\nPress -- C --  to Your Cart.\n\n" << endl;
+		cout << "Press -- V --  to View receipt. \n\nPress -- R -- to Return to Shopping. \n\nPress -- D -- to Delete From Your Cart\n\nPress -- C --  To Your Cart.\n\n" << endl;
 		cout << "Choice : ";
 		cin >> choice;
 		switch (choice)
@@ -553,6 +553,8 @@ void cart(){
 			cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
 			cout << "Total price : " << total << "$\n";
 			flag = false;
+			cout << "Would you like to Rate a Product? (Y/N) ";
+
 			for (int i = 0; i > c.nump; i++) {
 				k.sav[i].x = 0;
 				k.sav[i].y = 0;
@@ -599,8 +601,6 @@ void cart(){
 		}
 
 	} while (flag);
-
-	Rating();
 }
 
 void registration() {
