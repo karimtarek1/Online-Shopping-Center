@@ -6,7 +6,7 @@
 #include <sstream>
 using namespace std;
 
-int LogIndex;
+int LogIndex,day = 0,month = 0;
 const int maxShoppers = 25, maxOwners = 25, maxProds = 10, maxPass = 32;
 
 struct Clothing
@@ -20,13 +20,13 @@ struct Address {
 	string City;
 };
 struct num {
-	int nump;
+	int nump = 0;
 }c;
 struct cart {
 	int quantity;
 	string buyproduct = { 0 };
 	double price;
-	double subtotal;
+	double subtotal = 0;
 } shopperCart[100];
 struct Product
 {
@@ -44,7 +44,12 @@ struct Shop
 	Address Add;
 	string Category;
 	Product products[maxProds];
+	int countProd = 0;
 };
+struct counts {
+	int countOwn = 0;
+	int countShopper = 0;
+}s;
 struct Owner
 {
 	string Name;
@@ -90,20 +95,27 @@ void Eowner(int);
 void ProdChoice();
 void addProds(int);
 void removeProds(int);
+void editProds(int j);
 void viewProds(int);
 void RegChoice();
 void removeReg(int);
 void Rating();
 void discount(int);
-void purchaseHistory(int);
+void purchaseHistory(int k);
+
 
 int main() {
 
-	char choice, c;
+	Open();
+
+	char c, choice;
 	bool flag = true;
-	cout << "*****************************************----------------***********************************************\n";
-	cout << "*****************************---- WELCOME TO THE ONLINE SHOPPING STORE --- **********************************\n";
-	cout << "*****************************************----------------*************************************************\n\n\n";
+	cout << "**************************************************----------------******************************************************\n";
+	cout << "************************************---- WELCOME TO THE ONLINE SHOPPING STORE ----**************************************\n";
+	cout << "**************************************************----------------******************************************************\n\n\n";
+	cout << "Please Enter today's Date : ";
+	cout << " dd/mm/yyyy" << endl;
+	cin >> day; month; cout << "/2019";
 	do {
 		cout << " [ 1 ] Shopper. \n\n";
 		cout << " [ 2 ] Shop Owner. \n\n";
@@ -117,7 +129,6 @@ int main() {
 		}
 		else if (choice == '2') {
 			RegChoice();
-			OLchoice();
 		}
 		else if (choice == 'x' || choice == 'X') {
 			break;
@@ -134,7 +145,8 @@ int main() {
 				if ((c == 'Y') || (c == 'y')) {
 					LogIndex = -1;
 					choice = 'y';
-					cout << "You logged out Successfully";
+					cout << "You logged out Successfully\n";
+					system("pause");
 					flag = false;
 					break;
 				}
@@ -157,32 +169,58 @@ int main() {
 	return 0;
 }
 
-
 void Open() {
 
 	ifstream Owner, Shopper, Products;
 	Owner.open("Owners.txt");
-	string temp1[274];
-	for (int i = 0; i < maxOwners; i++) {
-		string str;
-		getline(Owner, str);
-		istringstream ss(str);
-		string temp;
-		for (int j = 0; j < 274; j++) {
-			while (getline(ss, temp, '|')) {
-				temp1[j] = temp;
-				break;
-			}
-		}
+	Owner >> s.countOwn;
+	for (int i = 0; i < s.countOwn; i++) {
+		Owner.ignore();
+		getline(Owner, Owners[i].Name);
+		getline(Owner, Owners[i].Gender);
+		getline(Owner, Owners[i].Add.Country);
+		getline(Owner, Owners[i].Add.City);
+		getline(Owner, Owners[i].Shops.ShopName);
+		getline(Owner, Owners[i].Shops.Category);
+		getline(Owner, Owners[i].Shops.Add.Country);
+		getline(Owner, Owners[i].Shops.Add.City);
+		Owner >> Owners[i].ID;
+		Owner >> Owners[i].Age;
+		Owner >> Owners[i].PassNum;
+		Owner >> Owners[i].Password;
 	}
 	Shopper.open("Shopper.txt");
-	for (int i = 0; i < maxShoppers; i++) {
-
+	Shopper >> s.countShopper;
+	for (int i = 0; i < s.countShopper; i++) {
+		Shopper.ignore();
+		getline(Shopper, Shoppers[i].name);
+		getline(Shopper, Shoppers[i].gender);
+		getline(Shopper, Owners[i].Add.Country);
+		getline(Shopper, Owners[i].Add.City);
+		Shopper >> Shoppers[i].id;
+		Shopper >> Shoppers[i].age;
+		Shopper >> Shoppers[i].passnum;
+		Shopper >> Shoppers[i].pass;
 	}
 	Products.open("Products.txt");
 	for (int i = 0; i < maxOwners; i++) {
-		for (int j = 0; j < maxProds; j++) {
+		Products >> Owners[i].Shops.countProd;
+		for (int j = 0; j < Owners[i].Shops.countProd; j++) {
+			Products.ignore();
+			getline(Products, Owners[i].Shops.products[j].productName);
+			getline(Products, Owners[i].Shops.products[j].Category);
+			if (Owners[i].Shops.products[j].Category == "Clothing") {
 
+				getline(Products, Owners[i].Shops.products[j].Clothes.Color);
+				Products >> Owners[i].Shops.products[j].Clothes.Type;
+				Products >> Owners[i].Shops.products[j].Clothes.Size;
+				Products >> Owners[i].Shops.products[j].productPrice;
+				Products >> Owners[i].Shops.products[j].Quantity;
+			}
+			else {
+				Products >> Owners[i].Shops.products[j].productPrice;
+				Products >> Owners[i].Shops.products[j].Quantity;
+			}
 		}
 	}
 	Owner.close();
@@ -194,30 +232,28 @@ void Open() {
 void save() {
 	ofstream Owner, Shopper, Products;
 	Owner.open("Owners.txt", ios::trunc);
-	for (int i = 0; i < maxOwners; i++) {
-		if (Owners[i].Age != 0) {
-			Owner << Owners[i].Name << "|" << Owners[i].Gender << "|" << Owners[i].Add.Country << "|" << Owners[i].Add.City << "|" << Owners[i].Shops.ShopName << "|" << Owners[i].Shops.Category << "|" << Owners[i].Shops.Add.Country << "|" << Owners[i].Shops.Add.City << "|" << Owners[i].ID << "|" << Owners[i].Age << "|" << Owners[i].PassNum << "|" << Owners[i].Password << '\n';
-		}
+	Owner << s.countOwn << endl;
+	for (int i = 0; i < s.countOwn; i++) {
+		Owner << Owners[i].Name << endl << Owners[i].Gender << endl << Owners[i].Add.Country << endl << Owners[i].Add.City << endl << Owners[i].Shops.ShopName << endl << Owners[i].Shops.Category << endl << Owners[i].Shops.Add.Country << endl << Owners[i].Shops.Add.City << endl << Owners[i].ID << endl << Owners[i].Age << endl << Owners[i].PassNum << endl << Owners[i].Password << '\n';
 	}
 	Shopper.open("Shopper.txt", ios::trunc);
-	for (int i = 0; i < maxShoppers; i++) {
-		if (Shoppers[i].age != 0) {
-			Shopper << Shoppers[i].name << "|" << Shoppers[i].gender << "|" << Shoppers[i].Add.Country << "|" << Shoppers[i].Add.City << "|" << Shoppers[i].id << "|" << Shoppers[i].age << "|" << Shoppers[i].passnum << "|" << Shoppers[i].pass << '\n';
-		}
+	Shopper << s.countShopper << endl;
+	for (int i = 0; i < s.countShopper; i++) {
+		Shopper << Shoppers[i].name << endl << Shoppers[i].gender << endl << Shoppers[i].Add.Country << endl << Shoppers[i].Add.City << endl << Shoppers[i].id << endl << Shoppers[i].age << endl << Shoppers[i].passnum << endl << Shoppers[i].pass << endl;
 	}
 	Products.open("Products.txt", ios::trunc);
 	for (int i = 0; i < maxOwners; i++) {
-		for (int j = 0; j < maxProds; j++) {
-			if (Owners[i].Shops.products[j].productPrice != 0) {
-				if (Owners[i].Shops.products[j].Category == "Clothes") {
-					Products << Owners[i].Shops.products[j].productName << "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].Clothes.Type << "|" << Owners[i].Shops.products[j].Clothes.Color << "|" << Owners[i].Shops.products[j].Clothes.Size << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << '\n';
+		if (Owners[i].Shops.countProd != 0) {
+			Products << Owners[i].Shops.countProd << endl;
+			for (int j = 0; j < Owners[i].Shops.countProd; j++) {
+				if (Owners[i].Shops.Category == "Clothing") {
+					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].Clothes.Color << endl << Owners[i].Shops.products[j].Clothes.Type << endl << Owners[i].Shops.products[j].Clothes.Size << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n';
 				}
 				else {
-					Products << Owners[i].Shops.products[j].productName << "|" << Owners[i].Shops.products[j].Category << "|" << Owners[i].Shops.products[j].productPrice << "|" << Owners[i].Shops.products[j].Quantity << '\n';
+					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n';
 				}
 			}
 		}
-		Products << "*****************************";
 	}
 	Owner.close();
 	Shopper.close();
@@ -229,7 +265,7 @@ void sChoice()
 	char choice, cont;
 	system("cls");
 	do {
-		cout << "\nPress -- 1 -- To Search For A Product. \n\nPress -- 2 -- To View All Products. \n\nPress -- 3 -- To Edit Your Information. \n\npress -- 4 -- To view your Purchase History \n\n -- 5-- To Delete Your Account. \n\n";
+		cout << "\n Press -- 1 -- To Search For A Product. \n\n Press -- 2 -- To View All Products. \n\n Press -- 3 -- To Edit Your Information. \n\n press -- 4 -- To view your Purchase History \n\n Press -- 5 -- To Delete Your Account. \n\n";
 		cout << "Choice : ";
 		cin >> choice;
 		system("cls");
@@ -245,7 +281,7 @@ void sChoice()
 			update(LogIndex);
 			break;
 		case '4':
-		        purchaseHistory(LogIndex);
+			purchaseHistory(LogIndex);
 			break;
 		case '5':
 			del(LogIndex);
@@ -288,20 +324,21 @@ void viewproducts()
 	char flag;
 	do {
 		int number = 1;
-		cout << "- Product Name -\t" << "- Product Price  -\t" << "- Product Category -\t" << "- Product Quantity -\n" << endl;
+		cout << "-Product Name- " << "-  Product Price  -" << "-  Product Category  -" << "-  Product Quantity  -" << "-  Avg. Rating  -" << "- Size -" << "- Type -" << "- Color -" << "\n" << endl;
 		for (int i = 0; i < maxShoppers; i++)
 		{
 			for (int j = 0; j < maxProds; j++)
 			{
 				if (Owners[i].Shops.products[j].productPrice != 0)
 				{
-					if (Owners[j].Shops.products[i].Category == "Clothing") {
-						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << " " << Owners[j].Shops.products[i].Clothes.Type << " " << Owners[j].Shops.products[i].Clothes.Color << " " << Owners[j].Shops.products[i].Clothes.Size << "\t" << Owners[i].Shops.products[j].Quantity << "t" << Owners[i].Shops.products[j].avgRating;
+					if (Owners[i].Shops.products[j].Category == "Clothing") {
+						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "          " << Owners[i].Shops.products[j].Clothes.Size << "       " << Owners[i].Shops.products[j].Clothes.Type << "      " << Owners[i].Shops.products[j].Clothes.Color << "\n";
 					}
 					else {
-						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << "\t" << Owners[i].Shops.products[j].Quantity << "t" << Owners[i].Shops.products[j].avgRating;
+						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
 					}
 					number++;
+
 				}
 			}
 		} chooseproduct();
@@ -422,14 +459,20 @@ void cart() {
 	char choice, delChoice;
 	int deleteNum, x = 1;
 	cout << "\n\n************************************ - YOUR CART - *************************************\n\n" << endl;
-	cout << "   NAME \t\t\t  " << " QUANTITY \t\t\t  " << " PRICE  \n\n ";
+	cout << "    NAME \t  " << "    QUANTITY \t  " << "    PRICE  \n\n ";
 	for (int i = 0; i < c.nump; i++) {
-		shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
-		cout << x << '. ' << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << '$\n' << endl;
-		total += shopperCart[i].subtotal;
-		x++;
+		shopperCart[i].subtotal = 1;
 	}
-	cout << endl << "\nTOTAL :  " << total << endl;
+	for (int i = 0; i < c.nump; i++) {
+		if (shopperCart[i].quantity != 0) {
+			shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
+			cout << x << ". " << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << "$\n" << endl;
+			total += shopperCart[i].subtotal;
+			x++;
+			cout << "\n";
+		}
+	}
+	cout << endl << "\nTOTAL :  $" << total << endl;
 	do {
 		cout << "\n\n\nDo you want to Delete any Items ?  [ Y / N ]   \n\n";
 		cout << "Choice : ";
@@ -466,16 +509,21 @@ void cart() {
 		case 'V':
 			system("cls");
 			cout << "\n\n********************************** TOTAL ITEMS *********************************\n\n\n" << endl;
-			cout << " NAME \t\t\t  " << " QUANTITY \t\t\t  " << " PRICE \n\n  ";
+			cout << "       NAME \t\t\t  " << "   QUANTITY \t\t\t  " << "    PRICE \n\n  ";
+
 			for (int i = 0; i < c.nump; i++) {
-				if (shopperCart[i].price != 0) {
+				if (shopperCart[i].price != 0 || shopperCart[i].quantity != 0) {
+
 					shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
 					cout << x << ". " << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << '$' << endl;
 					total += shopperCart[i].subtotal;
+					cout << "\n";
+					x++;
+
 				}
 			}
 			cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
-			cout << "Total price : " << total << '$';
+			cout << "Total price : " << total << "$\n";
 			flag1 = false;
 			Rating();
 			system("pause");
@@ -492,6 +540,15 @@ void cart() {
 			break;
 		}
 	} while (flag1);
+	for (int i = 0; i > c.nump; i++) {
+
+		shopperCart[i].buyproduct = { 0 };
+		shopperCart[i].quantity = 0;
+		shopperCart[i].subtotal = 0;
+
+	}
+	c.nump = 0;
+
 }
 
 void registration() {
@@ -620,15 +677,55 @@ void registration() {
 			}
 			Shoppers[i].gender = choice;
 			cout << "\nEnter Your Address: \n\n";
-			cout << "               City : ";
-			cin >> Shoppers[i].Add.City;
 			cout << "               Country : ";
 			cin >> Shoppers[i].Add.Country;
+			cout << "               City : ";
+			cin >> Shoppers[i].Add.City;
 			cout << endl << "\n ************ You Have Registered Successfully ************ \n\n" << endl;
+			s.countShopper++;
 			system("pause");
 			break;
 		}
 	}
+
+}
+
+void SLchoice()
+{
+	char c;
+	bool pass = true;
+	char Loginchoice;
+
+	do {
+
+		do {
+			system("cls");
+			cout << "\n\n Press -- 1 -- To Login. \n\n Press -- 2 -- To Register\n\n";
+			cout << "Choice :  ";
+			cin >> Loginchoice;
+			if (Loginchoice == '1') {
+				LogIndex = login();
+				pass = false;
+			}
+			else if (Loginchoice == '2') {
+				registration();
+			}
+			else
+				cout << "\n\n !!! Invalid Choice !!!\n\n";
+
+		} while (pass);
+
+
+		if (LogIndex == maxShoppers) {
+			cout << "\n\n Would You Like To Try Again ?  [ Y / N ] \n\n ";
+			cout << " Choice : ";
+			cin >> c;
+		}
+		else {
+			c = 'n';
+		}
+		system("cls");
+	} while (c == 'y' || c == 'Y');
 
 }
 
@@ -698,48 +795,6 @@ int login() {
 		i = maxShoppers;
 	}
 	return i;
-}
-
-void SLchoice()
-{
-	char c;
-	bool pass = true;
-	char Loginchoice;
-
-	do {
-
-		do {
-			system("cls");
-			cout << "\n\nPress -- 1 -- To Login. \n\nPress -- 2 -- To Register\n\n";
-			cout << "Choice :  ";
-			cin >> Loginchoice;
-			if (Loginchoice == '1') {
-				LogIndex = login();
-				pass = false;
-				break;
-			}
-			else if (Loginchoice == '2') {
-				registration();
-				pass = false;
-
-				break;
-			}
-			else
-				cout << "\n\n!!! Invalid Choice !!!\n\n";
-
-		} while (true);
-
-
-		if (LogIndex == maxShoppers) {
-			cout << "\n\nWould You Like To Try Again ?  [ Y / N ] \n\n ";
-			cout << "Choice : ";
-			cin >> c;
-		}
-		else {
-			c = 'n';
-		}
-		system("cls");
-	} while (c == 'y' || c == 'Y');
 }
 
 void update(int j) {
@@ -951,7 +1006,9 @@ void del(int j) {
 		}
 		Shoppers[j].age = 0;
 		Shoppers[j].gender = { 0 };
-		Shoppers[j].Add = { 0 };
+		Shoppers[j].Add.City = { 0 };
+		Shoppers[j].Add.Country = { 0 };
+		s.countShopper--;
 
 		cout << "\n\n               ***  Your Account has been Deleted. *** \n\n" << endl;
 		system("pause");
@@ -966,32 +1023,45 @@ void del(int j) {
 void RegChoice()
 {
 	int RegIndex;
+	bool flag = false, flag1 = true;
 	char choice;
 	cout << " \n***************************************************   WELCOME  ****************************************************** \n";
-	cout << "\nPress -- 1 -- To Login.\n ";
-	cout << "\nPress -- 2 -- To Register.\n";
-	cout << "\n\n Choice :  ";
-	cin >> choice;
-	system("cls");
-	if (choice == '2') {
-		do
-		{
+	do {
+		cout << "\nPress -- 1 -- To Login.\n ";
+		cout << "\nPress -- 2 -- To Register.\n";
+		cout << "\n\n Choice :  ";
+		cin >> choice;
+		system("cls");
+		do {
+			switch (choice) {
+			case '1':
+				OLchoice();
+				flag1 = false;
+				break;
+			case '2':
+				do
+				{
 
-			{
-				RegIndex = RegOwner();
-				system("cls");
-				RegShop(RegIndex);
-				system("cls");
-				cout << "\nPress -- 1 --  T0 Continue. \n\n";
-				cout << "\nPress -- 2 --  T0 Register Again. \n\n";
-				cout << "Choice : ";
-				cin >> choice;
-				system("cls");
+					{
+						RegIndex = RegOwner();
+						system("cls");
+						RegShop(RegIndex);
+						system("cls");
+						cout << "\nPress -- 1 --  T0 Continue. \n\n";
+						cout << "\nPress -- 2 --  T0 Register Again. \n\n";
+						cout << "Choice : ";
+						cin >> choice;
+						system("cls");
+					}
+				} while (choice == '2');
+				break;
+			default:
+				cout << "Invalid Choice";
+				flag = true;
+				break;
 			}
-		} while (choice == '2');
-	}
-	else
-		Lowner();
+		} while (flag);
+	} while (flag1);
 }
 
 int RegOwner()
@@ -1122,6 +1192,7 @@ int RegOwner()
 			cin >> Owners[j].Add.Country;
 			cout << "    City : "; cin >> Owners[j].Add.City;
 			cout << "         \n\n  ************************** You Have Registered Successfully ************************* *" << endl << endl;
+			s.countOwn++;
 			system("pause");
 			break;
 		}
@@ -1138,6 +1209,7 @@ void RegShop(int i)
 	do {
 		cout << "\nEnter your Shop name: ";
 		cin >> shopName;
+		flag1 = false;
 		for (int j = 0; j < maxOwners; j++)
 		{
 			if (shopName == Owners[j].Shops.ShopName)
@@ -1145,9 +1217,7 @@ void RegShop(int i)
 				cout << "\n\n !! This Shop is already taken. !!";
 				flag1 = true;
 				break;
-
 			}
-
 		}
 	} while (flag1);
 	Owners[i].Shops.ShopName = shopName;
@@ -1676,7 +1746,7 @@ void ProdChoice()
 	char choice;
 	do
 	{
-		cout << "Press  -- A -- To Add A Product.\n\nPress -- R -- To Remove A Product.\n\nPress -- V -- To View Your Products.\n\nPress-- D -- To Discount a product\n\n";
+		cout << "Press  -- A -- To Add A Product.\n\nPress -- R -- To Remove A Product.\n\nPress -- V -- To View Your Products.\n\nPress -- E -- To Edit a product\n\nPress -- D -- To Discount a product\n\n";
 		cout << "Choice : ";
 		char choices;
 		cin >> choices;
@@ -1698,9 +1768,14 @@ void ProdChoice()
 			viewProds(LogIndex);
 			break;
 		case 'd':
-		case 'D':system("cls");
-			addProds(LogIndex);
+		case 'D':
+			system("cls");
 			discount(LogIndex);
+			break;
+		case 'e':
+		case 'E':
+			system("cls");
+			editProds(LogIndex);
 			break;
 		default:
 			cout << "\n\n !! Invalid answer !! \n\n";
@@ -1737,10 +1812,10 @@ void addProds(int j)
 				cout << "\n\nProduct's Price : $";
 				cin >> Owners[j].Shops.products[i].productPrice;
 
-				if (Owners[j].Shops.products[i].Category == "Clothing") {
-					cout << "\n\nType [ M / F ] : "; cin >> Owners[i].Shops.products[i].Clothes.Type;
-					cout << "\n\nColor : "; cin >> Owners[i].Shops.products[i].Clothes.Color;
-					cout << "\n\nSize [ S / M / L ] : "; cin >> Owners[i].Shops.products[i].Clothes.Size;
+				if (Owners[j].Shops.Category == "Clothing") {
+					cout << "\n\nType [ M / F ] : "; cin >> Owners[j].Shops.products[i].Clothes.Type;
+					cout << "\n\nColor : "; cin >> Owners[j].Shops.products[i].Clothes.Color;
+					cout << "\n\nSize [ S / M / L ] : "; cin >> Owners[j].Shops.products[i].Clothes.Size;
 					cout << "\n\nProduct's Category : ";
 					Owners[j].Shops.products[i].Category = Owners[j].Shops.Category;
 					cout << Owners[j].Shops.products[i].Category;
@@ -1753,7 +1828,7 @@ void addProds(int j)
 				cout << "\n\nProduct's Quantity : ";
 				cin >> Owners[j].Shops.products[i].Quantity;
 				cout << endl;
-
+				Owners[j].Shops.countProd++;
 				break;
 			}
 		}
@@ -1801,6 +1876,7 @@ void removeProds(int j)
 				Owners[j].Shops.products[i].productName = { 0 };
 				Owners[j].Shops.products[i].productPrice = 0;
 				Owners[j].Shops.products[i].Quantity = 0;
+				Owners[j].Shops.countProd--;
 				if (Owners[j].Shops.products[i].Category == "Clothing") {
 					Owners[j].Shops.products[i].Clothes.Type = { 0 };
 					Owners[j].Shops.products[i].Clothes.Color = { 0 };
@@ -1834,6 +1910,66 @@ void removeProds(int j)
 
 }
 
+void editProds(int j) {
+
+	int i;
+	bool same = false;
+	string name;
+	char choice, c;
+	do
+	{
+		cout << "\n\nWhat is the name of the product you want to edit ?? \n\n";
+		cout << "Name : ";
+		cin >> name;
+		for (i = 0; i < maxProds; i++)
+		{
+			if (name == Owners[j].Shops.products[i].productName)
+			{
+				same = true;
+				break;
+			}
+		}
+		if (same == true)
+		{
+			cout << "1 ) Product's Name\n\n2 ) Product's Price\n\n3 ) Product's Quantity\n\n";
+			cout << "Choice : "; cin >> c;
+			switch (c)
+			{
+			case '1':
+				cout << "\nProduct's Name : "; cin >> Owners[j].Shops.products[i].productName;
+				break;
+			case '2':
+				cout << "\nPrice : "; cin >> Owners[j].Shops.products[i].productPrice;
+				break;
+			case '3':
+				cout << "\nQuantity : "; cin >> Owners[j].Shops.products[i].Quantity;
+				break;
+			default:
+				cout << "\nInvalid Choice";
+				break;
+			}
+		}
+		else if (same == false)
+			cout << "This product doesn't exist. \n\n";
+		cout << "\nDo You Want To Edit Another Product? [ Y / N ] : ";
+		cout << " Choice : ";
+		cin >> choice;
+		cout << "\n" << endl;
+		if (choice == 'N' || choice == 'n')
+		{
+			break;
+		}
+
+		else if (choice == 'Y' || choice == 'y')
+		{
+			continue;
+		}
+		else {
+			break;
+		}
+	} while (true);
+}
+
 void viewProds(int j)
 {
 	char choice;
@@ -1856,7 +1992,6 @@ void viewProds(int j)
 		}
 		else if (choice == 'y' || choice == 'Y')
 		{
-			system("cls");
 			continue;
 		}
 	} while (true);
@@ -1887,6 +2022,7 @@ void removeReg(int j)
 		Owners[j].Shops.Category = { 0 };
 		Owners[j].Shops.Add.Country = { 0 };
 		Owners[j].Shops.Add.City = { 0 };
+		s.countOwn--;
 		for (int i = 0; i < maxProds; i++)
 		{
 			Owners[j].Shops.products[i] = { 0 };
@@ -1908,9 +2044,10 @@ void removeReg(int j)
 	}
 }
 
-{
+void Rating()
+ {
 	string shopName, prodName;
-	bool flag = true,notfound = true,flag2 = true;
+	bool flag = true, notfound = true, flag2 = true;
 	int rating = 0;
 	double avg;
 	do
@@ -1929,19 +2066,19 @@ void removeReg(int j)
 					{
 						if (shopperCart[j].buyproduct == prodName)
 						{
-							do{
+							do {
 								cout << "Enter your Rating : ";
 								cin >> rating;
-								if(rating >= 1 && rating <=5)
+								if (rating >= 1 && rating <= 5)
 								{
 									flag2 = false;
-									for(int x ; x<maxOwners ; x++)
+									for (int x; x < maxOwners; x++)
 									{
-										if(Owners[x].Shops.ShopName == shopName)
+										if (Owners[x].Shops.ShopName == shopName)
 										{
-											for(int y = 0 ; y<maxProds ; y++)
+											for (int y = 0; y < maxProds; y++)
 											{
-												if(Owners[x].Shops.products[y].productName == prodName)
+												if (Owners[x].Shops.products[y].productName == prodName)
 												{
 													Owners[x].Shops.products[y].counter++;
 													Owners[x].Shops.products[y].sum += rating;
@@ -1967,7 +2104,7 @@ void discount(int j)
 	int d, m;
 	double percentage, discount;
 	string prodName;
-	bool flag = false, choice = true,flag2 = true;
+	bool flag = false, choice = true, flag2 = true;
 	do {
 		cout << "Enter the name of a Product : ";
 		cin >> prodName;
@@ -1982,24 +2119,24 @@ void discount(int j)
 					cout << "%";
 					if (percentage <= 100)
 					{
-						do{
+						do {
 							cout << "Please Enter the day and month when the sale ends ";
 							cin >> d >> m;
 							if (day <= 31 && month < 12)
 							{
-								if(m == month)
+								if (m == month)
 								{
-									if(d == day)
+									if (d == day)
 									{
 										flag2 = false;
-								        flag = false;
-								        discount = Owners[j].Shops.products[i].productPrice * (percentage / 100);
-								        Owners[j].Shops.products[i].newPrice = Owners[j].Shops.products[i].productPrice - discount;
+										flag = false;
+										discount = Owners[j].Shops.products[i].productPrice * (percentage / 100);
+										Owners[j].Shops.products[i].newPrice = Owners[j].Shops.products[i].productPrice - discount;
 									}
 								}
-								
+
 							}
-						}while (flag2);
+						} while (flag2);
 					}
 					else
 					{
@@ -2019,8 +2156,8 @@ void discount(int j)
 
 void purchaseHistory(int k)
 {
-	int x=1;
-	double total=0;
+	int x = 1;
+	double total = 0;
 	for (int i = 0; i < c.nump; i++)
 	{
 		if (shopperCart[i].price != 0)
@@ -2039,9 +2176,9 @@ void purchaseHistory(int k)
 		}
 	}
 	cout << "Your purchase History is : ";
-	for(int l=0 ; l<10 ;l++)
+	for (int l = 0; l < 10; l++)
 	{
-		if(Shoppers[k].purchaseHistory[l]!= 0)
+		if (Shoppers[k].purchaseHistory[l] != 0)
 		{
 			cout << Shoppers[k].purchaseHistory[l] << endl;
 			continue;
