@@ -65,7 +65,7 @@ struct Product
 	int Quantity = 0;
 	int counter = 0;
 	double sum = 0;
-	float avgRating;
+	double avgRating;
 };
 struct Shop
 {
@@ -143,8 +143,16 @@ int main() {
 	cout << "************************************---- WELCOME TO THE ONLINE SHOPPING STORE ----**************************************\n";
 	cout << "**************************************************----------------******************************************************\n\n\n";
 	cout << "Please Enter today's Date : ";
-	cout << " dd/mm/yyyy" << endl;
-	cin >> day; month; cout << "/2019";
+	do {
+		cout << "Please Enter today's Date : \n";
+		cout << "Day : ";
+		cin >> day;
+		cout << "Month : ";
+		cin >> month;
+	} while (day > 31 || month > 12);
+
+	cout << day << " / " << month << " / 2019 \n";
+
 	do {
 		cout << " [ 1 ] Shopper. \n\n";
 		cout << " [ 2 ] Shop Owner. \n\n";
@@ -506,7 +514,7 @@ void deletee() {
 
 }
 
-void cart(){
+void cart() {
 
 	double total;
 	system("cls");
@@ -596,7 +604,7 @@ void cart(){
 		{
 			cout << "!!! Enter a valid choice !!!" << endl;
 
-			break;\
+			break; \
 		}
 		}
 
@@ -2101,7 +2109,6 @@ void Rating()
 	string shopName, prodName;
 	bool flag = true, notfound = true, flag2 = true;
 	int rating = 0;
-	double avg;
 	do
 	{
 		cout << "Enter Shop's name : ";
