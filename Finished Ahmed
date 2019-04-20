@@ -59,13 +59,15 @@ struct Product
 {
 	string productName = { 0 };
 	double productPrice = 0;
-	double newPrice = 0;
+	double oldPrice = 0;
 	string Category;
 	Clothing Clothes;
 	int Quantity = 0;
 	int counter = 0;
 	double sum = 0;
 	double avgRating;
+	int month;
+	int day;
 };
 struct Shop
 {
@@ -161,7 +163,9 @@ int main() {
 		system("cls");
 		if (choice == '1') {
 			SLchoice();
-			sChoice();
+			if (LogIndex != maxShoppers) {
+				sChoice();
+			}
 		}
 		else if (choice == '2') {
 			RegChoice();
@@ -518,7 +522,7 @@ void cart() {
 	double total;
 	system("cls");
 	bool flag = true, flag1 = true, del = true;
-	char choice, ratechoice;
+	char choice , ratechoice;
 	do {
 		system("cls");
 		int x = 1;
@@ -2157,7 +2161,6 @@ void Rating()
 
 void discount(int j)
 {
-	int d, m;
 	double percentage, discount;
 	string prodName;
 	bool flag = false, choice = true, flag2 = true;
@@ -2170,27 +2173,38 @@ void discount(int j)
 			{
 				while (choice)
 				{
-					cout << "Enter the Discount percentage : ";
+					cout << "Enter the Discount percentage : %";
 					cin >> percentage;
-					cout << "%";
 					if (percentage <= 100)
 					{
+						choice = false;
 						do {
-							cout << "Please Enter the day and month when the sale ends ";
-							cin >> d >> m;
-							if (day <= 31 && month < 12)
+							cout << "Please Enter the day and month when the sale ends : \n";
+							cout << "Day :"; cin >> Owners[j].Shops.products[i].day;
+							cout << "Month :"; cin >> Owners[j].Shops.products[i].month;
+							if (day <= 31 && month <= 12)
 							{
-								if (m == month)
+								if (Owners[j].Shops.products[i].month >= month)
 								{
-									if (d == day)
-									{
+									if (Owners[j].Shops.products[i].month == month) {
+										if (Owners[j].Shops.products[i].day >= day)
+										{
+											flag2 = false;
+											flag = false;
+											discount = Owners[j].Shops.products[i].productPrice * (percentage / 100);
+											Owners[j].Shops.products[i].oldPrice = Owners[j].Shops.products[i].productPrice;
+											Owners[j].Shops.products[i].productPrice = Owners[j].Shops.products[i].productPrice - discount;
+										}
+									}
+									else {
 										flag2 = false;
 										flag = false;
 										discount = Owners[j].Shops.products[i].productPrice * (percentage / 100);
-										Owners[j].Shops.products[i].newPrice = Owners[j].Shops.products[i].productPrice - discount;
+										Owners[j].Shops.products[i].oldPrice = Owners[j].Shops.products[i].productPrice;
+										Owners[j].Shops.products[i].productPrice = Owners[j].Shops.products[i].productPrice - discount;
+
 									}
 								}
-
 							}
 						} while (flag2);
 					}
