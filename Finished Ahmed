@@ -519,7 +519,7 @@ void cart() {
 	double total;
 	system("cls");
 	bool flag = true, flag1 = true, del = true;
-	char choice;
+	char choice , ratechoice;
 	do {
 		system("cls");
 		int x = 1;
@@ -561,10 +561,10 @@ void cart() {
 			cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
 			cout << "Total price : " << total << "$\n";
 			flag = false;
-			do{
-			    cout << "Would you like to Rate a Product? (Y/N) ";
-			    cin >> ratechoice;
-				if(ratechoice == 'Y' || ratechoice == 'y')
+			do {
+				cout << "Would you like to Rate a Product? (Y/N) ";
+				cin >> ratechoice;
+				if (ratechoice == 'Y' || ratechoice == 'y')
 				{
 					Rating();
 				}
@@ -2117,38 +2117,40 @@ void removeReg(int j)
 
 void Rating()
 {
-	int ratenum,rating = 0;
-	bool rate = true,flag = true;
-	
+	int ratenum, rating = 0;
+	bool rate = true, flag = true;
+
 	do {
 		cout << "Enter the number of the product you'd like to rate : ";
-	    cin >> ratenum;
-		if(ratenum <= c.nump)
+		cin >> ratenum;
+		if (ratenum <= c.nump)
 		{
 			flag = false;
-		do
-		{
-			cout << "Enter your Rating : ";
-			cin >> rating;
-			if(rating >= 1 && rating <= 5)
+			do
 			{
-				rate = false;
-				Owners[x].Shops.products[y].counter++;
-				Owners[x].Shops.products[y].sum += rating;
-				Owners[x].Shops.products[y].avgRating = round(Owners[x].Shops.products[y].sum / Owners[x].Shops.products[y].counter);
-				cout << "The Rating of " << Owners[x].Shops.products[y].productName << " is " << Owners[x].Shops.products[y].avgRating;
-				break;
-			}
-			else
-			{
-				rate = true;
-			}
+				cout << "Enter your Rating (1 -> 5) : ";
+				cin >> rating;
+				if (rating >= 1 && rating <= 5)
+				{
+					rate = false;
+					Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].counter++;
+					Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].sum += rating;
+					Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].avgRating = round(Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].sum / Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].counter);
+					cout << "The Rating of " << Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].productName << " is " << Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].avgRating;
+					break;
+				}
+				else
+				{
+					cout << "Invalid Rating.";
+					rate = true;
+				}
 
-		} while (rate);
+			} while (rate);
 
 		}
-		else 
+		else
 		{
+			cout << "Invalid Number.";
 			flag = true;
 		}
 	} while (flag);
