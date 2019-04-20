@@ -2263,3 +2263,24 @@ void purchaseHistory(int k)
 		}
 	}
 }
+
+void discCheck()
+{
+	for(int i = 0 ; i < maxOwners ; i++)
+	{
+		for(int j = 0; j < maxProds ; j++)
+		{
+			if(Owners[i].Shops.products[j].month < month)
+			{
+				Owners[i].Shops.products[j].productPrice = Owners[i].Shops.products[j].oldPrice;
+			}
+			else if(Owners[i].Shops.products[j].month == month)
+			{
+				if(Owners[i].Shops.products[j].day < day)
+				{
+					Owners[i].Shops.products[j].productPrice = Owners[i].Shops.products[j].oldPrice;
+				}
+			}
+		}
+	}
+}
