@@ -9,26 +9,6 @@ using namespace std;
 int LogIndex, day = 0, month = 0;
 const int maxShoppers = 25, maxOwners = 25, maxProds = 10, maxPass = 32;
 
-struct views {
-
-	int x;
-	int y;
-
-};
-struct num {
-	int nump = 0;
-	int index = 0;
-	views num[100];
-
-}c;
-struct  save
-{
-	views sav[100];
-	int amount[100];
-	double sub[100];
-
-}k;
-
 struct Clothing
 {
 	char Size;
@@ -39,21 +19,15 @@ struct Address {
 	string Country;
 	string City;
 };
-struct numm {
+struct num {
 	int nump = 0;
-	int index = 0;
-}h;
-
+}c;
 struct cart {
 	int quantity;
 	string buyproduct = { 0 };
-	double index;
-	double index2;
 	double price;
-	string shop;
-	int arri;
-	int arrj;
 	double subtotal = 0;
+	string shop = { 0 };
 } shopperCart[100];
 struct Product
 {
@@ -65,7 +39,7 @@ struct Product
 	int Quantity = 0;
 	int counter = 0;
 	double sum = 0;
-	float avgRating;
+	double avgRating;
 };
 struct Shop
 {
@@ -107,6 +81,12 @@ void registration();
 void update(int j);
 void SLchoice();
 void sChoice();
+void viewproducts();
+void search();
+void info(int, int);
+void chooseproduct();
+void addtocart(int x, int y);
+void cart();
 void del(int j);
 void save();
 int RegOwner();
@@ -125,12 +105,6 @@ void removeReg(int);
 void Rating();
 void discount(int);
 void purchaseHistory(int k);
-void search();
-void viewproducts();
-void chooseproduct();
-void viewcart();
-void deletee();
-void cart();
 
 
 int main() {
@@ -142,9 +116,15 @@ int main() {
 	cout << "**************************************************----------------******************************************************\n";
 	cout << "************************************---- WELCOME TO THE ONLINE SHOPPING STORE ----**************************************\n";
 	cout << "**************************************************----------------******************************************************\n\n\n";
-	cout << "Please Enter today's Date : ";
-	cout << " dd/mm/yyyy" << endl;
-	cin >> day; month; cout << "/2019";
+	do {
+		cout << "Please Enter today's Date : \n";
+		cout << "Day : ";
+		cin >> day;
+		cout << "Month : ";
+		cin >> month;
+		
+	} while (day > 31 || month > 12);
+    cout << "\n" << day << " / " << month << " / 2019 \n" << endl;
 	do {
 		cout << " [ 1 ] Shopper. \n\n";
 		cout << " [ 2 ] Shop Owner. \n\n";
@@ -329,73 +309,35 @@ void sChoice()
 void search()
 {
 	string name;
-	char add;
-	bool flag = false;
-	int x = 1, amount, l, z;
+	int x = 1;
 	cout << "\n\nEnter the Product's name: ";
 	cin >> name;
-	cout << "\n\n";
-
 	for (int i = 0; i < maxShoppers; i++)
 	{
 		for (int j = 0; j < maxProds; j++)
 		{
 			if (name == Owners[i].Shops.products[j].productName)
 			{
-				cout << "-Product Name- " << "-  Product Price  -" << "-  Product Category  -" << "-  Product Quantity  -" << "-  Avg. Rating  -" << "- Size -" << "- Type -" << "- Color -" << "\n" << endl;
-				if (Owners[i].Shops.products[j].Category == "Clothing") {
-					cout << x << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "          " << Owners[i].Shops.products[j].Clothes.Size << "       " << Owners[i].Shops.products[j].Clothes.Type << "      " << Owners[i].Shops.products[j].Clothes.Color << "\n";
-				}
-				else {
-					cout << x << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
-				}
-				flag = true;
-				l = i;
-				z = j;
-				break;
+				info(i, j);
+				x++;
 			}
 
 		}
-
-	}if (flag == false)
+	}if (x == 1)
 		cout << "                                     Out Of Stock. \n\n\n ";
-	else {
-		cout << "\n\nAdd to to Cart [ Y / N ] :\n\n";
-		cout << "choice : ";
-		cin >> add;
-		if (add == 'y' || add == 'Y') {
-
-			cout << "\n\n How many do you want ?                                  ***press .0. to exit.*** \n\n ";
-			cout << "Amount : ";
-			cin >> amount;
-
-			k.amount[c.index] = amount;
-			Owners[l].Shops.products[z].Quantity -= amount;
-			k.sav[c.index].x = l;
-			k.sav[c.index].y = z;
-			c.nump++;
-			c.index++;
-
-		}
-
-	}
 	system("pause");
-	cart();
 }
 
 void viewproducts()
 {
 	char flag;
-
 	do {
-		int z = 0;
 		int number = 1;
 		cout << "-Product Name- " << "-  Product Price  -" << "-  Product Category  -" << "-  Product Quantity  -" << "-  Avg. Rating  -" << "- Size -" << "- Type -" << "- Color -" << "\n" << endl;
 		for (int i = 0; i < maxShoppers; i++)
 		{
 			for (int j = 0; j < maxProds; j++)
 			{
-
 				if (Owners[i].Shops.products[j].productPrice != 0)
 				{
 					if (Owners[i].Shops.products[j].Category == "Clothing") {
@@ -404,49 +346,106 @@ void viewproducts()
 					else {
 						cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
 					}
-
-					c.num[z].x = i;
-					c.num[z].y = j;
-					z++;
 					number++;
+
 				}
 			}
 		} chooseproduct();
-		cout << "\n\nDo you Want to continue Shopping : [ Y / N ] ";
-		cout << "\n\nChoice : ";
+		cout << "Do you Want to continue Shopping : [ Y / N ] ";
+		cout << "Choice : ";
 		cin >> flag;
-		cout << "\n\n";
 		system("cls");
 	} while (flag == 'y' || flag == 'Y');
 
 	cart();
 }
 
+void info(int i, int j)
+{
+	char x;
+	bool flag;
+	cout << Owners[i].Shops.products[j].productName << "\t" << Owners[i].Shops.products[j].productPrice << "\t" << Owners[i].Shops.products[j].Category << "\t" << Owners[i].Shops.products[j].Quantity;
+	cout << "\n" << endl;
+	do {
+		cout << " Do You Want To Add To Cart ?? [ Y / N  ]\n\n";
+		cout << "Choice : ";
+		cin >> x;
+		switch (x)
+		{
+		case 'y':
+		case'Y':
+			addtocart(i, j);
+			sChoice();
+			flag = false;
+			break;
+
+		case 'n':
+		case'N':
+
+			sChoice();
+			flag = false;
+
+		default:
+			cout << "\n\n !!! Invalid Choice  \n\n";
+			flag = true;
+		}
+	} while (flag);
+
+}
+
 void chooseproduct() {
-
-
-	int searchnum;
-	int amount;
-	bool done = true;
+	int searchnum, x, y;
 	cout << " \n\n Enter The Number Of Product You Want To Add To Cart : \n\n";
 	cout << " Choice : ";
 	cin >> searchnum;
 
+	if (searchnum < 10) { y = searchnum - 1;	x = 0; }
+	else if (searchnum >= 10 && searchnum < 20) { y = searchnum - 10;   x = 1; }
+	else if (searchnum >= 20 && searchnum < 30) { y = searchnum - 20;  x = 2; }
+	else if (searchnum >= 30 && searchnum < 40) { y = searchnum - 30;  x = 3; }
+	else if (searchnum >= 40 && searchnum < 50) { y = searchnum - 40;  x = 4; }
+	else if (searchnum >= 50 && searchnum < 60) { y = searchnum - 50;  x = 5; }
+	else if (searchnum >= 60 && searchnum < 70) { y = searchnum - 60;  x = 6; }
+	else if (searchnum >= 70 && searchnum < 80) { y = searchnum - 70;  x = 7; }
+	else if (searchnum >= 80 && searchnum < 90) { y = searchnum - 80;  x = 8; }
+	else if (searchnum >= 90 && searchnum < 100) { y = searchnum - 90;  x = 9; }
+	else if (searchnum >= 100 && searchnum < 110) { y = searchnum - 100;  x = 10; }
+	else if (searchnum >= 110 && searchnum < 120) { y = searchnum - 110;  x = 11; }
+	else if (searchnum >= 120 && searchnum < 130) { y = searchnum - 120;  x = 12; }
+	else if (searchnum >= 130 && searchnum < 140) { y = searchnum - 130;  x = 13; }
+	else if (searchnum >= 140 && searchnum < 150) { y = searchnum - 140;  x = 14; }
+	else if (searchnum >= 150 && searchnum < 160) { y = searchnum - 150;  x = 15; }
+	else if (searchnum >= 160 && searchnum < 170) { y = searchnum - 160;  x = 16; }
+	else if (searchnum >= 170 && searchnum < 180) { y = searchnum - 170;  x = 17; }
+	else if (searchnum >= 180 && searchnum < 190) { y = searchnum - 180;  x = 18; }
+	else if (searchnum >= 190 && searchnum < 200) { y = searchnum - 190;  x = 19; }
+	else if (searchnum >= 200 && searchnum < 210) { y = searchnum - 200;  x = 20; }
+	else if (searchnum >= 210 && searchnum < 220) { y = searchnum - 210;  x = 21; }
+	else if (searchnum >= 220 && searchnum < 230) { y = searchnum - 220;  x = 22; }
+	else if (searchnum >= 230 && searchnum < 240) { y = searchnum - 230;  x = 23; }
+	else if (searchnum >= 240 && searchnum < 250) { y = searchnum - 240;  x = 24; }
+
+	addtocart(x, y);
+
+};
+
+void addtocart(int x, int y) {
+
+	int amount;
+	bool done = true;
+
+	shopperCart[c.nump].buyproduct = Owners[x].Shops.products[y].productName;
+	shopperCart[c.nump].price = Owners[x].Shops.products[y].productPrice;
 	do {
 		cout << "\n\n How many do you want ?                                  ***press .0. to exit.*** \n\n ";
 		cout << "Amount : ";
 		cin >> amount;
-		if (amount <= Owners[c.num[searchnum - 1].x].Shops.products[c.num[searchnum - 1].y].Quantity) {
+		if (amount <= Owners[x].Shops.products[y].Quantity) {
 			if (amount != 0) {
-				cout << "\n\n  *-Your Product was added to cart-* \n\n" << endl;
-				k.amount[c.index] = amount;
-				Owners[c.num[searchnum - 1].x].Shops.products[c.num[searchnum - 1].y].Quantity -= amount;
-				k.sav[c.index].x = c.num[searchnum - 1].x;
-				k.sav[c.index].y = c.num[searchnum - 1].y;
-				c.nump++;
-				c.index++;
+				cout << "Your Product was added to cart " << endl;
+				shopperCart[c.nump].quantity = amount;
+				Owners[x].Shops.products[y].Quantity -= amount;
 				done = false;
-				break;
 			}
 			else
 				break;
@@ -454,153 +453,111 @@ void chooseproduct() {
 		else if (amount == 0)
 			break;
 		else
-			cout << " \n\n Your desired amount is unavailable , there are only ( " << Owners[c.num[searchnum - 1].x].Shops.products[c.num[searchnum - 1].y].Quantity << " ) in stock \n\n" << endl;
+			cout << " \n\n Your desired amount is unavailable , there are only ( " << Owners[x].Shops.products[y].Quantity << " ) in stock \n\n" << endl;
 	} while (done);
+
+	c.nump++;
 	system("pause");
 	system("cls");
-};
+}
 
-void viewcart() {
-
-	double total = 0, x = 1;
+void cart() {
+	system("cls");
+	bool flag = true, flag1 = true;
+	double total = 0;
+	char choice, delChoice;
+	int deleteNum, x = 1;
 	cout << "\n\n************************************ - YOUR CART - *************************************\n\n" << endl;
-	cout << "    NAME \t  " << "    QUANTITY \t  " << "    PRICE  \n\n";
-
+	cout << "    NAME \t  " << "    QUANTITY \t  " << "    PRICE  \n\n ";
 	for (int i = 0; i < c.nump; i++) {
-		if (Owners[k.sav[i].x].Shops.products[k.sav[i].y].productPrice != 0) {
-			if (k.amount[i] != 0) {
-				k.sub[i] = (k.amount[i] * Owners[k.sav[i].x].Shops.products[k.sav[i].y].productPrice);
-				cout << x << ". " << Owners[k.sav[i].x].Shops.products[k.sav[i].y].productName << "\t\t" << k.amount[i] << "\t\t" << k.sub[i] << "$\n" << endl;
-				total += k.sub[i];
-				x++;
-				cout << "\n";
-			}
+		shopperCart[i].subtotal = 1;
+	}
+	for (int i = 0; i < c.nump; i++) {
+		if (shopperCart[i].quantity != 0) {
+			shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
+			cout << x << ". " << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << "$\n" << endl;
+			total += shopperCart[i].subtotal;
+			x++;
+			cout << "\n";
 		}
 	}
 	cout << endl << "\nTOTAL :  $" << total << endl;
-
-}
-
-void deletee() {
-
-	system("cls");
-	bool flag = true;
-	int deleteNum, x = 1;
-	viewcart();
-
-	cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
-	cout << "Number : ";
-	cin >> deleteNum;
-	Owners[k.sav[deleteNum - 1].x].Shops.products[k.sav[deleteNum - 1].y].Quantity += k.amount[deleteNum - 1];
-	k.amount[deleteNum - 1] = 0;
-	for (int i = 0; i < c.nump; i++) {
-		if (i > deleteNum - 1) {
-			k.sav[i - 1].x = k.sav[i].x;
-			k.sav[i - 1].y = k.sav[i].y;
-			k.amount[i - 1] = k.amount[i];
-			k.sub[i - 1] = k.sub[i];
-		}
-	}
-	c.nump--;
-	c.index--;
-
-}
-
-void cart(){
-
-	double total;
-	system("cls");
-	bool flag = true, flag1 = true, del = true;
-	char choice;
 	do {
-		system("cls");
-		int x = 1;
-		cout << "Press -- V --  to View receipt. \n\nPress -- R -- to Return to Shopping. \n\nPress -- D -- to Delete From Your Cart\n\nPress -- C --  to Your Cart.\n\n" << endl;
+		cout << "\n\n\nDo you want to Delete any Items ?  [ Y / N ]   \n\n";
+		cout << "Choice : ";
+		cin >> delChoice;
+		switch (delChoice)
+		{
+		case 'y':
+		case 'Y':
+			cout << "\n\nEnter The Number Of The Product You Want To Delete  : \n\n";
+			cout << "Number : ";
+			cin >> deleteNum;
+			shopperCart[deleteNum - 1] = { 0 };
+			flag = false;
+			break;
+		case 'n':
+		case 'N':
+			flag = false;
+			break;
+		default:
+			cout << "!!! Enter a valid choice !!!" << endl;
+			flag = true;
+			break;
+		}
+	} while (flag);
+	total = 0;
+	x = 1;
+	do {
+		cout << "Press -- V --  to View receipt. \n\n Press -- R -- to Return to Shopping. \n\n" << endl;
 		cout << "Choice : ";
 		cin >> choice;
 		switch (choice)
 		{
-		case 'd':
-		case 'D':
-		{
-			deletee();
-			break;
-		}
 		case 'v':
 		case 'V':
-		{
-			total = 0;
-			for (int i = 0; i < c.nump; i++) {
-
-				shopperCart[i].buyproduct = Owners[k.sav[i].x].Shops.products[k.sav[i].y].productName;
-				shopperCart[i].price = Owners[k.sav[i].x].Shops.products[k.sav[i].y].productPrice;
-				shopperCart[i].quantity = k.amount[i];
-
-			}
 			system("cls");
 			cout << "\n\n********************************** TOTAL ITEMS *********************************\n\n\n" << endl;
-			cout << "       NAME \t\t\t  " << "   QUANTITY \t\t\t  " << "    PRICE \n\n";
+			cout << "       NAME \t\t\t  " << "   QUANTITY \t\t\t  " << "    PRICE \n\n  ";
+
 			for (int i = 0; i < c.nump; i++) {
+				if (shopperCart[i].price != 0 || shopperCart[i].quantity != 0) {
 
-				shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
-				cout << x << ". " << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << '$' << endl;
-				total += shopperCart[i].subtotal;
-				cout << "\n";
-				x++;
+					shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
+					cout << x << ". " << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << '$' << endl;
+					total += shopperCart[i].subtotal;
+					cout << "\n";
+					x++;
 
-
+				}
 			}
 			cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
 			cout << "Total price : " << total << "$\n";
-			flag = false;
-			for (int i = 0; i > c.nump; i++) {
-				k.sav[i].x = 0;
-				k.sav[i].y = 0;
-				k.sub[i] = 0;
-				k.amount[i] = 0;
-				shopperCart[i].buyproduct = { 0 };
-				shopperCart[i].price = 0;
-				shopperCart[i].quantity = 0;
-				shopperCart[i].subtotal = 1;
-
-			}
-
-			c.index = 0;
-			c.nump = 0;
-
+			flag1 = false;
+			Rating();
 			system("pause");
 			break;
-		}
-
-		case 'c':
-		case 'C':
-		{
-			viewcart();
-			cout << "\n\n";
-			system("pause");
-			break;
-		}
 		case 'R':
 		case 'r':
-		{
-
 			system("cls");
-			sChoice();
+			viewproducts();
 			flag1 = false;
 			break;
-
-		}
 		default:
-		{
 			cout << "!!! Enter a valid choice !!!" << endl;
-
-			break;\
+			flag1 = true;
+			break;
 		}
-		}
+	} while (flag1);
+	for (int i = 0; i > c.nump; i++) {
 
-	} while (flag);
+		shopperCart[i].buyproduct = { 0 };
+		shopperCart[i].quantity = 0;
+		shopperCart[i].subtotal = 0;
 
-	Rating();
+	}
+	c.nump = 0;
+
 }
 
 void registration() {
@@ -2101,7 +2058,6 @@ void Rating()
 	string shopName, prodName;
 	bool flag = true, notfound = true, flag2 = true;
 	int rating = 0;
-	double avg;
 	do
 	{
 		cout << "Enter Shop's name : ";
@@ -2176,9 +2132,9 @@ void discount(int j)
 							cin >> d >> m;
 							if (day <= 31 && month < 12)
 							{
-								if (m == month)
+								if (m >= month)
 								{
-									if (d == day)
+									if (d >= day)
 									{
 										flag2 = false;
 										flag = false;
@@ -2186,8 +2142,24 @@ void discount(int j)
 										Owners[j].Shops.products[i].newPrice = Owners[j].Shops.products[i].productPrice - discount;
 									}
 								}
+								if(m <= month)
+								{
+									if(d <= day)
+									{
+										flag2 = false;
+										flag = false;
+										Owners[j].Shops.products[i].newPrice = Owners[j].Shops.products[i].productPrice;
+									}
+								}
+								
 
 							}
+							else
+							{
+									cout << "The day or month you have entered is invalid";
+									flag2 = true;
+							}
+
 						} while (flag2);
 					}
 					else
