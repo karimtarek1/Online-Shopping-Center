@@ -66,8 +66,8 @@ struct Product
 	int counter = 0;
 	double sum = 0;
 	double avgRating;
-	int month;
-	int day;
+	int month = 0;
+	int day = 0;
 };
 struct Shop
 {
@@ -134,12 +134,11 @@ void chooseproduct();
 void viewcart();
 void deletee();
 void cart();
-
+void discCheck();
 
 int main() {
 
 	Open();
-
 	char c, choice;
 	bool flag = true;
 	cout << "**************************************************----------------******************************************************\n";
@@ -147,13 +146,14 @@ int main() {
 	cout << "**************************************************----------------******************************************************\n\n\n";
 	do {
 		cout << "Please Enter today's Date : \n";
-		cout << "Day : ";
+		cout << "\n\nDay : ";
 		cin >> day;
-		cout << "Month : ";
+		cout << "\n\nMonth : ";
 		cin >> month;
 	} while (day > 31 || month > 12);
 	discCheck();
-	cout << day << " / " << month << " / 2019 \n\n";
+	system("cls");
+	cout << "\n\nToday's Date : " << day << " / " << month << " / 2019 \n\n";
 
 	do {
 		cout << " [ 1 ] Shopper. \n\n";
@@ -246,21 +246,26 @@ void Open() {
 	Products.open("Products.txt");
 	for (int i = 0; i < maxOwners; i++) {
 		Products >> Owners[i].Shops.countProd;
-		for (int j = 0; j < Owners[i].Shops.countProd; j++) {
-			Products.ignore();
-			getline(Products, Owners[i].Shops.products[j].productName);
-			getline(Products, Owners[i].Shops.products[j].Category);
-			if (Owners[i].Shops.products[j].Category == "Clothing") {
+		Products.ignore();
+		Owners[0].Shops.products[1].productPrice;
+		if (Owners[i].Shops.countProd != 0) {
+			for (int j = 0; j < Owners[i].Shops.countProd; j++) {
+				getline(Products, Owners[i].Shops.products[j].productName);
+				getline(Products, Owners[i].Shops.products[j].Category);
+				if (Owners[i].Shops.products[j].Category == "Clothing") {
 
-				getline(Products, Owners[i].Shops.products[j].Clothes.Color);
-				Products >> Owners[i].Shops.products[j].Clothes.Type;
-				Products >> Owners[i].Shops.products[j].Clothes.Size;
-				Products >> Owners[i].Shops.products[j].productPrice;
-				Products >> Owners[i].Shops.products[j].Quantity;
-			}
-			else {
-				Products >> Owners[i].Shops.products[j].productPrice;
-				Products >> Owners[i].Shops.products[j].Quantity;
+					getline(Products, Owners[i].Shops.products[j].Clothes.Color);
+					Products >> Owners[i].Shops.products[j].Clothes.Type;
+					Products >> Owners[i].Shops.products[j].Clothes.Size;
+					Products >> Owners[i].Shops.products[j].productPrice;
+					Products >> Owners[i].Shops.products[j].Quantity;
+					Products.ignore();
+				}
+				else {
+					Products >> Owners[i].Shops.products[j].productPrice;
+					Products >> Owners[i].Shops.products[j].Quantity;
+					Products.ignore();
+				}
 			}
 		}
 	}
@@ -284,8 +289,8 @@ void save() {
 	}
 	Products.open("Products.txt", ios::trunc);
 	for (int i = 0; i < maxOwners; i++) {
-		if (Owners[i].Shops.countProd != 0) {
 			Products << Owners[i].Shops.countProd << endl;
+			if (Owners[i].Shops.countProd != 0) {
 			for (int j = 0; j < Owners[i].Shops.countProd; j++) {
 				if (Owners[i].Shops.Category == "Clothing") {
 					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].Clothes.Color << endl << Owners[i].Shops.products[j].Clothes.Type << endl << Owners[i].Shops.products[j].Clothes.Size << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n';
@@ -407,7 +412,6 @@ void viewproducts()
 	{
 		for (int j = 0; j < maxProds; j++)
 		{
-
 			if (Owners[i].Shops.products[j].productPrice != 0)
 			{
 				if (Owners[i].Shops.products[j].Category == "Clothing") {
@@ -806,7 +810,6 @@ void SLchoice()
 		}
 		system("cls");
 	} while (c == 'y' || c == 'Y');
-
 }
 
 int login() {
@@ -820,31 +823,28 @@ int login() {
 	cout << " \n Enter Your Data\n";
 	cout << endl << "Enter your ID : ";
 	cin >> LogID;
-	do {
-		char a;
-		cout << endl << "Password : ";
-		for (j = 0;;)
+	char a;
+	cout << endl << "Password : ";
+	for (j = 0;;)
+	{
+		a = _getch();
+		if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
 		{
-			a = _getch();
-			if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
-			{
-				LogPass[j] = a;
-				++j;
-				cout << "*";
-			}
-			if (a == '\b' && j >= 1)
-			{
-				cout << "\b \b";
-				--j;
-			}
-			if (a == '\r')
-			{
-				LogPass[j] = '\0';
-				break;
-			}
+			LogPass[j] = a;
+			++j;
+			cout << "*";
 		}
-	} while (j <= 5);
-
+		if (a == '\b' && j >= 1)
+		{
+			cout << "\b \b";
+			--j;
+		}
+		if (a == '\r')
+		{
+			LogPass[j] = '\0';
+			break;
+		}
+	}
 
 	for (i = 0; i < maxShoppers; i++)
 	{
@@ -1385,32 +1385,29 @@ int Lowner()
 	cout << "\nPlease Enter Your Login Data :" << endl;
 	cout << "\n\nID :";
 	cin >> LogID;
-	do
-	{
-		cout << "\nPassword :";
-		char a;
-		for (j = 0;;)
-		{
-			a = _getch();
-			if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
-			{
-				LogPass[j] = a;
-				++j;
-				cout << "*";
-			}
-			if (a == '\b' && j >= 1)
-			{
-				cout << "\b \b";
-				--j;
-			}
-			if (a == '\r')
-			{
-				LogPass[j] = '\0';
-				break;
-			}
-		}
 
-	} while (j <= 5);
+	cout << "\nPassword :";
+	char a;
+	for (j = 0;;)
+	{
+		a = _getch();
+		if ((a >= 'a' && a <= 'z') || (a >= 'A' && a <= 'Z') || (a >= '0' && a <= '9'))
+		{
+			LogPass[j] = a;
+			++j;
+			cout << "*";
+		}
+		if (a == '\b' && j >= 1)
+		{
+			cout << "\b \b";
+			--j;
+		}
+		if (a == '\r')
+		{
+			LogPass[j] = '\0';
+			break;
+		}
+	}
 
 	for (i = 0; i < maxOwners; i++)
 	{
@@ -2272,15 +2269,17 @@ void discCheck()
 		for (int j = 0; j < maxProds; j++)
 		{
 			if (Owners[i].Shops.products[j].productPrice != 0) {
-				if (Owners[i].Shops.products[j].month < month)
-				{
-					Owners[i].Shops.products[j].productPrice = Owners[i].Shops.products[j].oldPrice;
-				}
-				else if (Owners[i].Shops.products[j].month == month)
-				{
-					if (Owners[i].Shops.products[j].day < day)
+				if (Owners[i].Shops.products[j].month != 0) {
+					if (Owners[i].Shops.products[j].month < month)
 					{
 						Owners[i].Shops.products[j].productPrice = Owners[i].Shops.products[j].oldPrice;
+					}
+					else if (Owners[i].Shops.products[j].month == month)
+					{
+						if (Owners[i].Shops.products[j].day < day)
+						{
+							Owners[i].Shops.products[j].productPrice = Owners[i].Shops.products[j].oldPrice;
+						}
 					}
 				}
 			}
