@@ -1,58 +1,59 @@
 #include <SFML\Graphics.hpp>
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
-void welcome(sf::RenderWindow& window,sf::RectangleShape photo);
+void welcome(sf::RenderWindow& window, sf::RectangleShape photo);
 void choise(sf::RenderWindow& window, sf::RectangleShape photo);
 void reg(sf::RenderWindow& window, sf::RectangleShape photo);
 void login(sf::RenderWindow& window, sf::RectangleShape photo);
 
 int main() {
 
-sf::RenderWindow window(sf::VideoMode(800, 800), "                               ONLINE SHOPPING STORE", sf::Style::Close | sf::Style::Default);
-    sf::RectangleShape photo(sf::Vector2f(800.0f, 800.0f));
+	sf::RenderWindow window(sf::VideoMode(800, 800), "                               ONLINE SHOPPING STORE", sf::Style::Close | sf::Style::Default);
+	sf::RectangleShape photo(sf::Vector2f(800.0f, 800.0f));
 	photo.setPosition(0, 0);
 	sf::Texture wallpaper;
 	wallpaper.loadFromFile("grunge-background-black-texture-450w-345043661 (1).jpg");
-    photo.setTexture(&wallpaper);
-	 
+	photo.setTexture(&wallpaper);
+
 	welcome(window, photo);
-	
+
 	return 0;
 }
 
-void welcome(sf::RenderWindow& window,sf::RectangleShape photo) {
-		sf::Font font;
-		font.loadFromFile("Roboto-MediumItalic.ttf");
-		sf::Text text;
-		text.setFont(font);
-		text.setString(" Shopper ");
-		text.setCharacterSize(40);
-		text.setFillColor(sf::Color::White);
-		text.setPosition(450, 500);
-		text.setStyle(sf::Text::Bold);
+void welcome(sf::RenderWindow& window, sf::RectangleShape photo) {
+	sf::Font font;
+	font.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text;
+	text.setFont(font);
+	text.setString(" Shopper ");
+	text.setCharacterSize(40);
+	text.setFillColor(sf::Color::White);
+	text.setPosition(450, 500);
+	text.setStyle(sf::Text::Bold);
 
-		sf::Text textn;
-		textn.setFont(font);
-		textn.setString(" S. Owner ");
-		textn.setCharacterSize(40);
-		textn.setFillColor(sf::Color::White);
-		textn.setPosition(150, 500);
-		textn.setStyle(sf::Text::Bold);
+	sf::Text textn;
+	textn.setFont(font);
+	textn.setString(" S. Owner ");
+	textn.setCharacterSize(40);
+	textn.setFillColor(sf::Color::White);
+	textn.setPosition(150, 500);
+	textn.setStyle(sf::Text::Bold);
 
-		sf::RectangleShape choice(sf::Vector2f(200.0f, 80.0f));
-		choice.setPosition(sf::Vector2f(150, 490));
-		choice.setFillColor(sf::Color::Transparent);
-		choice.setOutlineThickness(5);
-		choice.setOutlineColor(sf::Color::White);
-		sf::RectangleShape choicee(sf::Vector2f(200.0f, 80.0f));
-		choicee.setPosition(sf::Vector2f(450, 490));
-		choicee.setFillColor(sf::Color::Transparent);
-		choicee.setOutlineThickness(5);
-		choicee.setOutlineColor(sf::Color::White);
+	sf::RectangleShape choice(sf::Vector2f(200.0f, 80.0f));
+	choice.setPosition(sf::Vector2f(150, 490));
+	choice.setFillColor(sf::Color::Transparent);
+	choice.setOutlineThickness(5);
+	choice.setOutlineColor(sf::Color::White);
+	sf::RectangleShape choicee(sf::Vector2f(200.0f, 80.0f));
+	choicee.setPosition(sf::Vector2f(450, 490));
+	choicee.setFillColor(sf::Color::Transparent);
+	choicee.setOutlineThickness(5);
+	choicee.setOutlineColor(sf::Color::White);
 
-	
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -71,13 +72,13 @@ void welcome(sf::RenderWindow& window,sf::RectangleShape photo) {
 					choice.setOutlineColor(sf::Color::Red);
 					textn.setFillColor(sf::Color::Red);
 					window.clear();
-					choise (window, photo);
+					choise(window, photo);
 					break;
 				}
 				else if (local_position.x >= 446 && local_position.x <= 651 && local_position.y >= 487 && local_position.y <= 570) {
 					text.setFillColor(sf::Color::Red);
 					choicee.setOutlineColor(sf::Color::Red);
-					choise (window, photo);
+					choise(window, photo);
 					break;
 				}
 			}
@@ -167,9 +168,9 @@ void reg(sf::RenderWindow& window, sf::RectangleShape photo) {
 	sf::Font fontname;
 	fontname.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String name;
-	sf::Text textname(name,fontname,25);
+	sf::Text textname(name, fontname, 25);
 	textname.setFillColor(sf::Color::White);
-	textname.setPosition( 200 , 14);
+	textname.setPosition(200, 14);
 
 	sf::Font fontpass;
 	fontpass.loadFromFile("Roboto-MediumItalic.ttf");
@@ -205,11 +206,11 @@ void reg(sf::RenderWindow& window, sf::RectangleShape photo) {
 	sf::Text texta;
 	texta.setFont(fonta);
 	texta.setString("Name           : ");
-    texta.setCharacterSize(30);
+	texta.setCharacterSize(30);
 	texta.setFillColor(sf::Color::White);
-	texta.setPosition( 10 , 10);
+	texta.setPosition(10, 10);
 	texta.setStyle(sf::Text::Regular);
-	
+
 	sf::Font fontb;
 	fontb.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textb;
@@ -269,8 +270,8 @@ void reg(sf::RenderWindow& window, sf::RectangleShape photo) {
 	textg.setFillColor(sf::Color::White);
 	textg.setPosition(400, 210);
 	textg.setStyle(sf::Text::Regular);
-		
-    sf::Font font;
+
+	sf::Font font;
 	font.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text text;
 	text.setFont(font);
@@ -286,7 +287,6 @@ void reg(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choicee.setOutlineThickness(5);
 	choicee.setOutlineColor(sf::Color::White);
 
-	
 	while (window.isOpen())
 	{
 
@@ -300,34 +300,54 @@ void reg(sf::RenderWindow& window, sf::RectangleShape photo) {
 				sf::Vector2i localposition = sf::Mouse::getPosition(window);
 			}
 			if (event.type == sf::Event::TextEntered) {
-				if (event.text.unicode >= 32 && event.text.unicode <= 126)
-					name += (char)event.text.unicode;
-			    else if (event.text.unicode == 8 && name.getSize() < 0)
-						name.erase(name.getSize() - 1, name.getSize());
+				if (event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					name += event.text.unicode;
 					textname.setString(name);
+				}
+				if (event.text.unicode == 8 && name.getSize() > 0){
+					name.erase(name.getSize() - 1, name.getSize());
+				textname.setString(name);
+			    }	
 				
-				
+				if (event.text.unicode == '\n')
+					{
+
+					if (event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+							pass += "*";
+							textpass.setString(pass);
+						}
+						if (event.text.unicode == 8 && pass.getSize() > 0) {
+							pass.erase(pass.getSize() - 1, pass.getSize());
+							textpass.setString(name);
+
+						}
+					}
+			
+					
+					
 				
 
-			} 
-			
+
+			}
+
 		}
-			window.clear();
-			window.draw(photo);
-			window.draw(texta);
-			window.draw(textb);
-			window.draw(textc);
-			window.draw(textd);
-			window.draw(texte);
-			window.draw(textf);
-			window.draw(textg);
-			window.draw(text);
-			window.draw(textcity);
-			window.draw(textcountry);
-			window.draw(choicee);
-			window.draw(textname);
-			window.display();
-		
+		window.clear();
+		window.draw(photo);
+		window.draw(texta);
+		window.draw(textb);
+		window.draw(textc);
+		window.draw(textd);
+		window.draw(texte);
+		window.draw(textf);
+		window.draw(textg);
+		window.draw(text);
+		window.draw(textcity);
+		window.draw(textcountry);
+		window.draw(choicee);
+		window.draw(textname);
+		window.draw(textpass);
+		window.display();
+
 	}
 }
 void login(sf::RenderWindow& window, sf::RectangleShape photo) {
