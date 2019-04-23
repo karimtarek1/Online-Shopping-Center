@@ -7,7 +7,7 @@
 using namespace std;
 
 const int maxShoppers = 25, maxOwners = 25, maxProds = 10, maxPass = 32;
-int LogIndex = maxOwners, day = 0, month = 0;
+int LogIndex = maxOwners, day = 0, month = 0, LogID = 0;
 
 struct views {
 
@@ -101,6 +101,8 @@ struct shopper {
 	string gender;
 	Address Add;
 	double purchaseHistory[10];
+	int days[10];
+	int months[10];
 	int purchases = 0;
 }Shoppers[maxShoppers];
 
@@ -242,6 +244,14 @@ void Open() {
 		Shopper >> Shoppers[i].age;
 		Shopper >> Shoppers[i].passnum;
 		Shopper >> Shoppers[i].pass;
+		Shopper >> Shoppers[i].purchases;
+		if (Shoppers[i].purchases != 0) {
+			for (int j = 0; j < Shoppers[i].purchases; j++) {
+				Shopper >> Shoppers[i].purchaseHistory[j];
+				Shopper >> Shoppers[i].days[j];
+				Shopper >> Shoppers[i].months[j];
+			}
+		}
 	}
 	Products.open("Products.txt");
 	for (int i = 0; i < maxOwners; i++) {
@@ -259,11 +269,23 @@ void Open() {
 					Products >> Owners[i].Shops.products[j].Clothes.Size;
 					Products >> Owners[i].Shops.products[j].productPrice;
 					Products >> Owners[i].Shops.products[j].Quantity;
+					Products >> Owners[i].Shops.products[j].avgRating;
+					Products >> Owners[i].Shops.products[j].oldPrice;
+					Products >> Owners[i].Shops.products[j].sum;
+					Products >> Owners[i].Shops.products[j].counter;
+					Products >> Owners[i].Shops.products[j].month;
+					Products >> Owners[i].Shops.products[j].day;
 					Products.ignore();
 				}
 				else {
 					Products >> Owners[i].Shops.products[j].productPrice;
 					Products >> Owners[i].Shops.products[j].Quantity;
+					Products >> Owners[i].Shops.products[j].avgRating;
+					Products >> Owners[i].Shops.products[j].oldPrice;
+					Products >> Owners[i].Shops.products[j].sum;
+					Products >> Owners[i].Shops.products[j].counter;
+					Products >> Owners[i].Shops.products[j].month;
+					Products >> Owners[i].Shops.products[j].day;
 					Products.ignore();
 				}
 			}
@@ -286,17 +308,23 @@ void save() {
 	Shopper << s.countShopper << endl;
 	for (int i = 0; i < s.countShopper; i++) {
 		Shopper << Shoppers[i].name << endl << Shoppers[i].gender << endl << Shoppers[i].Add.Country << endl << Shoppers[i].Add.City << endl << Shoppers[i].id << endl << Shoppers[i].age << endl << Shoppers[i].passnum << endl << Shoppers[i].pass << endl;
+		Shopper << Shoppers[i].purchases << endl;
+		if (Shoppers[i].purchases != 0) {
+			for (int j = 0; j < Shoppers[i].purchases; j++) {
+				Shopper << Shoppers[i].purchaseHistory << endl << Shoppers[i].days << endl << Shoppers[i].months << endl;
+			}
+		}
 	}
 	Products.open("Products.txt", ios::trunc);
 	for (int i = 0; i < maxOwners; i++) {
-			Products << Owners[i].Shops.countProd << endl;
-			if (Owners[i].Shops.countProd != 0) {
+		Products << Owners[i].Shops.countProd << endl;
+		if (Owners[i].Shops.countProd != 0) {
 			for (int j = 0; j < Owners[i].Shops.countProd; j++) {
 				if (Owners[i].Shops.Category == "Clothing") {
-					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].Clothes.Color << endl << Owners[i].Shops.products[j].Clothes.Type << endl << Owners[i].Shops.products[j].Clothes.Size << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n';
+					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].Clothes.Color << endl << Owners[i].Shops.products[j].Clothes.Type << endl << Owners[i].Shops.products[j].Clothes.Size << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n' << Owners[i].Shops.products[j].avgRating << endl << Owners[i].Shops.products[j].oldPrice << endl << Owners[i].Shops.products[j].sum << endl << Owners[i].Shops.products[j].counter << endl << Owners[i].Shops.products[j].month << Owners[i].Shops.products[j].day << endl;
 				}
 				else {
-					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n';
+					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n' << Owners[i].Shops.products[j].avgRating << endl << Owners[i].Shops.products[j].oldPrice << endl << Owners[i].Shops.products[j].sum << endl << Owners[i].Shops.products[j].counter << endl << Owners[i].Shops.products[j].month << Owners[i].Shops.products[j].day << endl;
 				}
 			}
 		}
@@ -573,6 +601,29 @@ void cart() {
 			}
 			cout << "\n\n\n********************** TOTAL PRICE *********************\n\n" << endl;
 			cout << "Total price : " << total << "$\n";
+			Shoppers[LogID - 1].purchases++;
+			while (true) {
+				int i = 0;
+				if (Shoppers[LogID - 1].purchaseHistory[9] == 0) {
+					if (Shoppers[LogID - 1].purchaseHistory[i] == 0) {
+						Shoppers[LogID - 1].purchaseHistory[i] = total;
+						Shoppers[LogID - 1].days[i] = day;
+						Shoppers[LogID - 1].months[i] = month;
+						break;
+					}
+				}
+				else {
+					for (int j = 0; j < 10; j++) {
+						Shoppers[LogID - 1].purchaseHistory[j] = Shoppers[LogID - 1].purchaseHistory[j + 1];
+						Shoppers[LogID - 1].days[j] = Shoppers[LogID - 1].days[j + 1];
+						Shoppers[LogID - 1].months[j] = Shoppers[LogID - 1].months[j + 1];
+					}
+					Shoppers[LogID - 1].purchaseHistory[9] = total;
+					Shoppers[LogID - 1].days[9] = day;
+					Shoppers[LogID - 1].months[9] = month;
+				}
+				i++;
+			}
 			flag = false;
 			do {
 				cout << "Would you like to Rate a Product? (Y/N) ";
@@ -817,7 +868,7 @@ int login() {
 	int j;
 	bool flag;
 	bool tri = false;
-	int LogID, i;
+	int  i;
 	char LogPass[maxPass];
 	system("cls");
 	cout << " \n Enter Your Data\n";
@@ -2232,32 +2283,12 @@ void discount(int j)
 
 void purchaseHistory(int k)
 {
-	int x = 1;
-	double total = 0;
-	for (int i = 0; i < c.nump; i++)
-	{
-		if (shopperCart[i].price != 0)
-		{
-			shopperCart[i].subtotal = (shopperCart[i].quantity * shopperCart[i].price);
-			cout << x << ". " << shopperCart[i].buyproduct << "\t\t" << shopperCart[i].quantity << "\t\t" << shopperCart[i].subtotal << '$' << endl;
-			total += shopperCart[i].subtotal;
-			for (int j = 0; j < 10; j++)
-			{
-				if (Shoppers[k].purchaseHistory[j] == 0)
-				{
-					Shoppers[k].purchaseHistory[j] = total;
-					break;
-				}
-			}
-		}
-	}
 	cout << "Your purchase History is : ";
 	for (int l = 0; l < 10; l++)
 	{
 		if (Shoppers[k].purchaseHistory[l] != 0)
 		{
-			cout << Shoppers[k].purchaseHistory[l] << endl;
-			continue;
+			cout << "You bought for " << Shoppers[k].purchaseHistory[l] << "$ on " << Shoppers[k].days << "/" << Shoppers[k].months << endl << endl;
 		}
 	}
 }
