@@ -232,14 +232,15 @@ void Open() {
 		Owner >> Owners[i].PassNum;
 		Owner >> Owners[i].Password;
 	}
+	Owners[0].Add.Country;
 	Shopper.open("Shopper.txt");
 	Shopper >> s.countShopper;
 	for (int i = 0; i < s.countShopper; i++) {
 		Shopper.ignore();
 		getline(Shopper, Shoppers[i].name);
 		getline(Shopper, Shoppers[i].gender);
-		getline(Shopper, Owners[i].Add.Country);
-		getline(Shopper, Owners[i].Add.City);
+		getline(Shopper, Shoppers[i].Add.Country);
+		getline(Shopper, Shoppers[i].Add.City);
 		Shopper >> Shoppers[i].id;
 		Shopper >> Shoppers[i].age;
 		Shopper >> Shoppers[i].passnum;
