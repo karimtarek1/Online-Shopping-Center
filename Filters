@@ -1,0 +1,170 @@
+void filters()
+{
+	char filterchoice, priceChoice = { 0 };
+	string filters[5][250] = { {"1" , "2" , "3" , "4" , "5" } , {0} };
+	int counter = 0,pricech = 0;
+	bool flag = true, flag2 = true, priceflag = false;
+	cout << "Filters :- " << endl;
+	do {
+		cout << "Do you want to filter by Price (Y/N)?";
+		cin >> filterchoice;
+		if (filterchoice == 'Y' || filterchoice == 'y')
+		{
+			flag = false;
+			cout << "1 - ($1 - $10)\n2 - ($10 - $50)\n3 - ($50 - $200)\n4 - ($200 - $500)\n5 - ($500 - $1000)\n5 - ($1000+)";
+			cin >> priceChoice;
+			switch (priceChoice)
+			{
+			case '1':for (int i = 0; i < maxOwners; i++)
+			{
+				for (int j = 0; j < maxProds; j++)
+				{
+					if (Owners[i].Shops.products[j].productPrice > 1 && Owners[i].Shops.products[j].productPrice <= 10)
+					{
+						for (int k = 0; k < 250; k++)
+						{
+							filters[k][0] = Owners[i].Shops.products[j].productName;
+							counter++;
+						}
+					}
+				}
+				if (filters[1][0] != "") { priceflag = true; }
+				pricech = 1;
+			}
+					 break;
+
+			case '2':for (int i = 0; i < maxOwners; i++)
+			{
+				for (int j = 0; j < maxProds; j++)
+				{
+					if (Owners[i].Shops.products[j].productPrice > 1 && Owners[i].Shops.products[j].productPrice <= 10)
+					{
+						for (int k = 0; k < 250; k++)
+						{
+							filters[k][1] = Owners[i].Shops.products[j].productName;
+							counter++;
+						}
+
+					}
+				}
+				if (filters[1][1] != "") { priceflag = true; }
+				pricech = 2;
+			}
+					 break;
+			case '3':for (int i = 0; i < maxOwners; i++)
+			{
+				for (int j = 0; j < maxProds; j++)
+				{
+					if (Owners[i].Shops.products[j].productPrice > 1 && Owners[i].Shops.products[j].productPrice <= 10)
+					{
+						for (int k = 0; k < 250; k++)
+						{
+							filters[k][2] = Owners[i].Shops.products[j].productName;
+							counter++;
+						}
+
+					}
+				}
+				if (filters[1][2] != "") { priceflag = true; }
+				pricech = 3;
+			}
+					 break;
+			case '4':for (int i = 0; i < maxOwners; i++)
+			{
+				for (int j = 0; j < maxProds; j++)
+				{
+					if (Owners[i].Shops.products[j].productPrice > 1 && Owners[i].Shops.products[j].productPrice <= 10)
+					{
+						for (int k = 0; k < 275; k++)
+						{
+							filters[k][3] = Owners[i].Shops.products[j].productName;
+							counter++;
+						}
+
+					}
+				}
+				if (filters[1][3] != "") { priceflag = true; }
+				pricech = 4;
+			}
+					 break;
+
+			case '5':for (int i = 0; i < maxOwners; i++)
+			{
+				for (int j = 0; j < maxProds; j++)
+				{
+					if (Owners[i].Shops.products[j].productPrice > 1 && Owners[i].Shops.products[j].productPrice <= 10)
+					{
+						for (int k = 0; k < 275; k++)
+						{
+							filters[k][4] = Owners[i].Shops.products[j].productName;
+							counter++;
+						}
+
+					}
+				}
+				if (filters[1][4] != "") { priceflag = true; }
+				pricech = 5;
+				
+			}
+
+			default:cout << "Error , Invalid Choice !";
+				break;
+
+			}
+		}
+		else if (filterchoice == 'N' || filterchoice == 'n')
+		{
+			flag = false;
+			break;
+
+		}
+		else
+		{
+			flag = true;
+		}
+	} while (flag);
+
+	do {
+		char shopChoice;
+		int shop, shopfilter;
+		cout << " Do you want to filter by Shop (Y/N) ?";
+		cin >> shopChoice;
+		if (shopChoice == 'Y' || shopChoice == 'y')
+		{
+			flag2 = false;
+			for (int i = 0; i < maxOwners; i++)
+			{
+				cout << i + 1 << " - " << Owners[i].Shops.ShopName;
+			}
+			cout << "Choice : ";
+			cin >> shop;
+			if (priceflag)
+			{
+				for (int x = 0; x < 5; x++)
+				{
+					for (int y = 0; y < counter; y++)
+					{
+
+					}
+				}
+			}
+		}
+		else if (shopChoice == 'N' || shopChoice == 'n')
+		{
+			flag2 = false;
+		}
+		else
+		{
+			cout << "Error , Invalid Choice !";
+			flag2 = true;
+		}
+}while (flag2);
+if (priceflag == false) 
+{
+	for (int i = 0; i < 250; i++)
+	{
+	
+		cout << filters[i][pricech];
+	}
+}
+}
