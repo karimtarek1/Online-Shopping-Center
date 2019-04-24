@@ -2864,12 +2864,14 @@ void priceFilter()
 	}
 }
 
-void shopFilter()
+oid ShopFilter()
 {
 	int choice;
 	for(int i = 0 ; i < maxOwners ; i++)
 	{
-		cout << i + 1 << Owners[i].Shops.ShopName << endl;
+		if (Owners[i].Shops.ShopName != "") {
+			cout << i + 1 << " - "<< Owners[i].Shops.ShopName << endl;
+		}
 	}
 	cout << "Choice : ";
 	cin >> choice;
@@ -2880,7 +2882,6 @@ void shopFilter()
 	cout << "Shop : " << Owners[choice].Shops.ShopName;
 		for (int j = 0; j < maxProds; j++) {
 			cout << "Name : " << Owners[choice - 1].Shops.products[j].productName << endl;
-			
 			cout << "Price : " << Owners[choice - 1].Shops.products[j].productPrice << endl;
 			cout << "Quantity : " << Owners[choice - 1].Shops.products[j].Quantity << endl;
 			cout << "Rating : " << Owners[choice - 1].Shops.products[j].avgRating << endl;
