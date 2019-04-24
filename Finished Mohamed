@@ -2076,6 +2076,7 @@ void editProds(int j) {
 				break;
 			case '2':
 				cout << "\nPrice : "; cin >> Owners[j].Shops.products[i].productPrice;
+				Owners[i].Shops.products[j].month = 0;
 				break;
 			case '3':
 				cout << "\nQuantity : "; cin >> Owners[j].Shops.products[i].Quantity;
@@ -2390,4 +2391,198 @@ void gifts() {
 			break;
 		}
 	} while (true);
+}
+
+void ByCategory()
+{
+	string shopName;
+	char categoryChoice, gameChoice, bookChoice;
+	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false;
+
+	cout << "\n\nChoose One Of Our Available Categories :\n\n[ 1 ] Phones & Tablets. \n\n[ 2 ] Electronics. \n\n[ 3 ] Makeup & Accessories. \n\n[ 4 ] Clothing. \n\n[ 5 ] Shoes & Bags. \n\n[ 6 ] Books. \n\n[ 7 ] Gaming.\n";
+	cout << endl << "\nChoice : "; cin >> categoryChoice;
+	do {
+		switch (categoryChoice) {
+		case '1':
+
+			for (int i = 0; i < maxShoppers; i++)
+			{
+				for (int j = 0; j < maxProds; j++)
+				{
+					if (Owners[i].Shops.Category == "Phones&Tablets")
+					{
+						cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+
+					}
+				}
+			}
+			break;
+
+		case '2':
+
+			for (int i = 0; i < maxShoppers; i++)
+			{
+				for (int j = 0; j < maxProds; j++)
+				{
+					if (Owners[i].Shops.Category == "Electronics")
+					{
+						cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+
+					}
+				}
+			}
+
+			break;
+		case '3':
+
+			for (int i = 0; i < maxShoppers; i++)
+			{
+				for (int j = 0; j < maxProds; j++)
+				{
+					if (Owners[i].Shops.Category == "Makeup&Acessories")
+					{
+						cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+
+					}
+				}
+			}
+			break;
+		case '4':
+
+			for (int i = 0; i < maxShoppers; i++)
+			{
+				for (int j = 0; j < maxProds; j++)
+				{
+					if (Owners[i].Shops.Category == "Clothing")
+					{
+						cout << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "          " << Owners[i].Shops.products[j].Clothes.Size << "       " << Owners[i].Shops.products[j].Clothes.Type << "      " << Owners[i].Shops.products[j].Clothes.Color << "\n";
+					}
+				}
+			}
+			break;
+		case '5':
+
+			for (int i = 0; i < maxShoppers; i++)
+			{
+				for (int j = 0; j < maxProds; j++)
+				{
+					if (Owners[i].Shops.Category == "Shoes&Bags")
+					{
+						cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+					}
+				}
+			}
+			break;
+		case '6':
+			for (int i = 0; i < maxShoppers; i++)
+			{
+				Owners[i].Shops.Category = "Books";
+			}
+			cout << "[ 1 ] Novels.\t[ 2 ] Magazines.\t[ 3 ] Short Stories.\n\n Choice :";
+			cin >> bookChoice;
+			do {
+				switch (bookChoice) {
+				case '1':
+
+					for (int i = 0; i < maxShoppers; i++)
+					{
+						for (int j = 0; j < maxProds; j++)
+						{
+							if (Owners[i].Shops.Category == "Books_Novels")
+							{
+								cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+							}
+						}
+					}
+					break;
+				case '2':
+					for (int i = 0; i < maxShoppers; i++)
+					{
+						for (int j = 0; j < maxProds; j++)
+						{
+							if (Owners[i].Shops.Category == "Books_Magazines")
+							{
+								cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+							}
+						}
+					}
+
+					break;
+				case '3':
+					for (int i = 0; i < maxShoppers; i++)
+					{
+						for (int j = 0; j < maxProds; j++)
+						{
+							if (Owners[i].Shops.Category == "Books_ShortStories")
+							{
+								cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+							}
+						}
+					}
+
+					break;
+				default:
+					cout << "\n\n!! Invalid choice. !!\n\n";
+					flag4 = true;
+					break;
+				}
+			} while (flag4);
+			break;
+		case '7':
+			cout << "[ 1 ] Pc Games.    [ 2 ] PS4 Games.    [ 3 ] Xbox Games.\n\n Choice : ";
+			cin >> gameChoice;
+			do {
+				switch (gameChoice) {
+				case '1':
+					for (int i = 0; i < maxShoppers; i++)
+					{
+						for (int j = 0; j < maxProds; j++)
+						{
+							if (Owners[i].Shops.Category == "Gaming_PC")
+							{
+								cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+							}
+						}
+					}
+					break;
+				case '2':
+					for (int i = 0; i < maxShoppers; i++)
+					{
+						for (int j = 0; j < maxProds; j++)
+						{
+							if (Owners[i].Shops.Category == "Gaming_PS4")
+							{
+								cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+
+							}
+						}
+					}
+					break;
+				case '3':
+					for (int i = 0; i < maxShoppers; i++)
+					{
+						for (int j = 0; j < maxProds; j++)
+						{
+							if (Owners[i].Shops.Category == "Gaming_Xbox")
+							{
+								cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+							}
+						}
+					}
+
+					break;
+				default:
+					cout << "\n\n!!  Invalid choice. !! \n\n";
+					flag3 = true;
+					break;
+				}
+			} while (flag3);
+			break;
+		default:
+			flag2 = true;
+			cout << "\n\n !! Invalid Choice !! \n\n";
+			cout << "choice : "; cin >> categoryChoice;
+			cout << "\n " << endl;
+		}
+	} while (flag2);
 }
