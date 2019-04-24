@@ -2882,11 +2882,11 @@ void ShopFilter()
 			cout << "Quantity : " << Owners[choice - 1].Shops.products[j].Quantity << endl;
 			cout << "Rating : " << Owners[choice - 1].Shops.products[j].avgRating << endl;
 			cout << "Category : " << Owners[choice - 1].Shops.products[j].Category << endl;
-			if (Owners[schoice].Shops.products[j].Category == "Clothing")
+			if (Owners[choice - 1].Shops.products[j].Category == "Clothing")
 			{
-				cout << "Type : " << Owners[choice].Shops.products[j].Clothes.Type << endl;
-				cout << "Size : " << Owners[choice].Shops.products[j].Clothes.Size << endl;
-				cout << "Color : " << Owners[choice].Shops.products[j].Clothes.Color << endl;
+				cout << "Type : " << Owners[choice - 1].Shops.products[j].Clothes.Type << endl;
+				cout << "Size : " << Owners[choice - 1].Shops.products[j].Clothes.Size << endl;
+				cout << "Color : " << Owners[choice - 1].Shops.products[j].Clothes.Color << endl;
 			}
 			cout << endl << endl;
 		}
