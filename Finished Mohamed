@@ -137,6 +137,7 @@ void viewcart();
 void deletee();
 void cart();
 void discCheck();
+void gifts();
 
 int main() {
 
@@ -190,6 +191,7 @@ int main() {
 					choice = 'y';
 					cout << "You logged out Successfully\n";
 					system("pause");
+					system("cls");
 					flag = false;
 					break;
 				}
@@ -312,7 +314,7 @@ void save() {
 		Shopper << Shoppers[i].purchases << endl;
 		if (Shoppers[i].purchases != 0) {
 			for (int j = 0; j < Shoppers[i].purchases; j++) {
-				Shopper << Shoppers[i].purchaseHistory << endl << Shoppers[i].days << endl << Shoppers[i].months << endl;
+				Shopper << Shoppers[i].purchaseHistory[j] << endl << Shoppers[i].days[j] << endl << Shoppers[i].months[j] << endl;
 			}
 		}
 	}
@@ -325,7 +327,7 @@ void save() {
 					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].Clothes.Color << endl << Owners[i].Shops.products[j].Clothes.Type << endl << Owners[i].Shops.products[j].Clothes.Size << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n' << Owners[i].Shops.products[j].avgRating << endl << Owners[i].Shops.products[j].oldPrice << endl << Owners[i].Shops.products[j].sum << endl << Owners[i].Shops.products[j].counter << endl << Owners[i].Shops.products[j].month << Owners[i].Shops.products[j].day << endl;
 				}
 				else {
-					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n' << Owners[i].Shops.products[j].avgRating << endl << Owners[i].Shops.products[j].oldPrice << endl << Owners[i].Shops.products[j].sum << endl << Owners[i].Shops.products[j].counter << endl << Owners[i].Shops.products[j].month << Owners[i].Shops.products[j].day << endl;
+					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n' << Owners[i].Shops.products[j].avgRating << endl << Owners[i].Shops.products[j].oldPrice << endl << Owners[i].Shops.products[j].sum << endl << Owners[i].Shops.products[j].counter << endl << Owners[i].Shops.products[j].month << endl << Owners[i].Shops.products[j].day << endl;
 				}
 			}
 		}
@@ -340,7 +342,7 @@ void sChoice()
 	char choice, cont;
 	system("cls");
 	do {
-		cout << "\n Press -- 1 -- To Search For A Product. \n\n Press -- 2 -- To View All Products. \n\n Press -- 3 -- To Edit Your Information. \n\n press -- 4 -- To view your Purchase History \n\n Press -- 5 -- To Delete Your Account. \n\n";
+		cout << "\n Press -- 1 -- To Search For A Product. \n\n Press -- 2 -- To View All Products. \n\n Press -- 3 -- To Edit Your Information. \n\n Press -- 4 -- To view your Purchase History. \n\n Press -- 5 -- To Delete Your Account.  \n\n Press -- 6 -- To send Gifts. \n\n";
 		cout << "Choice : ";
 		cin >> choice;
 		system("cls");
@@ -361,8 +363,12 @@ void sChoice()
 		case '5':
 			del(LogIndex);
 			break;
+		case '6':
+			gifts();
+			break;
 		default:
 			cout << "\n\n!!!  Invalid Choice  !!!\n\n";
+			break;
 		}
 		system("cls");
 		cout << "\n\nPress -- Y -- To Return To Menu. \n\npress -- E -- To Exit\n\n";
@@ -444,10 +450,10 @@ void viewproducts()
 			if (Owners[i].Shops.products[j].productPrice != 0)
 			{
 				if (Owners[i].Shops.products[j].Category == "Clothing") {
-					cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "          " << Owners[i].Shops.products[j].Clothes.Size << "       " << Owners[i].Shops.products[j].Clothes.Type << "      " << Owners[i].Shops.products[j].Clothes.Color << "\n";
+					cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "$\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "          " << Owners[i].Shops.products[j].Clothes.Size << "       " << Owners[i].Shops.products[j].Clothes.Type << "      " << Owners[i].Shops.products[j].Clothes.Color << "\n";
 				}
 				else {
-					cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+					cout << number << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "$\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
 				}
 
 				c.num[z].x = i;
@@ -1855,6 +1861,7 @@ void OLchoice()
 			cout << "\n\nWould You Like To Try Again?  [ Y / N ]  \n\n";
 			cout << "Choice : ";
 			cin >> Logchoice;
+			system("cls");
 		}
 		else
 		{
@@ -2193,8 +2200,8 @@ void Rating()
 					rate = false;
 					Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].counter++;
 					Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].sum += rating;
-					Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].avgRating = round(Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].sum / Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].counter);
-					cout << "The Rating of " << Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].productName << " is " << Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].avgRating;
+					Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].avgRating = Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].sum / Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].counter;
+					cout << "The Rating of " << Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].productName << " is " << Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].avgRating << endl;
 					break;
 				}
 				else
@@ -2317,4 +2324,70 @@ void discCheck()
 			}
 		}
 	}
+}
+
+void gifts() {
+	do {
+		int choice1;
+		char choice2;
+		cout << "Do you want to send the gift to a Man or a Woman." << endl;
+		cout << "[1] MAN. \n\n";
+		cout << "[2] WOMAN.\n\n";
+		cout << "Choice:";
+		cin >> choice1;
+		system("pause");
+		system("cls");
+		cout << "-Product Name- " << "-  Product Price  -" << "-  Product Category  -" << "-  Product Quantity  -" << "-  Avg. Rating  -" << "- Size -" << "- Type -" << "- Color -" << "\n" << endl;
+		if (choice1 == 1) {
+			for (int i = 0; i < maxOwners; i++) {
+				for (int j = 0; j < maxProds; j++) {
+					if (Owners[i].Shops.products[j].productPrice != 0) {
+						if (Owners[i].Shops.products[j].Category == "Clothing") {
+							if (Owners[i].Shops.products[j].Clothes.Type == 'm') {
+								cout << Owners[i].Shops.products[j].productName << "  \t  " << Owners[i].Shops.products[j].productPrice << "$" << "   \t  " << Owners[i].Shops.products[j].Category << "  \t " << Owners[i].Shops.products[j].Quantity << "  \t  " << Owners[i].Shops.products[j].Clothes.Size << "  \t  " << Owners[i].Shops.products[j].Clothes.Type << "   \t  " << Owners[i].Shops.products[j].Clothes.Color << endl;
+
+							}
+						}
+						else {
+							if (Owners[i].Shops.products[j].Category != "Makeup&Acessories") {
+								cout << Owners[i].Shops.products[j].productName << "  \t  " << Owners[i].Shops.products[j].productPrice << "$" << "   \t  " << Owners[i].Shops.products[j].Category << "  \t " << Owners[i].Shops.products[j].Quantity << endl;
+							}
+						}
+					}
+
+				}
+			}
+		}
+		else if (choice1 == 2) {
+			for (int i = 0; i < maxOwners; i++) {
+				for (int j = 0; j < maxProds; j++) {
+					if (Owners[i].ID != 0) {
+						if (Owners[i].Shops.products[j].Category == "Clothing") {
+							if (Owners[i].Shops.products[j].Clothes.Type == 'f') {
+								cout << Owners[i].Shops.products[j].productName << "  \t  " << Owners[i].Shops.products[j].productPrice << "$" << "   \t  " << Owners[i].Shops.products[j].Category << "  \t " << Owners[i].Shops.products[j].Quantity << "  \t  " << Owners[i].Shops.products[j].Clothes.Type << "   \t  " << Owners[i].Shops.products[j].Clothes.Size << "  \t  " << Owners[i].Shops.products[j].Clothes.Color << endl;
+
+							}
+						}
+						else {
+							cout << Owners[j].Shops.products[i].productName << "  \t  " << Owners[j].Shops.products[i].productPrice << "$" << "   \t  " << Owners[j].Shops.products[i].Category << "  \t " << Owners[j].Shops.products[i].Quantity << endl << endl;
+						}
+					}
+				}
+			}
+		}
+		else
+			cout << "invalid choice.\n\n";
+
+		cout << "Do you want to send another Gift (Y/N)\n";
+		cout << "Choice:";
+		cin >> choice2;
+		if (choice2 == 'y' || choice1 == 'Y')
+		{
+			continue;
+		}
+		else if (choice2 == 'n' || choice2 == 'N')
+		{
+			break;
+		}
+	} while (true);
 }
