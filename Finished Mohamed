@@ -140,6 +140,7 @@ void discCheck();
 void gifts();
 void ByCategory();
 void fchoice();
+void filters();
 void priceFilter();
 void shopFilter();
 
