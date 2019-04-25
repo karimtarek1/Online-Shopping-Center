@@ -4,6 +4,8 @@
 #include <conio.h>
 #include<fstream>
 #include <sstream>
+#include <windows.h>
+#include <stdio.h>
 using namespace std;
 
 const int maxShoppers = 25, maxOwners = 25, maxProds = 10, maxPass = 32;
@@ -152,13 +154,10 @@ int main() {
 	cout << "**************************************************----------------******************************************************\n";
 	cout << "************************************---- WELCOME TO THE ONLINE SHOPPING STORE ----**************************************\n";
 	cout << "**************************************************----------------******************************************************\n\n\n";
-	do {
-		cout << "Please Enter today's Date : \n";
-		cout << "\n\nDay : ";
-		cin >> day;
-		cout << "\n\nMonth : ";
-		cin >> month;
-	} while (day > 31 || month > 12);
+	SYSTEMTIME st;
+	GetSystemTime(&st);
+	day = st.wDay;
+	month = st.wMonth;
 	discCheck();
 	system("cls");
 	cout << "\n\nToday's Date : " << day << " / " << month << " / 2019 \n\n";
@@ -2599,10 +2598,10 @@ void filters()
 {
 	char filterchoice, priceChoice = { 0 };
 	const int row = 50, col = 6;
-	string filters[row][col] = { {"[$1 - $20]" , "[$20 - $50]" , "[$50 - $200]" , "[$200 - $500]" , "[$500 - $1000]" , "[$1000+]"} , {""}};
+	string filters[row][col] = { {"[$1 - $20]" , "[$20 - $50]" , "[$50 - $200]" , "[$200 - $500]" , "[$500 - $1000]" , "[$1000+]"} , {""} };
 	bool flag = true, flag2 = false;
 	do {
-		cout << "Do you want to filter products by Prices (Y/N)?";
+		cout << "Do you want to filter products by Prices (Y/N)? ";
 		cin >> filterchoice;
 		if (filterchoice == 'Y' || filterchoice == 'y')
 		{
