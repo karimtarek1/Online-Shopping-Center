@@ -2598,11 +2598,11 @@ void ByCategory()
 void filters()
 {
 	char filterchoice, priceChoice = { 0 };
-	const int row = 42, col = 6;
+	const int row = 50, col = 6;
 	string filters[row][col] = { {"[$1 - $20]" , "[$20 - $50]" , "[$50 - $200]" , "[$200 - $500]" , "[$500 - $1000]" , "[$1000+]"} , {0} };
 	bool flag = true, flag2 = false;
 	do {
-		cout << "Do you want to filter by Price (Y/N)?";
+		cout << "Do you want to filter products by Prices (Y/N)?";
 		cin >> filterchoice;
 		if (filterchoice == 'Y' || filterchoice == 'y')
 		{
@@ -2614,14 +2614,14 @@ void filters()
 				{
 					if (Owners[i].Shops.products[j].productPrice >= 1 && Owners[i].Shops.products[j].productPrice <= 20)
 					{
-						for (int k = 0; k < row; k++)
+						for (int k = 1; k < row; k++)
 						{
 							filters[k][0] = Owners[i].Shops.products[j].productName;
 						}
 					}
 					if (Owners[i].Shops.products[j].productPrice >= 20 && Owners[i].Shops.products[j].productPrice <= 50)
 					{
-						for (int k = 0; k < row; k++)
+						for (int k = 1; k < row; k++)
 						{
 							filters[k][1] = Owners[i].Shops.products[j].productName;
 						}
@@ -2635,21 +2635,21 @@ void filters()
 					}
 					if (Owners[i].Shops.products[j].productPrice >= 200 && Owners[i].Shops.products[j].productPrice <= 500)
 					{
-						for (int k = 0; k < row; k++)
+						for (int k = 1; k < row; k++)
 						{
 							filters[k][3] = Owners[i].Shops.products[j].productName;
 						}
 					}
 					if (Owners[i].Shops.products[j].productPrice >= 500 && Owners[i].Shops.products[j].productPrice < 1000)
 					{
-						for (int k = 0; k < row; k++)
+						for (int k = 1; k < row; k++)
 						{
 							filters[k][4] = Owners[i].Shops.products[j].productName;
 						}
 					}
 					if (Owners[i].Shops.products[j].productPrice >= 1000)
 					{
-						for (int k = 0; k < row; k++)
+						for (int k = 1; k < row; k++)
 						{
 							filters[k][5] = Owners[i].Shops.products[j].productName;
 						}
@@ -2675,7 +2675,7 @@ void filters()
 			{
 				if (filters[i][j] != "")
 				{
-					cout << filters[i][j] << endl;
+					cout << j + 1 << ") " <<filters[i][j] << endl;
 				}
 			}
 		}
@@ -2686,7 +2686,7 @@ void fchoice() {
 
 	char choice;
 	bool flag = true;
-	cout << "Filter by :\n1 ) Price\n2 ) Category\n3) Shop \n";
+	cout << "Filter by :\n1 ) Price\n2 ) Category\n3 ) Shop \n";
 	cout << "Choice : ";
 	cin >> choice;
 	do {
@@ -2716,7 +2716,7 @@ void fchoice() {
 void priceFilter()
 {
 	char choice;
-	cout << "1 - ($1 - $20)\n2 - ($20 - $50)\n3 - ($50 - $200)\n4 - ($200 - $500)\n5 - ($500 - $1000)\n6 - ($1000+)";
+	cout << "\n1] ($1 - $20)\n2] ($20 - $50)\n3] ($50 - $200)\n4] ($200 - $500)\n5] ($500 - $1000)\n6] ($1000+)" << endl << endl;
 	cout << "Choice : ";
 	cin >> choice;
 	switch (choice)
