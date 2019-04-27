@@ -271,15 +271,15 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	sf::Font fontpass;
 	fontpass.loadFromFile("Roboto-MediumItalic.ttf");
-	sf::String pass;
-	sf::Text textpass(pass, fontpass, 25);
+	sf::String passout;
+	sf::Text textpass(passout, fontpass, 25);
 	textpass.setFillColor(sf::Color::Black);
 	textpass.setPosition(200, 55);
 
 	sf::Font fontc;
 	fontc.loadFromFile("Roboto-MediumItalic.ttf");
-	sf::String conf;
-	sf::Text textconf(conf, fontc, 25);
+	sf::String confout;
+	sf::Text textconf(confout, fontc, 25);
 	textconf.setFillColor(sf::Color::Black);
 	textconf.setPosition(200, 95);
 
@@ -409,31 +409,47 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	textid.setString("    Your ID Is : ");
 	textid.setCharacterSize(40);
 	textid.setFillColor(sf::Color::White);
-	textid.setPosition(200, 400);
+	textid.setPosition(190, 430);
 	textid.setStyle(sf::Text::Bold);
 
 	sf::Font fontk;
 	fontk.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textk;
 	textk.setFont(fontz);
-	textk.setString("  Please fill the spaces ");
-	textk.setCharacterSize(30);
+	textk.setString("  ** Please fill the spaces ** ");
+	textk.setCharacterSize(28);
 	textk.setFillColor(sf::Color::White);
-	textk.setPosition(300 , 400);
+	textk.setPosition(190 , 430);
 	textk.setStyle(sf::Text::Bold);
 
 	sf::Font fontn;
 	fontn.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textn;
 	textn.setFont(fontz);
-	textn.setString("    Password Must Be At Least 6 Digits  ");
-	textn.setCharacterSize(30);
+	textn.setString("  ** Password Must Be At Least 6 Digits **  ");
+	textn.setCharacterSize(28);
 	textn.setFillColor(sf::Color::White);
-	textn.setPosition(10, 90);
+	textn.setPosition(150, 430);
 	textn.setStyle(sf::Text::Bold);
 
+	sf::String pass;
+	sf::String conf;
+
+
+	sf::Font fontj;
+	fontj.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textj;
+	textj.setFont(fontz);
+	textj.setString ("  ** password Does Not Match ** ");
+	textj.setCharacterSize(28);
+	textj.setFillColor(sf::Color::White);
+	textj.setPosition(190, 430);
+	textj.setStyle(sf::Text::Bold);
+
 	int active;
-	
+	bool fill = false;
+	bool password = false;
+	bool numpassword = false;
 
 	while (window.isOpen()) {
 
@@ -481,21 +497,31 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 				}
 				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() == 0 || age.getSize() == 0 || name.getSize() == 0 || city.getSize() == 0 && country.getSize() == 0) {
-					window.draw(textn);
+					fill = true;
+					password = false;
+					numpassword = false;
 				}
-				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() > 5 && conf.getSize() > 5 && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() > 5&& pass == conf  && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
 	
-					char *cstr = new char[(name.getSize()) + 1];
-					copy(name.begin(), name.end(), cstr);
-					cstr[name.getSize()] = '\0';
-					
+					char *cstr = new char[(pass.getSize()) + 1];
+					copy(pass.begin(), pass.end(), cstr);
+					cstr[pass.getSize()] = '\0';
+
 					cout << cstr;
 
 				
 					regshop(window, photo);
 				}
-				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() <= 5 || conf.getSize() <= 5 &&  pass == conf && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
-					window.draw(textk);
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 &&  pass.getSize() > 5 && conf.getSize() > 5 && pass != conf && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+					
+					numpassword = false;
+					fill = false;
+					password = true;
+				}
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() < 5 || conf.getSize() < 5 && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+					password = false;
+					numpassword = true;
+					fill = false;
 				}
 				else
 
@@ -514,21 +540,25 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 					textname.setString(name);
 				}
 				if (active == 2 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-					pass += "*";
-					textpass.setString(pass);
+					pass += event.text.unicode;
+					passout += "*";
+					textpass.setString(passout);
 
 				}
 				else if (active == 2 && event.text.unicode == 8 && pass.getSize() > 0) {
 					pass.erase(pass.getSize() - 1, pass.getSize());
-					textpass.setString(pass);
+					passout.erase(passout.getSize() - 1, passout.getSize());
+					textpass.setString(passout);
 				}
 				if (active == 3 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-					conf += "*";
-					textconf.setString(conf);
+					conf += event.text.unicode;
+					confout += "*";
+					textconf.setString(confout);
 				}
 				else if (active == 3 && event.text.unicode == 8 && conf.getSize() > 0) {
 					conf.erase(conf.getSize() - 1, conf.getSize());
-					textconf.setString(conf);
+					confout.erase(confout.getSize() - 1, confout.getSize());
+					textconf.setString(confout);
 				}
 				if (active == 4 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
 					age += event.text.unicode;
@@ -591,6 +621,12 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 			window.draw(textgend);
 			window.draw(textcity);
 			window.draw(textcountry);
+			if (fill)
+				window.draw(textk);
+			if (password)
+				window.draw(textj);
+			if (numpassword)
+				window.draw(textn);
 
 			window.display();
 
@@ -603,7 +639,7 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	
 
 	sf::RectangleShape choice1(sf::Vector2f(550.0f, 20.0f));
-	choice1.setPosition(sf::Vector2f(200,20 ));
+	choice1.setPosition(sf::Vector2f(200, 20));
 	choice1.setFillColor(sf::Color::White);
 	choice1.setOutlineColor(sf::Color::White);
 	choice1.setOutlineThickness(7);
@@ -613,14 +649,14 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choice2.setFillColor(sf::Color::White);
 	choice2.setOutlineColor(sf::Color::White);
 	choice2.setOutlineThickness(7);
-	
+
 	sf::RectangleShape choice3(sf::Vector2f(550.0f, 20.0f));
 	choice3.setPosition(sf::Vector2f(200, 100));
 	choice3.setFillColor(sf::Color::White);
 	choice3.setOutlineColor(sf::Color::White);
 	choice3.setOutlineThickness(7);
 
-    sf::RectangleShape choice4(sf::Vector2f(550.0f, 20.0f));
+	sf::RectangleShape choice4(sf::Vector2f(550.0f, 20.0f));
 	choice4.setPosition(sf::Vector2f(200, 140));
 	choice4.setFillColor(sf::Color::White);
 	choice4.setOutlineColor(sf::Color::White);
@@ -631,14 +667,14 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choice5.setFillColor(sf::Color::White);
 	choice5.setOutlineColor(sf::Color::White);
 	choice5.setOutlineThickness(7);
-	
+
 	sf::RectangleShape choice6(sf::Vector2f(150.0f, 20.0f));
-	choice6.setPosition(sf::Vector2f(600 , 260));
+	choice6.setPosition(sf::Vector2f(600, 260));
 	choice6.setFillColor(sf::Color::White);
 	choice6.setOutlineColor(sf::Color::White);
 	choice6.setOutlineThickness(7);
 
-	
+
 	sf::RectangleShape choice7(sf::Vector2f(550.0f, 20.0f));
 	choice7.setPosition(sf::Vector2f(200, 180));
 	choice7.setFillColor(sf::Color::White);
@@ -650,7 +686,7 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choice8.setFillColor(sf::Color::Transparent);
 	choice8.setOutlineThickness(5);
 	choice8.setOutlineColor(sf::Color::White);
-	
+
 	sf::Font fontname;
 	fontname.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String name;
@@ -660,20 +696,17 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	sf::Font fontpass;
 	fontpass.loadFromFile("Roboto-MediumItalic.ttf");
-	sf::String pass;
-	sf::Text textpass(pass, fontpass, 25);
+	sf::String passout;
+	sf::Text textpass(passout, fontpass, 25);
 	textpass.setFillColor(sf::Color::Black);
 	textpass.setPosition(200, 55);
 
 	sf::Font fontc;
 	fontc.loadFromFile("Roboto-MediumItalic.ttf");
-	sf::String conf;
-	sf::Text textconf(conf, fontc, 25);
+	sf::String confout;
+	sf::Text textconf(confout, fontc, 25);
 	textconf.setFillColor(sf::Color::Black);
 	textconf.setPosition(200, 95);
-
-	sf::String passout;
-	sf::String confout;
 
 	sf::Font fontage;
 	fontage.loadFromFile("Roboto-MediumItalic.ttf");
@@ -688,7 +721,7 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	sf::Text textgend(gender, fontage, 25);
 	textgend.setFillColor(sf::Color::Black);
 	textgend.setPosition(200, 175);
-	
+
 	sf::Font fontcity;
 	fontcity.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String city;
@@ -704,264 +737,326 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	textcountry.setPosition(600, 255);
 
 
-
 	sf::Font fonta;
 	fonta.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text texta;
-    texta.setFont(fonta);
-    texta.setString("Name             : ");
-    texta.setCharacterSize(30);
-    texta.setFillColor(sf::Color::White);
-    texta.setPosition(10, 10);
-    texta.setStyle(sf::Text::Regular);
+	texta.setFont(fonta);
+	texta.setString("Name             : ");
+	texta.setCharacterSize(30);
+	texta.setFillColor(sf::Color::White);
+	texta.setPosition(10, 10);
+	texta.setStyle(sf::Text::Regular);
 
-sf::Font fontb;
-fontb.loadFromFile("Roboto-MediumItalic.ttf");
-sf::Text textb;
-textb.setFont(fontb);
-textb.setString("Password     : ");
-textb.setCharacterSize(30);
-textb.setFillColor(sf::Color::White);
-textb.setPosition(10, 50);
-textb.setStyle(sf::Text::Regular);
+	sf::Font fontb;
+	fontb.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textb;
+	textb.setFont(fontb);
+	textb.setString("Password     : ");
+	textb.setCharacterSize(30);
+	textb.setFillColor(sf::Color::White);
+	textb.setPosition(10, 50);
+	textb.setStyle(sf::Text::Regular);
 
-sf::Font fontz;
-fontz.loadFromFile("Roboto-MediumItalic.ttf");
-sf::Text textz;
-textz.setFont(fontz);
-textz.setString("C.Password :");
-textz.setCharacterSize(30);
-textz.setFillColor(sf::Color::White);
-textz.setPosition(10, 90);
-textz.setStyle(sf::Text::Regular);
+	sf::Font fontz;
+	fontz.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textz;
+	textz.setFont(fontz);
+	textz.setString("C.Password :");
+	textz.setCharacterSize(30);
+	textz.setFillColor(sf::Color::White);
+	textz.setPosition(10, 90);
+	textz.setStyle(sf::Text::Regular);
 
-sf::Font fontl;
-fontl.loadFromFile("Roboto-MediumItalic.ttf");
-sf::Text textc;
-textc.setFont(fontc);
-textc.setString("Age                : ");
-textc.setCharacterSize(30);
-textc.setFillColor(sf::Color::White);
-textc.setPosition(10, 130);
-textc.setStyle(sf::Text::Regular);
+	sf::Font fontl;
+	fontl.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textc;
+	textc.setFont(fontc);
+	textc.setString("Age                : ");
+	textc.setCharacterSize(30);
+	textc.setFillColor(sf::Color::White);
+	textc.setPosition(10, 130);
+	textc.setStyle(sf::Text::Regular);
 
-sf::Font fontd;
-fontd.loadFromFile("Roboto-MediumItalic.ttf");
-sf::Text textd;
-textd.setFont(fontd);
-textd.setString("Gender [M/F]: ");
-textd.setCharacterSize(30);
-textd.setFillColor(sf::Color::White);
-textd.setPosition(10, 170);
-textd.setStyle(sf::Text::Regular);
+	sf::Font fontd;
+	fontd.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textd;
+	textd.setFont(fontd);
+	textd.setString("Gender [M/F]: ");
+	textd.setCharacterSize(30);
+	textd.setFillColor(sf::Color::White);
+	textd.setPosition(10, 170);
+	textd.setStyle(sf::Text::Regular);
 
-sf::Font fonte;
-fonte.loadFromFile("Roboto-MediumItalic.ttf");
-sf::Text texte;
-texte.setFont(fonte);
-texte.setString("Adress. ");
-texte.setCharacterSize(30);
-texte.setFillColor(sf::Color::White);
-texte.setPosition(10, 210);
-texte.setStyle(sf::Text::Regular);
+	sf::Font fonte;
+	fonte.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text texte;
+	texte.setFont(fonte);
+	texte.setString("Adress. ");
+	texte.setCharacterSize(30);
+	texte.setFillColor(sf::Color::White);
+	texte.setPosition(10, 210);
+	texte.setStyle(sf::Text::Regular);
 
-sf::Font fontf;
-fontf.loadFromFile("Roboto-MediumItalic.ttf");
-sf::Text textf;
-textf.setFont(fontf);
-textf.setString("city                 :");
-textf.setCharacterSize(30);
-textf.setFillColor(sf::Color::White);
-textf.setPosition(10, 250);
-textf.setStyle(sf::Text::Regular);
+	sf::Font fontf;
+	fontf.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textf;
+	textf.setFont(fontf);
+	textf.setString("city                 :");
+	textf.setCharacterSize(30);
+	textf.setFillColor(sf::Color::White);
+	textf.setPosition(10, 250);
+	textf.setStyle(sf::Text::Regular);
 
-sf::Font fontg;
-fontg.loadFromFile("Roboto-MediumItalic.ttf");
-sf::Text textg;
-textg.setFont(fontg);
-textg.setString("Country           :");
-textg.setCharacterSize(30);
-textg.setFillColor(sf::Color::White);
-textg.setPosition(400, 250);
-textg.setStyle(sf::Text::Regular);
+	sf::Font fontg;
+	fontg.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textg;
+	textg.setFont(fontg);
+	textg.setString("Country           :");
+	textg.setCharacterSize(30);
+	textg.setFillColor(sf::Color::White);
+	textg.setPosition(400, 250);
+	textg.setStyle(sf::Text::Regular);
 
-sf::Font font;
-font.loadFromFile("Roboto-MediumItalic.ttf");
-sf::Text text;
-text.setFont(font);
-text.setString("    Register ");
-text.setCharacterSize(40);
-text.setFillColor(sf::Color::White);
-text.setPosition(430, 500);
-text.setStyle(sf::Text::Bold);
+	sf::Font font;
+	font.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text;
+	text.setFont(font);
+	text.setString("      Next   ");
+	text.setCharacterSize(40);
+	text.setFillColor(sf::Color::White);
+	text.setPosition(430, 500);
+	text.setStyle(sf::Text::Bold);
 
-sf::Font fontid;
-fontid.loadFromFile("Roboto-MediumItalic.ttf");
-sf::Text textid;
-textid.setFont(font);
-textid.setString("    Your ID Is : ");
-textid.setCharacterSize(40);
-textid.setFillColor(sf::Color::White);
-textid.setPosition(200, 400);
-textid.setStyle(sf::Text::Bold);
+	sf::Font fontid;
+	fontid.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textid;
+	textid.setFont(font);
+	textid.setString("    Your ID Is : ");
+	textid.setCharacterSize(40);
+	textid.setFillColor(sf::Color::White);
+	textid.setPosition(190, 430);
+	textid.setStyle(sf::Text::Bold);
+
+	sf::Font fontk;
+	fontk.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textk;
+	textk.setFont(fontz);
+	textk.setString("  ** Please fill the spaces ** ");
+	textk.setCharacterSize(28);
+	textk.setFillColor(sf::Color::White);
+	textk.setPosition(190, 430);
+	textk.setStyle(sf::Text::Bold);
+
+	sf::Font fontn;
+	fontn.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textn;
+	textn.setFont(fontz);
+	textn.setString("  ** Password Must Be At Least 6 Digits **  ");
+	textn.setCharacterSize(28);
+	textn.setFillColor(sf::Color::White);
+	textn.setPosition(150, 430);
+	textn.setStyle(sf::Text::Bold);
+
+	sf::String pass;
+	sf::String conf;
 
 
-int active;
+	sf::Font fontj;
+	fontj.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textj;
+	textj.setFont(fontz);
+	textj.setString("  ** password Does Not Match ** ");
+	textj.setCharacterSize(28);
+	textj.setFillColor(sf::Color::White);
+	textj.setPosition(190, 430);
+	textj.setStyle(sf::Text::Bold);
 
-  while (window.isOpen()){
+	int active;
+	bool fill = false;
+	bool password = false;
+	bool numpassword = false;
 
-	sf::Event event;
-	while (window.pollEvent(event))
-	{
-		if (event.type == sf::Event::Closed)
-			window.close();
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+	while (window.isOpen()) {
 
-			sf::Vector2i localposition = sf::Mouse::getPosition(window);
-			cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 
-			if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 16 && localposition.y <= 40) {
-				active = 1;
-				cout << "name" << endl;
+				sf::Vector2i localposition = sf::Mouse::getPosition(window);
+
+				if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 16 && localposition.y <= 40) {
+					active = 1;
+					cout << "name" << endl;
+
+				}
+				else if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 55 && localposition.y <= 82) {
+					active = 2;
+					cout << "password" << endl;
+				}
+				else if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 95 && localposition.y <= 128) {
+					active = 3;
+					cout << "confirmation" << endl;
+
+				}
+				else if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 133 && localposition.y <= 165) {
+					active = 4;
+					cout << "age" << endl;
+
+				}
+				else if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 177 && localposition.y <= 199) {
+					active = 5;
+					cout << "gender" << endl;
+
+				}
+				else if (localposition.x >= 193 && localposition.x <= 355 && localposition.y >= 255 && localposition.y <= 283) {
+					active = 6;
+					cout << "city" << endl;
+
+				}
+				else if (localposition.x >= 595 && localposition.x <= 753 && localposition.y >= 255 && localposition.y <= 283) {
+					active = 7;
+					cout << "country" << endl;
+
+				}
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() == 0 || age.getSize() == 0 || name.getSize() == 0 || city.getSize() == 0 && country.getSize() == 0) {
+					fill = true;
+					password = false;
+					numpassword = false;
+				}
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() > 5 && pass == conf && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+
+					char *cstr = new char[(pass.getSize()) + 1];
+					copy(pass.begin(), pass.end(), cstr);
+					cstr[pass.getSize()] = '\0';
+
+					cout << cstr;
+
+
+					scchoice(window, photo);
+				}
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() > 5 && conf.getSize() > 5 && pass != conf && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+
+					numpassword = false;
+					fill = false;
+					password = true;
+				}
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() < 5 || conf.getSize() < 5 && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+					password = false;
+					numpassword = true;
+					fill = false;
+				}
+				else
+
+					active = 0;
 
 			}
-			else if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 55 && localposition.y <= 82) {
-				active = 2;
-				cout << "password" << endl;
-			}
-			else if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 95 && localposition.y <= 128) {
-				active = 3;
-				cout << "confirmation" << endl;
+			if (event.type == sf::Event::TextEntered) {
 
-			}
-			else if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 133 && localposition.y <= 165) {
-				active = 4;
-				cout << "age" << endl;
+				if (active == 1 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					name += event.text.unicode;
+					textname.setString(name);
+				}
+				else if (active == 1 && event.text.unicode == 8 && name.getSize() > 0)
+				{
+					name.erase(name.getSize() - 1, name.getSize());
+					textname.setString(name);
+				}
+				if (active == 2 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					pass += event.text.unicode;
+					passout += "*";
+					textpass.setString(passout);
 
+				}
+				else if (active == 2 && event.text.unicode == 8 && pass.getSize() > 0) {
+					pass.erase(pass.getSize() - 1, pass.getSize());
+					passout.erase(passout.getSize() - 1, passout.getSize());
+					textpass.setString(passout);
+				}
+				if (active == 3 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					conf += event.text.unicode;
+					confout += "*";
+					textconf.setString(confout);
+				}
+				else if (active == 3 && event.text.unicode == 8 && conf.getSize() > 0) {
+					conf.erase(conf.getSize() - 1, conf.getSize());
+					confout.erase(confout.getSize() - 1, confout.getSize());
+					textconf.setString(confout);
+				}
+				if (active == 4 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					age += event.text.unicode;
+					textage.setString(age);
+				}
+				else if (active == 4 && event.text.unicode == 8 && age.getSize() > 0) {
+					age.erase(age.getSize() - 1, age.getSize());
+					textage.setString(age);
+				}
+				if (active == 5 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					gender += event.text.unicode;
+					textgend.setString(gender);
+				}
+				else if (active == 5 && event.text.unicode == 8 && gender.getSize() > 0) {
+					gender.erase(gender.getSize() - 1, gender.getSize());
+					textgend.setString(gender);
+				}
+				if (active == 6 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					city += event.text.unicode;
+					textcity.setString(city);
+				}
+				else if (active == 6 && event.text.unicode == 8 && city.getSize() > 0) {
+					city.erase(city.getSize() - 1, city.getSize());
+					textcity.setString(city);
+				}
+				if (active == 7 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					country += event.text.unicode;
+					textcountry.setString(country);
+				}
+				else if (active == 7 && event.text.unicode == 8 && country.getSize() > 0) {
+					country.erase(country.getSize() - 1, country.getSize());
+					textcountry.setString(country);
+				}
 			}
-			else if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 177 && localposition.y <= 199) {
-				active = 5;
-				cout << "gender" << endl;
 
-			}
-			else if (localposition.x >= 193 && localposition.x <= 355 && localposition.y >= 255 && localposition.y <= 283) {
-				active = 6;
-				cout << "city" << endl;
 
-			}
-			else if (localposition.x >= 595 && localposition.x <= 753 && localposition.y >= 255 && localposition.y <= 283) {
-				active = 7;
-				cout << "country" << endl;
+			window.clear();
+			window.draw(photo);
+			window.draw(texta);
+			window.draw(textb);
+			window.draw(textc);
+			window.draw(textd);
+			window.draw(texte);
+			window.draw(textf);
+			window.draw(textg);
+			window.draw(textz);
+			window.draw(text);
+			window.draw(choice1);
+			window.draw(choice2);
+			window.draw(choice3);
+			window.draw(choice4);
+			window.draw(choice5);
+			window.draw(choice6);
+			window.draw(choice7);
+			window.draw(choice8);
+			window.draw(textname);
+			window.draw(textpass);
+			window.draw(textconf);
+			window.draw(textage);
+			window.draw(textgend);
+			window.draw(textcity);
+			window.draw(textcountry);
+			if (fill)
+				window.draw(textk);
+			if (password)
+				window.draw(textj);
+			if (numpassword)
+				window.draw(textn);
 
-			}
-			else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() > 5 &&  pass==conf  && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
-			
-				scchoice(window,photo);
-			}
-			else
-			
-				active = 0;
-			
+			window.display();
+
 		}
-		if (event.type == sf::Event::TextEntered) {
-
-			if (active == 1 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				name += event.text.unicode;
-				textname.setString(name);
-			}
-			else if (active == 1 && event.text.unicode == 8 && name.getSize() > 0)
-			{
-				name.erase(name.getSize() - 1, name.getSize());
-				textname.setString(name);
-			}
-			if (active == 2 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				pass += event.text.unicode;	
-				passout += "*";
-				textpass.setString(passout);
-				 
-			}
-			else if (active == 2 && event.text.unicode == 8 && pass.getSize() > 0) {
-				pass.erase(pass.getSize() - 1, pass.getSize());
-				passout.erase(passout.getSize() - 1, passout.getSize());
-				textpass.setString(passout);
-			}
-			if (active == 3 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				conf += event.text.unicode;
-				confout += "*";
-				textconf.setString(confout);
-			}
-			else if (active == 3 && event.text.unicode == 8 && conf.getSize() > 0) {
-				conf.erase(conf.getSize() - 1, conf.getSize());
-				confout.erase(confout.getSize() - 1, confout.getSize());
-				textconf.setString(confout);
-				
-			}
-			if (active == 4 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				age += event.text.unicode;
-				textage.setString(age);
-			}
-			else if (active == 4 && event.text.unicode == 8 && age.getSize() > 0) {
-				age.erase(age.getSize() - 1, age.getSize());
-				textage.setString(age);
-			}
-			if (active == 5 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				gender += event.text.unicode;
-				textgend.setString(gender);
-			}
-			else if (active == 5 && event.text.unicode == 8 && gender.getSize() > 0) {
-				gender.erase(gender.getSize() - 1, gender.getSize());
-				textgend.setString(gender);
-			}
-			if (active == 6 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				city += event.text.unicode;
-				textcity.setString(city);
-			}
-			else if (active == 6 && event.text.unicode == 8 && city.getSize() > 0) {
-				city.erase(city.getSize() - 1, city.getSize());
-				textcity.setString(city);
-			}
-			if (active == 7 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				country += event.text.unicode;
-				textcountry.setString(country);
-			}
-			else if (active == 7 && event.text.unicode == 8 && country.getSize() > 0) {
-				country.erase(country.getSize() - 1, country.getSize());
-				textcountry.setString(country);
-			}
-		}
-		
-		
-		window.clear();
-		window.draw(photo);
-		window.draw(texta);
-		window.draw(textb);
-		window.draw(textc);
-		window.draw(textd);
-		window.draw(texte);
-		window.draw(textf);
-		window.draw(textg);
-		window.draw(textz);	
-		window.draw(text);
-		window.draw(choice1);
-		window.draw(choice2);
-		window.draw(choice3);
-		window.draw(choice4);
-		window.draw(choice5);
-		window.draw(choice6);
-		window.draw(choice7);
-		window.draw(choice8);
-		window.draw(textname);
-		window.draw(textpass);
-		window.draw(textconf);
-		window.draw(textage);
-		window.draw(textgend);
-		window.draw(textcity);
-		window.draw(textcountry);
-		
-		window.display();
-
 	}
- }
 }
 
 void regshop(sf::RenderWindow& window, sf::RectangleShape photo) {
