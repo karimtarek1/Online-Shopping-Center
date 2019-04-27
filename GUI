@@ -1,13 +1,14 @@
+
+
 #include <SFML\Graphics.hpp>
 #include <string>
-#include <iostream>
 #include <iostream>
 #include <string.h>
 #include <conio.h>
 #include<fstream>
 #include <sstream>
-#include <windows.h>
-#include <stdio.h>
+#include <cstring>
+
 
 
 using namespace std;
@@ -110,9 +111,12 @@ struct shopper {
 }Shoppers[maxShoppers];
 
 
+
 using namespace std;
+
+void shopperchoice(sf::RenderWindow& window, sf::RectangleShape photo);
+void ownerchoice(sf::RenderWindow& window, sf::RectangleShape photo);
 void welcome(sf::RenderWindow& window, sf::RectangleShape photo);
-void choise(sf::RenderWindow& window, sf::RectangleShape photo);
 void regshoper(sf::RenderWindow& window, sf::RectangleShape photo);
 void regowner(sf::RenderWindow& window, sf::RectangleShape photo);
 void loginowner(sf::RenderWindow& window, sf::RectangleShape photo);
@@ -137,6 +141,8 @@ int main() {
 
 	return 0;
 }
+
+
 
 void welcome(sf::RenderWindow& window, sf::RectangleShape photo) {
 	sf::Font font;
@@ -178,22 +184,18 @@ void welcome(sf::RenderWindow& window, sf::RectangleShape photo) {
 				window.close();
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 				sf::Vector2i local_position = sf::Mouse::getPosition(window);
-				textn.setFillColor(sf::Color::White);
-				text.setFillColor(sf::Color::White);
-				choicee.setOutlineColor(sf::Color::White);
-				choice.setOutlineColor(sf::Color::White);
 				cout << '(' << local_position.x << ',' << local_position.y << ')' << endl;
 				if (local_position.x >= 146 && local_position.x <= 352 && local_position.y >= 487 && local_position.y <= 570) {
 					choice.setOutlineColor(sf::Color::Red);
 					textn.setFillColor(sf::Color::Red);
 					window.clear();
-					choise(window, photo);
+					ownerchoice(window, photo);
 					break;
 				}
 				else if (local_position.x >= 446 && local_position.x <= 651 && local_position.y >= 487 && local_position.y <= 570) {
 					text.setFillColor(sf::Color::Red);
 					choicee.setOutlineColor(sf::Color::Red);
-					choise(window, photo);
+					shopperchoice(window, photo);
 					break;
 				}
 			}
@@ -207,77 +209,7 @@ void welcome(sf::RenderWindow& window, sf::RectangleShape photo) {
 	}
 }
 
-void choise(sf::RenderWindow& window, sf::RectangleShape photo) {
 
-
-	sf::Font font;
-	font.loadFromFile("Roboto-MediumItalic.ttf");
-	sf::Text text;
-	text.setFont(font);
-	text.setString("     login ");
-	text.setCharacterSize(40);
-	text.setFillColor(sf::Color::White);
-	text.setPosition(450, 500);
-	text.setStyle(sf::Text::Bold);
-
-	sf::Text textn;
-	textn.setFont(font);
-	textn.setString("Registration ");
-	textn.setCharacterSize(35);
-	textn.setFillColor(sf::Color::White);
-	textn.setPosition(150, 500);
-	textn.setStyle(sf::Text::Bold);
-
-	sf::RectangleShape choice(sf::Vector2f(200.0f, 80.0f));
-	choice.setPosition(sf::Vector2f(150, 490));
-	choice.setFillColor(sf::Color::Transparent);
-	choice.setOutlineThickness(5);
-	choice.setOutlineColor(sf::Color::White);
-	sf::RectangleShape choicee(sf::Vector2f(200.0f, 80.0f));
-	choicee.setPosition(sf::Vector2f(450, 490));
-	choicee.setFillColor(sf::Color::Transparent);
-	choicee.setOutlineThickness(5);
-	choicee.setOutlineColor(sf::Color::White);
-
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				sf::Vector2i local_position = sf::Mouse::getPosition(window);
-				textn.setFillColor(sf::Color::White);
-				text.setFillColor(sf::Color::White);
-				choicee.setOutlineColor(sf::Color::White);
-				choice.setOutlineColor(sf::Color::White);
-				cout << '(' << local_position.x << ',' << local_position.y << ')' << endl;
-				if (local_position.x >= 146 && local_position.x <= 352 && local_position.y >= 487 && local_position.y <= 570) {
-					choice.setOutlineColor(sf::Color::Red);
-					textn.setFillColor(sf::Color::Red);
-					window.clear();
-					regowner(window, photo);
-					break;
-				}
-				else if (local_position.x >= 446 && local_position.x <= 651 && local_position.y >= 487 && local_position.y <= 570) {
-					text.setFillColor(sf::Color::Red);
-					choicee.setOutlineColor(sf::Color::Red);
-					loginshopper(window, photo);
-					break;
-				}
-			}
-		}
-		window.draw(photo);
-		window.draw(choice);
-		window.draw(choicee);
-		window.draw(text);
-		window.draw(textn);
-		window.display();
-	}
-
-
-}
 
 void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 
@@ -501,6 +433,7 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	textn.setStyle(sf::Text::Bold);
 
 	int active;
+	
 
 	while (window.isOpen()) {
 
@@ -551,9 +484,17 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 					window.draw(textn);
 				}
 				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() > 5 && conf.getSize() > 5 && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+	
+					char *cstr = new char[(name.getSize()) + 1];
+					copy(name.begin(), name.end(), cstr);
+					cstr[name.getSize()] = '\0';
+					
+					cout << cstr;
+
+				
 					regshop(window, photo);
 				}
-				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() <= 5 || conf.getSize() <= 5 && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() <= 5 || conf.getSize() <= 5 &&  pass == conf && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
 					window.draw(textk);
 				}
 				else
@@ -659,6 +600,8 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 
+	
+
 	sf::RectangleShape choice1(sf::Vector2f(550.0f, 20.0f));
 	choice1.setPosition(sf::Vector2f(200,20 ));
 	choice1.setFillColor(sf::Color::White);
@@ -729,6 +672,9 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	textconf.setFillColor(sf::Color::Black);
 	textconf.setPosition(200, 95);
 
+	sf::String passout;
+	sf::String confout;
+
 	sf::Font fontage;
 	fontage.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String age;
@@ -756,6 +702,7 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	sf::Text textcountry(country, fontcountry, 25);
 	textcountry.setFillColor(sf::Color::Black);
 	textcountry.setPosition(600, 255);
+
 
 
 	sf::Font fonta;
@@ -871,6 +818,7 @@ int active;
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 
 			sf::Vector2i localposition = sf::Mouse::getPosition(window);
+			cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
 
 			if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 16 && localposition.y <= 40) {
 				active = 1;
@@ -906,7 +854,8 @@ int active;
 				cout << "country" << endl;
 
 			}
-			else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() > 5 && conf.getSize() > 5 && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+			else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() > 5 &&  pass==conf  && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+			
 				scchoice(window,photo);
 			}
 			else
@@ -926,21 +875,26 @@ int active;
 				textname.setString(name);
 			}
 			if (active == 2 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				pass += "*";
-				textpass.setString(pass);
+				pass += event.text.unicode;	
+				passout += "*";
+				textpass.setString(passout);
 				 
 			}
 			else if (active == 2 && event.text.unicode == 8 && pass.getSize() > 0) {
 				pass.erase(pass.getSize() - 1, pass.getSize());
-				textpass.setString(pass);
+				passout.erase(passout.getSize() - 1, passout.getSize());
+				textpass.setString(passout);
 			}
 			if (active == 3 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				conf += "*";
-				textconf.setString(conf);
+				conf += event.text.unicode;
+				confout += "*";
+				textconf.setString(confout);
 			}
 			else if (active == 3 && event.text.unicode == 8 && conf.getSize() > 0) {
 				conf.erase(conf.getSize() - 1, conf.getSize());
-				textconf.setString(conf);
+				confout.erase(confout.getSize() - 1, confout.getSize());
+				textconf.setString(confout);
+				
 			}
 			if (active == 4 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
 				age += event.text.unicode;
@@ -1390,6 +1344,9 @@ void loginshopper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	sf::Text textid(id, fontid, 25);
 	textid.setFillColor(sf::Color::Black);
 	textid.setPosition(200, 14);
+	 
+	sf::String passout;
+
 
 	sf::Font fontpass;
 	fontpass.loadFromFile("Roboto-MediumItalic.ttf");
@@ -1421,8 +1378,15 @@ void loginshopper(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << "password" << endl;
 
 				}
-				else if (localposition.x >= 145 && localposition.x <= 354 && localposition.y >= 485 && localposition.y <= 570 && pass.getSize() > 5 && id.getSize() > 0)
+				else if (localposition.x >= 145 && localposition.x <= 354 && localposition.y >= 485 && localposition.y <= 570 && pass.getSize() > 5 && id.getSize() > 0) {
+					char *cstr = new char[(pass.getSize()) + 1];
+					copy(pass.begin(), pass.end(), cstr);
+					cstr[pass.getSize()] = '\0';
+
+					cout << cstr;
+
 					scchoice(window, photo);
+				}
 				else
 					active = 0;
 			}
@@ -1438,13 +1402,15 @@ void loginshopper(sf::RenderWindow& window, sf::RectangleShape photo) {
 					textid.setString(id);
 				}
 				if (active == 2 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-					pass += "*";
-					textpass.setString(pass);
+					pass += event.text.unicode;
+					passout += "*";
+					textpass.setString(passout);
 
 				}
 				else if (active == 2 && event.text.unicode == 8 && pass.getSize() > 0) {
+					passout.erase(passout.getSize() - 1, passout.getSize());
 					pass.erase(pass.getSize() - 1, pass.getSize());
-					textpass.setString(pass);
+					textpass.setString(passout);
 				}
 				
 			}
@@ -1797,5 +1763,148 @@ void loginowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	}
 
 
+
+}
+
+void ownerchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
+
+
+	sf::Font font;
+	font.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text;
+	text.setFont(font);
+	text.setString("     login ");
+	text.setCharacterSize(40);
+	text.setFillColor(sf::Color::White);
+	text.setPosition(450, 500);
+	text.setStyle(sf::Text::Bold);
+
+	sf::Text textn;
+	textn.setFont(font);
+	textn.setString("Registration ");
+	textn.setCharacterSize(35);
+	textn.setFillColor(sf::Color::White);
+	textn.setPosition(150, 500);
+	textn.setStyle(sf::Text::Bold);
+
+	sf::RectangleShape choice(sf::Vector2f(200.0f, 80.0f));
+	choice.setPosition(sf::Vector2f(150, 490));
+	choice.setFillColor(sf::Color::Transparent);
+	choice.setOutlineThickness(5);
+	choice.setOutlineColor(sf::Color::White);
+	sf::RectangleShape choicee(sf::Vector2f(200.0f, 80.0f));
+	choicee.setPosition(sf::Vector2f(450, 490));
+	choicee.setFillColor(sf::Color::Transparent);
+	choicee.setOutlineThickness(5);
+	choicee.setOutlineColor(sf::Color::White);
+
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				sf::Vector2i local_position = sf::Mouse::getPosition(window);
+				textn.setFillColor(sf::Color::White);
+				text.setFillColor(sf::Color::White);
+				choicee.setOutlineColor(sf::Color::White);
+				choice.setOutlineColor(sf::Color::White);
+				cout << '(' << local_position.x << ',' << local_position.y << ')' << endl;
+				if (local_position.x >= 146 && local_position.x <= 352 && local_position.y >= 487 && local_position.y <= 570) {
+					choice.setOutlineColor(sf::Color::Red);
+					textn.setFillColor(sf::Color::Red);
+					window.clear();
+					regowner(window, photo);
+					break;
+				}
+				else if (local_position.x >= 446 && local_position.x <= 651 && local_position.y >= 487 && local_position.y <= 570) {
+					text.setFillColor(sf::Color::Red);
+					choicee.setOutlineColor(sf::Color::Red);
+					loginowner(window, photo);
+					break;
+				}
+			}
+		}
+		window.draw(photo);
+		window.draw(choice);
+		window.draw(choicee);
+		window.draw(text);
+		window.draw(textn);
+		window.display();
+	}
+
+
+
+}
+
+void shopperchoice (sf::RenderWindow& window, sf::RectangleShape photo) {
+
+	sf::Font font;
+	font.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text;
+	text.setFont(font);
+	text.setString("     login ");
+	text.setCharacterSize(40);
+	text.setFillColor(sf::Color::White);
+	text.setPosition(450, 500);
+	text.setStyle(sf::Text::Bold);
+
+	sf::Text textn;
+	textn.setFont(font);
+	textn.setString("Registration ");
+	textn.setCharacterSize(35);
+	textn.setFillColor(sf::Color::White);
+	textn.setPosition(150, 500);
+	textn.setStyle(sf::Text::Bold);
+
+	sf::RectangleShape choice(sf::Vector2f(200.0f, 80.0f));
+	choice.setPosition(sf::Vector2f(150, 490));
+	choice.setFillColor(sf::Color::Transparent);
+	choice.setOutlineThickness(5);
+	choice.setOutlineColor(sf::Color::White);
+	sf::RectangleShape choicee(sf::Vector2f(200.0f, 80.0f));
+	choicee.setPosition(sf::Vector2f(450, 490));
+	choicee.setFillColor(sf::Color::Transparent);
+	choicee.setOutlineThickness(5);
+	choicee.setOutlineColor(sf::Color::White);
+
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				sf::Vector2i local_position = sf::Mouse::getPosition(window);
+				textn.setFillColor(sf::Color::White);
+				text.setFillColor(sf::Color::White);
+				choicee.setOutlineColor(sf::Color::White);
+				choice.setOutlineColor(sf::Color::White);
+				cout << '(' << local_position.x << ',' << local_position.y << ')' << endl;
+				if (local_position.x >= 146 && local_position.x <= 352 && local_position.y >= 487 && local_position.y <= 570) {
+					choice.setOutlineColor(sf::Color::Red);
+					textn.setFillColor(sf::Color::Red);
+					window.clear();
+					regshoper(window, photo);
+					break;
+				}
+				else if (local_position.x >= 446 && local_position.x <= 651 && local_position.y >= 487 && local_position.y <= 570) {
+					text.setFillColor(sf::Color::Red);
+					choicee.setOutlineColor(sf::Color::Red);
+					loginshopper(window, photo);
+					break;
+				}
+			}
+		}
+		window.draw(photo);
+		window.draw(choice);
+		window.draw(choicee);
+		window.draw(text);
+		window.draw(textn);
+		window.display();
+	}
 
 }
