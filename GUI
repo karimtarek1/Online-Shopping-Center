@@ -3,6 +3,14 @@
 #include <SFML\Graphics.hpp>
 #include <string>
 #include <iostream>
+
+
+
+
+
+
+
+
 #include <string.h>
 #include <conio.h>
 #include<fstream>
@@ -125,6 +133,7 @@ void scchoice(sf::RenderWindow& window, sf::RectangleShape photo);
 void search(sf::RenderWindow& window, sf::RectangleShape photo);
 void regshop(sf::RenderWindow& window, sf::RectangleShape photo);
 void prodchoice(sf::RenderWindow& window, sf::RectangleShape photo);
+void editshoper(sf::RenderWindow& window, sf::RectangleShape photo);
 
 
 int main() {
@@ -136,7 +145,6 @@ int main() {
 	wallpaper.loadFromFile("grunge-background-black-texture-450w-345043661 (1).jpg");
 	photo.setTexture(&wallpaper);
 	
-
 	welcome(window, photo);
 
 	return 0;
@@ -209,8 +217,6 @@ void welcome(sf::RenderWindow& window, sf::RectangleShape photo) {
 	}
 }
 
-
-
 void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	sf::RectangleShape choice1(sf::Vector2f(550.0f, 20.0f));
@@ -250,11 +256,17 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choice6.setOutlineThickness(7);
 
 
-	sf::RectangleShape choice7(sf::Vector2f(550.0f, 20.0f));
-	choice7.setPosition(sf::Vector2f(200, 180));
-	choice7.setFillColor(sf::Color::White);
-	choice7.setOutlineThickness(7);
-	choice7.setOutlineColor(sf::Color::White);
+	sf::RectangleShape choice71(sf::Vector2f(150.0f, 20.0f));
+	choice71.setPosition(sf::Vector2f(200, 180));
+	choice71.setFillColor(sf::Color::Transparent);
+	choice71.setOutlineThickness(3);
+	choice71.setOutlineColor(sf::Color::White);
+
+	sf::RectangleShape choice72(sf::Vector2f(150.0f, 20.0f));
+	choice72.setPosition(sf::Vector2f(400, 180));
+	choice72.setFillColor(sf::Color::Transparent);
+	choice72.setOutlineThickness(3);
+	choice72.setOutlineColor(sf::Color::White);
 
 	sf::RectangleShape choice8(sf::Vector2f(200.0f, 80.0f));
 	choice8.setPosition(sf::Vector2f(450, 490));
@@ -356,11 +368,31 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fontd.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textd;
 	textd.setFont(fontd);
-	textd.setString("Gender [M/F]: ");
+	textd.setString("Gender          : ");
 	textd.setCharacterSize(30);
 	textd.setFillColor(sf::Color::White);
 	textd.setPosition(10, 170);
 	textd.setStyle(sf::Text::Regular);
+
+	sf::Font fontq;
+	fontq.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textq;
+	textq.setFont(fonta);
+	textq.setString("    Male ");
+	textq.setCharacterSize(20);
+	textq.setFillColor(sf::Color::White);
+	textq.setPosition(235, 177);
+	textq.setStyle(sf::Text::Regular); 
+	
+	sf::Font fontw;
+	fontw.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textw;
+	textw.setFont(fonta);
+	textw.setString(" Female ");
+	textw.setCharacterSize(20);
+	textw.setFillColor(sf::Color::White);
+	textw.setPosition(435, 177);
+	textw.setStyle(sf::Text::Regular);
 
 	sf::Font fonte;
 	fonte.loadFromFile("Roboto-MediumItalic.ttf");
@@ -459,9 +491,9 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 			if (event.type == sf::Event::Closed)
 				window.close();
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-
+			
 				sf::Vector2i localposition = sf::Mouse::getPosition(window);
-
+				cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
 				if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 16 && localposition.y <= 40) {
 					active = 1;
 					cout << "name" << endl;
@@ -481,9 +513,20 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << "age" << endl;
 
 				}
-				else if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 177 && localposition.y <= 199) {
+				else if (localposition.x >= 197 && localposition.x <= 350 && localposition.y >= 177 && localposition.y <= 199) {
 					active = 5;
-					cout << "gender" << endl;
+					textq.setFillColor(sf::Color::Red);
+					choice71.setOutlineColor(sf::Color::Red);
+					cout << "male" << endl;
+					gender = ("male");
+
+				}
+				else if (localposition.x >= 397 && localposition.x <= 451 && localposition.y >= 177 && localposition.y <= 199) {
+					active = 5;
+					textw.setFillColor(sf::Color::Red);
+					choice72.setOutlineColor(sf::Color::Red);
+					cout << "female" << endl;
+					gender = ("female");
 
 				}
 				else if (localposition.x >= 193 && localposition.x <= 355 && localposition.y >= 255 && localposition.y <= 283) {
@@ -512,7 +555,7 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 				
 					regshop(window, photo);
 				}
-				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 &&  pass.getSize() > 5 && conf.getSize() > 5 && pass != conf && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && (gender == ("male") || gender == ("female")) && age.getSize() > 0 &&  pass.getSize() > 5 && conf.getSize() > 5 && pass != conf && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
 					
 					numpassword = false;
 					fill = false;
@@ -606,13 +649,16 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 			window.draw(textg);
 			window.draw(textz);
 			window.draw(text);
+			window.draw(textw);
+			window.draw(textq);
 			window.draw(choice1);
 			window.draw(choice2);
 			window.draw(choice3);
 			window.draw(choice4);
 			window.draw(choice5);
 			window.draw(choice6);
-			window.draw(choice7);
+			window.draw(choice71);
+			window.draw(choice72);
 			window.draw(choice8);
 			window.draw(textname);
 			window.draw(textpass);
@@ -675,11 +721,17 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choice6.setOutlineThickness(7);
 
 
-	sf::RectangleShape choice7(sf::Vector2f(550.0f, 20.0f));
-	choice7.setPosition(sf::Vector2f(200, 180));
-	choice7.setFillColor(sf::Color::White);
-	choice7.setOutlineThickness(7);
-	choice7.setOutlineColor(sf::Color::White);
+	sf::RectangleShape choice71(sf::Vector2f(150.0f, 20.0f));
+	choice71.setPosition(sf::Vector2f(200, 180));
+	choice71.setFillColor(sf::Color::Transparent);
+	choice71.setOutlineThickness(3);
+	choice71.setOutlineColor(sf::Color::White);
+
+	sf::RectangleShape choice72(sf::Vector2f(150.0f, 20.0f));
+	choice72.setPosition(sf::Vector2f(400, 180));
+	choice72.setFillColor(sf::Color::Transparent);
+	choice72.setOutlineThickness(3);
+	choice72.setOutlineColor(sf::Color::White);
 
 	sf::RectangleShape choice8(sf::Vector2f(200.0f, 80.0f));
 	choice8.setPosition(sf::Vector2f(450, 490));
@@ -781,11 +833,31 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fontd.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textd;
 	textd.setFont(fontd);
-	textd.setString("Gender [M/F]: ");
+	textd.setString("Gender          : ");
 	textd.setCharacterSize(30);
 	textd.setFillColor(sf::Color::White);
 	textd.setPosition(10, 170);
 	textd.setStyle(sf::Text::Regular);
+
+	sf::Font fontq;
+	fontq.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textq;
+	textq.setFont(fonta);
+	textq.setString("    Male ");
+	textq.setCharacterSize(20);
+	textq.setFillColor(sf::Color::White);
+	textq.setPosition(235, 177);
+	textq.setStyle(sf::Text::Regular);
+
+	sf::Font fontw;
+	fontw.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textw;
+	textw.setFont(fonta);
+	textw.setString(" Female ");
+	textw.setCharacterSize(20);
+	textw.setFillColor(sf::Color::White);
+	textw.setPosition(435, 177);
+	textw.setStyle(sf::Text::Regular);
 
 	sf::Font fonte;
 	fonte.loadFromFile("Roboto-MediumItalic.ttf");
@@ -886,7 +958,7 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 
 				sf::Vector2i localposition = sf::Mouse::getPosition(window);
-
+				cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
 				if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 16 && localposition.y <= 40) {
 					active = 1;
 					cout << "name" << endl;
@@ -906,9 +978,20 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << "age" << endl;
 
 				}
-				else if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 177 && localposition.y <= 199) {
+				else if (localposition.x >= 197 && localposition.x <= 350 && localposition.y >= 177 && localposition.y <= 199) {
 					active = 5;
-					cout << "gender" << endl;
+					textq.setFillColor(sf::Color::Red);
+					choice71.setOutlineColor(sf::Color::Red);
+					cout << "male" << endl;
+					gender = ("male");
+
+				}
+				else if (localposition.x >= 397 && localposition.x <= 451 && localposition.y >= 177 && localposition.y <= 199) {
+					active = 5;
+					textw.setFillColor(sf::Color::Red);
+					choice72.setOutlineColor(sf::Color::Red);
+					cout << "female" << endl;
+					gender = ("female");
 
 				}
 				else if (localposition.x >= 193 && localposition.x <= 355 && localposition.y >= 255 && localposition.y <= 283) {
@@ -935,9 +1018,9 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << cstr;
 
 
-					scchoice(window, photo);
+					regshop(window, photo);
 				}
-				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() > 5 && conf.getSize() > 5 && pass != conf && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && (gender == ("male") || gender == ("female")) && age.getSize() > 0 && pass.getSize() > 5 && conf.getSize() > 5 && pass != conf && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
 
 					numpassword = false;
 					fill = false;
@@ -1031,13 +1114,16 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 			window.draw(textg);
 			window.draw(textz);
 			window.draw(text);
+			window.draw(textw);
+			window.draw(textq);
 			window.draw(choice1);
 			window.draw(choice2);
 			window.draw(choice3);
 			window.draw(choice4);
 			window.draw(choice5);
 			window.draw(choice6);
-			window.draw(choice7);
+			window.draw(choice71);
+			window.draw(choice72);
 			window.draw(choice8);
 			window.draw(textname);
 			window.draw(textpass);
@@ -1632,6 +1718,7 @@ void scchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 				}
 				else if (localposition.x >= 245 && localposition.x <= 570 && localposition.y >= 345 && localposition.y <= 428) {
 					cout << "edit" << endl;
+					editshoper(window, photo);
 
 				}
 				else if (localposition.x >= 245 && localposition.x <= 570 && localposition.y >= 470 && localposition.y <= 553) {
@@ -1934,7 +2021,7 @@ void ownerchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 }
 
-void shopperchoice (sf::RenderWindow& window, sf::RectangleShape photo) {
+void shopperchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	sf::Font font;
 	font.loadFromFile("Roboto-MediumItalic.ttf");
@@ -2003,3 +2090,144 @@ void shopperchoice (sf::RenderWindow& window, sf::RectangleShape photo) {
 	}
 
 }
+
+void editshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
+
+
+	sf::RectangleShape choice1(sf::Vector2f(330.0f, 40.0f));
+	choice1.setPosition(sf::Vector2f(250, 100));
+	choice1.setFillColor(sf::Color::Transparent);
+	choice1.setOutlineColor(sf::Color::White);
+	choice1.setOutlineThickness(3);
+
+	sf::RectangleShape choice2(sf::Vector2f(330.0f, 40.0f));
+	choice2.setPosition(sf::Vector2f(250, 200));
+	choice2.setFillColor(sf::Color::Transparent);
+	choice2.setOutlineColor(sf::Color::White);
+	choice2.setOutlineThickness(3);
+
+	sf::RectangleShape choice3(sf::Vector2f(330.0f, 40.0f));
+	choice3.setPosition(sf::Vector2f(250, 300));
+	choice3.setFillColor(sf::Color::Transparent);
+	choice3.setOutlineColor(sf::Color::White);
+	choice3.setOutlineThickness(3);
+
+	sf::RectangleShape choice4(sf::Vector2f(330.0f, 40.0f));
+	choice4.setPosition(sf::Vector2f(250, 400));
+	choice4.setFillColor(sf::Color::Transparent);
+	choice4.setOutlineColor(sf::Color::White);
+	choice4.setOutlineThickness(3);
+
+	sf::RectangleShape choice5(sf::Vector2f(330.0f, 40.0f));
+	choice5.setPosition(sf::Vector2f(250, 500));
+	choice5.setFillColor(sf::Color::Transparent);
+	choice5.setOutlineColor(sf::Color::White);
+	choice5.setOutlineThickness(3);
+
+	sf::Font font1;
+	font1.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text1;
+	text1.setFont(font1);
+	text1.setString(" Edit Name ");
+	text1.setCharacterSize(30);
+	text1.setFillColor(sf::Color::White);
+	text1.setPosition(325, 100);
+	text1.setStyle(sf::Text::Bold);
+
+	sf::Font font2;
+	font2.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text2;
+	text2.setFont(font2);
+	text2.setString("Edit Password ");
+	text2.setCharacterSize(30);
+	text2.setFillColor(sf::Color::White);
+	text2.setPosition(305, 200);
+	text2.setStyle(sf::Text::Bold);
+
+	sf::Font font3;
+	font3.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text3;
+	text3.setFont(font3);
+	text3.setString("Edit Gender ");
+	text3.setCharacterSize(30);
+	text3.setFillColor(sf::Color::White);
+	text3.setPosition(325, 300);
+	text3.setStyle(sf::Text::Bold);
+
+	sf::Font font4;
+	font4.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text4;
+	text4.setFont(font4);
+	text4.setString("Edit  Age ");
+	text4.setCharacterSize(30);
+	text4.setFillColor(sf::Color::White);
+	text4.setPosition(330, 400);
+	text4.setStyle(sf::Text::Bold);
+
+	sf::Font font5;
+	font5.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text5;
+	text5.setFont(font5);
+	text5.setString("  Edit Address ");
+	text5.setCharacterSize(30);
+	text5.setFillColor(sf::Color::White);
+	text5.setPosition(320, 500);
+	text5.setStyle(sf::Text::Bold);
+
+
+	while (window.isOpen())
+	{
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				sf::Vector2i localposition = sf::Mouse::getPosition(window);
+				
+				if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 98 && localposition.y <= 137) {
+					cout << "edit name "<< endl;
+
+				}
+				else if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 199 && localposition.y <= 237) {
+					cout << "edit password" << endl;
+					
+				}
+				else if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 299 && localposition.y <= 336) {
+					cout << "edit gender" << endl;
+					
+
+				}
+				else if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 397 && localposition.y <=435) {
+					cout << "edit age" << endl;
+
+				}
+				else if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 497 && localposition.y <= 535) {
+					cout << "edit address" << endl;
+
+				}
+
+
+			}
+
+			
+
+		}
+		window.clear();
+		window.draw(photo);
+	    window.draw(text1);	
+	    window.draw(text2);
+		window.draw(text3);
+		window.draw(text4);
+		window.draw(text5);
+		window.draw(choice1);
+		window.draw(choice2);
+		window.draw(choice3);
+		window.draw(choice4);
+		window.draw(choice5);
+		window.display();
+	}
+
+ }
