@@ -131,6 +131,7 @@ void addproduct(sf::RenderWindow& window, sf::RectangleShape photo);
 void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo);
 void homepageOwner(sf::RenderWindow& window, sf::RectangleShape photo);
 void discount(sf::RenderWindow& window, sf::RectangleShape photo);
+void remove(sf::RenderWindow& window, sf::RectangleShape photo);
 
 
 int main() {
@@ -4771,4 +4772,8 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 		}
 		window.display();
 	}
+}
+
+void remove(sf::RenderWindow& window, sf::RectangleShape photo) {
+
 }
