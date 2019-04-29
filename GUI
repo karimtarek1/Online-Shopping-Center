@@ -4033,7 +4033,7 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 			window.draw(textcity);
 
 		}
-		
+		if (cate) {
 			window.draw(text1);
 			window.draw(text2);
 			window.draw(text3);
@@ -4048,7 +4048,7 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 			window.draw(choice50);
 			window.draw(choice60);
 			window.draw(choice70);
-		
+		}
 		window.display();
 
 	}
