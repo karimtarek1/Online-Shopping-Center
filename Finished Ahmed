@@ -2284,3 +2284,193 @@ void discCheck()
 		}
 	}
 }
+
+void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
+
+	sf::RectangleShape choice1(sf::Vector2f(400.0f, 30.0f));
+	choice1.setPosition(sf::Vector2f(350, 40));
+	choice1.setFillColor(sf::Color::White);
+	choice1.setOutlineColor(sf::Color::White);
+	choice1.setOutlineThickness(7);
+
+	sf::RectangleShape choice2(sf::Vector2f(400.0f, 30.0f));
+	choice2.setPosition(sf::Vector2f(350, 80));
+	choice2.setFillColor(sf::Color::White);
+	choice2.setOutlineColor(sf::Color::White);
+	choice2.setOutlineThickness(7);
+
+	sf::RectangleShape choice3(sf::Vector2f(400.0f, 30.0f));
+	choice2.setPosition(sf::Vector2f(350, 140));
+	choice2.setFillColor(sf::Color::White);
+	choice2.setOutlineColor(sf::Color::White);
+	choice2.setOutlineThickness(7);
+
+	sf::RectangleShape choice4(sf::Vector2f(400.0f, 30.0f));
+	choice2.setPosition(sf::Vector2f(350, 180));
+	choice2.setFillColor(sf::Color::White);
+	choice2.setOutlineColor(sf::Color::White);
+	choice2.setOutlineThickness(7);
+
+	sf::Font fontname;
+	fontname.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::String name;
+	sf::Text textname(name, fontname, 20);
+	textname.setFillColor(sf::Color::Black);
+	textname.setPosition(250, 15);
+
+
+	sf::Font fontdiscount;
+	fontdiscount.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::String discount;
+	sf::Text textdiscount(discount, fontdiscount, 20);
+	textdiscount.setFillColor(sf::Color::Black);
+	textdiscount.setPosition(250, 60);
+
+	sf::Font fontday;
+	fontday.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::String day;
+	sf::Text textday(day, fontday, 20);
+	textday.setFillColor(sf::Color::Black);
+	textday.setPosition(250, 105);
+
+	sf::Font fontmonth;
+	fontmonth.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::String month;
+	sf::Text textmonth(month, fontmonth, 20);
+	textmonth.setFillColor(sf::Color::Black);
+	textmonth.setPosition(250, 150);
+
+
+	sf::Font fonta;
+    fonta.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text texta;
+	texta.setFont(fonta);
+	texta.setString(" Product Name  ");
+	texta.setCharacterSize(30);
+	texta.setFillColor(sf::Color::White);
+	texta.setPosition(10, 15);
+	texta.setStyle(sf::Text::Bold);
+
+	sf::Font fontb;
+	fontb.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textb;
+	textb.setFont(fontb);
+	textb.setString(" Discount Percentage  ");
+	textb.setCharacterSize(30);
+	textb.setFillColor(sf::Color::White);
+	textb.setPosition(10, 55);
+	textb.setStyle(sf::Text::Bold);
+
+	sf::Font fontc;
+	fontc.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textc;
+	textc.setFont(fontc);
+	textc.setString(" Day  ");
+	textc.setCharacterSize(30);
+	textc.setFillColor(sf::Color::White);
+	textc.setPosition(10, 95);
+	textc.setStyle(sf::Text::Bold);
+
+	sf::Font fontd;
+	fontc.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textd;
+	textd.setFont(fontd);
+	textd.setString(" Month  ");
+	textd.setCharacterSize(30);
+	textd.setFillColor(sf::Color::White);
+	textd.setPosition(50, 500);
+	textd.setStyle(sf::Text::Bold);
+
+	int active = 0;
+	while (window.isOpen())
+	{
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+
+				sf::Vector2i localposition = sf::Mouse::getPosition(window);
+				cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
+				if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 16 && localposition.y <= 40) {
+					active = 1;
+					cout << "Name" << endl;
+
+				}
+				else if (localposition.x >= 1193 && localposition.x <= 1400 && localposition.y >= 55 && localposition.y <= 82) {
+					active = 2;
+					cout << "Percentage" << endl;
+
+				}
+				else if (localposition.x >= 1500 && localposition.x <= 1750 && localposition.y >= 100 && localposition.y <= 130) {
+					active = 3;
+					cout << "Month" << endl;
+
+				}
+				else if (localposition.x >= 1800 && localposition.x <= 2000 && localposition.y >= 145 && localposition.y <= 180) {
+					active = 4;
+					cout << "Day" << endl;
+
+				}
+
+				else
+					active = 0;
+			}
+			}
+			if (event.type == sf::Event::TextEntered) {
+
+				if (active == 1 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					name += event.text.unicode;
+					textname.setString(name);
+				}
+				else if (active == 1 && event.text.unicode == 8 && name.getSize() > 0){
+					name.erase(name.getSize() - 1, name.getSize());
+					textname.setString(name);
+				}
+				if (active == 2 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					discount += event.text.unicode;
+					textdiscount.setString(discount);
+				}
+				else if (active == 2 && event.text.unicode == 8 && discount.getSize() > 0) {
+					discount.erase(discount.getSize() - 1, discount.getSize());
+					textdiscount.setString(discount);
+				}
+				if (active == 3 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					month += event.text.unicode;
+					textmonth.setString(month);
+				}
+				else if (active == 3 && event.text.unicode == 8 && month.getSize() > 0) {
+					month.erase(month.getSize() - 1, month.getSize());
+					textmonth.setString(month);
+				}
+				if (active == 4 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					day += event.text.unicode;
+					textday.setString(day);
+				}
+				else if (active == 4 && event.text.unicode == 8 && day.getSize() > 0) {
+					day.erase(day.getSize() - 1, day.getSize());
+					textday.setString(day);
+				}
+				
+			}
+	window.clear();
+	window.draw(photo);
+	window.draw(texta);
+	window.draw(textb);
+	window.draw(textd);
+	window.draw(textc);
+	window.draw(choice1);
+	window.draw(choice2);
+	window.draw(choice3);
+	window.draw(choice4);
+	window.draw(textname);
+	window.draw(textdiscount);
+	window.draw(textmonth);
+	window.draw(textday);
+	window.display();
+	}
+	
+}
