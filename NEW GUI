@@ -4545,26 +4545,26 @@ void homepageOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 
-	sf::RectangleShape choice1(sf::Vector2f(400.0f, 30.0f));
-	choice1.setPosition(sf::Vector2f(350, 100));
+	sf::RectangleShape choice1(sf::Vector2f(400.0f, 20.0f));
+	choice1.setPosition(sf::Vector2f(290, 110));
 	choice1.setFillColor(sf::Color::White);
 	choice1.setOutlineColor(sf::Color::White);
 	choice1.setOutlineThickness(7);
 
-	sf::RectangleShape choice2(sf::Vector2f(400.0f, 30.0f));
-	choice2.setPosition(sf::Vector2f(350, 200));
+	sf::RectangleShape choice2(sf::Vector2f(400.0f, 20.0f));
+	choice2.setPosition(sf::Vector2f(290, 210));
 	choice2.setFillColor(sf::Color::White);
 	choice2.setOutlineColor(sf::Color::White);
 	choice2.setOutlineThickness(7);
 
-	sf::RectangleShape choice3(sf::Vector2f(400.0f, 30.0f));
-	choice3.setPosition(sf::Vector2f(350, 300));
+	sf::RectangleShape choice3(sf::Vector2f(400.0f, 20.0f));
+	choice3.setPosition(sf::Vector2f(290, 310));
 	choice3.setFillColor(sf::Color::White);
 	choice3.setOutlineColor(sf::Color::White);
 	choice3.setOutlineThickness(7);
 
-	sf::RectangleShape choice4(sf::Vector2f(400.0f, 30.0f));
-	choice4.setPosition(sf::Vector2f(350, 400));
+	sf::RectangleShape choice4(sf::Vector2f(400.0f, 20.0f));
+	choice4.setPosition(sf::Vector2f(290, 410));
 	choice4.setFillColor(sf::Color::White);
 	choice4.setOutlineColor(sf::Color::White);
 	choice4.setOutlineThickness(7);
@@ -4580,7 +4580,7 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 	sf::String name;
 	sf::Text textname(name, fontname, 25);
 	textname.setFillColor(sf::Color::Black);
-	textname.setPosition(355, 100);
+	textname.setPosition(290, 105);
 
 
 	sf::Font fontdiscount;
@@ -4588,28 +4588,28 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 	sf::String discount;
 	sf::Text textdiscount(discount, fontdiscount, 25);
 	textdiscount.setFillColor(sf::Color::Black);
-	textdiscount.setPosition(355, 200);
+	textdiscount.setPosition(290, 205);
 
 	sf::Font fontday;
 	fontday.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String day;
 	sf::Text textday(day, fontday, 25);
 	textday.setFillColor(sf::Color::Black);
-	textday.setPosition(355, 300);
+	textday.setPosition(290, 305);
 
 	sf::Font fontmonth;
 	fontmonth.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String month;
 	sf::Text textmonth(month, fontmonth, 25);
 	textmonth.setFillColor(sf::Color::Black);
-	textmonth.setPosition(355, 400);
+	textmonth.setPosition(290, 405);
 
 
 	sf::Font fonta;
 	fonta.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text texta;
 	texta.setFont(fonta);
-	texta.setString(" Product Name  ");
+	texta.setString(" Product Name  :  ");
 	texta.setCharacterSize(30);
 	texta.setFillColor(sf::Color::White);
 	texta.setPosition(40, 100);
@@ -4619,7 +4619,7 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fontb.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textb;
 	textb.setFont(fontb);
-	textb.setString(" Discount  ");
+	textb.setString(" Discount           : ");
 	textb.setCharacterSize(30);
 	textb.setFillColor(sf::Color::White);
 	textb.setPosition(40, 200);
@@ -4629,7 +4629,7 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fontc.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textc;
 	textc.setFont(fontc);
-	textc.setString(" Month  ");
+	textc.setString(" Month              : ");
 	textc.setCharacterSize(30);
 	textc.setFillColor(sf::Color::White);
 	textc.setPosition(40, 300);
@@ -4639,7 +4639,7 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fontd.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textd;
 	textd.setFont(fontd);
-	textd.setString(" Day  ");
+	textd.setString(" Day                  : ");
 	textd.setCharacterSize(30);
 	textd.setFillColor(sf::Color::White);
 	textd.setPosition(40, 400);
@@ -4659,7 +4659,7 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fontf.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textf;
 	textf.setFont(fontf);
-	textf.setString(" Save ");
+	textf.setString(" Next ");
 	textf.setCharacterSize(28);
 	textf.setFillColor(sf::Color::White);
 	textf.setPosition(510, 495);
@@ -4681,74 +4681,74 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 				sf::Vector2i localposition = sf::Mouse::getPosition(window);
 				cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
-				if (localposition.x >= 350 && localposition.x <= 750 && localposition.y >= 93 && localposition.y <= 138) {
+				if (localposition.x >= 282 && localposition.x <= 696 && localposition.y >= 100 && localposition.y <= 135) {
 					active = 1;
 					cout << "Name" << endl;
 
 				}
-				else if (localposition.x >= 350 && localposition.x <= 750 && localposition.y >= 193 && localposition.y <= 238) {
+				else if (localposition.x >= 282 && localposition.x <= 695 && localposition.y >= 202 && localposition.y <= 235) {
 					active = 2;
 					cout << "Percentage" << endl;
 
 				}
-				else if (localposition.x >= 350 && localposition.x <= 750 && localposition.y >= 293 && localposition.y <= 338) {
-					active = 4;
+				else if (localposition.x >= 282 && localposition.x <= 695 && localposition.y >= 302 && localposition.y <= 333) {
+					active = 3;
 					cout << "Month" << endl;
 
 				}
-				else if (localposition.x >= 350 && localposition.x <= 750 && localposition.y >= 393 && localposition.y <= 438) {
-					active = 3;
+				else if (localposition.x >= 282 && localposition.x <= 695 && localposition.y >= 402 && localposition.y <= 434) {
+					active = 4;
 					cout << "Day" << endl;
 
 				}
-				else if (localposition.x >= 490 && localposition.x <= 603 && localposition.y >= 503 && localposition.y <= 534) {
+				else if (localposition.x >= 350 && localposition.x <= 750 && localposition.y >= 493 && localposition.y <= 538) {
 					active = 5;
 					cout << "Save" << endl;
 					if (name != "" && discount != "" && month != "" && day != "") {
 						fill = false;
-						prodchoice(window, photo);
 					}
 					else fill = true;
 				}
 				else
 					active = 0;
 			}
-		}
-		if (event.type == sf::Event::TextEntered) {
 
-			if (active == 1 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				name += event.text.unicode;
-				textname.setString(name);
-			}
-			else if (active == 1 && event.text.unicode == 8 && name.getSize() > 0) {
-				name.erase(name.getSize() - 1, name.getSize());
-				textname.setString(name);
-			}
-			if (active == 2 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				discount += event.text.unicode;
-				textdiscount.setString(discount);
-			}
-			else if (active == 2 && event.text.unicode == 8 && discount.getSize() > 0) {
-				discount.erase(discount.getSize() - 1, discount.getSize());
-				textdiscount.setString(discount);
-			}
-			if (active == 3 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				month += event.text.unicode;
-				textmonth.setString(month);
-			}
-			else if (active == 3 && event.text.unicode == 8 && month.getSize() > 0) {
-				month.erase(month.getSize() - 1, month.getSize());
-				textmonth.setString(month);
-			}
-			if (active == 4 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-				day += event.text.unicode;
-				textday.setString(day);
-			}
-			else if (active == 4 && event.text.unicode == 8 && day.getSize() > 0) {
-				day.erase(day.getSize() - 1, day.getSize());
-				textday.setString(day);
-			}
+			if (event.type == sf::Event::TextEntered) {
 
+				if (active == 1 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					name += event.text.unicode;
+					textname.setString(name);
+				}
+				else if (active == 1 && event.text.unicode == 8 && name.getSize() > 0) {
+					name.erase(name.getSize() - 1, name.getSize());
+					textname.setString(name);
+				}
+				if (active == 2 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					discount += event.text.unicode;
+					textdiscount.setString(discount);
+				}
+				else if (active == 2 && event.text.unicode == 8 && discount.getSize() > 0) {
+					discount.erase(discount.getSize() - 1, discount.getSize());
+					textdiscount.setString(discount);
+				}
+				if (active == 3 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					month += event.text.unicode;
+					textmonth.setString(month);
+				}
+				else if (active == 3 && event.text.unicode == 8 && month.getSize() > 0) {
+					month.erase(month.getSize() - 1, month.getSize());
+					textmonth.setString(month);
+				}
+				if (active == 4 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					day += event.text.unicode;
+					textday.setString(day);
+				}
+				else if (active == 4 && event.text.unicode == 8 && day.getSize() > 0) {
+					day.erase(day.getSize() - 1, day.getSize());
+					textday.setString(day);
+				}
+
+			}
 		}
 		window.clear();
 		window.draw(photo);
