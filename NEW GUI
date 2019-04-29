@@ -1512,7 +1512,7 @@ void regshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 					text7.setFillColor(sf::Color::Red);
 				}
 				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
-					prodchoice(window, photo);
+					homepageOwner(window, photo);
 				}
 				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && (name.getSize() > 0 || city.getSize() == 0 || country.getSize() == 0))
 				{
@@ -1625,6 +1625,12 @@ void prodchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choice5.setOutlineThickness(5);
 	choice5.setOutlineColor(sf::Color::White);
 
+	sf::RectangleShape choice6(sf::Vector2f(100.0f, 22.0f));
+	choice6.setPosition(sf::Vector2f(685, 20));
+	choice6.setFillColor(sf::Color::Transparent);
+	choice6.setOutlineColor(sf::Color::Red);
+	choice6.setOutlineThickness(3);
+
 	sf::Font fonta;
 	fonta.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text texta;
@@ -1669,12 +1675,21 @@ void prodchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fonte.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text texte;
 	texte.setFont(fonte);
-	texte.setString("   DISCOUT PRODUCT  ");
+	texte.setString("   DISCOUNT PRODUCT  ");
 	texte.setCharacterSize(30);
 	texte.setFillColor(sf::Color::White);
 	texte.setPosition(240, 560);
 	texte.setStyle(sf::Text::Bold);
 
+	sf::Font font0;
+	font0.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text0;
+	text0.setFont(font0);
+	text0.setString(" Back ");
+	text0.setCharacterSize(20);
+	text0.setFillColor(sf::Color::Red);
+	text0.setPosition(708, 18);
+	text0.setStyle(sf::Text::Bold);
 
 	while (window.isOpen())
 	{
@@ -1707,7 +1722,11 @@ void prodchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 				}
 				else if (localposition.x >= 245 && localposition.x <= 574 && localposition.y >= 544 && localposition.y <= 611) {
 					cout << "discount" << endl;
+					discount(window, photo);
 
+				}
+				else if (localposition.x >= 681 && localposition.x <= 786 && localposition.y >= 17 && localposition.y <= 43) {
+					homepageOwner(window, photo);
 				}
 
 			}
@@ -1718,11 +1737,13 @@ void prodchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 			window.draw(textc);
 			window.draw(textd);
 			window.draw(texte);
+			window.draw(text0);
 			window.draw(choice1);
 			window.draw(choice2);
 			window.draw(choice3);
 			window.draw(choice4);
 			window.draw(choice5);
+			window.draw(choice6);
 			window.display();
 		}
 	}
@@ -4447,6 +4468,12 @@ void homepageOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choice2.setOutlineThickness(5);
 	choice2.setOutlineColor(sf::Color::White);
 
+	sf::RectangleShape choice3(sf::Vector2f(100.0f, 22.0f));
+	choice3.setPosition(sf::Vector2f(685, 20));
+	choice3.setFillColor(sf::Color::Transparent);
+	choice3.setOutlineColor(sf::Color::Red);
+	choice3.setOutlineThickness(3);
+
 	sf::Font fonta;
 	fonta.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text texta;
@@ -4467,6 +4494,15 @@ void homepageOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	textb.setPosition(290, 490);
 	textb.setStyle(sf::Text::Bold);
 
+	sf::Font fontc;
+	fontc.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textc;
+	textc.setFont(fontc);
+	textc.setString("Log Out");
+	textc.setCharacterSize(20);
+	textc.setFillColor(sf::Color::Red);
+	textc.setPosition(700, 18);
+	textc.setStyle(sf::Text::Bold);
 
 	while (window.isOpen())
 	{
@@ -4490,13 +4526,18 @@ void homepageOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << "Products" << endl;
 					prodchoice(window, photo);
 				}
+				else if (localposition.x >= 681 && localposition.x <= 786 && localposition.y >= 17 && localposition.y <= 43) {
+					welcome(window, photo);
+				}
 			}
 			window.clear();
 			window.draw(photo);
 			window.draw(texta);
 			window.draw(textb);
+			window.draw(textc);
 			window.draw(choice1);
 			window.draw(choice2);
+			window.draw(choice3);
 			window.display();
 		}
 	}
@@ -4565,7 +4606,7 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 
 	sf::Font fonta;
-    fonta.loadFromFile("Roboto-MediumItalic.ttf");
+	fonta.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text texta;
 	texta.setFont(fonta);
 	texta.setString(" Product Name  ");
@@ -4618,7 +4659,7 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fontf.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textf;
 	textf.setFont(fontf);
-	textf.setString(" Next ");
+	textf.setString(" Save ");
 	textf.setCharacterSize(28);
 	textf.setFillColor(sf::Color::White);
 	textf.setPosition(510, 495);
@@ -4660,11 +4701,12 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << "Day" << endl;
 
 				}
-				else if (localposition.x >= 350 && localposition.x <= 750 && localposition.y >= 493 && localposition.y <= 538) {
+				else if (localposition.x >= 490 && localposition.x <= 603 && localposition.y >= 503 && localposition.y <= 534) {
 					active = 5;
 					cout << "Save" << endl;
 					if (name != "" && discount != "" && month != "" && day != "") {
 						fill = false;
+						prodchoice(window, photo);
 					}
 					else fill = true;
 				}
