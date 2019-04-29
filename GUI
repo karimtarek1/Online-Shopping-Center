@@ -517,7 +517,7 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 					gender = ("male");
 
 				}
-				else if (localposition.x >= 397 && localposition.x <= 451 && localposition.y >= 177 && localposition.y <= 199) {
+				else if (localposition.x >= 397 && localposition.x <= 551 && localposition.y >= 177 && localposition.y <= 200) {
 					active = 5;
 					textw.setFillColor(sf::Color::Red);
 					textq.setFillColor(sf::Color::White);
@@ -559,7 +559,7 @@ void regowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 					fill = false;
 					password = true;
 				}
-				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() < 5 || conf.getSize() < 5 && (pass != conf || pass == conf) && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() <= 5 || conf.getSize() <= 5 && (pass != conf || pass == conf) && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
 					password = false;
 					numpassword = true;
 					fill = false;
@@ -978,7 +978,7 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 					gender = ("male");
 
 				}
-				else if (localposition.x >= 397 && localposition.x <= 451 && localposition.y >= 177 && localposition.y <= 199) {
+				else if (localposition.x >= 397 && localposition.x <= 551 && localposition.y >= 177 && localposition.y <= 200) {
 					active = 5;
 					textw.setFillColor(sf::Color::Red);
 					textq.setFillColor(sf::Color::White);
@@ -1020,7 +1020,7 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 					fill = false;
 					password = true;
 				}
-				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() < 5 || conf.getSize() < 5 && (pass != conf || pass == conf) && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() <= 5 || conf.getSize() <= 5 && (pass != conf || pass == conf) && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
 					password = false;
 					numpassword = true;
 					fill = false;
