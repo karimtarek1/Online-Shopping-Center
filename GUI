@@ -129,6 +129,7 @@ void editshoper(sf::RenderWindow& window, sf::RectangleShape photo);
 void editshop(sf::RenderWindow& window, sf::RectangleShape photo);
 void editowner(sf::RenderWindow& window, sf::RectangleShape photo);
 void addproduct(sf::RenderWindow& window, sf::RectangleShape photo);
+void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo);
 
 
 int main() {
@@ -139,6 +140,8 @@ int main() {
 	sf::Texture wallpaper;
 	wallpaper.loadFromFile("grunge-background-black-texture-450w-345043661 (1).jpg");
 	photo.setTexture(&wallpaper);
+	editshop(window, photo);
+	addproduct(window, photo);
 	welcome(window, photo);
 
 	return 0;
@@ -2796,6 +2799,8 @@ void editshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 				}
 				else if (localposition.x >= 155 && localposition.x <= 330 && localposition.y >= 379 && localposition.y <= 430 && bgender ) {
 					cout << "male" << endl;
+					choicef.setOutlineColor(sf::Color::White);
+					text41.setFillColor(sf::Color::White);
 					choicem.setOutlineColor(sf::Color::Red);
 					text40.setFillColor(sf::Color::Red);
 					sgender = ("Male");
@@ -2804,6 +2809,8 @@ void editshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << "female" << endl;
 					choicef.setOutlineColor(sf::Color::Red);
 					text41.setFillColor(sf::Color::Red);
+					choicem.setOutlineColor(sf::Color::White);
+					text40.setFillColor(sf::Color::White);
 					sgender = ("Female");
 
 				}
@@ -3354,12 +3361,16 @@ void editowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << "male" << endl;
 					choicem.setOutlineColor(sf::Color::Red);
 					text40.setFillColor(sf::Color::Red);
+					choicef.setOutlineColor(sf::Color::White);
+					text41.setFillColor(sf::Color::White);
 					sgender = ("Male");
 				}
 				else if (localposition.x >= 510 && localposition.x <= 686 && localposition.y >= 379 && localposition.y <= 430 && bgender) {
 					cout << "female" << endl;
 					choicef.setOutlineColor(sf::Color::Red);
 					text41.setFillColor(sf::Color::Red);
+					choicem.setOutlineColor(sf::Color::White);
+					text40.setFillColor(sf::Color::White);
 					sgender = ("Female");
 
 				}
@@ -3554,6 +3565,12 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choicename.setOutlineColor(sf::Color::White);
 	choicename.setOutlineThickness(3);
 
+	sf::RectangleShape choicecat(sf::Vector2f(330.0f,40.0f));
+	choicecat.setPosition(sf::Vector2f(250, 280));
+	choicecat.setFillColor(sf::Color::Transparent);
+	choicecat.setOutlineColor(sf::Color::White);
+	choicecat.setOutlineThickness(3);
+
 	sf::RectangleShape choicecountry(sf::Vector2f(250.0f, 22.0f));
 	choicecountry.setPosition(sf::Vector2f(150, 190));
 	choicecountry.setFillColor(sf::Color::White);
@@ -3566,6 +3583,117 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choicecity.setOutlineColor(sf::Color::White);
 	choicecity.setOutlineThickness(3);
 
+	sf::RectangleShape choice10(sf::Vector2f(330.0f, 40.0f));
+	choice10.setPosition(sf::Vector2f(400, 400));
+	choice10.setFillColor(sf::Color::Transparent);
+	choice10.setOutlineColor(sf::Color::White);
+	choice10.setOutlineThickness(3);
+
+	sf::RectangleShape choice20(sf::Vector2f(330.0f, 40.0f));
+	choice20.setPosition(sf::Vector2f(400, 470));
+	choice20.setFillColor(sf::Color::Transparent);
+	choice20.setOutlineColor(sf::Color::White);
+	choice20.setOutlineThickness(3);
+
+	sf::RectangleShape choice30(sf::Vector2f(330.0f, 40.0f));
+	choice30.setPosition(sf::Vector2f(400, 540));
+	choice30.setFillColor(sf::Color::Transparent);
+	choice30.setOutlineColor(sf::Color::White);
+	choice30.setOutlineThickness(3);
+
+	sf::RectangleShape choice40(sf::Vector2f(330.0f, 40.0f));
+	choice40.setPosition(sf::Vector2f(30, 400));
+	choice40.setFillColor(sf::Color::Transparent);
+	choice40.setOutlineColor(sf::Color::White);
+	choice40.setOutlineThickness(3);
+
+	sf::RectangleShape choice50(sf::Vector2f(330.0f, 40.0f));
+	choice50.setPosition(sf::Vector2f(30, 470));
+	choice50.setFillColor(sf::Color::Transparent);
+	choice50.setOutlineColor(sf::Color::White);
+	choice50.setOutlineThickness(3);
+
+	sf::RectangleShape choice60(sf::Vector2f(330.0f, 40.0f));
+	choice60.setPosition(sf::Vector2f(30, 540));
+	choice60.setFillColor(sf::Color::Transparent);
+	choice60.setOutlineColor(sf::Color::White);
+	choice60.setOutlineThickness(3);
+
+	sf::RectangleShape choice70(sf::Vector2f(330.0f, 40.0f));
+	choice70.setPosition(sf::Vector2f(30, 610));
+	choice70.setFillColor(sf::Color::Transparent);
+	choice70.setOutlineColor(sf::Color::White);
+	choice70.setOutlineThickness(3);
+
+	sf::Font font1;
+	font1.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text1;
+	text1.setFont(font1);
+	text1.setString(" Phones & Tablets ");
+	text1.setCharacterSize(30);
+	text1.setFillColor(sf::Color::White);
+	text1.setPosition(420, 398);
+	text1.setStyle(sf::Text::Bold);
+
+	sf::Font font2;
+	font2.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text2;
+	text2.setFont(font2);
+	text2.setString("      Electronics ");
+	text2.setCharacterSize(30);
+	text2.setFillColor(sf::Color::White);
+	text2.setPosition(420, 468);
+	text2.setStyle(sf::Text::Bold);
+
+	sf::Font font3;
+	font3.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text3;
+	text3.setFont(font3);
+	text3.setString(" Makeup & Accessories ");
+	text3.setCharacterSize(30);
+	text3.setFillColor(sf::Color::White);
+	text3.setPosition(400, 538);
+	text3.setStyle(sf::Text::Bold);
+
+	sf::Font font4;
+	font4.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text4;
+	text4.setFont(font4);
+	text4.setString("        Clothing ");
+	text4.setCharacterSize(30);
+	text4.setFillColor(sf::Color::White);
+	text4.setPosition(60, 398);
+	text4.setStyle(sf::Text::Bold);
+
+	sf::Font font5;
+	font5.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text5;
+	text5.setFont(font5);
+	text5.setString("       Shoes & Bags ");
+	text5.setCharacterSize(30);
+	text5.setFillColor(sf::Color::White);
+	text5.setPosition(58, 468);
+	text5.setStyle(sf::Text::Bold);
+
+	sf::Font font6;
+	font6.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text6;
+	text6.setFont(font5);
+	text6.setString("         Books ");
+	text6.setCharacterSize(30);
+	text6.setFillColor(sf::Color::White);
+	text6.setPosition(62, 538);
+	text6.setStyle(sf::Text::Bold);
+
+	sf::Font font7;
+	font7.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text7;
+	text7.setFont(font5);
+	text7.setString("         Gaming ");
+	text7.setCharacterSize(30);
+	text7.setFillColor(sf::Color::White);
+	text7.setPosition(60, 608);
+	text7.setStyle(sf::Text::Bold);
 	
 	sf::Font fontname;
 	fontname.loadFromFile("Roboto-MediumItalic.ttf");
@@ -3598,25 +3726,35 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 	text0.setPosition(708, 18);
 	text0.setStyle(sf::Text::Bold);
 
-	sf::Font font1;
-	font1.loadFromFile("Roboto-MediumItalic.ttf");
-	sf::Text text1;
-	text1.setFont(font1);
-	text1.setString(" Edit Name ");
-	text1.setCharacterSize(30);
-	text1.setFillColor(sf::Color::White);
-	text1.setPosition(325, 10);
-	text1.setStyle(sf::Text::Bold);
+	sf::Font font03;
+	font03.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text03;
+	text03.setFont(font0);
+	text03.setString(" Edit Category ");
+	text03.setCharacterSize(30);
+	text03.setFillColor(sf::Color::White);
+	text03.setPosition(320, 280);
+	text03.setStyle(sf::Text::Bold);
 
-	sf::Font font2;
-	font2.loadFromFile("Roboto-MediumItalic.ttf");
-	sf::Text text2;
-	text2.setFont(font2);
-	text2.setString("  Edit Address ");
-	text2.setCharacterSize(30);
-	text2.setFillColor(sf::Color::White);
-	text2.setPosition(305, 130);
-	text2.setStyle(sf::Text::Bold);
+	sf::Font font01;
+	font01.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text01;
+	text01.setFont(font01);
+	text01.setString(" Edit Name ");
+	text01.setCharacterSize(30);
+	text01.setFillColor(sf::Color::White);
+	text01.setPosition(325, 10);
+	text01.setStyle(sf::Text::Bold);
+
+	sf::Font font02;
+	font02.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text02;
+	text02.setFont(font02);
+	text02.setString("  Edit Address ");
+	text02.setCharacterSize(30);
+	text02.setFillColor(sf::Color::White);
+	text02.setPosition(305, 130);
+	text02.setStyle(sf::Text::Bold);
 
 	sf::Font font10;
 	font10.loadFromFile("Roboto-MediumItalic.ttf");
@@ -3650,8 +3788,9 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	bool badress= false;
 	bool bname = false;
+	bool cate = false;
 	int active = 0 ;
-
+	sf::String category;
 
 	while (window.isOpen())
 	{
@@ -3681,6 +3820,11 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 					badress = true;
 				}
+				else if (localposition.x >= 248 && localposition.x <= 581 && localposition.y >= 273 && localposition.y <= 320) {
+					cout << "edit category" << endl;
+
+					cate = true;
+				}
 				else if (localposition.x >= 147 && localposition.x <= 403 && localposition.y >= 225 && localposition.y <= 253 && badress) {
 					cout << "city" << endl;
 					active = 3;
@@ -3693,6 +3837,133 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 				}
 				else if (localposition.x >= 697 && localposition.x <= 781 && localposition.y >= 16 && localposition.y <= 43) {
 					prodchoice(window, photo);
+				}
+				else if (localposition.x >= 397 && localposition.x <= 731 && localposition.y >= 398 && localposition.y <= 439) {
+					category = ("Phones & Tablets");
+					cout << "phones & tablets" << endl;
+					choice10.setOutlineColor(sf::Color::Red);
+					choice20.setOutlineColor(sf::Color::White);
+					choice30.setOutlineColor(sf::Color::White);
+					choice40.setOutlineColor(sf::Color::White);
+					choice50.setOutlineColor(sf::Color::White);
+					choice60.setOutlineColor(sf::Color::White);
+					choice70.setOutlineColor(sf::Color::White);
+					text1.setFillColor(sf::Color::Red);
+					text2.setFillColor(sf::Color::White);
+					text3.setFillColor(sf::Color::White);
+					text4.setFillColor(sf::Color::White);
+					text5.setFillColor(sf::Color::White);
+					text6.setFillColor(sf::Color::White);
+					text7.setFillColor(sf::Color::White);
+				}
+				else if (localposition.x >= 396 && localposition.x <= 731 && localposition.y >= 468 && localposition.y <= 512) {
+					category = ("Electronics");
+					cout << "electronics" << endl;
+					
+					choice10.setOutlineColor(sf::Color::White);
+					choice20.setOutlineColor(sf::Color::Red);
+					choice30.setOutlineColor(sf::Color::White);
+					choice40.setOutlineColor(sf::Color::White);
+					choice50.setOutlineColor(sf::Color::White);
+					choice60.setOutlineColor(sf::Color::White);
+					choice70.setOutlineColor(sf::Color::White);
+					text1.setFillColor(sf::Color::White);
+					text2.setFillColor(sf::Color::Red);
+					text3.setFillColor(sf::Color::White);
+					text4.setFillColor(sf::Color::White);
+					text5.setFillColor(sf::Color::White);
+					text6.setFillColor(sf::Color::White);
+					text7.setFillColor(sf::Color::White);
+				}
+				else if (localposition.x >= 397 && localposition.x <= 734 && localposition.y >= 538 && localposition.y <= 581) {
+					category = ("Makeup & Accessories");
+					cout << "makeup & accessories" << endl;
+					choice10.setOutlineColor(sf::Color::White);
+					choice20.setOutlineColor(sf::Color::White);
+					choice30.setOutlineColor(sf::Color::Red);
+					choice40.setOutlineColor(sf::Color::White);
+					choice50.setOutlineColor(sf::Color::White);
+					choice60.setOutlineColor(sf::Color::White);
+					choice70.setOutlineColor(sf::Color::White);
+					text1.setFillColor(sf::Color::White);
+					text2.setFillColor(sf::Color::White);
+					text3.setFillColor(sf::Color::Red);
+					text4.setFillColor(sf::Color::White);
+					text5.setFillColor(sf::Color::White);
+					text6.setFillColor(sf::Color::White);
+					text7.setFillColor(sf::Color::White);
+				}
+				else if (localposition.x >= 28 && localposition.x <= 362 && localposition.y >= 399 && localposition.y <= 439) {
+					category = ("Clothing");
+					cout << "clothing" << endl;
+					choice10.setOutlineColor(sf::Color::White);
+					choice20.setOutlineColor(sf::Color::White);
+					choice30.setOutlineColor(sf::Color::White);
+					choice40.setOutlineColor(sf::Color::Red);
+					choice50.setOutlineColor(sf::Color::White);
+					choice60.setOutlineColor(sf::Color::White);
+					choice70.setOutlineColor(sf::Color::White);
+					text1.setFillColor(sf::Color::White);
+					text2.setFillColor(sf::Color::White);
+					text3.setFillColor(sf::Color::White);
+					text4.setFillColor(sf::Color::Red);
+					text5.setFillColor(sf::Color::White);
+					text6.setFillColor(sf::Color::White);
+					text7.setFillColor(sf::Color::White);
+				}
+				else if (localposition.x >= 28 && localposition.x <= 362 && localposition.y >= 469 && localposition.y <= 505) {
+					category = ("Shoes & Bags");
+					cout << "shoes & bags" << endl;
+					choice10.setOutlineColor(sf::Color::White);
+					choice20.setOutlineColor(sf::Color::White);
+					choice30.setOutlineColor(sf::Color::White);
+					choice40.setOutlineColor(sf::Color::White);
+					choice50.setOutlineColor(sf::Color::Red);
+					choice60.setOutlineColor(sf::Color::White);
+					choice70.setOutlineColor(sf::Color::White);
+					text1.setFillColor(sf::Color::White);
+					text2.setFillColor(sf::Color::White);
+					text3.setFillColor(sf::Color::White);
+					text4.setFillColor(sf::Color::White);
+					text5.setFillColor(sf::Color::Red);
+					text6.setFillColor(sf::Color::White);
+					text7.setFillColor(sf::Color::White);
+				}
+				else if (localposition.x >= 28 && localposition.x <= 362 && localposition.y >= 541 && localposition.y <= 575) {
+					category = ("Books");
+					cout << "books" << endl;
+					choice10.setOutlineColor(sf::Color::White);
+					choice20.setOutlineColor(sf::Color::White);
+					choice30.setOutlineColor(sf::Color::White);
+					choice40.setOutlineColor(sf::Color::White);
+					choice50.setOutlineColor(sf::Color::White);
+					choice60.setOutlineColor(sf::Color::Red);
+					choice70.setOutlineColor(sf::Color::White);
+					text1.setFillColor(sf::Color::White);
+					text2.setFillColor(sf::Color::White);
+					text3.setFillColor(sf::Color::White);
+					text4.setFillColor(sf::Color::White);
+					text5.setFillColor(sf::Color::White);
+					text6.setFillColor(sf::Color::Red);
+					text7.setFillColor(sf::Color::White);
+				}
+				else if (localposition.x >= 28 && localposition.x <= 362 && localposition.y >= 607 && localposition.y <= 649) {
+					category = ("Gaming");
+					cout << "gaming" << endl;
+					choice10.setOutlineColor(sf::Color::White);
+					choice20.setOutlineColor(sf::Color::White);
+					choice30.setOutlineColor(sf::Color::White);
+					choice40.setOutlineColor(sf::Color::White);
+					choice50.setOutlineColor(sf::Color::White);
+					choice60.setOutlineColor(sf::Color::White);
+					choice70.setOutlineColor(sf::Color::Red);
+					text1.setFillColor(sf::Color::White);
+					text2.setFillColor(sf::Color::White);
+					text3.setFillColor(sf::Color::White);
+					text4.setFillColor(sf::Color::White);
+					text5.setFillColor(sf::Color::White);
+					text6.setFillColor(sf::Color::White);
+					text7.setFillColor(sf::Color::Red);
 				}
 				else
 				{
@@ -3736,12 +4007,14 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 		window.clear();
 		window.draw(photo);
-		window.draw(text1);
-		window.draw(text2);
+		window.draw(text01);
+		window.draw(text02);
 		window.draw(choice1);
 		window.draw(choice2);
 		window.draw(choicesave);
 		window.draw(text0);
+		window.draw(text03);
+		window.draw(choicecat);
 
 
 		if (bname) {
@@ -3760,6 +4033,22 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 			window.draw(textcity);
 
 		}
+		
+			window.draw(text1);
+			window.draw(text2);
+			window.draw(text3);
+			window.draw(text4);
+			window.draw(text5);
+			window.draw(text6);
+			window.draw(text7);
+			window.draw(choice10);
+			window.draw(choice20);
+			window.draw(choice30);
+			window.draw(choice40);
+			window.draw(choice50);
+			window.draw(choice60);
+			window.draw(choice70);
+		
 		window.display();
 
 	}
@@ -3991,7 +4280,7 @@ void addproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 	textcolor.setFillColor(sf::Color::Black);
 	textcolor.setPosition(175, 275);
 
-	bool clothing = true;
+	bool clothing = false;
 	int active = 0;
 
 	while (window.isOpen())
@@ -4158,5 +4447,11 @@ void addproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 
        window.display();
 	}
+
+}
+
+void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
+
+
 
 }
