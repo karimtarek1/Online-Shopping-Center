@@ -3,14 +3,6 @@
 #include <SFML\Graphics.hpp>
 #include <string>
 #include <iostream>
-
-
-
-
-
-
-
-
 #include <string.h>
 #include <conio.h>
 #include<fstream>
@@ -1028,7 +1020,7 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 					fill = false;
 					password = true;
 				}
-				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() < 5 || conf.getSize() < 5 && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
+				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && gender.getSize() > 0 && age.getSize() > 0 && pass.getSize() < 5 || conf.getSize() < 5 && (pass != conf || pass == conf) && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
 					password = false;
 					numpassword = true;
 					fill = false;
@@ -1077,14 +1069,6 @@ void regshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 				else if (active == 4 && event.text.unicode == 8 && age.getSize() > 0) {
 					age.erase(age.getSize() - 1, age.getSize());
 					textage.setString(age);
-				}
-				if (active == 5 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-					gender += event.text.unicode;
-					textgend.setString(gender);
-				}
-				else if (active == 5 && event.text.unicode == 8 && gender.getSize() > 0) {
-					gender.erase(gender.getSize() - 1, gender.getSize());
-					textgend.setString(gender);
 				}
 				if (active == 6 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
 					city += event.text.unicode;
