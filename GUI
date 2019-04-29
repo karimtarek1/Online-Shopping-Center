@@ -3,6 +3,14 @@
 #include <SFML\Graphics.hpp>
 #include <string>
 #include <iostream>
+
+
+
+
+
+
+
+
 #include <string.h>
 #include <conio.h>
 #include<fstream>
@@ -1403,42 +1411,126 @@ void regshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 					category = ("Phones & Tablets");
 					cout << "phones & tablets" << endl;
 					choice10.setOutlineColor(sf::Color::Red);
+					choice20.setOutlineColor(sf::Color::White);
+					choice30.setOutlineColor(sf::Color::White);
+					choice40.setOutlineColor(sf::Color::White);
+					choice50.setOutlineColor(sf::Color::White);
+					choice60.setOutlineColor(sf::Color::White);
+					choice70.setOutlineColor(sf::Color::White);
 					text1.setFillColor(sf::Color::Red);
+					text2.setFillColor(sf::Color::White);
+					text3.setFillColor(sf::Color::White);
+					text4.setFillColor(sf::Color::White);
+					text5.setFillColor(sf::Color::White);
+					text6.setFillColor(sf::Color::White);
+					text7.setFillColor(sf::Color::White);
 				}
 				else if (localposition.x >= 28 && localposition.x <= 362 && localposition.y >= 259 && localposition.y <=295) {
 					category = ("Electronics");
 					cout << "electronics" << endl;
+					choice10.setOutlineColor(sf::Color::White);
 					choice20.setOutlineColor(sf::Color::Red);
+					choice30.setOutlineColor(sf::Color::White);
+					choice40.setOutlineColor(sf::Color::White);
+					choice50.setOutlineColor(sf::Color::White);
+					choice60.setOutlineColor(sf::Color::White);
+					choice70.setOutlineColor(sf::Color::White);
+					text1.setFillColor(sf::Color::White);
 					text2.setFillColor(sf::Color::Red);
+					text3.setFillColor(sf::Color::White);
+					text4.setFillColor(sf::Color::White);
+					text5.setFillColor(sf::Color::White);
+					text6.setFillColor(sf::Color::White);
+					text7.setFillColor(sf::Color::White);
 				}
 				else if (localposition.x >= 28 && localposition.x <= 362 && localposition.y >= 327 && localposition.y <= 370) {
 					category =  ("Makeup & Accessories");
 					cout << "makeup & accessories" << endl;
+					choice10.setOutlineColor(sf::Color::White);
+					choice20.setOutlineColor(sf::Color::White);
 					choice30.setOutlineColor(sf::Color::Red);
+					choice40.setOutlineColor(sf::Color::White);
+					choice50.setOutlineColor(sf::Color::White);
+					choice60.setOutlineColor(sf::Color::White);
+					choice70.setOutlineColor(sf::Color::White);
+					text1.setFillColor(sf::Color::White);
+					text2.setFillColor(sf::Color::White);
 					text3.setFillColor(sf::Color::Red);
+					text4.setFillColor(sf::Color::White);
+					text5.setFillColor(sf::Color::White);
+					text6.setFillColor(sf::Color::White);
+					text7.setFillColor(sf::Color::White);
 				}
 				else if (localposition.x >= 28 && localposition.x <= 362 && localposition.y >= 399 && localposition.y <= 439) {
 					category = ("Clothing");
 					cout << "clothing" << endl;
+					choice10.setOutlineColor(sf::Color::White);
+					choice20.setOutlineColor(sf::Color::White);
+					choice30.setOutlineColor(sf::Color::White);
 					choice40.setOutlineColor(sf::Color::Red);
+					choice50.setOutlineColor(sf::Color::White);
+					choice60.setOutlineColor(sf::Color::White);
+					choice70.setOutlineColor(sf::Color::White);
+					text1.setFillColor(sf::Color::White);
+					text2.setFillColor(sf::Color::White);
+					text3.setFillColor(sf::Color::White);
 					text4.setFillColor(sf::Color::Red);
+					text5.setFillColor(sf::Color::White);
+					text6.setFillColor(sf::Color::White);
+					text7.setFillColor(sf::Color::White);
 				}
 				else if (localposition.x >= 28 && localposition.x <= 362 && localposition.y >= 469 && localposition.y <= 505) {
 					category = ("Shoes & Bags");
 					cout << "shoes & bags" << endl;
+					choice10.setOutlineColor(sf::Color::White);
+					choice20.setOutlineColor(sf::Color::White);
+					choice30.setOutlineColor(sf::Color::White);
+					choice40.setOutlineColor(sf::Color::White);
 					choice50.setOutlineColor(sf::Color::Red);
+					choice60.setOutlineColor(sf::Color::White);
+					choice70.setOutlineColor(sf::Color::White);
+					text1.setFillColor(sf::Color::White);
+					text2.setFillColor(sf::Color::White);
+					text3.setFillColor(sf::Color::White);
+					text4.setFillColor(sf::Color::White);
 					text5.setFillColor(sf::Color::Red);
+					text6.setFillColor(sf::Color::White);
+					text7.setFillColor(sf::Color::White);
 				}
 				else if (localposition.x >= 28 && localposition.x <= 362 && localposition.y >= 541 && localposition.y <= 575) {
 					category = ("Books");
 					cout << "books" << endl;
+					choice10.setOutlineColor(sf::Color::White);
+					choice20.setOutlineColor(sf::Color::White);
+					choice30.setOutlineColor(sf::Color::White);
+					choice40.setOutlineColor(sf::Color::White);
+					choice50.setOutlineColor(sf::Color::White);
 					choice60.setOutlineColor(sf::Color::Red);
+					choice70.setOutlineColor(sf::Color::White);
+					text1.setFillColor(sf::Color::White);
+					text2.setFillColor(sf::Color::White);
+					text3.setFillColor(sf::Color::White);
+					text4.setFillColor(sf::Color::White);
+					text5.setFillColor(sf::Color::White);
 					text6.setFillColor(sf::Color::Red);
+					text7.setFillColor(sf::Color::White);
 				}
 				else if (localposition.x >= 28 && localposition.x <= 362 && localposition.y >= 607 && localposition.y <= 649) {
 					category = ("Gaming");
 					cout << "gaming" << endl;
+					choice10.setOutlineColor(sf::Color::White);
+					choice20.setOutlineColor(sf::Color::White);
+					choice30.setOutlineColor(sf::Color::White);
+					choice40.setOutlineColor(sf::Color::White);
+					choice50.setOutlineColor(sf::Color::White);
+					choice60.setOutlineColor(sf::Color::White);
 					choice70.setOutlineColor(sf::Color::Red);
+					text1.setFillColor(sf::Color::White);
+					text2.setFillColor(sf::Color::White);
+					text3.setFillColor(sf::Color::White);
+					text4.setFillColor(sf::Color::White);
+					text5.setFillColor(sf::Color::White);
+					text6.setFillColor(sf::Color::White);
 					text7.setFillColor(sf::Color::Red);
 				}
 				else if (localposition.x >= 443 && localposition.x <= 652 && localposition.y >= 485 && localposition.y <= 569 && name.getSize() > 0 && city.getSize() > 0 && country.getSize() > 0) {
