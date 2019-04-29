@@ -4505,99 +4505,127 @@ void homepageOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	sf::RectangleShape choice1(sf::Vector2f(400.0f, 30.0f));
-	choice1.setPosition(sf::Vector2f(350, 40));
+	choice1.setPosition(sf::Vector2f(350, 100));
 	choice1.setFillColor(sf::Color::White);
 	choice1.setOutlineColor(sf::Color::White);
 	choice1.setOutlineThickness(7);
 
 	sf::RectangleShape choice2(sf::Vector2f(400.0f, 30.0f));
-	choice2.setPosition(sf::Vector2f(350, 80));
+	choice2.setPosition(sf::Vector2f(350, 200));
 	choice2.setFillColor(sf::Color::White);
 	choice2.setOutlineColor(sf::Color::White);
 	choice2.setOutlineThickness(7);
 
 	sf::RectangleShape choice3(sf::Vector2f(400.0f, 30.0f));
-	choice3.setPosition(sf::Vector2f(350, 140));
+	choice3.setPosition(sf::Vector2f(350, 300));
 	choice3.setFillColor(sf::Color::White);
 	choice3.setOutlineColor(sf::Color::White);
 	choice3.setOutlineThickness(7);
 
 	sf::RectangleShape choice4(sf::Vector2f(400.0f, 30.0f));
-	choice4.setPosition(sf::Vector2f(350, 180));
+	choice4.setPosition(sf::Vector2f(350, 400));
 	choice4.setFillColor(sf::Color::White);
 	choice4.setOutlineColor(sf::Color::White);
 	choice4.setOutlineThickness(7);
 
+	sf::RectangleShape choice5(sf::Vector2f(100.0f, 30.0f));
+	choice5.setPosition(sf::Vector2f(500, 500));
+	choice5.setFillColor(sf::Color::Transparent);
+	choice5.setOutlineColor(sf::Color::White);
+	choice5.setOutlineThickness(5);
+
 	sf::Font fontname;
 	fontname.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String name;
-	sf::Text textname(name, fontname, 20);
+	sf::Text textname(name, fontname, 25);
 	textname.setFillColor(sf::Color::Black);
-	textname.setPosition(250, 15);
+	textname.setPosition(355, 100);
 
 
 	sf::Font fontdiscount;
 	fontdiscount.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String discount;
-	sf::Text textdiscount(discount, fontdiscount, 20);
+	sf::Text textdiscount(discount, fontdiscount, 25);
 	textdiscount.setFillColor(sf::Color::Black);
-	textdiscount.setPosition(250, 60);
+	textdiscount.setPosition(355, 200);
 
 	sf::Font fontday;
 	fontday.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String day;
-	sf::Text textday(day, fontday, 20);
+	sf::Text textday(day, fontday, 25);
 	textday.setFillColor(sf::Color::Black);
-	textday.setPosition(250, 105);
+	textday.setPosition(355, 300);
 
 	sf::Font fontmonth;
 	fontmonth.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String month;
-	sf::Text textmonth(month, fontmonth, 20);
+	sf::Text textmonth(month, fontmonth, 25);
 	textmonth.setFillColor(sf::Color::Black);
-	textmonth.setPosition(250, 150);
+	textmonth.setPosition(355, 400);
 
 
 	sf::Font fonta;
-	fonta.loadFromFile("Roboto-MediumItalic.ttf");
+    fonta.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text texta;
 	texta.setFont(fonta);
 	texta.setString(" Product Name  ");
 	texta.setCharacterSize(30);
 	texta.setFillColor(sf::Color::White);
-	texta.setPosition(10, 15);
+	texta.setPosition(40, 100);
 	texta.setStyle(sf::Text::Bold);
 
 	sf::Font fontb;
 	fontb.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textb;
 	textb.setFont(fontb);
-	textb.setString(" Discount Percentage  ");
+	textb.setString(" Discount  ");
 	textb.setCharacterSize(30);
 	textb.setFillColor(sf::Color::White);
-	textb.setPosition(10, 55);
+	textb.setPosition(40, 200);
 	textb.setStyle(sf::Text::Bold);
 
 	sf::Font fontc;
 	fontc.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textc;
 	textc.setFont(fontc);
-	textc.setString(" Day  ");
+	textc.setString(" Month  ");
 	textc.setCharacterSize(30);
 	textc.setFillColor(sf::Color::White);
-	textc.setPosition(10, 95);
+	textc.setPosition(40, 300);
 	textc.setStyle(sf::Text::Bold);
 
 	sf::Font fontd;
-	fontc.loadFromFile("Roboto-MediumItalic.ttf");
+	fontd.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textd;
 	textd.setFont(fontd);
-	textd.setString(" Month  ");
+	textd.setString(" Day  ");
 	textd.setCharacterSize(30);
 	textd.setFillColor(sf::Color::White);
-	textd.setPosition(50, 500);
+	textd.setPosition(40, 400);
 	textd.setStyle(sf::Text::Bold);
 
+	sf::Font fonte;
+	fonte.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text texte;
+	texte.setFont(fonte);
+	texte.setString("  ** Please fill in all of the Spaces ** ");
+	texte.setCharacterSize(28);
+	texte.setFillColor(sf::Color::White);
+	texte.setPosition(200, 445);
+	texte.setStyle(sf::Text::Bold);
+
+	sf::Font fontf;
+	fontf.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textf;
+	textf.setFont(fontf);
+	textf.setString(" Next ");
+	textf.setCharacterSize(28);
+	textf.setFillColor(sf::Color::White);
+	textf.setPosition(510, 495);
+	textf.setStyle(sf::Text::Bold);
+
+
+	bool fill = false;
 	int active = 0;
 	while (window.isOpen())
 	{
@@ -4612,27 +4640,34 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 				sf::Vector2i localposition = sf::Mouse::getPosition(window);
 				cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
-				if (localposition.x >= 193 && localposition.x <= 750 && localposition.y >= 16 && localposition.y <= 40) {
+				if (localposition.x >= 350 && localposition.x <= 750 && localposition.y >= 93 && localposition.y <= 138) {
 					active = 1;
 					cout << "Name" << endl;
 
 				}
-				else if (localposition.x >= 1193 && localposition.x <= 1400 && localposition.y >= 55 && localposition.y <= 82) {
+				else if (localposition.x >= 350 && localposition.x <= 750 && localposition.y >= 193 && localposition.y <= 238) {
 					active = 2;
 					cout << "Percentage" << endl;
 
 				}
-				else if (localposition.x >= 1500 && localposition.x <= 1750 && localposition.y >= 100 && localposition.y <= 130) {
-					active = 3;
+				else if (localposition.x >= 350 && localposition.x <= 750 && localposition.y >= 293 && localposition.y <= 338) {
+					active = 4;
 					cout << "Month" << endl;
 
 				}
-				else if (localposition.x >= 1800 && localposition.x <= 2000 && localposition.y >= 145 && localposition.y <= 180) {
-					active = 4;
+				else if (localposition.x >= 350 && localposition.x <= 750 && localposition.y >= 393 && localposition.y <= 438) {
+					active = 3;
 					cout << "Day" << endl;
 
 				}
-
+				else if (localposition.x >= 350 && localposition.x <= 750 && localposition.y >= 493 && localposition.y <= 538) {
+					active = 5;
+					cout << "Save" << endl;
+					if (name != "" && discount != "" && month != "" && day != "") {
+						fill = false;
+					}
+					else fill = true;
+				}
 				else
 					active = 0;
 			}
@@ -4677,17 +4712,21 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 		window.draw(photo);
 		window.draw(texta);
 		window.draw(textb);
-		window.draw(textd);
 		window.draw(textc);
+		window.draw(textd);
+		window.draw(textf);
 		window.draw(choice1);
 		window.draw(choice2);
 		window.draw(choice3);
 		window.draw(choice4);
+		window.draw(choice5);
 		window.draw(textname);
 		window.draw(textdiscount);
 		window.draw(textmonth);
 		window.draw(textday);
+		if (fill) {
+			window.draw(texte);
+		}
 		window.display();
 	}
-
 }
