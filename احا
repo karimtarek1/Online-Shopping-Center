@@ -4547,14 +4547,16 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 	sf::Font fontname;
 	fontname.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textname[200];
-	int k = 0;
+	int k = 0,n=0;
+
 	
 	for (int i = 0; i < maxShoppers; i++) {
 		for (int j = 0; j < maxProds; j++) {
-			if (Owners[i].Shops.products[j].productPrice != 0)
+			if (Owners[i].Shops.products[j].productPrice != 0) {
 				textname[k].setString(Owners[i].Shops.products[j].productName);
-			    k++;
-			
+				k++;
+				n++;
+			}
 		}
 	}
 
@@ -4570,7 +4572,7 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 		window.draw(photo);
 		
-		for (int k = 0; i < 200; k++) {
+		for (int k = 0; k < n; k++) {
 			
            
 					textname[k].setPosition(10, hi);
@@ -4579,12 +4581,12 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 					window.draw(textname[k]);
 					window.display();
 					hi += 20;
-					break;
+				
 			
 		}
 		
-	} window.display();
-} 
+	}
+}
 
 
 
