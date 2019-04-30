@@ -4538,7 +4538,7 @@ void addproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 
-	int number = 1;
+int number = 1;
 	int z = 0;
 	float hi = 50;
 	int i = 0, j = 0;
@@ -4547,15 +4547,14 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 	sf::Font fontname;
 	fontname.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textname[200];
-	int k = 0,n=0;
+	int k = 0, n = 0;
 
-	
-	for (int i = 0; i < maxShoppers; i++) {
-		for (int j = 0; j < maxProds; j++) {
+	for (int i = 0, k = 0; i < 2;  i++) {
+		for (int j = 0; j < 2; j++) {
 			if (Owners[i].Shops.products[j].productPrice != 0) {
 				textname[k].setString(Owners[i].Shops.products[j].productName);
-				k++;
 				n++;
+				k++;
 			}
 		}
 	}
@@ -4568,23 +4567,23 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		
+
 
 		window.draw(photo);
-		
-		for (int k = 0; k < n; k++) {
-			
-           
-					textname[k].setPosition(10, hi);
-					textname[k].setFont(fontname);
-					textname[k].setCharacterSize(25);
-					window.draw(textname[k]);
-					window.display();
-					hi += 20;
-				
-			
+
+		for (; k < n; k++) {
+
+
+			textname[k].setPosition(10, hi);
+			textname[k].setFont(fontname);
+			textname[k].setCharacterSize(25);
+			window.draw(textname[k]);
+			window.display();
+			hi += 20;
+
+
 		}
-		
+
 	}
 }
 
