@@ -153,3 +153,59 @@ void del(int j) {
 
 	deletes = 0;
 }
+
+void gifts() {
+	do {
+		int choice1;
+		char choice2;
+		
+		if (choice1 == 1) {
+			
+			for (int i = 0; i < maxOwners; i++) {
+				for (int j = 0; j < maxProds; j++){
+					if (Owners[i].Shops.products[j].productPrice != 0) {
+						
+						if (Owners[i].Shops.products[j].Category == "Clothing") {
+							if (Owners[i].Shops.products[j].Clothes.Type == 'm') {
+								cout << Owners[i].Shops.products[j].productName << "  \t  " << Owners[i].Shops.products[j].productPrice << "$" << "   \t  " << Owners[i].Shops.products[j].Category << "  \t " << Owners[i].Shops.products[j].Quantity << "  \t  " << Owners[i].Shops.products[j].Clothes.Size << "  \t  " << Owners[i].Shops.products[j].Clothes.Type << "   \t  " << Owners[i].Shops.products[j].Clothes.Color << endl;
+
+							}
+						}
+						else {
+							if (Owners[i].Shops.products[j].Category != "Makeup&Acessories") {
+								cout << Owners[i].Shops.products[j].productName << "  \t  " << Owners[i].Shops.products[j].productPrice << "$" << "   \t  " << Owners[i].Shops.products[j].Category << "  \t " << Owners[i].Shops.products[j].Quantity << endl;
+							}
+						}
+					}
+
+				}
+			}
+		}
+		else if (choice1 == 2) {
+			for (int i = 0; i < maxOwners; i++) {
+				for (int j = 0; j < maxProds; j++) {
+					if (Owners[i].ID != 0) {
+						if (Owners[i].Shops.products[j].Category == "Clothing") {
+							if (Owners[i].Shops.products[j].Clothes.Type == 'f') {
+								cout << Owners[i].Shops.products[j].productName << "  \t  " << Owners[i].Shops.products[j].productPrice << "$" << "   \t  " << Owners[i].Shops.products[j].Category << "  \t " << Owners[i].Shops.products[j].Quantity << "  \t  " << Owners[i].Shops.products[j].Clothes.Type << "   \t  " << Owners[i].Shops.products[j].Clothes.Size << "  \t  " << Owners[i].Shops.products[j].Clothes.Color << endl;
+
+							}
+						}
+						else {
+							cout << Owners[j].Shops.products[i].productName << "  \t  " << Owners[j].Shops.products[i].productPrice << "$" << "   \t  " << Owners[j].Shops.products[i].Category << "  \t " << Owners[j].Shops.products[i].Quantity << endl << endl;
+						}
+					}
+				}
+			}
+		}
+		else
+		if (choice2 == 'y' || choice1 == 'Y')
+		{
+			continue;
+		}
+		else if (choice2 == 'n' || choice2 == 'N')
+		{
+			break;
+		}
+	} while (true);
+}
