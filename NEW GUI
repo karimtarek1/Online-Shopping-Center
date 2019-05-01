@@ -158,11 +158,10 @@ int main() {
 	photo.setTexture(&wallpaper);
 
 	open();
-	prodmenu(window, photo);
-	scchoice(window, photo);
-	viewproduct(window, photo);
-	welcome(window, photo);
+	
 	homepageOwner(window, photo);
+	welcome(window, photo);
+	
 
 
 	return 0;
@@ -4055,7 +4054,7 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 				}
 				else if (localposition.x >= 698 && localposition.x <= 783 && localposition.y >= 47 && localposition.y <= 75) {
 					cout << "back" << endl;
-					prodchoice(window, photo);
+					homepageOwner(window, photo);;
 
 				}
 				else if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 127 && localposition.y <= 169) {
@@ -4298,6 +4297,7 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	}
 }
+
 void addproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	sf::RectangleShape choice1(sf::Vector2f(330.0f, 20.0f));
@@ -6086,11 +6086,11 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 				}
 				else if (localposition.x >= 683 && localposition.x <= 788 && localposition.y >= 18 && localposition.y <= 49 && (price.getSize() > 0 || name.getSize() > 0 || quantity.getSize() > 0)) {
 					cout << "save" << endl;
-
+					prodchoice(window, photo);
 				}
 				else if (localposition.x >= 683 && localposition.x <= 788 && localposition.y >= 58 && localposition.y <= 83) {
 					cout << "back" << endl;
-
+					prodchoice(window, photo);
 				}
 				else if (localposition.x >= 246 && localposition.x <= 582 && localposition.y >= 127 && localposition.y <= 172) {
 					cout << "edit price" << endl;
