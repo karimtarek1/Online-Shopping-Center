@@ -6890,3 +6890,91 @@ void filtersmenu(sf::RenderWindow& window, sf::RectangleShape photo) {
 	}
 
 }
+
+void giftsmenu(sf::RenderWindow& window, sf::RectangleShape photo) {
+	sf::Font font;
+	font.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text;
+	text.setFont(font);
+	text.setString(" Women ");
+	text.setCharacterSize(40);
+	text.setFillColor(sf::Color::White);
+	text.setPosition(525, 365);
+	text.setStyle(sf::Text::Bold);
+
+	sf::Text textn;
+	textn.setFont(font);
+	textn.setString(" Men ");
+	textn.setCharacterSize(40);
+	textn.setFillColor(sf::Color::White);
+	textn.setPosition(235, 365);
+	textn.setStyle(sf::Text::Bold);
+
+	sf::Font fontz;
+	fontz.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textz;
+	textz.setFont(fontz);
+	textz.setString("  BACK ");
+	textz.setCharacterSize(20);
+	textz.setFillColor(sf::Color::White);
+	textz.setPosition(810, 15);
+	textz.setStyle(sf::Text::Regular);
+
+	sf::RectangleShape choice0(sf::Vector2f(80.0f, 25.0f));
+	choice0.setPosition(sf::Vector2f(810, 15));
+	choice0.setFillColor(sf::Color::Transparent);
+	choice0.setOutlineThickness(3);
+	choice0.setOutlineColor(sf::Color::White);
+	sf::RectangleShape choice(sf::Vector2f(270.0f, 80.0f));
+	choice.setPosition(sf::Vector2f(150, 350));
+	choice.setFillColor(sf::Color::Transparent);
+	choice.setOutlineThickness(5);
+	choice.setOutlineColor(sf::Color::White);
+	sf::RectangleShape choicee(sf::Vector2f(270.0f, 80.0f));
+	choicee.setPosition(sf::Vector2f(470, 350));
+	choicee.setFillColor(sf::Color::Transparent);
+	choicee.setOutlineThickness(5);
+	choicee.setOutlineColor(sf::Color::White);
+
+
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				sf::Vector2i local_position = sf::Mouse::getPosition(window);
+				cout << '(' << local_position.x << ',' << local_position.y << ')' << endl;
+				if (local_position.x >= 145 && local_position.x <= 424 && local_position.y >= 346 && local_position.y <= 434) {
+					choice.setOutlineColor(sf::Color::Red);
+					textn.setFillColor(sf::Color::Red);
+					cout << "Man\n";
+					
+					break;
+				}
+				else if (local_position.x >= 466 && local_position.x <= 743 && local_position.y >= 344 && local_position.y <= 434) {
+					text.setFillColor(sf::Color::Red);
+					choicee.setOutlineColor(sf::Color::Red);
+					cout << "Woman\n";
+
+					break;
+				}
+				else if (local_position.x >= 804 && local_position.x <= 891 && local_position.y >= 14 && local_position.y <= 42){
+					cout << "back\n";
+					prodmenu(window, photo);
+					break;
+				}
+			}
+		}
+		window.draw(photo);
+		window.draw(choice);
+		window.draw(choice0);
+		window.draw(choicee);
+		window.draw(text);
+		window.draw(textn);
+		window.draw(textz);
+		window.display();
+	}
+}
