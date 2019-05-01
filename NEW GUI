@@ -136,7 +136,15 @@ void remove(sf::RenderWindow& window, sf::RectangleShape photo);
 void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo);
 void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo);
 void editprod(sf::RenderWindow& window, sf::RectangleShape photo);
+void deleteshopper(sf::RenderWindow& window, sf::RectangleShape photo);
+void cart(sf::RenderWindow& window, sf::RectangleShape photo);
+void receipt(sf::RenderWindow& window, sf::RectangleShape photo);
+void prodmenu(sf::RenderWindow& window, sf::RectangleShape photo);
 void open();
+void save();
+
+
+
 
 int main() {
 
@@ -148,15 +156,17 @@ int main() {
 	photo.setTexture(&wallpaper);
 
 	open();
-	viewproductsOwner(window, photo);
+	prodmenu(window, photo);
+	scchoice(window, photo);
+	viewproduct(window, photo);
 	welcome(window, photo);
-
-
 	homepageOwner(window, photo);
 
 
 	return 0;
 }
+
+
 
 
 void open() {
@@ -241,6 +251,43 @@ void open() {
 	Shopper.close();
 	Products.close();
 
+}
+
+void save() {
+	ofstream Owner, Shopper, Products;
+	Owner.open("Owners.txt", ios::trunc);
+	Owner << s.countOwn << endl;
+	for (int i = 0; i < s.countOwn; i++) {
+		Owner << Owners[i].Name << endl << Owners[i].Gender << endl << Owners[i].Add.Country << endl << Owners[i].Add.City << endl << Owners[i].Shops.ShopName << endl << Owners[i].Shops.Category << endl << Owners[i].Shops.Add.Country << endl << Owners[i].Shops.Add.City << endl << Owners[i].ID << endl << Owners[i].Age << endl << Owners[i].PassNum << endl << Owners[i].Password << '\n';
+	}
+	Shopper.open("Shopper.txt", ios::trunc);
+	Shopper << s.countShopper << endl;
+	for (int i = 0; i < s.countShopper; i++) {
+		Shopper << Shoppers[i].name << endl << Shoppers[i].gender << endl << Shoppers[i].Add.Country << endl << Shoppers[i].Add.City << endl << Shoppers[i].id << endl << Shoppers[i].age << endl << Shoppers[i].passnum << endl << Shoppers[i].pass << endl;
+		Shopper << Shoppers[i].purchases << endl;
+		if (Shoppers[i].purchases != 0) {
+			for (int j = 0; j < Shoppers[i].purchases; j++) {
+				Shopper << Shoppers[i].purchaseHistory[j] << endl << Shoppers[i].days[j] << endl << Shoppers[i].months[j] << endl;
+			}
+		}
+	}
+	Products.open("Products.txt", ios::trunc);
+	for (int i = 0; i < maxOwners; i++) {
+		Products << Owners[i].Shops.countProd << endl;
+		if (Owners[i].Shops.countProd != 0) {
+			for (int j = 0; j < Owners[i].Shops.countProd; j++) {
+				if (Owners[i].Shops.Category == "Clothing") {
+					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].Clothes.Color << endl << Owners[i].Shops.products[j].Clothes.Type << endl << Owners[i].Shops.products[j].Clothes.Size << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n' << Owners[i].Shops.products[j].avgRating << endl << Owners[i].Shops.products[j].oldPrice << endl << Owners[i].Shops.products[j].sum << endl << Owners[i].Shops.products[j].counter << endl << Owners[i].Shops.products[j].month << endl << Owners[i].Shops.products[j].day << endl;
+				}
+				else {
+					Products << Owners[i].Shops.products[j].productName << endl << Owners[i].Shops.products[j].Category << endl << Owners[i].Shops.products[j].productPrice << endl << Owners[i].Shops.products[j].Quantity << '\n' << Owners[i].Shops.products[j].avgRating << endl << Owners[i].Shops.products[j].oldPrice << endl << Owners[i].Shops.products[j].sum << endl << Owners[i].Shops.products[j].counter << endl << Owners[i].Shops.products[j].month << endl << Owners[i].Shops.products[j].day << endl;
+				}
+			}
+		}
+	}
+	Owner.close();
+	Shopper.close();
+	Products.close();
 }
 
 void welcome(sf::RenderWindow& window, sf::RectangleShape photo) {
@@ -1990,6 +2037,18 @@ void loginshopper(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 void scchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 
+	sf::RectangleShape choice0(sf::Vector2f(110.0f, 25.0f));
+	choice0.setPosition(sf::Vector2f(770, 15));
+	choice0.setFillColor(sf::Color::Transparent);
+	choice0.setOutlineThickness(3);
+	choice0.setOutlineColor(sf::Color::White);
+
+	sf::RectangleShape choice01(sf::Vector2f(110.0f, 25.0f));
+	choice01.setPosition(sf::Vector2f(770, 50));
+	choice01.setFillColor(sf::Color::Transparent);
+	choice01.setOutlineThickness(3);
+	choice01.setOutlineColor(sf::Color::White);
+	
 	sf::RectangleShape choice1(sf::Vector2f(320.0f, 80.0f));
 	choice1.setPosition(sf::Vector2f(250, 100));
 	choice1.setFillColor(sf::Color::Transparent);
@@ -2019,6 +2078,26 @@ void scchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choice5.setFillColor(sf::Color::Transparent);
 	choice5.setOutlineThickness(5);
 	choice5.setOutlineColor(sf::Color::White);
+
+	sf::Font fontz;
+	fontz.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textz;
+	textz.setFont(fontz);
+	textz.setString(" VIEW CART ");
+	textz.setCharacterSize(20);
+	textz.setFillColor(sf::Color::White);
+	textz.setPosition(770, 15);
+	textz.setStyle(sf::Text::Regular);
+	
+	sf::Font fontq;
+	fontq.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textq;
+	textq.setFont(fontq);
+	textq.setString("   LOG OUT ");
+	textq.setCharacterSize(20);
+	textq.setFillColor(sf::Color::White);
+	textq.setPosition(770, 50);
+	textq.setStyle(sf::Text::Regular);
 
 	sf::Font fonta;
 	fonta.loadFromFile("Roboto-MediumItalic.ttf");
@@ -2085,7 +2164,7 @@ void scchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 				cout << "{" << localposition.x << "-" << localposition.y << "]" << endl;
 				if (localposition.x >= 245 && localposition.x <= 570 && localposition.y >= 93 && localposition.y <= 177) {
 					cout << "view" << endl;
-					viewproduct(window, photo);
+					prodmenu(window, photo);
 
 				}
 				else if (localposition.x >= 245 && localposition.x <= 570 && localposition.y >= 221 && localposition.y <= 302) {
@@ -2097,13 +2176,23 @@ void scchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 					editshoper(window, photo);
 
 				}
+				else if (localposition.x >= 767 && localposition.x <= 883 && localposition.y >= 10 && localposition.y <= 41) {
+					cout << "cart" << endl;
+					cart(window, photo);
+
+				}
+				else if (localposition.x >= 767 && localposition.x <= 883 && localposition.y >= 45 && localposition.y <= 77) {
+					cout << "logout" << endl;
+				    welcome(window, photo);
+
+				}
 				else if (localposition.x >= 245 && localposition.x <= 570 && localposition.y >= 470 && localposition.y <= 553) {
 					cout << "parchase" << endl;
 
 				}
 				else if (localposition.x >= 245 && localposition.x <= 570 && localposition.y >= 593 && localposition.y <= 680) {
 					cout << "delete" << endl;
-
+					deleteshopper(window, photo);
 				}
 
 
@@ -2115,6 +2204,10 @@ void scchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 			window.draw(textc);
 			window.draw(textd);
 			window.draw(texte);
+			window.draw(textz);
+			window.draw(textq);
+			window.draw(choice0);
+			window.draw(choice01);
 			window.draw(choice1);
 			window.draw(choice2);
 			window.draw(choice3);
@@ -2177,6 +2270,16 @@ void search(sf::RenderWindow& window, sf::RectangleShape photo) {
 	texta.setPosition(30, 20);
 	texta.setStyle(sf::Text::Bold);
 
+	sf::Font fonto;
+	fonto.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text texto;
+	texto.setFont(fonto);
+	texto.setString(" Out Of Stock  ");
+	texto.setCharacterSize(30);
+	texto.setFillColor(sf::Color::White);
+	texto.setPosition(350, 100);
+	texto.setStyle(sf::Text::Bold);
+
 	sf::Font fonts;
 	fonts.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String searchh;
@@ -2185,6 +2288,7 @@ void search(sf::RenderWindow& window, sf::RectangleShape photo) {
 	texts.setPosition(310, 20);
 
 	int active = 0;
+	bool found = false;
 
 	while (window.isOpen())
 	{
@@ -2242,7 +2346,10 @@ void search(sf::RenderWindow& window, sf::RectangleShape photo) {
 		window.draw(choices);
 		window.draw(choiceb);
 		window.draw(textb);
+		if (found)
+		window.draw(texto);
 		window.display();
+		
 	}
 
 
@@ -2529,6 +2636,12 @@ void shopperchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 void editshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 
+	sf::RectangleShape choiceback(sf::Vector2f(80.0f, 22.0f));
+	choiceback.setPosition(sf::Vector2f(700, 50));
+	choiceback.setFillColor(sf::Color::Transparent);
+	choiceback.setOutlineColor(sf::Color::Red);
+	choiceback.setOutlineThickness(3);
+
 	sf::RectangleShape choice1(sf::Vector2f(330.0f, 40.0f));
 	choice1.setPosition(sf::Vector2f(250, 10));
 	choice1.setFillColor(sf::Color::Transparent);
@@ -2620,7 +2733,6 @@ void editshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choicesave.setOutlineThickness(3);
 
 
-
 	sf::String sname;
 	sf::String spass;
 	sf::String sgender;
@@ -2686,6 +2798,16 @@ void editshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 	text0.setFillColor(sf::Color::Red);
 	text0.setPosition(708, 18);
 	text0.setStyle(sf::Text::Bold);
+
+	sf::Font font01;
+	font01.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text01;
+	text01.setFont(font01);
+	text01.setString(" Back");
+	text01.setCharacterSize(22);
+	text01.setFillColor(sf::Color::Red);
+	text01.setPosition(707, 46);
+	text01.setStyle(sf::Text::Bold);
 
 	sf::Font font1;
 	font1.loadFromFile("Roboto-MediumItalic.ttf");
@@ -2857,7 +2979,7 @@ void editshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << active;
 
 				}
-				else if (localposition.x >= 697 && localposition.x <= 781 && localposition.y >= 16 && localposition.y <= 43) {
+				else if (localposition.x >= 697 && localposition.x <= 781 && localposition.y >= 16 && localposition.y <= 43 && (  name.getSize() > 0 || ( age .getSize() > 0 || passo.getSize() > 5 || passon.getSize() > 5 &&  passon == passonc)|| passonc.getSize() > 0 || country.getSize() > 0 || city.getSize() > 0  )) {
 					scchoice(window, photo);
 				}
 				else if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 127 && localposition.y <= 169) {
@@ -2884,6 +3006,7 @@ void editshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 				}
 				else if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 309 && localposition.y <= 351) {
+				
 					cout << "edit gender" << endl;
 
 					bgender = true;
@@ -2908,6 +3031,11 @@ void editshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 				else if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 458 && localposition.y <= 500) {
 					cout << "edit age" << endl;
 					bage = true;
+
+				}
+				else if (localposition.x >= 696 && localposition.x <= 781 && localposition.y >= 47 && localposition.y <= 72) {
+					cout << "back" << endl;
+					scchoice(window, photo);
 
 				}
 				else if (localposition.x >= 167 && localposition.x <= 500 && localposition.y >= 530 && localposition.y <= 558 && bage) {
@@ -3022,7 +3150,9 @@ void editshoper(sf::RenderWindow& window, sf::RectangleShape photo) {
 		window.draw(choice4);
 		window.draw(choice5);
 		window.draw(text0);
+		window.draw(text01);
 		window.draw(choicesave);
+		window.draw(choiceback);
 
 		if (bgender) {
 			window.draw(choicef);
@@ -3650,6 +3780,12 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choicesave.setOutlineColor(sf::Color::Red);
 	choicesave.setOutlineThickness(3);
 
+	sf::RectangleShape choiceback(sf::Vector2f(80.0f, 22.0f));
+	choiceback.setPosition(sf::Vector2f(700, 50));
+	choiceback.setFillColor(sf::Color::Transparent);
+	choiceback.setOutlineColor(sf::Color::Red);
+	choiceback.setOutlineThickness(3);
+
 	sf::RectangleShape choicename(sf::Vector2f(330.0f, 22.0f));
 	choicename.setPosition(sf::Vector2f(178, 88));
 	choicename.setFillColor(sf::Color::White);
@@ -3817,6 +3953,16 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 	text0.setPosition(708, 18);
 	text0.setStyle(sf::Text::Bold);
 
+	sf::Font font00;
+	font00.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text00;
+	text00.setFont(font0);
+	text00.setString(" Back ");
+	text00.setCharacterSize(22);
+	text00.setFillColor(sf::Color::Red);
+	text00.setPosition(707, 46);
+	text00.setStyle(sf::Text::Bold);
+
 	sf::Font font03;
 	font03.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text text03;
@@ -3905,7 +4051,11 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << active;
 
 				}
+				else if (localposition.x >= 698 && localposition.x <= 783 && localposition.y >= 47 && localposition.y <= 75 ) {
+					cout << "back" << endl;
+					prodchoice(window, photo);
 
+				}
 				else if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 127 && localposition.y <= 169) {
 					cout << "edit address" << endl;
 
@@ -4099,10 +4249,12 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 		window.clear();
 		window.draw(photo);
 		window.draw(text01);
+		window.draw(text00);
 		window.draw(text02);
 		window.draw(choice1);
 		window.draw(choice2);
 		window.draw(choicesave);
+		window.draw(choiceback);
 		window.draw(text0);
 		window.draw(text03);
 		window.draw(choicecat);
@@ -4866,19 +5018,34 @@ void remove(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 
-	int number = 1;
+	int number = 1,a[75];
 	int z = 0;
 	float hi = 50, ho = 50;
-
+	bool next = false;
+	bool done = false;
+    int k = 0, n = 0;
+	
+	
+	string nump[75];
 	string price[75];
 	string averating[75];
 	string quantity[75];
+
+	sf::String p;
+	sf::Font fontp;
+	fontp.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textp[75];
 
 	sf::String name;
 	sf::Font fontname;
 	fontname.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textname[75];
-	int k = 0, n = 0;
+	
+
+	sf::String num;
+	sf::Font fontnum;
+	fontnum.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textnum[75];
 
 	sf::String cate;
 	sf::Font fontcate;
@@ -4982,12 +5149,18 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choice40.setOutlineColor(sf::Color::Red);
 	choice40.setOutlineThickness(3);
 
+	sf::RectangleShape choice50(sf::Vector2f(130.0f, 30.0f));
+	choice50.setPosition(sf::Vector2f(665, 745));
+	choice50.setFillColor(sf::Color::Transparent);
+	choice50.setOutlineColor(sf::Color::White);
+	choice50.setOutlineThickness(3);
+
 	sf::Font fontc;
 	fontc.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String c;
 	sf::Text textc(c, fontc, 25);
 	textc.setFillColor(sf::Color::Black);
-	textc.setPosition(215, 748);
+	textc.setPosition(218, 743);
 
 
 	sf::Font font10;
@@ -5027,7 +5200,7 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 	text40.setString(" Previous ");
 	text40.setCharacterSize(22);
 	text40.setFillColor(sf::Color::White);
-	text40.setPosition(130, 10);
+	text40.setPosition(680, 745);
 	text40.setStyle(sf::Text::Bold);
 
 	sf::Font font50;
@@ -5128,6 +5301,7 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 				textsize[k].setString(Owners[i].Shops.products[j].Clothes.Size);
 				texttype[k].setString(Owners[i].Shops.products[j].Clothes.Type);
 				textcolor[k].setString(Owners[i].Shops.products[j].Clothes.Color);
+				textp[k].setString(") ");
 				n++;
 				k++;
 			}
@@ -5135,10 +5309,26 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 	}
 
 	k = 0, n = 0;
+	for (int i = 0; i < 75; i++) {
+		a[i] = i + 1;
+	}
+
+	for (int i = 0; i < 75; i++) {
+		long long price1 = a[i];
+		while (price1 != 0 )
+		{
+			int m = price1 % 10;
+			nump[i] += m + '0';
+			price1 /= 10;
+		}
+		reverse (nump[i].begin(), nump[i].end());
+		textnum[i].setString(nump[i]);
+	}
 
 	for (int i = 0, k = 0; i < maxOwners; i++) {
 		for (int j = 0; j < maxProds; j++) {
 			if (Owners[i].Shops.products[j].productPrice != 0) {
+			
 				long long price2 = Owners[i].Shops.products[j].productPrice;
 				long long price3 = Owners[i].Shops.products[j].Quantity;
 				long long price4 = Owners[i].Shops.products[j].avgRating;
@@ -5192,15 +5382,27 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 				else if (localposition.x >= 316 && localposition.x <= 402 && localposition.y >= 742 && localposition.y <= 776) {
 					//function l add
 					cout << "add" << endl;
+					for (int i = 0; i < 5;i++) {
+						c.erase(c.getSize() - 1, c.getSize());
+						textc.setString(c);
+						if (c.getSize() == 0)
+							break;
+					}
+					done = true;
 
 				}
-				else if (localposition.x >= 517 && localposition.x <= 652 && localposition.y >= 742 && localposition.y <= 779) {
-
+				else if (localposition.x >= 517 && localposition.x <= 652 && localposition.y >= 742 && localposition.y <= 779 && next == false) {
+					next = true;
 					cout << "next" << endl;
 
 				}
-				else if (localposition.x >= 808 && localposition.x <= 893 && localposition.y >= 747 && localposition.y <= 778) {
+				else if (localposition.x >= 661 && localposition.x <= 797 && localposition.y >= 742 && localposition.y <= 774 && next == true) {
+					next = false;
+					cout << "previous" << endl;
 
+				}
+				else if (localposition.x >= 808 && localposition.x <= 893 && localposition.y >= 747 && localposition.y <= 778) {
+					scchoice(window, photo);
 					cout << "back" << endl;
 
 				}
@@ -5223,13 +5425,13 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 			}
 		}
 
-		for (; k < n; k++) {
+		for (; k < 32; k++) {
 
 
-			textname[k].setPosition(5, hi);
+			textname[k].setPosition(32, hi);
 			textname[k].setFont(fontname);
 			textname[k].setCharacterSize(20);
-			textprice[k].setPosition(150, hi);
+			textprice[k].setPosition(165, hi);
 			textprice[k].setFont(fontprice);
 			textprice[k].setCharacterSize(20);
 			textquantity[k].setPosition(400, hi);
@@ -5250,13 +5452,59 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 			textcolor[k].setPosition(840, hi);
 			textcolor[k].setFont(fontname);
 			textcolor[k].setCharacterSize(20);
+			textnum[k].setPosition(1, hi);
+			textnum[k].setFont(fontnum);
+			textnum[k].setCharacterSize(20);
+			textp[k].setPosition(23, hi);
+			textp[k].setFont(fontp);
+			textp[k].setCharacterSize(20);
 			hi += 20;
-			ho += 20.5;
+			ho += 20.2;
 
 
 		}
+		     hi = 30, ho = 30.3;
+		for (k=32; k < n; k++) {
 
+
+			textname[k].setPosition(32, hi);
+			textname[k].setFont(fontname);
+			textname[k].setCharacterSize(20);
+			textprice[k].setPosition(165, hi);
+			textprice[k].setFont(fontprice);
+			textprice[k].setCharacterSize(20);
+			textquantity[k].setPosition(400, hi);
+			textquantity[k].setFont(fontprice);
+			textquantity[k].setCharacterSize(20);
+			textrating[k].setPosition(510, hi);
+			textrating[k].setFont(fontprice);
+			textrating[k].setCharacterSize(20);
+			textcate[k].setPosition(232, ho);
+			textcate[k].setFont(fontprice);
+			textcate[k].setCharacterSize(15);
+			textsize[k].setPosition(620, hi);
+			textsize[k].setFont(fontname);
+			textsize[k].setCharacterSize(20);
+			texttype[k].setPosition(720, hi);
+			texttype[k].setFont(fontname);
+			texttype[k].setCharacterSize(20);
+			textcolor[k].setPosition(840, hi);
+			textcolor[k].setFont(fontname);
+			textcolor[k].setCharacterSize(20);
+			textnum[k].setPosition(1, hi);
+			textnum[k].setFont(fontnum);
+			textnum[k].setCharacterSize(20);
+			textp[k].setPosition(23, hi);
+			textp[k].setFont(fontp);
+			textp[k].setCharacterSize(10);
+			hi += 20;
+			ho += 20.2;
+
+
+		}
+    
 		window.draw(photo);
+		
 		window.draw(text1);
 		window.draw(text2);
 		window.draw(text3);
@@ -5273,27 +5521,51 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 		window.draw(choice6);
 		window.draw(choice7);
 		window.draw(choice8);
-		window.draw(choice10);
+		
 		window.draw(choice20);
 		window.draw(choice30);
 		window.draw(choice40);
+		
 		window.draw(text10);
-		window.draw(text20);
+		
 		window.draw(text30);
 		window.draw(text50);
+		
 		window.draw(textc);
+        if (next==false){
+		       window.draw(text20);
+			   window.draw(choice10);
+		    for (k = 0; k < 32; k++) {
 
-		k = 0;
-		for (; k < n; k++) {
+    			window.draw(textname[k]);
+	    		window.draw(textprice[k]);
+		    	window.draw(textcate[k]);
+		    	window.draw(textquantity[k]);
+		    	window.draw(textrating[k]);
+	    		window.draw(textsize[k]);
+		    	window.draw(texttype[k]);
+		    	window.draw(textcolor[k]);
+				window.draw(textnum[k]);
+				window.draw(textp[k]);
+		    }
+     	}
+		if (next) {
+			window.draw(text40);
+			window.draw(choice50);
+			;
+			for (k = 33; k < 70; k++) {
 
-			window.draw(textname[k]);
-			window.draw(textprice[k]);
-			window.draw(textcate[k]);
-			window.draw(textquantity[k]);
-			window.draw(textrating[k]);
-			window.draw(textsize[k]);
-			window.draw(texttype[k]);
-			window.draw(textcolor[k]);
+				window.draw(textname[k]);
+				window.draw(textprice[k]);
+				window.draw(textcate[k]);
+				window.draw(textquantity[k]);
+				window.draw(textrating[k]);
+				window.draw(textsize[k]);
+				window.draw(texttype[k]);
+				window.draw(textcolor[k]);
+				window.draw(textnum[k]);
+				window.draw(textp[k]);
+			}
 		}
 
 		window.display();
@@ -5301,6 +5573,7 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 }
 
 void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
+	
 	int number = 1;
 	int z = 0;
 	float hi = 50;
@@ -5344,44 +5617,44 @@ void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fontcolor.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textcolor[75];
 
-	sf::RectangleShape choice1(sf::Vector2f(100.0f, 30.0f));
-	choice1.setPosition(sf::Vector2f(5, 10));
+	sf::RectangleShape choice1(sf::Vector2f(120.0f, 30.0f));
+	choice1.setPosition(sf::Vector2f(12, 10));
 	choice1.setFillColor(sf::Color::Transparent);
 	choice1.setOutlineColor(sf::Color::White);
 	choice1.setOutlineThickness(3);
 
-	sf::RectangleShape choice4(sf::Vector2f(100.0f, 30.0f));
-	choice4.setPosition(sf::Vector2f(350, 10));
+	sf::RectangleShape choice4(sf::Vector2f(120.0f, 30.0f));
+	choice4.setPosition(sf::Vector2f(273, 10));
 	choice4.setFillColor(sf::Color::Transparent);
 	choice4.setOutlineColor(sf::Color::White);
 	choice4.setOutlineThickness(3);
 
-	sf::RectangleShape choice5(sf::Vector2f(100.0f, 30.0f));
-	choice5.setPosition(sf::Vector2f(465, 10));
+	sf::RectangleShape choice5(sf::Vector2f(120.0f, 30.0f));
+	choice5.setPosition(sf::Vector2f(403, 10));
 	choice5.setFillColor(sf::Color::Transparent);
 	choice5.setOutlineColor(sf::Color::White);
 	choice5.setOutlineThickness(3);
 
-	sf::RectangleShape choice2(sf::Vector2f(100.0f, 30.0f));
-	choice2.setPosition(sf::Vector2f(120, 10));
+	sf::RectangleShape choice2(sf::Vector2f(120.0f, 30.0f));
+	choice2.setPosition(sf::Vector2f(143, 10));
 	choice2.setFillColor(sf::Color::Transparent);
 	choice2.setOutlineColor(sf::Color::White);
 	choice2.setOutlineThickness(3);
 
-	sf::RectangleShape choice6(sf::Vector2f(100.0f, 30.0f));
-	choice6.setPosition(sf::Vector2f(580, 10));
+	sf::RectangleShape choice6(sf::Vector2f(120.0f, 30.0f));
+	choice6.setPosition(sf::Vector2f(533, 10));
 	choice6.setFillColor(sf::Color::Transparent);
 	choice6.setOutlineColor(sf::Color::White);
 	choice6.setOutlineThickness(3);
 
-	sf::RectangleShape choice7(sf::Vector2f(100.0f, 30.0f));
-	choice7.setPosition(sf::Vector2f(695, 10));
+	sf::RectangleShape choice7(sf::Vector2f(120.0f, 30.0f));
+	choice7.setPosition(sf::Vector2f(663, 10));
 	choice7.setFillColor(sf::Color::Transparent);
 	choice7.setOutlineColor(sf::Color::White);
 	choice7.setOutlineThickness(3);
 
-	sf::RectangleShape choice8(sf::Vector2f(100.0f, 30.0f));
-	choice8.setPosition(sf::Vector2f(810, 10));
+	sf::RectangleShape choice8(sf::Vector2f(120.0f, 30.0f));
+	choice8.setPosition(sf::Vector2f(793, 10));
 	choice8.setFillColor(sf::Color::Transparent);
 	choice8.setOutlineColor(sf::Color::White);
 	choice8.setOutlineThickness(3);
@@ -5414,7 +5687,7 @@ void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	font1.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text text1;
 	text1.setFont(font1);
-	text1.setString(" NAME ");
+	text1.setString("     NAME ");
 	text1.setCharacterSize(22);
 	text1.setFillColor(sf::Color::White);
 	text1.setPosition(14, 10);
@@ -5424,10 +5697,10 @@ void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	font2.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text text2;
 	text2.setFont(font2);
-	text2.setString(" PRICE ");
+	text2.setString("  PRICE ");
 	text2.setCharacterSize(22);
 	text2.setFillColor(sf::Color::White);
-	text2.setPosition(130, 10);
+	text2.setPosition(160, 10);
 	text2.setStyle(sf::Text::Bold);
 
 	sf::Font font4;
@@ -5435,9 +5708,9 @@ void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	sf::Text text4;
 	text4.setFont(font4);
 	text4.setString("  QUANTITY ");
-	text4.setCharacterSize(19);
+	text4.setCharacterSize(22);
 	text4.setFillColor(sf::Color::White);
-	text4.setPosition(340, 13);
+	text4.setPosition(265, 10);
 	text4.setStyle(sf::Text::Bold);
 
 	sf::Font font5;
@@ -5445,9 +5718,9 @@ void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	sf::Text text5;
 	text5.setFont(font5);
 	text5.setString("  RATING ");
-	text5.setCharacterSize(21);
+	text5.setCharacterSize(22);
 	text5.setFillColor(sf::Color::White);
-	text5.setPosition(461, 11);
+	text5.setPosition(411, 10);
 	text5.setStyle(sf::Text::Bold);
 
 	sf::Font font6;
@@ -5457,7 +5730,7 @@ void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	text6.setString(" SIZE ");
 	text6.setCharacterSize(22);
 	text6.setFillColor(sf::Color::White);
-	text6.setPosition(598, 10);
+	text6.setPosition(560, 10);
 	text6.setStyle(sf::Text::Bold);
 
 	sf::Font font7;
@@ -5467,7 +5740,7 @@ void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	text7.setString(" TYPE ");
 	text7.setCharacterSize(22);
 	text7.setFillColor(sf::Color::White);
-	text7.setPosition(710, 10);
+	text7.setPosition(690, 10);
 	text7.setStyle(sf::Text::Bold);
 
 	sf::Font font8;
@@ -5477,60 +5750,60 @@ void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 	text8.setString(" COLOR ");
 	text8.setCharacterSize(22);
 	text8.setFillColor(sf::Color::White);
-	text8.setPosition(820, 10);
+	text8.setPosition(810, 10);
 	text8.setStyle(sf::Text::Bold);
 	k = 0, n = 0;
 
 	LogIndex = 1;
 
-		for (int j = 0; j < maxProds; j++) {
-			if (Owners[LogIndex].Shops.products[j].productPrice != 0) {
-				textname[k].setString(Owners[LogIndex].Shops.products[j].productName);
-				textsize[k].setString(Owners[LogIndex].Shops.products[j].Clothes.Size);
-				texttype[k].setString(Owners[LogIndex].Shops.products[j].Clothes.Type);
-				textcolor[k].setString(Owners[LogIndex].Shops.products[j].Clothes.Color);
-				n++;
-				k++;
-			}
+	for (int j = 0; j < maxProds; j++) {
+		if (Owners[LogIndex].Shops.products[j].productPrice != 0) {
+			textname[k].setString(Owners[LogIndex].Shops.products[j].productName);
+			textsize[k].setString(Owners[LogIndex].Shops.products[j].Clothes.Size);
+			texttype[k].setString(Owners[LogIndex].Shops.products[j].Clothes.Type);
+			textcolor[k].setString(Owners[LogIndex].Shops.products[j].Clothes.Color);
+			n++;
+			k++;
 		}
+	}
 
 	k = 0, n = 0;
 
-		for (int j = 0; j < maxProds; j++) {
-			if (Owners[LogIndex].Shops.products[j].productPrice != 0) {
-				long long price2 = Owners[LogIndex].Shops.products[j].productPrice;
-				long long price3 = Owners[LogIndex].Shops.products[j].Quantity;
-				long long price4 = Owners[LogIndex].Shops.products[j].avgRating;
+	for (int j = 0; j < maxProds; j++) {
+		if (Owners[LogIndex].Shops.products[j].productPrice != 0) {
+			long long price2 = Owners[LogIndex].Shops.products[j].productPrice;
+			long long price3 = Owners[LogIndex].Shops.products[j].Quantity;
+			long long price4 = Owners[LogIndex].Shops.products[j].avgRating;
 
-				while (price2 != 0) {
-					int remainder = price2 % 10;
-					price[k] += remainder + '0';
-					price2 /= 10;
-				}
-				while (price3 != 0) {
-					int remainder1 = price3 % 10;
-					quantity[k] += remainder1 + '0';
-					price3 /= 10;
-				}
-				while (price4 != 0)
-				{
-					int remainder2 = price4 % 10;
-					averating[k] += remainder2 + '0';
-					price4 /= 10;
-				}
-
-				reverse(price[k].begin(), price[k].end());
-				textprice[k].setString(price[k]);
-				reverse(quantity[k].begin(), quantity[k].end());
-				textquantity[k].setString(quantity[k]);
-				reverse(averating[k].begin(), averating[k].end());
-				textrating[k].setString(averating[k]);
-				n++;
-				k++;
+			while (price2 != 0) {
+				int remainder = price2 % 10;
+				price[k] += remainder + '0';
+				price2 /= 10;
 			}
-		}
+			while (price3 != 0) {
+				int remainder1 = price3 % 10;
+				quantity[k] += remainder1 + '0';
+				price3 /= 10;
+			}
+			while (price4 != 0)
+			{
+				int remainder2 = price4 % 10;
+				averating[k] += remainder2 + '0';
+				price4 /= 10;
+			}
 
-		k = 0;
+			reverse(price[k].begin(), price[k].end());
+			textprice[k].setString(price[k]);
+			reverse(quantity[k].begin(), quantity[k].end());
+			textquantity[k].setString(quantity[k]);
+			reverse(averating[k].begin(), averating[k].end());
+			textrating[k].setString(averating[k]);
+			n++;
+			k++;
+		}
+	}
+
+	k = 0;
 
 	while (window.isOpen())
 	{
@@ -5544,7 +5817,7 @@ void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 				sf::Vector2i localposition = sf::Mouse::getPosition(window);
 				cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
 				if (localposition.x >= 810 && localposition.x <= 895 && localposition.y >= 749 && localposition.y <= 780) {
-					
+
 					cout << "back" << endl;
 					prodchoice(window, photo);
 
@@ -5908,8 +6181,6 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 		}
 
 		window.clear();
-		window.draw(photo);
-		window.draw(text1);
 		window.draw(text2);
 
 		window.draw(text4);
@@ -5948,4 +6219,585 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 		window.display();
 	}
+}
+
+void cart(sf::RenderWindow& window, sf::RectangleShape photo) {
+	
+	int number = 1;
+	int z = 0;
+	float hi = 50, ho = 50;
+	bool next = false;
+	bool done = false;
+
+	string price[75];
+	string averating[75];
+	string quantity[75];
+
+	sf::String name;
+	sf::Font fontname;
+	fontname.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textname[75];
+	int k = 0, n = 0;
+
+	sf::String cate;
+	sf::Font fontcate;
+	fontcate.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textcate[75];
+
+	sf::Font fontprice;
+	fontprice.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textprice[75];
+
+	sf::Font fontsize;
+	fontsize.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textsize[75];
+
+	sf::Font fontrating;
+	fontrating.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textrating[75];
+
+	sf::Font fontquantity;
+	fontquantity.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textquantity[75];
+
+	sf::Font fonttype;
+	fonttype.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text texttype[75];
+
+	sf::Font fontcolor;
+	fontcolor.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textcolor[75];
+
+	sf::RectangleShape choice1(sf::Vector2f(100.0f, 30.0f));
+	choice1.setPosition(sf::Vector2f(5, 10));
+	choice1.setFillColor(sf::Color::Transparent);
+	choice1.setOutlineColor(sf::Color::White);
+	choice1.setOutlineThickness(3);
+
+	sf::RectangleShape choice2(sf::Vector2f(100.0f, 30.0f));
+	choice2.setPosition(sf::Vector2f(120, 10));
+	choice2.setFillColor(sf::Color::Transparent);
+	choice2.setOutlineColor(sf::Color::White);
+	choice2.setOutlineThickness(3);
+
+	sf::RectangleShape choice3(sf::Vector2f(100.0f, 30.0f));
+	choice3.setPosition(sf::Vector2f(235, 10));
+	choice3.setFillColor(sf::Color::Transparent);
+	choice3.setOutlineColor(sf::Color::White);
+	choice3.setOutlineThickness(3);
+
+	sf::RectangleShape choice4(sf::Vector2f(100.0f, 30.0f));
+	choice4.setPosition(sf::Vector2f(350, 10));
+	choice4.setFillColor(sf::Color::Transparent);
+	choice4.setOutlineColor(sf::Color::White);
+	choice4.setOutlineThickness(3);
+
+	sf::RectangleShape choice5(sf::Vector2f(100.0f, 30.0f));
+	choice5.setPosition(sf::Vector2f(465, 10));
+	choice5.setFillColor(sf::Color::Transparent);
+	choice5.setOutlineColor(sf::Color::White);
+	choice5.setOutlineThickness(3);
+
+	sf::RectangleShape choice6(sf::Vector2f(100.0f, 30.0f));
+	choice6.setPosition(sf::Vector2f(580, 10));
+	choice6.setFillColor(sf::Color::Transparent);
+	choice6.setOutlineColor(sf::Color::White);
+	choice6.setOutlineThickness(3);
+
+	sf::RectangleShape choice7(sf::Vector2f(100.0f, 30.0f));
+	choice7.setPosition(sf::Vector2f(695, 10));
+	choice7.setFillColor(sf::Color::Transparent);
+	choice7.setOutlineColor(sf::Color::White);
+	choice7.setOutlineThickness(3);
+
+	sf::RectangleShape choice8(sf::Vector2f(100.0f, 30.0f));
+	choice8.setPosition(sf::Vector2f(810, 10));
+	choice8.setFillColor(sf::Color::Transparent);
+	choice8.setOutlineColor(sf::Color::White);
+	choice8.setOutlineThickness(3);
+
+	sf::RectangleShape choice20(sf::Vector2f(100.0f, 30.0f));
+	choice20.setPosition(sf::Vector2f(700, 748));
+	choice20.setFillColor(sf::Color::Transparent);
+	choice20.setOutlineColor(sf::Color::Red);
+	choice20.setOutlineThickness(3);
+
+	sf::RectangleShape choice40(sf::Vector2f(80.0f, 30.0f));
+	choice40.setPosition(sf::Vector2f(812, 748));
+	choice40.setFillColor(sf::Color::Transparent);
+	choice40.setOutlineColor(sf::Color::Red);
+	choice40.setOutlineThickness(3);
+
+
+	sf::Font fontc;
+	fontc.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::String c;
+	sf::Text textc(c, fontc, 25);
+	textc.setFillColor(sf::Color::Black);
+	textc.setPosition(218, 743);
+
+
+	sf::Font font10;
+	font10.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text10;
+	text10.setFont(font10);
+	text10.setString(" BACK ");
+	text10.setCharacterSize(20);
+	text10.setFillColor(sf::Color::Red);
+	text10.setPosition(820, 750);
+	text10.setStyle(sf::Text::Bold);
+
+	sf::Font font40;
+	font40.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text40;
+	text40.setFont(font40);
+	text40.setString(" RECEIPT ");
+	text40.setCharacterSize(22);
+	text40.setFillColor(sf::Color::Red);
+	text40.setPosition(700, 748);
+	text40.setStyle(sf::Text::Bold);
+
+	sf::Font font1;
+	font1.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text1;
+	text1.setFont(font1);
+	text1.setString(" NAME ");
+	text1.setCharacterSize(22);
+	text1.setFillColor(sf::Color::White);
+	text1.setPosition(14, 10);
+	text1.setStyle(sf::Text::Bold);
+
+	sf::Font font2;
+	font2.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text2;
+	text2.setFont(font2);
+	text2.setString(" PRICE ");
+	text2.setCharacterSize(22);
+	text2.setFillColor(sf::Color::White);
+	text2.setPosition(130, 10);
+	text2.setStyle(sf::Text::Bold);
+
+	sf::Font font3;
+	font3.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text3;
+	text3.setFont(font3);
+	text3.setString(" CATEGORY  ");
+	text3.setCharacterSize(18);
+	text3.setFillColor(sf::Color::White);
+	text3.setPosition(232, 14);
+	text3.setStyle(sf::Text::Bold);
+
+	sf::Font font4;
+	font4.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text4;
+	text4.setFont(font4);
+	text4.setString("  QUANTITY ");
+	text4.setCharacterSize(19);
+	text4.setFillColor(sf::Color::White);
+	text4.setPosition(340, 13);
+	text4.setStyle(sf::Text::Bold);
+
+	sf::Font font5;
+	font5.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text5;
+	text5.setFont(font5);
+	text5.setString("  RATING ");
+	text5.setCharacterSize(21);
+	text5.setFillColor(sf::Color::White);
+	text5.setPosition(461, 11);
+	text5.setStyle(sf::Text::Bold);
+
+	sf::Font font6;
+	font6.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text6;
+	text6.setFont(font6);
+	text6.setString(" SIZE ");
+	text6.setCharacterSize(22);
+	text6.setFillColor(sf::Color::White);
+	text6.setPosition(598, 10);
+	text6.setStyle(sf::Text::Bold);
+
+	sf::Font font7;
+	font7.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text7;
+	text7.setFont(font7);
+	text7.setString(" TYPE ");
+	text7.setCharacterSize(22);
+	text7.setFillColor(sf::Color::White);
+	text7.setPosition(710, 10);
+	text7.setStyle(sf::Text::Bold);
+
+	sf::Font font8;
+	font8.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text8;
+	text8.setFont(font8);
+	text8.setString(" COLOR ");
+	text8.setCharacterSize(22);
+	text8.setFillColor(sf::Color::White);
+	text8.setPosition(820, 10);
+	text8.setStyle(sf::Text::Bold);
+	k = 0, n = 0;
+	for (int i = 0, k = 0; i < maxOwners; i++) {
+		for (int j = 0; j < maxProds; j++) {
+			if (Owners[i].Shops.products[j].productPrice != 0) {
+				textname[k].setString(Owners[i].Shops.products[j].productName);
+				textcate[k].setString(Owners[i].Shops.products[j].Category);
+				textsize[k].setString(Owners[i].Shops.products[j].Clothes.Size);
+				texttype[k].setString(Owners[i].Shops.products[j].Clothes.Type);
+				textcolor[k].setString(Owners[i].Shops.products[j].Clothes.Color);
+				n++;
+				k++;
+			}
+		}
+	}
+
+	k = 0, n = 0;
+
+	for (int i = 0, k = 0; i < maxOwners; i++) {
+		for (int j = 0; j < maxProds; j++) {
+			if (Owners[i].Shops.products[j].productPrice != 0) {
+				long long price2 = Owners[i].Shops.products[j].productPrice;
+				long long price3 = Owners[i].Shops.products[j].Quantity;
+				long long price4 = Owners[i].Shops.products[j].avgRating;
+
+				while (price2 != 0) {
+					int remainder = price2 % 10;
+					price[k] += remainder + '0';
+					price2 /= 10;
+				}
+				while (price3 != 0) {
+					int remainder1 = price3 % 10;
+					quantity[k] += remainder1 + '0';
+					price3 /= 10;
+				}
+				while (price4 != 0)
+				{
+					int remainder2 = price4 % 10;
+					averating[k] += remainder2 + '0';
+					price4 /= 10;
+				}
+
+
+				reverse(price[k].begin(), price[k].end());
+				textprice[k].setString(price[k]);
+				reverse(quantity[k].begin(), quantity[k].end());
+				textquantity[k].setString(quantity[k]);
+				reverse(averating[k].begin(), averating[k].end());
+				textrating[k].setString(averating[k]);
+				n++;
+				k++;
+			}
+		}
+	}
+	int active = 0;
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+
+				sf::Vector2i localposition = sf::Mouse::getPosition(window);
+				cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
+				
+				 if (localposition.x >= 697 && localposition.x <= 803 && localposition.y >= 744 && localposition.y <= 780 ) {
+					cout << "recipt" << endl;
+			     	receipt(window, photo);
+
+				}
+				else if (localposition.x >= 808 && localposition.x <= 893 && localposition.y >= 747 && localposition.y <= 778) {
+					scchoice(window, photo);
+					cout << "back" << endl;
+
+				}
+			}
+		}
+
+		for (; k < 32; k++) {
+
+
+			textname[k].setPosition(5, hi);
+			textname[k].setFont(fontname);
+			textname[k].setCharacterSize(20);
+			textprice[k].setPosition(150, hi);
+			textprice[k].setFont(fontprice);
+			textprice[k].setCharacterSize(20);
+			textquantity[k].setPosition(400, hi);
+			textquantity[k].setFont(fontprice);
+			textquantity[k].setCharacterSize(20);
+			textrating[k].setPosition(510, hi);
+			textrating[k].setFont(fontprice);
+			textrating[k].setCharacterSize(20);
+			textcate[k].setPosition(232, ho);
+			textcate[k].setFont(fontprice);
+			textcate[k].setCharacterSize(15);
+			textsize[k].setPosition(620, hi);
+			textsize[k].setFont(fontname);
+			textsize[k].setCharacterSize(20);
+			texttype[k].setPosition(720, hi);
+			texttype[k].setFont(fontname);
+			texttype[k].setCharacterSize(20);
+			textcolor[k].setPosition(840, hi);
+			textcolor[k].setFont(fontname);
+			textcolor[k].setCharacterSize(20);
+			hi += 20;
+			ho += 20.2;
+
+
+		}
+		
+		window.draw(photo);
+		window.draw(text1);
+		window.draw(text2);
+		window.draw(text3);
+		window.draw(text4);
+		window.draw(text5);
+		window.draw(text6);
+		window.draw(text7);
+		window.draw(text8);
+		window.draw(choice1);
+		window.draw(choice2);
+		window.draw(choice3);
+		window.draw(choice4);
+		window.draw(choice5);
+		window.draw(choice6);
+		window.draw(choice7);
+		window.draw(choice8);
+		window.draw(choice20);
+		window.draw(choice40);
+		window.draw(text10);
+		window.draw(text40);
+		window.draw(textc);
+		for (k = 0; k < 30; k++) {
+
+				window.draw(textname[k]);
+				window.draw(textprice[k]);
+				window.draw(textcate[k]);
+				window.draw(textquantity[k]);
+				window.draw(textrating[k]);
+				window.draw(textsize[k]);
+				window.draw(texttype[k]);
+				window.draw(textcolor[k]);
+				window.draw(textname[k]);
+				window.draw(textprice[k]);
+				window.draw(textcate[k]);
+				window.draw(textquantity[k]);
+				window.draw(textrating[k]);
+				window.draw(textsize[k]);
+				window.draw(texttype[k]);
+				window.draw(textcolor[k]);
+			
+		}
+		window.display();
+	}
+}
+
+void deleteshopper(sf::RenderWindow& window, sf::RectangleShape photo) {
+
+
+	sf::RectangleShape choice1(sf::Vector2f(100.0f, 70.0f));
+	choice1.setPosition(sf::Vector2f(250, 400));
+	choice1.setFillColor(sf::Color::Transparent);
+	choice1.setOutlineColor(sf::Color::White);
+	choice1.setOutlineThickness(3);
+
+	sf::RectangleShape choice2(sf::Vector2f(100.0f, 70.0f));
+	choice2.setPosition(sf::Vector2f(600, 400));
+	choice2.setFillColor(sf::Color::Transparent);
+	choice2.setOutlineColor(sf::Color::White);
+	choice2.setOutlineThickness(3);
+
+	sf::Font font1;
+	font1.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text1;
+	text1.setFont(font1);
+	text1.setString(" Do You Want To Delete Your Account  ?");
+	text1.setCharacterSize(40);
+	text1.setFillColor(sf::Color::White);
+	text1.setPosition(100, 250);
+	text1.setStyle(sf::Text::Bold);
+
+	sf::Font font2;
+	font2.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text2;
+	text2.setFont(font2);
+	text2.setString(" YES ");
+	text2.setCharacterSize(40);
+	text2.setFillColor(sf::Color::White);
+	text2.setPosition(255, 410);
+	text2.setStyle(sf::Text::Bold);
+
+	sf::Font font3;
+	font3.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text3;
+	text3.setFont(font3);
+	text3.setString(" NO ");
+	text3.setCharacterSize(40);
+	text3.setFillColor(sf::Color::White);
+	text3.setPosition(610, 410);
+	text3.setStyle(sf::Text::Bold);
+
+	while (window.isOpen())
+	{
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				sf::Vector2i localposition = sf::Mouse::getPosition(window);
+				cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
+				if (localposition.x >= 245 && localposition.x <= 352 && localposition.y >= 395 && localposition.y <= 471) {
+					welcome(window, photo);
+					cout << "YES " << endl;
+					
+				}
+				else if (localposition.x >= 597 && localposition.x <= 702 && localposition.y >= 397 && localposition.y <= 472 ) {
+					scchoice(window, photo);
+					cout << "NO" << endl;
+
+					
+
+				}
+			}
+	    }
+
+		window.clear();
+		window.draw(photo);
+		window.draw(text1);
+		window.draw(text2);
+		window.draw(text3);
+		window.draw(choice1);
+		window.draw(choice2);
+		window.display();
+	}
+
+
+}
+
+void receipt(sf::RenderWindow& window, sf::RectangleShape photo){
+
+
+}
+
+void prodmenu(sf::RenderWindow& window, sf::RectangleShape photo) {
+
+
+	sf::RectangleShape choice0(sf::Vector2f(80.0f, 25.0f));
+	choice0.setPosition(sf::Vector2f(770, 15));
+	choice0.setFillColor(sf::Color::Transparent);
+	choice0.setOutlineThickness(3);
+	choice0.setOutlineColor(sf::Color::White);
+
+	sf::RectangleShape choice01(sf::Vector2f(320.0f, 80.0f));
+	choice01.setPosition(sf::Vector2f(250, 350));
+	choice01.setFillColor(sf::Color::Transparent);
+	choice01.setOutlineThickness(5);
+	choice01.setOutlineColor(sf::Color::White);
+
+	sf::RectangleShape choice1(sf::Vector2f(320.0f, 80.0f));
+	choice1.setPosition(sf::Vector2f(250, 100));
+	choice1.setFillColor(sf::Color::Transparent);
+	choice1.setOutlineThickness(5);
+	choice1.setOutlineColor(sf::Color::White);
+
+	sf::RectangleShape choice5(sf::Vector2f(320.0f, 80.0f));
+	choice5.setPosition(sf::Vector2f(250, 600));
+	choice5.setFillColor(sf::Color::Transparent);
+	choice5.setOutlineThickness(5);
+	choice5.setOutlineColor(sf::Color::White);
+
+	sf::Font fontz;
+	fontz.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textz;
+	textz.setFont(fontz);
+	textz.setString("  BACK ");
+	textz.setCharacterSize(20);
+	textz.setFillColor(sf::Color::White);
+	textz.setPosition(770, 15);
+	textz.setStyle(sf::Text::Regular);
+
+	sf::Font fontq;
+	fontq.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textq;
+	textq.setFont(fontq);
+	textq.setString(" VIEW ALL ");
+	textq.setCharacterSize(40);
+	textq.setFillColor(sf::Color::White);
+	textq.setPosition(310, 360);
+	textq.setStyle(sf::Text::Regular);
+
+	sf::Font fonta;
+	fonta.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text texta;
+	texta.setFont(fonta);
+	texta.setString(" FILTERS ");
+	texta.setCharacterSize(40);
+	texta.setFillColor(sf::Color::White);
+	texta.setPosition(310, 110);
+	texta.setStyle(sf::Text::Bold);
+
+	sf::Font fontb;
+	fontb.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textb;
+	textb.setFont(fontb);
+	textb.setString(" GIFTS  ");
+	textb.setCharacterSize(40);
+	textb.setFillColor(sf::Color::White);
+	textb.setPosition(330, 620);
+	textb.setStyle(sf::Text::Bold);
+
+	
+
+	while (window.isOpen())
+	{
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				sf::Vector2i localposition = sf::Mouse::getPosition(window);
+				cout << "{" << localposition.x << "-" << localposition.y << "]" << endl;
+				if (localposition.x >= 245 && localposition.x <= 580 && localposition.y >= 94 && localposition.y <= 182) {
+					cout << "filters" << endl;
+					
+
+				}
+				else if (localposition.x >= 245 && localposition.x <= 576 && localposition.y >= 343 && localposition.y <= 437) {
+					cout << "view all" << endl;
+					viewproduct(window, photo);
+				}
+				else if (localposition.x >= 245 && localposition.x <= 577 && localposition.y >= 593 && localposition.y <= 684) {
+					cout << "gifts" << endl;
+				
+
+				}
+				else if (localposition.x >= 767 && localposition.x <= 852 && localposition.y >= 10 && localposition.y <= 43) {
+					scchoice(window, photo);
+					cout << "back" << endl;
+				
+				}
+
+			}
+			window.clear();
+			window.draw(photo);
+			window.draw(texta);
+			window.draw(textb);
+			window.draw(textz);
+			window.draw(textq);
+			window.draw(choice0);
+			window.draw(choice01);
+			window.draw(choice1);
+			window.draw(choice5);
+			window.display();
+		}
+	}
+
 }
