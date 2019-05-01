@@ -238,7 +238,6 @@ void Open() {
 		Owner >> Owners[i].PassNum;
 		Owner >> Owners[i].Password;
 	}
-	Owners[0].Add.Country;
 	Shopper.open("Shopper.txt");
 	Shopper >> s.countShopper;
 	for (int i = 0; i < s.countShopper; i++) {
@@ -309,16 +308,20 @@ void save() {
 	Owner.open("Owners.txt", ios::trunc);
 	Owner << s.countOwn << endl;
 	for (int i = 0; i < s.countOwn; i++) {
-		Owner << Owners[i].Name << endl << Owners[i].Gender << endl << Owners[i].Add.Country << endl << Owners[i].Add.City << endl << Owners[i].Shops.ShopName << endl << Owners[i].Shops.Category << endl << Owners[i].Shops.Add.Country << endl << Owners[i].Shops.Add.City << endl << Owners[i].ID << endl << Owners[i].Age << endl << Owners[i].PassNum << endl << Owners[i].Password << '\n';
+		if (Owners[i].ID != 0) {
+			Owner << Owners[i].Name << endl << Owners[i].Gender << endl << Owners[i].Add.Country << endl << Owners[i].Add.City << endl << Owners[i].Shops.ShopName << endl << Owners[i].Shops.Category << endl << Owners[i].Shops.Add.Country << endl << Owners[i].Shops.Add.City << endl << Owners[i].ID << endl << Owners[i].Age << endl << Owners[i].PassNum << endl << Owners[i].Password << '\n';
+		}
 	}
 	Shopper.open("Shopper.txt", ios::trunc);
 	Shopper << s.countShopper << endl;
 	for (int i = 0; i < s.countShopper; i++) {
-		Shopper << Shoppers[i].name << endl << Shoppers[i].gender << endl << Shoppers[i].Add.Country << endl << Shoppers[i].Add.City << endl << Shoppers[i].id << endl << Shoppers[i].age << endl << Shoppers[i].passnum << endl << Shoppers[i].pass << endl;
-		Shopper << Shoppers[i].purchases << endl;
-		if (Shoppers[i].purchases != 0) {
-			for (int j = 0; j < Shoppers[i].purchases; j++) {
-				Shopper << Shoppers[i].purchaseHistory[j] << endl << Shoppers[i].days[j] << endl << Shoppers[i].months[j] << endl;
+		if (Shoppers[i].id != 0) {
+			Shopper << Shoppers[i].name << endl << Shoppers[i].gender << endl << Shoppers[i].Add.Country << endl << Shoppers[i].Add.City << endl << Shoppers[i].id << endl << Shoppers[i].age << endl << Shoppers[i].passnum << endl << Shoppers[i].pass << endl;
+			Shopper << Shoppers[i].purchases << endl;
+			if (Shoppers[i].purchases != 0) {
+				for (int j = 0; j < Shoppers[i].purchases; j++) {
+					Shopper << Shoppers[i].purchaseHistory[j] << endl << Shoppers[i].days[j] << endl << Shoppers[i].months[j] << endl;
+				}
 			}
 		}
 	}
@@ -1149,10 +1152,18 @@ void del(int j) {
 
 		Shoppers[j].name = { 0 };
 		Shoppers[j].id = 0;
-		for (int i = 0; i < maxShoppers; i++) {
+		for (int i = 0; i < maxPass; i++) {
 			Shoppers[j].pass[i] = { 0 };
 		}
+		Shoppers[j].passnum = 0;
+		Shoppers[j].purchases = 0;
 		Shoppers[j].age = 0;
+		for (int i = 0; i < 10; i++) {
+			
+			Shoppers[j].months[i] = 0;
+			Shoppers[j].days[i] = 0;
+			Shoppers[j].purchaseHistory[i] = 0;
+		}
 		Shoppers[j].gender = { 0 };
 		Shoppers[j].Add.City = { 0 };
 		Shoppers[j].Add.Country = { 0 };
@@ -2166,6 +2177,7 @@ void removeReg(int j)
 			Owners[j].Password[i] = { 0 };
 		}
 		Owners[j].Age = 0;
+		Owners[j].PassNum = 0;
 		Owners[j].Gender = { 0 };
 		Owners[j].Add.Country = { 0 };
 		Owners[j].Add.City = { 0 };
