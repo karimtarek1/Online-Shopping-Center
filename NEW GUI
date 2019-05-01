@@ -4052,7 +4052,7 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << active;
 
 				}
-				else if (localposition.x >= 698 && localposition.x <= 783 && localposition.y >= 47 && localposition.y <= 75) {
+				else if (localposition.x >= 698 && localposition.x <= 783 && localposition.y >= 47 && localposition.y <= 75 ) {
 					cout << "back" << endl;
 					prodchoice(window, photo);
 
@@ -4077,7 +4077,7 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 					active = 2;
 					cout << active;
 				}
-				else if (localposition.x >= 697 && localposition.x <= 781 && localposition.y >= 16 && localposition.y <= 43) {
+				else if (localposition.x >= 697 && localposition.x <= 781 && localposition.y >= 16 && localposition.y <= 43 && (  name.getSize()> 0 || city.getSize() > 0 || country.getSize()>0 ) ) {
 					homepageOwner(window, photo);
 				}
 				else if (localposition.x >= 397 && localposition.x <= 731 && localposition.y >= 398 && localposition.y <= 439) {
@@ -4297,7 +4297,6 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	}
 }
-
 void addproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	sf::RectangleShape choice1(sf::Vector2f(330.0f, 20.0f));
