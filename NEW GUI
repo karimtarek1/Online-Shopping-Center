@@ -141,6 +141,7 @@ void cart(sf::RenderWindow& window, sf::RectangleShape photo);
 void receipt(sf::RenderWindow& window, sf::RectangleShape photo);
 void prodmenu(sf::RenderWindow& window, sf::RectangleShape photo);
 void filtersmenu(sf::RenderWindow& window, sf::RectangleShape photo);
+void giftsmenu(sf::RenderWindow& window, sf::RectangleShape photo);
 void open();
 void save();
 
@@ -4052,7 +4053,7 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << active;
 
 				}
-				else if (localposition.x >= 698 && localposition.x <= 783 && localposition.y >= 47 && localposition.y <= 75 ) {
+				else if (localposition.x >= 698 && localposition.x <= 783 && localposition.y >= 47 && localposition.y <= 75) {
 					cout << "back" << endl;
 					prodchoice(window, photo);
 
@@ -4077,7 +4078,7 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 					active = 2;
 					cout << active;
 				}
-				else if (localposition.x >= 697 && localposition.x <= 781 && localposition.y >= 16 && localposition.y <= 43 && (  name.getSize()> 0 || city.getSize() > 0 || country.getSize()>0 ) ) {
+				else if (localposition.x >= 697 && localposition.x <= 781 && localposition.y >= 16 && localposition.y <= 43 && (name.getSize() > 0 || city.getSize() > 0 || country.getSize() > 0)) {
 					homepageOwner(window, photo);
 				}
 				else if (localposition.x >= 397 && localposition.x <= 731 && localposition.y >= 398 && localposition.y <= 439) {
@@ -6057,9 +6058,9 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	bool bname = false;
 	bool bprice = false;
-	bool bquantity= false;
-	
-	
+	bool bquantity = false;
+
+
 	int active = 0;
 
 
@@ -6083,13 +6084,13 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << "new name" << endl;
 					active = 1;
 				}
-				else if (localposition.x >= 683 && localposition.x <= 788 && localposition.y >= 18 && localposition.y <= 49 &&( price.getSize() > 0 || name.getSize() > 0 || quantity.getSize()> 0) ) {
+				else if (localposition.x >= 683 && localposition.x <= 788 && localposition.y >= 18 && localposition.y <= 49 && (price.getSize() > 0 || name.getSize() > 0 || quantity.getSize() > 0)) {
 					cout << "save" << endl;
-				
+
 				}
-				else if (localposition.x >= 683 && localposition.x <= 788 && localposition.y >= 58 && localposition.y <= 83 ) {
+				else if (localposition.x >= 683 && localposition.x <= 788 && localposition.y >= 58 && localposition.y <= 83) {
 					cout << "back" << endl;
-				
+
 				}
 				else if (localposition.x >= 246 && localposition.x <= 582 && localposition.y >= 127 && localposition.y <= 172) {
 					cout << "edit price" << endl;
@@ -6107,14 +6108,14 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 					bquantity = true;
 
 				}
-				else if (localposition.x >= 227 && localposition.x <= 556 && localposition.y >=  317 && localposition.y <= 344 && bquantity) {
+				else if (localposition.x >= 227 && localposition.x <= 556 && localposition.y >= 317 && localposition.y <= 344 && bquantity) {
 					cout << "new quantity" << endl;
 					active = 3;
 
 				}
-				else	
+				else
 					active = 0;
-				
+
 			}
 			if (event.type == sf::Event::TextEntered) {
 
@@ -6183,7 +6184,7 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 			window.draw(textprice);
 		}
 		if (bquantity) {
-			
+
 			window.draw(text50);
 			window.draw(choiceq);
 			window.draw(textquantity);
@@ -6748,7 +6749,7 @@ void prodmenu(sf::RenderWindow& window, sf::RectangleShape photo) {
 				}
 				else if (localposition.x >= 245 && localposition.x <= 577 && localposition.y >= 593 && localposition.y <= 684) {
 					cout << "gifts" << endl;
-
+					giftsmenu(window, photo);
 				}
 				else if (localposition.x >= 767 && localposition.x <= 852 && localposition.y >= 10 && localposition.y <= 43) {
 					scchoice(window, photo);
@@ -6827,7 +6828,7 @@ void filtersmenu(sf::RenderWindow& window, sf::RectangleShape photo) {
 	texta.setString(" By Category ");
 	texta.setCharacterSize(40);
 	texta.setFillColor(sf::Color::White);
-	texta.setPosition(310, 110);
+	texta.setPosition(290, 110);
 	texta.setStyle(sf::Text::Bold);
 
 	sf::Font fontb;
@@ -6837,7 +6838,7 @@ void filtersmenu(sf::RenderWindow& window, sf::RectangleShape photo) {
 	textb.setString(" By Price  ");
 	textb.setCharacterSize(40);
 	textb.setFillColor(sf::Color::White);
-	textb.setPosition(330, 620);
+	textb.setPosition(315, 620);
 	textb.setStyle(sf::Text::Bold);
 
 
@@ -6951,7 +6952,7 @@ void giftsmenu(sf::RenderWindow& window, sf::RectangleShape photo) {
 					choice.setOutlineColor(sf::Color::Red);
 					textn.setFillColor(sf::Color::Red);
 					cout << "Man\n";
-					
+
 					break;
 				}
 				else if (local_position.x >= 466 && local_position.x <= 743 && local_position.y >= 344 && local_position.y <= 434) {
@@ -6961,7 +6962,7 @@ void giftsmenu(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 					break;
 				}
-				else if (local_position.x >= 804 && local_position.x <= 891 && local_position.y >= 14 && local_position.y <= 42){
+				else if (local_position.x >= 804 && local_position.x <= 891 && local_position.y >= 14 && local_position.y <= 42) {
 					cout << "back\n";
 					prodmenu(window, photo);
 					break;
