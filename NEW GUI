@@ -6843,7 +6843,7 @@ void filtersmenu(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fontq.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textq;
 	textq.setFont(fontq);
-	textq.setString(" VIEW ");
+	textq.setString(" By Shop ");
 	textq.setCharacterSize(40);
 	textq.setFillColor(sf::Color::White);
 	textq.setPosition(310, 360);
@@ -6853,7 +6853,7 @@ void filtersmenu(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fonta.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text texta;
 	texta.setFont(fonta);
-	texta.setString(" FILTERS ");
+	texta.setString(" By Category ");
 	texta.setCharacterSize(40);
 	texta.setFillColor(sf::Color::White);
 	texta.setPosition(310, 110);
@@ -6863,7 +6863,7 @@ void filtersmenu(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fontb.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textb;
 	textb.setFont(fontb);
-	textb.setString(" GIFTS  ");
+	textb.setString(" By Price  ");
 	textb.setCharacterSize(40);
 	textb.setFillColor(sf::Color::White);
 	textb.setPosition(330, 620);
@@ -6884,22 +6884,22 @@ void filtersmenu(sf::RenderWindow& window, sf::RectangleShape photo) {
 				sf::Vector2i localposition = sf::Mouse::getPosition(window);
 				cout << "{" << localposition.x << "-" << localposition.y << "]" << endl;
 				if (localposition.x >= 245 && localposition.x <= 580 && localposition.y >= 94 && localposition.y <= 182) {
-					cout << "filters" << endl;
+					cout << "Shop" << endl;
 
 
 				}
 				else if (localposition.x >= 245 && localposition.x <= 576 && localposition.y >= 343 && localposition.y <= 437) {
-					cout << "view all" << endl;
-					viewproduct(window, photo);
+					cout << "Category" << endl;
+
 				}
 				else if (localposition.x >= 245 && localposition.x <= 577 && localposition.y >= 593 && localposition.y <= 684) {
-					cout << "gifts" << endl;
+					cout << "Price" << endl;
 
 
 				}
 				else if (localposition.x >= 767 && localposition.x <= 852 && localposition.y >= 10 && localposition.y <= 43) {
-					scchoice(window, photo);
 					cout << "back" << endl;
+					prodmenu(window, photo);
 
 				}
 
