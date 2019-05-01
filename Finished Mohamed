@@ -2926,7 +2926,7 @@ void ShopFilter()
 	{
 		cout << "Invalid Number";
 	}
-	cout << "Shop : " << Owners[choice].Shops.ShopName;
+	cout << "Shop : " << Owners[choice - 1].Shops.ShopName;
 	for (int j = 0; j < maxProds; j++) {
 		cout << "Name : " << Owners[choice - 1].Shops.products[j].productName << endl;
 		cout << "Price : " << Owners[choice - 1].Shops.products[j].productPrice << endl;
