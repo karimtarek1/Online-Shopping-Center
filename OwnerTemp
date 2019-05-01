@@ -69,9 +69,8 @@ int Lowner(int id, char pass[] , int j)
 }
 
 
-void discount(int j , string name , string discount , string month2 , string day2)
+void discount(int j,string name , int discount , int month2 , int day2)
 {
-	bool flag = false, choice = true, flag2 = true;
 		for (int i = 0; i < maxProds; i++)
 		{
 			if (Owners[j].Shops.products[i].productName == name)
@@ -88,25 +87,39 @@ void discount(int j , string name , string discount , string month2 , string day
 									if (month2 == month) {
 										if (day2 >= day)
 										{
-											flag2 = false;
-											flag = false;
 											discount = Owners[j].Shops.products[i].productPrice * (discount / 100);
 											Owners[j].Shops.products[i].oldPrice = Owners[j].Shops.products[i].productPrice;
 											Owners[j].Shops.products[i].productPrice = Owners[j].Shops.products[i].productPrice - discount;
 										}
 									}
 									else {
-										flag2 = false;
-										flag = false;
 										discount = Owners[j].Shops.products[i].productPrice * (discount / 100);
 										Owners[j].Shops.products[i].oldPrice = Owners[j].Shops.products[i].productPrice;
 										Owners[j].Shops.products[i].productPrice = Owners[j].Shops.products[i].productPrice - discount;
-
 									}
 								}
 							}
 					}
 				}
 			}
+		}
+}
+
+void Rating(int ratenum , int rating)
+{
+		//heyetbe3etlo rukum elproduct
+		if (ratenum <= c.nump)
+		{
+				//huyetbe3etlo elrating hena
+				if (rating >= 1 && rating <= 5)
+				{
+					Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].counter++;
+					Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].sum += rating;
+					Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].avgRating = Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].sum / Owners[k.sav[ratenum - 1].x].Shops.products[k.sav[ratenum - 1].y].counter;
+				}
+				else
+				{
+					cout << "Invalid Rating.";
+				}
 		}
 }
