@@ -131,3 +131,28 @@ int Lshopper(int id, char pass[],int j, sf::RenderWindow& window, sf::RectangleS
 	}
 	return i;
 }
+void del(int j) {
+
+	Shoppers[j].name = { 0 };
+	Shoppers[j].id = 0;
+	for (int i = 0; i < maxPass; i++) {
+		Shoppers[j].pass[i] = { 0 };
+	}
+	Shoppers[j].passnum = 0;
+	Shoppers[j].purchases = 0;
+	Shoppers[j].age = 0;
+	for (int i = 0; i < 10; i++) {
+
+		Shoppers[j].months[i] = 0;
+		Shoppers[j].days[i] = 0;
+		Shoppers[j].purchaseHistory[i] = 0;
+	}
+	Shoppers[j].gender = { 0 };
+	Shoppers[j].Add.City = { 0 };
+	Shoppers[j].Add.Country = { 0 };
+	s.countShopper--;
+
+
+
+	deletes = 0;
+}
