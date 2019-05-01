@@ -150,7 +150,6 @@ void byprice(sf::RenderWindow& window, sf::RectangleShape photo);
 void bygifts(sf::RenderWindow& window, sf::RectangleShape photo);
 void viewbyprice(sf::RenderWindow& window, sf::RectangleShape photo);
 void viewbystring(sf::RenderWindow& window, sf::RectangleShape photo);
-void rating(sf::RenderWindow& window, sf::RectangleShape photo);
 void open();
 void save();
 
@@ -7836,7 +7835,7 @@ void byshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 
 	int n = 0, k = 0;
-	int hi = 30;
+	double hi = 30;
 	for (int i = 0, k = 0; i < maxOwners; i++) {
 		if (Owners[i].Shops.ShopName != ("")) {
 			textshop[k].setString(Owners[i].Shops.ShopName);
@@ -7847,12 +7846,12 @@ void byshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	}
 
-	k = 0, n = 0;
-	for (int i = 0; i < 75; i++) {
+	k = 0;
+	for (int i = 0; i < 20; i++) {
 		a[i] = i + 1;
 	}
 
-	for (int i = 0; i < 75; i++) {
+	for (int i = 0; i < 20; i++) {
 		long long price1 = a[i];
 		while (price1 != 0)
 		{
@@ -7891,18 +7890,6 @@ void byshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 						if (c.getSize() == 0)
 							break;
 					}
-
-
-				}
-				else if (localposition.x >= 517 && localposition.x <= 652 && localposition.y >= 742 && localposition.y <= 779) {
-
-					cout << "next" << endl;
-
-				}
-				else if (localposition.x >= 661 && localposition.x <= 797 && localposition.y >= 742 && localposition.y <= 774) {
-
-					cout << "previous" << endl;
-
 				}
 				else if (localposition.x >= 808 && localposition.x <= 893 && localposition.y >= 747 && localposition.y <= 778) {
 					prodmenu(window, photo);
@@ -7929,7 +7916,7 @@ void byshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 		}
 
 
-		for (k = 0; k < n; k++) {
+		for (; k < n; k++) {
 
 
 			textshop[k].setPosition(32, hi);
@@ -7947,7 +7934,7 @@ void byshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 		window.draw(photo);
 
-		for (k = 0; k < 70; k++) {
+		for (k = 0; k < 20; k++) {
 
 			window.draw(textshop[k]);
 			window.draw(textnum[k]);
