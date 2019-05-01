@@ -86,3 +86,48 @@ int Lowner(int id, char pass[],int j, sf::RenderWindow& window, sf::RectangleSha
 	}
 	return i;
 }
+int Lshopper(int id, char pass[],int j, sf::RenderWindow& window, sf::RectangleShape photo)
+{
+	int i;
+	bool flag = true;
+	int LogID;
+	char LogPass[maxPass];
+
+	LogID = id;
+	for (i = 0; i < Shoppers[i].passnum; i++) {
+		LogPass[i] = pass[i];
+	}
+
+
+
+	for (i = 0; i < maxShoppers; i++)
+	{
+		flag = true;
+		if (j > Shoppers[i].passnum || j <Shoppers[i].passnum) {
+			flag = false;
+		}
+		else if (j == Shoppers[i].passnum) {
+			for (int x = 0; x < Shoppers[i].passnum; x++)
+			{
+				if (LogPass[x] != Shoppers[i].pass[x])
+				{
+					flag = false;
+				}
+			}
+		}
+		if (LogID == Shoppers[i].id && (flag))
+		{
+
+			system("pause");
+			system("cls");
+			break;
+		}
+
+	}
+	if (flag == false)
+	{
+
+		i = maxShoppers;
+	}
+	return i;
+}
