@@ -5571,9 +5571,8 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 		window.display();
 	}
 }
-
 void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
-	
+
 	int number = 1;
 	int z = 0;
 	float hi = 50;
@@ -5836,13 +5835,13 @@ void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 			textprice[k].setPosition(150, hi);
 			textprice[k].setFont(fontprice);
 			textprice[k].setCharacterSize(20);
-			textquantity[k].setPosition(400, hi);
+			textquantity[k].setPosition(320, hi);
 			textquantity[k].setFont(fontprice);
 			textquantity[k].setCharacterSize(20);
 			textrating[k].setPosition(510, hi);
 			textrating[k].setFont(fontprice);
 			textrating[k].setCharacterSize(20);
-			textsize[k].setPosition(620, hi);
+			textsize[k].setPosition(580, hi);
 			textsize[k].setFont(fontname);
 			textsize[k].setCharacterSize(20);
 			texttype[k].setPosition(720, hi);
