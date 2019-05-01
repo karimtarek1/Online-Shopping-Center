@@ -1,0 +1,143 @@
+int RegOwner(string name, char Password[], int passnum, int age, string gender, string country, string city)
+{
+	int  j;
+	for (j = 0; j < maxOwners; j++)
+	{
+		if (Owners[j].Age == 0)
+		{
+			Owners[j].Name = name;
+			for (int i = 0; i < maxPass; i++) {
+				Owners[j].Password[i] = Password[i];
+			}
+			Owners[j].Age = age;
+			Owners[j].Gender = gender;
+			Owners[j].Add.Country = country;
+			Owners[j].Add.City = city;
+			s.countOwn++;
+			system("pause");
+			break;
+		}
+	}
+	return j;
+}
+
+int Regshopper(string name, char Password[], int passnum, int age, string gender, string country, string city) {
+	int  j;
+	for (j = 0; j < maxOwners; j++)
+	{
+		if (Shoppers[j].age == 0)
+		{
+			Shoppers[j].name = name;
+			for (int i = 0; i < maxPass; i++) {
+				Owners[j].Password[i] = Password[i];
+			}
+			Shoppers[j].age = age;
+			Shoppers[j].gender = gender;
+			Shoppers[j].Add.Country = country;
+			Shoppers[j].Add.City = city;
+			s.countOwn++;
+			system("pause");
+			break;
+		}
+	}
+	return j;
+}
+
+int Lowner(int id, char pass[])
+{
+	int j, i;
+	bool flag = true;
+	int LogID;
+	char LogPass[maxPass];
+
+	LogID = id;
+	for (i = 0; i < Owners[i].PassNum; i++) {
+		LogPass[i] = pass[i];
+	}
+
+
+
+	for (i = 0; i < maxOwners; i++)
+	{
+		flag = true;
+		if (j > Owners[i].PassNum || j < Owners[i].PassNum) {
+			flag = false;
+		}
+		else if (j == Owners[i].PassNum) {
+			for (int x = 0; x < Owners[i].PassNum; x++)
+			{
+				if (LogPass[x] != Owners[i].Password[x])
+				{
+					flag = false;
+				}
+			}
+		}
+		if (LogID == Owners[i].ID && (flag))
+		{
+
+			system("pause");
+			system("cls");
+			break;
+		}
+
+	}
+	if (flag == false)
+	{
+
+		i = maxOwners;
+	}
+	return i;
+}
+
+void search(string name)
+{
+	char add;
+	bool flag = false;
+	int x = 1, amount, l, z;
+	cout << "\n\n";
+	for (int i = 0; i < maxShoppers; i++)
+	{
+		for (int j = 0; j < maxProds; j++)
+		{
+			if (name == Owners[i].Shops.products[j].productName)
+			{
+				cout << "-Product Name- " << "-  Product Price  -" << "-  Product Category  -" << "-  Product Quantity  -" << "-  Avg. Rating  -" << "- Size -" << "- Type -" << "- Color -" << "\n" << endl;
+				if (Owners[i].Shops.products[j].Category == "Clothing") {
+					cout << x << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "          " << Owners[i].Shops.products[j].Clothes.Size << "       " << Owners[i].Shops.products[j].Clothes.Type << "      " << Owners[i].Shops.products[j].Clothes.Color << "\n";
+				}
+				else {
+					cout << x << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Category << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+				}
+				flag = true;
+				l = i;
+				z = j;
+				break;
+			}
+
+		}
+
+	}if (flag == false)
+		cout << "                                     Out Of Stock. \n\n\n ";
+	else {
+		cout << "\n\nAdd to to Cart [ Y / N ] :\n\n";
+		cout << "choice : ";
+		cin >> add;
+		if (add == 'y' || add == 'Y') {
+
+			cout << "\n\n How many do you want ?                                  ***press .0. to exit.*** \n\n ";
+			cout << "Amount : ";
+			cin >> amount;
+
+			k.amount[c.index] = amount;
+			Owners[l].Shops.products[z].Quantity -= amount;
+			k.sav[c.index].x = l;
+			k.sav[c.index].y = z;
+			c.nump++;
+			c.index++;
+
+		}
+
+	}
+	system("pause");
+	cart();
+}
