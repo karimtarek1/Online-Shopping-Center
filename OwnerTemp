@@ -22,19 +22,15 @@ int RegOwner(string name, char Password[], int passnum, int age, string gender, 
 }
 
 
-int Lowner(int id, char pass[] , int j)
+int Lowner(int j , int id, char pass[])
 {
 	int  i;
 	bool flag = true;
 	int LogID;
 	char LogPass[maxPass];
-
-	LogID = id;
 	for (i = 0; i < Owners[i].PassNum; i++) {
 		LogPass[i] = pass[i];
 	}
-
-
 
 	for (i = 0; i < maxOwners; i++)
 	{
@@ -51,7 +47,7 @@ int Lowner(int id, char pass[] , int j)
 				}
 			}
 		}
-		if (LogID == Owners[i].ID && (flag))
+		if (id == Owners[i].ID && (flag))
 		{
 
 			system("pause");
