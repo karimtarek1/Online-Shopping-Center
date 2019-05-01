@@ -150,6 +150,7 @@ void byprice(sf::RenderWindow& window, sf::RectangleShape photo);
 void bygifts(sf::RenderWindow& window, sf::RectangleShape photo);
 void viewbyprice(sf::RenderWindow& window, sf::RectangleShape photo);
 void viewbystring(sf::RenderWindow& window, sf::RectangleShape photo);
+void rating(sf::RenderWindow& window, sf::RectangleShape photo);
 void open();
 void save();
 
