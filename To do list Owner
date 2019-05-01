@@ -1,0 +1,11 @@
+1 ) RegOwner
+2 ) RegShop
+3 ) Lowner
+4 ) Eowner
+5 ) addProds
+6 ) removeProds
+7 ) editProds
+8 ) viewProds
+9 ) RemoveReg
+10 ) discount
+11 ) diskCheck
