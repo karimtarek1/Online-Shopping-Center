@@ -144,6 +144,12 @@ void filtersmenu(sf::RenderWindow& window, sf::RectangleShape photo);
 void giftsmenu(sf::RenderWindow& window, sf::RectangleShape photo);
 void deleteOwner(sf::RenderWindow& window, sf::RectangleShape photo);
 void purchaseHistory(sf::RenderWindow& window, sf::RectangleShape photo);
+void bycategory(sf::RenderWindow& window, sf::RectangleShape photo);
+void byshop(sf::RenderWindow& window, sf::RectangleShape photo);
+void byprice(sf::RenderWindow& window, sf::RectangleShape photo);
+void bygifts(sf::RenderWindow& window, sf::RectangleShape photo);
+void viewbyprice(sf::RenderWindow& window, sf::RectangleShape photo);
+void viewbystring(sf::RenderWindow& window, sf::RectangleShape photo);
 void open();
 void save();
 
@@ -160,6 +166,7 @@ int main() {
 	photo.setTexture(&wallpaper);
 
 	open();
+	byshop(window, photo);
 	purchaseHistory(window, photo);
 	homepageOwner(window, photo);
 	welcome(window, photo);
@@ -8069,7 +8076,7 @@ void viewbystring(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	int number = 1, a[75];
 	int z = 0;
-	float hi = 50, ho = 50;
+	double hi = 50, ho = 50;
 	bool next = false;
 	bool done = false;
 	int k = 0, n = 0;
