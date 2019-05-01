@@ -14,7 +14,6 @@ int RegOwner(string name, char Password[], int passnum, int age, string gender, 
 			Owners[j].Add.Country = country;
 			Owners[j].Add.City = city;
 			s.countOwn++;
-			system("pause");
 			break;
 		}
 	}
@@ -35,7 +34,7 @@ int Regshopper(string name, char Password[], int passnum, int age, string gender
 			Shoppers[j].Add.Country = country;
 			Shoppers[j].Add.City = city;
 			s.countOwn++;
-			system("pause");
+			
 			break;
 		}
 	}
@@ -73,8 +72,7 @@ int Lowner(int id, char pass[],int j, sf::RenderWindow& window, sf::RectangleSha
 		if (LogID == Owners[i].ID && (flag))
 		{
 
-			system("pause");
-			system("cls");
+			
 			break;
 		}
 
@@ -118,8 +116,7 @@ int Lshopper(int id, char pass[],int j, sf::RenderWindow& window, sf::RectangleS
 		if (LogID == Shoppers[i].id && (flag))
 		{
 
-			system("pause");
-			system("cls");
+			
 			break;
 		}
 
