@@ -2484,11 +2484,7 @@ void ByCategory()
 			}
 			break;
 		case '6':
-			for (int i = 0; i < maxShoppers; i++)
-			{
-				Owners[i].Shops.Category = "Books";
-				flag = true;
-			}
+
 			cout << "[ 1 ] Novels.\t[ 2 ] Magazines.\t[ 3 ] Short Stories.\n\n Choice :";
 			cin >> bookChoice;
 			do {
@@ -2601,8 +2597,9 @@ void ByCategory()
 			cout << "\n " << endl;
 		}
 	} while (flag2);
-	if (flag = false) {
-		cout << "There are no Products by this Category";
+	
+	if (flag == false) {
+		cout << "There are no Products available by this Category \n";
 	}
 }
 
