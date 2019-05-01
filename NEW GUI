@@ -5915,49 +5915,23 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choice4.setOutlineThickness(3);
 
 
-
 	sf::RectangleShape choicename(sf::Vector2f(330.0f, 22.0f));
-	choicename.setPosition(sf::Vector2f(178, 88));
+	choicename.setPosition(sf::Vector2f(230, 88));
 	choicename.setFillColor(sf::Color::White);
 	choicename.setOutlineColor(sf::Color::White);
 	choicename.setOutlineThickness(3);
 
-	sf::RectangleShape choicem(sf::Vector2f(170.0f, 50.0f));
-	choicem.setPosition(sf::Vector2f(160, 380));
-	choicem.setFillColor(sf::Color::Transparent);
-	choicem.setOutlineColor(sf::Color::White);
-	choicem.setOutlineThickness(3);
+	sf::RectangleShape choiceprice(sf::Vector2f(330.0f, 22.0f));
+	choiceprice.setPosition(sf::Vector2f(230, 195));
+	choiceprice.setFillColor(sf::Color::Green);
+	choiceprice.setOutlineColor(sf::Color::White);
+	choiceprice.setOutlineThickness(3);
 
-	sf::RectangleShape choicef(sf::Vector2f(170.0f, 50.0f));
-	choicef.setPosition(sf::Vector2f(515, 380));
-	choicef.setFillColor(sf::Color::Transparent);
-	choicef.setOutlineColor(sf::Color::White);
-	choicef.setOutlineThickness(3);
-
-
-	sf::RectangleShape choiceocpass(sf::Vector2f(330.0f, 22.0f));
-	choiceocpass.setPosition(sf::Vector2f(210, 182));
-	choiceocpass.setFillColor(sf::Color::White);
-	choiceocpass.setOutlineColor(sf::Color::White);
-	choiceocpass.setOutlineThickness(3);
-
-	sf::RectangleShape choiceage(sf::Vector2f(330.0f, 22.0f));
-	choiceage.setPosition(sf::Vector2f(230, 320));
-	choiceage.setFillColor(sf::Color::White);
-	choiceage.setOutlineColor(sf::Color::White);
-	choiceage.setOutlineThickness(3);
-
-	sf::RectangleShape choicecity(sf::Vector2f(250.0f, 22.0f));
-	choicecity.setPosition(sf::Vector2f(150, 680));
-	choicecity.setFillColor(sf::Color::White);
-	choicecity.setOutlineColor(sf::Color::White);
-	choicecity.setOutlineThickness(3);
-
-	sf::RectangleShape choicecountry(sf::Vector2f(250.0f, 22.0f));
-	choicecountry.setPosition(sf::Vector2f(150, 720));
-	choicecountry.setFillColor(sf::Color::White);
-	choicecountry.setOutlineColor(sf::Color::White);
-	choicecountry.setOutlineThickness(3);
+	sf::RectangleShape choiceq(sf::Vector2f(330.0f, 22.0f));
+	choiceq.setPosition(sf::Vector2f(230, 320));
+	choiceq.setFillColor(sf::Color::Green);
+	choiceq.setOutlineColor(sf::Color::White);
+	choiceq.setOutlineThickness(3);
 
 	sf::RectangleShape choicesave(sf::Vector2f(100.0f, 22.0f));
 	choicesave.setPosition(sf::Vector2f(685, 20));
@@ -5965,35 +5939,32 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choicesave.setOutlineColor(sf::Color::Red);
 	choicesave.setOutlineThickness(3);
 
+	sf::RectangleShape choiceb(sf::Vector2f(100.0f, 22.0f));
+	choiceb.setPosition(sf::Vector2f(685, 60));
+	choiceb.setFillColor(sf::Color::Transparent);
+	choiceb.setOutlineColor(sf::Color::Red);
+	choiceb.setOutlineThickness(3);
 
-
-	sf::String sname;
-	sf::String spass;
-	sf::String sgender;
-	sf::String sage;
-	sf::String scity;
-	sf::String scountry;
-
-	sf::Font fontage;
-	fontage.loadFromFile("Roboto-MediumItalic.ttf");
-	sf::String age;
-	sf::Text textage(age, fontage, 25);
-	textage.setFillColor(sf::Color::Black);
-	textage.setPosition(230, 320);
+	sf::Font fontquantity;
+	fontquantity.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::String quantity;
+	sf::Text textquantity(quantity, fontquantity, 25);
+	textquantity.setFillColor(sf::Color::Black);
+	textquantity.setPosition(230, 315);
 
 	sf::Font fontname;
 	fontname.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String name;
-	sf::Text textname(age, fontage, 25);
+	sf::Text textname(name, fontname, 25);
 	textname.setFillColor(sf::Color::Black);
-	textname.setPosition(180, 83);
+	textname.setPosition(230, 83);
 
-	sf::Font fontpasso;
-	fontpasso.loadFromFile("Roboto-MediumItalic.ttf");
-	sf::String passo;
-	sf::Text textpasso(age, fontage, 30);
-	textpasso.setFillColor(sf::Color::Black);
-	textpasso.setPosition(250, 180);
+	sf::Font fontprice;
+	fontprice.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::String price;
+	sf::Text textprice(price, fontprice, 30);
+	textprice.setFillColor(sf::Color::Black);
+	textprice.setPosition(230, 185);
 
 
 	sf::Font font0;
@@ -6005,6 +5976,16 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 	text0.setFillColor(sf::Color::Red);
 	text0.setPosition(708, 18);
 	text0.setStyle(sf::Text::Bold);
+
+	sf::Font font01;
+	font01.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text01;
+	text01.setFont(font01);
+	text01.setString(" Back ");
+	text01.setCharacterSize(20);
+	text01.setFillColor(sf::Color::Red);
+	text01.setPosition(708, 58);
+	text01.setStyle(sf::Text::Bold);
 
 
 
@@ -6046,7 +6027,7 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 	font10.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text text10;
 	text10.setFont(font10);
-	text10.setString("New Name: ");
+	text10.setString("New Name         : ");
 	text10.setCharacterSize(30);
 	text10.setFillColor(sf::Color::White);
 	text10.setPosition(10, 80);
@@ -6056,10 +6037,10 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 	font30.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text text30;
 	text30.setFont(font30);
-	text30.setString(" New Price  :");
+	text30.setString(" New Price      :");
 	text30.setCharacterSize(30);
 	text30.setFillColor(sf::Color::White);
-	text30.setPosition(10, 172);
+	text30.setPosition(10, 185);
 	text30.setStyle(sf::Text::Bold);
 
 	sf::Font font50;
@@ -6076,10 +6057,10 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 
 	bool bname = false;
-	bool bpass = false;
-	bool bgender = false;
-	bool bage = false;
-	bool badress = false;
+	bool bprice = false;
+	bool bquantity= false;
+	
+	
 	int active = 0;
 
 
@@ -6095,52 +6076,46 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 				sf::Vector2i localposition = sf::Mouse::getPosition(window);
 				cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
-				if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 8 && localposition.y <= 47) {
+				if (localposition.x >= 247 && localposition.x <= 583 && localposition.y >= 7 && localposition.y <= 52) {
 					cout << "edit name " << endl;
 					bname = true;
 				}
-				else if (localposition.x >= 175 && localposition.x <= 509 && localposition.y >= 86 && localposition.y <= 110 && bname) {
+				else if (localposition.x >= 227 && localposition.x <= 566 && localposition.y >= 85 && localposition.y <= 111 && bname) {
 					cout << "new name" << endl;
 					active = 1;
-					cout << active;
-
 				}
-
-				else if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 127 && localposition.y <= 169) {
+				else if (localposition.x >= 683 && localposition.x <= 788 && localposition.y >= 18 && localposition.y <= 49 &&( price.getSize() > 0 || name.getSize() > 0 || quantity.getSize()> 0) ) {
+					cout << "save" << endl;
+				
+				}
+				else if (localposition.x >= 683 && localposition.x <= 788 && localposition.y >= 58 && localposition.y <= 83 ) {
+					cout << "back" << endl;
+				
+				}
+				else if (localposition.x >= 246 && localposition.x <= 582 && localposition.y >= 127 && localposition.y <= 172) {
 					cout << "edit price" << endl;
+					bprice = true;
 
-					bpass = true;
 				}
 
-				else if (localposition.x >= 245 && localposition.x <= 581 && localposition.y >= 178 && localposition.y <= 203 && bpass) {
+				else if (localposition.x >= 227 && localposition.x <= 566 && localposition.y >= 190 && localposition.y <= 217 && bprice) {
 					cout << "new price" << endl;
-					active = 7;
-					cout << active;
-
+					active = 2;
 				}
 
-
-
-
-				else if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 250 && localposition.y <= 290) {
+				else if (localposition.x >= 247 && localposition.x <= 583 && localposition.y >= 247 && localposition.y <= 293) {
 					cout << "edit qunatity" << endl;
-					bage = true;
+					bquantity = true;
 
 				}
-				else if (localposition.x >= 167 && localposition.x <= 500 && localposition.y >= 530 && localposition.y <= 558 && bage) {
+				else if (localposition.x >= 227 && localposition.x <= 556 && localposition.y >=  317 && localposition.y <= 344 && bquantity) {
 					cout << "new quantity" << endl;
-					active = 4;
-					cout << active;
+					active = 3;
 
 				}
-
-
-
-				else
-				{
+				else	
 					active = 0;
-					cout << active;
-				}
+				
 			}
 			if (event.type == sf::Event::TextEntered) {
 
@@ -6154,24 +6129,24 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 					textname.setString(name);
 				}
 				if (active == 2 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
-					passo += event.text.unicode;
-					textpasso.setString(passo);
+					price += event.text.unicode;
+					textprice.setString(price);
 
 				}
-				else if (active == 2 && event.text.unicode == 8 && passo.getSize() > 0) {
-					passo.erase(passo.getSize() - 1, passo.getSize());
-					textpasso.setString(passo);
+				else if (active == 2 && event.text.unicode == 8 && price.getSize() > 0) {
+					price.erase(price.getSize() - 1, price.getSize());
+					textprice.setString(price);
 				}
 
 
-				if (active == 4 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+				if (active == 3 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
 
-					age += event.text.unicode;
-					textage.setString(age);
+					quantity += event.text.unicode;
+					textquantity.setString(quantity);
 				}
-				else if (active == 4 && event.text.unicode == 8 && age.getSize() > 0) {
-					age.erase(age.getSize() - 1, age.getSize());
-					textage.setString(age);
+				else if (active == 3 && event.text.unicode == 8 && quantity.getSize() > 0) {
+					quantity.erase(quantity.getSize() - 1, quantity.getSize());
+					textquantity.setString(quantity);
 				}
 
 
@@ -6182,17 +6157,17 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 		}
 
 		window.clear();
+		window.draw(photo);
+		window.draw(text1);
 		window.draw(text2);
-
 		window.draw(text4);
-
 		window.draw(choice1);
 		window.draw(choice2);
-
 		window.draw(choice4);
-
 		window.draw(text0);
+		window.draw(text01);
 		window.draw(choicesave);
+		window.draw(choiceb);
 
 
 
@@ -6202,20 +6177,17 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 			window.draw(text10);
 			window.draw(textname);
 		}
-		if (bpass) {
+		if (bprice) {
 
 			window.draw(text30);
-
-
-			window.draw(choiceocpass);
-
-			window.draw(textpasso);
-
+			window.draw(choiceprice);
+			window.draw(textprice);
 		}
-		if (bage) {
+		if (bquantity) {
+			
 			window.draw(text50);
-			window.draw(choiceage);
-			window.draw(textage);
+			window.draw(choiceq);
+			window.draw(textquantity);
 		}
 
 		window.display();
