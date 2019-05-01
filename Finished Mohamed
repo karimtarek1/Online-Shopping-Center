@@ -9,7 +9,7 @@
 using namespace std;
 
 const int maxShoppers = 25, maxOwners = 25, maxProds = 10, maxPass = 32;
-int LogIndex = maxOwners, day = 0, month = 0, LogID = 0;
+int LogIndex = maxOwners, day = 0, month = 0, LogID = 0 , deletes = 1;
 
 struct views {
 
@@ -186,7 +186,7 @@ int main() {
 			system("pause");
 			system("cls");
 		}
-		if ((choice == '1' || choice == '2' || choice == 'x' || choice == 'X') && LogIndex != maxOwners) {
+		if ((choice == '1' || choice == '2' || choice == 'x' || choice == 'X') && LogIndex != maxOwners && deletes != 0) {
 			while (flag) {
 				cout << "Would you like to Log Out (Y/N)? ";
 				cin >> c;
@@ -366,6 +366,7 @@ void sChoice()
 			break;
 		case '5':
 			del(LogIndex);
+			cont = 'n';
 			break;
 		case '6':
 			gifts();
@@ -379,10 +380,11 @@ void sChoice()
 		}
 		system("pause");
 		system("cls");
-		cout << "\n\nPress -- Y -- To Return To Menu. \n\npress -- E -- To Exit\n\n";
-		cout << "Choice  : ";
-		cin >> cont;
-
+		if (deletes != 0) {
+			cout << "\n\nPress -- Y -- To Return To Menu. \n\npress -- E -- To Exit\n\n";
+			cout << "Choice  : ";
+			cin >> cont;
+		}
 	} while (cont == 'y' || cont == 'Y');
 }
 
@@ -1157,13 +1159,12 @@ void del(int j) {
 		s.countShopper--;
 
 		cout << "\n\n               ***  Your Account has been Deleted. *** \n\n" << endl;
-		system("pause");
 		break;
 	default:
 		break;
 
 	}
-
+	deletes = 0;
 }
 
 void RegChoice()
@@ -1510,7 +1511,7 @@ int Lowner()
 void Eowner(int j) {
 	char editchoice, gender, continuechoice, regedit, shopEdit, categoryChoice, gameChoice, bookChoice, newPass1[maxPass], newPass2[maxPass], oldPass[maxPass];
 	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false, flagSame = true, flag = true, flagPass = true, choiceFlag = true, flagnum = true;
-	int l;
+	int l ;
 	cout << "**************  Editing your information **************** \n";
 	do {
 		cout << "\n\nPress -- R -- to edit your registration data. \n\npress -- S -- to Edit Your Shop Data.  \n\nPress -- D -- To Delete Your Account. \n\nPress -- x --  To Exit. \n\n ";
@@ -1807,6 +1808,7 @@ void Eowner(int j) {
 		else if (editchoice == 'D' || editchoice == 'd')
 		{
 			removeReg(LogIndex);
+			continuechoice = 'n';
 		}
 		else if (editchoice == 'X' || editchoice == 'x') {
 			break;
@@ -1815,18 +1817,20 @@ void Eowner(int j) {
 		{
 			cout << "\n\nInvalid Choice\n";
 		}
-		while (choiceFlag)
-		{
-			cout << "Would You Like To Continue  ? [ Y / N ] \n\n";
-			cout << "Choice : ";
-			cin >> continuechoice;
-			if (continuechoice == 'Y' || continuechoice == 'y' || continuechoice == 'N' || continuechoice == 'n')
+		if (deletes != 0) {
+			while (choiceFlag)
 			{
-				choiceFlag = false;
-			}
-			else
-			{
-				cout << "\n\n !!  Invalid Input !!";
+				cout << "Would You Like To Continue  ? [ Y / N ] \n\n";
+				cout << "Choice : ";
+				cin >> continuechoice;
+				if (continuechoice == 'Y' || continuechoice == 'y' || continuechoice == 'N' || continuechoice == 'n')
+				{
+					choiceFlag = false;
+				}
+				else
+				{
+					cout << "\n\n !!  Invalid Input !!";
+				}
 			}
 		}
 	} while (continuechoice == 'Y' || continuechoice == 'y');
@@ -1881,7 +1885,9 @@ void OLchoice()
 	}
 	if (LogIndex != maxOwners) {
 		OEchoice();
-		ProdChoice();
+		if (deletes != 0) {
+			ProdChoice();
+		}
 	}
 }
 
@@ -2170,16 +2176,32 @@ void removeReg(int j)
 		s.countOwn--;
 		for (int i = 0; i < maxProds; i++)
 		{
-			Owners[j].Shops.products[i] = { 0 };
+			Owners[j].Shops.products[i].productName = { 0 };
 			if (Owners[j].Shops.products[i].Category == "Clothing")
 			{
-				Owners[j].Shops.products[i] = { 0 };
+				Owners[j].Shops.products[i].Category = { 0 };
+				Owners[j].Shops.products[i].productPrice = 0;
+				Owners[j].Shops.products[i].sum = 0;
+				Owners[j].Shops.products[i].Quantity = 0;
+				Owners[j].Shops.products[i].oldPrice = 0;
+				Owners[j].Shops.products[i].month = 0;
+				Owners[j].Shops.products[i].day = 0;
+				Owners[j].Shops.products[i].counter = 0;
+				Owners[j].Shops.products[i].avgRating = 0;
 				Owners[j].Shops.products[i].Clothes.Size = { 0 };
 				Owners[j].Shops.products[i].Clothes.Type = { 0 };
 				Owners[j].Shops.products[i].Clothes.Color = { 0 };
 			}
 			else {
-				Owners[j].Shops.products[i] = { 0 };
+				Owners[j].Shops.products[i].Category = { 0 };
+				Owners[j].Shops.products[i].productPrice = 0;
+				Owners[j].Shops.products[i].sum = 0;
+				Owners[j].Shops.products[i].Quantity = 0;
+				Owners[j].Shops.products[i].oldPrice = 0;
+				Owners[j].Shops.products[i].month = 0;
+				Owners[j].Shops.products[i].day = 0;
+				Owners[j].Shops.products[i].counter = 0;
+				Owners[j].Shops.products[i].avgRating = 0;
 			}
 		}
 		cout << "\n\n\n                ************  Your Account Has Been Successfully Deleted **********" << endl;
@@ -2187,6 +2209,7 @@ void removeReg(int j)
 	default:
 		break;
 	}
+	deletes = 0;
 }
 
 void Rating()
