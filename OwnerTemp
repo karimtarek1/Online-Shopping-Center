@@ -1,3 +1,74 @@
+int RegOwner(string name, char Password[], int passnum, int age, string gender, string country, string city)
+{
+	int  j;
+	for (j = 0; j < maxOwners; j++)
+	{
+		if (Owners[j].Age == 0)
+		{
+			Owners[j].Name = name;
+			for (int i = 0; i < maxPass; i++) {
+				Owners[j].Password[i] = Password[i];
+			}
+			Owners[j].Age = age;
+			Owners[j].Gender = gender;
+			Owners[j].Add.Country = country;
+			Owners[j].Add.City = city;
+			s.countOwn++;
+			system("pause");
+			break;
+		}
+	}
+	return j;
+}
+
+
+int Lowner(int id, char pass[] , int j)
+{
+	int  i;
+	bool flag = true;
+	int LogID;
+	char LogPass[maxPass];
+
+	LogID = id;
+	for (i = 0; i < Owners[i].PassNum; i++) {
+		LogPass[i] = pass[i];
+	}
+
+
+
+	for (i = 0; i < maxOwners; i++)
+	{
+		flag = true;
+		if (j > Owners[i].PassNum || j < Owners[i].PassNum) {
+			flag = false;
+		}
+		else if (j == Owners[i].PassNum) {
+			for (int x = 0; x < Owners[i].PassNum; x++)
+			{
+				if (LogPass[x] != Owners[i].Password[x])
+				{
+					flag = false;
+				}
+			}
+		}
+		if (LogID == Owners[i].ID && (flag))
+		{
+
+			system("pause");
+			system("cls");
+			break;
+		}
+
+	}
+	if (flag == false)
+	{
+
+		i = maxOwners;
+	}
+	return i;
+}
+
+
 void discount(int j , string name , string discount , string month2 , string day2)
 {
 	bool flag = false, choice = true, flag2 = true;
