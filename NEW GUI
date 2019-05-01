@@ -3548,7 +3548,7 @@ void editowner(sf::RenderWindow& window, sf::RectangleShape photo) {
 				else if (localposition.x >= 681 && localposition.x <= 786 && localposition.y >= 48 && localposition.y <= 73) {
 					editshop(window, photo);
 				}
-				else if (localposition.x >= 681 && localposition.x <= 786 && localposition.y >= 17 && localposition.y <= 43) {
+				else if (localposition.x >= 681 && localposition.x <= 786 && localposition.y >= 17 && localposition.y <= 43 && (name.getSize() > 0 || (age.getSize() > 0 || passo.getSize() > 5 || passon.getSize() > 5 && passon == passonc) || passonc.getSize() > 0 || country.getSize() > 0 || city.getSize() > 0)) {
 					homepageOwner(window, photo);
 				}
 				else if (localposition.x >= 247 && localposition.x <= 582 && localposition.y >= 127 && localposition.y <= 169) {
