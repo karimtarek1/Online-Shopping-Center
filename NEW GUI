@@ -4815,6 +4815,12 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choice5.setOutlineColor(sf::Color::White);
 	choice5.setOutlineThickness(5);
 
+	sf::RectangleShape choice6(sf::Vector2f(100.0f, 22.0f));
+	choice6.setPosition(sf::Vector2f(685, 20));
+	choice6.setFillColor(sf::Color::Transparent);
+	choice6.setOutlineColor(sf::Color::Red);
+	choice6.setOutlineThickness(3);
+
 	sf::Font fontname;
 	fontname.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::String name;
@@ -4899,11 +4905,21 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 	fontf.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textf;
 	textf.setFont(fontf);
-	textf.setString(" Next ");
+	textf.setString(" Save ");
 	textf.setCharacterSize(28);
 	textf.setFillColor(sf::Color::White);
 	textf.setPosition(510, 495);
 	textf.setStyle(sf::Text::Bold);
+
+	sf::Font font0;
+	font0.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text text0;
+	text0.setFont(font0);
+	text0.setString(" Back ");
+	text0.setCharacterSize(20);
+	text0.setFillColor(sf::Color::Red);
+	text0.setPosition(708, 18);
+	text0.setStyle(sf::Text::Bold);
 
 
 	bool fill = false;
@@ -4948,6 +4964,10 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 						fill = false;
 					}
 					else fill = true;
+				}
+				else if (localposition.x >= 680 && localposition.x <= 786 && localposition.y >= 18 && localposition.y <= 42) {
+					cout << "Back" << endl;
+					prodchoice(window, photo);
 				}
 				else
 					active = 0;
@@ -4997,11 +5017,13 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 		window.draw(textc);
 		window.draw(textd);
 		window.draw(textf);
+		window.draw(text0);
 		window.draw(choice1);
 		window.draw(choice2);
 		window.draw(choice3);
 		window.draw(choice4);
 		window.draw(choice5);
+		window.draw(choice6);
 		window.draw(textname);
 		window.draw(textdiscount);
 		window.draw(textmonth);
@@ -5021,7 +5043,7 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	int number = 1, a[75];
 	int z = 0;
-	float hi = 50, ho = 50;
+	double hi = 50, ho = 50;
 	bool next = false;
 	bool done = false;
 	int k = 0, n = 0;
@@ -6198,7 +6220,7 @@ void cart(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	int number = 1;
 	int z = 0;
-	float hi = 50, ho = 50;
+	double hi = 50, ho = 50;
 	bool next = false;
 	bool done = false;
 
