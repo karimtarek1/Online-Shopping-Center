@@ -49,9 +49,6 @@ int Lowner(int j , int id, char pass[])
 		}
 		if (id == Owners[i].ID && (flag))
 		{
-
-			system("pause");
-			system("cls");
 			break;
 		}
 
