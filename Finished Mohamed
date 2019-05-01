@@ -377,6 +377,7 @@ void sChoice()
 			cout << "\n\n!!!  Invalid Choice  !!!\n\n";
 			break;
 		}
+		system("pause");
 		system("cls");
 		cout << "\n\nPress -- Y -- To Return To Menu. \n\npress -- E -- To Exit\n\n";
 		cout << "Choice  : ";
@@ -2404,7 +2405,7 @@ void ByCategory()
 {
 	string shopName;
 	char categoryChoice, gameChoice, bookChoice;
-	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false;
+	bool flag1 = false, flag2 = false, flag3 = false, flag4 = false , flag = false;
 
 	cout << "\n\nChoose One Of Our Available Categories :\n\n[ 1 ] Phones & Tablets. \n\n[ 2 ] Electronics. \n\n[ 3 ] Makeup & Accessories. \n\n[ 4 ] Clothing. \n\n[ 5 ] Shoes & Bags. \n\n[ 6 ] Books. \n\n[ 7 ] Gaming.\n";
 	cout << endl << "\nChoice : "; cin >> categoryChoice;
@@ -2419,7 +2420,7 @@ void ByCategory()
 					if (Owners[i].Shops.Category == "Phones&Tablets")
 					{
 						cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
-
+						flag = true;
 					}
 				}
 			}
@@ -2434,7 +2435,7 @@ void ByCategory()
 					if (Owners[i].Shops.Category == "Electronics")
 					{
 						cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
-
+						flag = true;
 					}
 				}
 			}
@@ -2449,7 +2450,7 @@ void ByCategory()
 					if (Owners[i].Shops.Category == "Makeup&Acessories")
 					{
 						cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
-
+						flag = true;
 					}
 				}
 			}
@@ -2463,6 +2464,7 @@ void ByCategory()
 					if (Owners[i].Shops.Category == "Clothing")
 					{
 						cout << ". " << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "          " << Owners[i].Shops.products[j].Clothes.Size << "       " << Owners[i].Shops.products[j].Clothes.Type << "      " << Owners[i].Shops.products[j].Clothes.Color << "\n";
+						flag = true;
 					}
 				}
 			}
@@ -2476,6 +2478,7 @@ void ByCategory()
 					if (Owners[i].Shops.Category == "Shoes&Bags")
 					{
 						cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+						flag = true;
 					}
 				}
 			}
@@ -2484,6 +2487,7 @@ void ByCategory()
 			for (int i = 0; i < maxShoppers; i++)
 			{
 				Owners[i].Shops.Category = "Books";
+				flag = true;
 			}
 			cout << "[ 1 ] Novels.\t[ 2 ] Magazines.\t[ 3 ] Short Stories.\n\n Choice :";
 			cin >> bookChoice;
@@ -2498,6 +2502,7 @@ void ByCategory()
 							if (Owners[i].Shops.Category == "Books_Novels")
 							{
 								cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+								flag = true;
 							}
 						}
 					}
@@ -2510,6 +2515,7 @@ void ByCategory()
 							if (Owners[i].Shops.Category == "Books_Magazines")
 							{
 								cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+								flag = true;
 							}
 						}
 					}
@@ -2523,6 +2529,7 @@ void ByCategory()
 							if (Owners[i].Shops.Category == "Books_ShortStories")
 							{
 								cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+								flag = true;
 							}
 						}
 					}
@@ -2548,6 +2555,7 @@ void ByCategory()
 							if (Owners[i].Shops.Category == "Gaming_PC")
 							{
 								cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+								flag = true;
 							}
 						}
 					}
@@ -2560,7 +2568,7 @@ void ByCategory()
 							if (Owners[i].Shops.Category == "Gaming_PS4")
 							{
 								cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
-
+								flag = true;
 							}
 						}
 					}
@@ -2573,6 +2581,7 @@ void ByCategory()
 							if (Owners[i].Shops.Category == "Gaming_Xbox")
 							{
 								cout << Owners[i].Shops.products[j].productName << "\t\t" << Owners[i].Shops.products[j].productPrice << "\t\t" << Owners[i].Shops.products[j].Quantity << "\t\t\t" << Owners[i].Shops.products[j].avgRating << "\n";
+								flag = true;
 							}
 						}
 					}
@@ -2592,6 +2601,9 @@ void ByCategory()
 			cout << "\n " << endl;
 		}
 	} while (flag2);
+	if (flag = false) {
+		cout << "There are no Products by this Category";
+	}
 }
 
 void filters()
