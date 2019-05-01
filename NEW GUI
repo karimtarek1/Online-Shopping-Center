@@ -149,6 +149,7 @@ void byprice(sf::RenderWindow& window, sf::RectangleShape photo);
 void bygifts(sf::RenderWindow& window, sf::RectangleShape photo);
 void viewbyprice(sf::RenderWindow& window, sf::RectangleShape photo);
 void viewbystring(sf::RenderWindow& window, sf::RectangleShape photo);
+void rating(sf::RenderWindow& window, sf::RectangleShape photo);
 void open();
 void save();
 
@@ -9646,4 +9647,246 @@ void viewbyprice(sf::RenderWindow& window, sf::RectangleShape photo) {
 		window.display();
 	}
 
+}
+
+void rating(sf::RenderWindow& window, sf::RectangleShape photo) {
+
+	sf::RectangleShape choice1(sf::Vector2f(50.0f, 20.0f));
+	choice1.setPosition(sf::Vector2f(560, 110));
+	choice1.setFillColor(sf::Color::White);
+	choice1.setOutlineColor(sf::Color::White);
+	choice1.setOutlineThickness(7);
+
+	sf::Font fontnum;
+	fontnum.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::String num;
+	sf::Text textnum(num, fontnum, 25);
+	textnum.setFillColor(sf::Color::Black);
+	textnum.setPosition(290, 105);
+
+	sf::Font fonta;
+	fonta.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text texta;
+	texta.setFont(fonta);
+	texta.setString(" Product's number ");
+	texta.setCharacterSize(30);
+	texta.setFillColor(sf::Color::White);
+	texta.setPosition(280, 100);
+	texta.setStyle(sf::Text::Bold);
+
+	sf::Font fontb;
+	fontb.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textb;
+	textb.setFont(fontb);
+	textb.setString(" Rate this product : ");
+	textb.setCharacterSize(30);
+	textb.setFillColor(sf::Color::White);
+	textb.setPosition(40, 220);
+	textb.setStyle(sf::Text::Bold);
+
+	sf::ConvexShape star(11);
+	star.setOutlineColor(sf::Color::Black);
+	star.setFillColor(sf::Color(225, 247, 164));
+	star.setPoint(0, sf::Vector2f(100, 0));
+	star.setPoint(1, sf::Vector2f(77, 68));
+	star.setPoint(2, sf::Vector2f(5, 69));
+	star.setPoint(3, sf::Vector2f(63, 112));
+	star.setPoint(4, sf::Vector2f(42, 180));
+	star.setPoint(5, sf::Vector2f(100, 139));
+	star.setPoint(6, sf::Vector2f(158, 180));
+	star.setPoint(7, sf::Vector2f(137, 112));
+	star.setPoint(8, sf::Vector2f(194, 69));
+	star.setPoint(9, sf::Vector2f(123, 68));
+	star.setPoint(10, sf::Vector2f(100, 0));
+	star.setPosition(320, 200);
+	star.setScale(0.4,0.4);
+	star.setFillColor(sf::Color(255, 255, 255));
+
+	sf::ConvexShape star2(11);
+	star2.setOutlineColor(sf::Color::Black);
+	star2.setFillColor(sf::Color(225, 247, 164));
+	star2.setPoint(0, sf::Vector2f(100, 0));
+	star2.setPoint(1, sf::Vector2f(77, 68));
+	star2.setPoint(2, sf::Vector2f(5, 69));
+	star2.setPoint(3, sf::Vector2f(63, 112));
+	star2.setPoint(4, sf::Vector2f(42, 180));
+	star2.setPoint(5, sf::Vector2f(100, 139));
+	star2.setPoint(6, sf::Vector2f(158, 180));
+	star2.setPoint(7, sf::Vector2f(137, 112));
+	star2.setPoint(8, sf::Vector2f(194, 69));
+	star2.setPoint(9, sf::Vector2f(123, 68));
+	star2.setPoint(10, sf::Vector2f(100, 0));
+	star2.setPosition(400, 200);
+	star2.setScale(0.4, 0.4);
+	star2.setFillColor(sf::Color(255, 255, 255));
+
+	sf::ConvexShape star3(11);
+	star3.setOutlineColor(sf::Color::Black);
+	star3.setFillColor(sf::Color(225, 247, 164));
+	star3.setPoint(0, sf::Vector2f(100, 0));
+	star3.setPoint(1, sf::Vector2f(77, 68));
+	star3.setPoint(2, sf::Vector2f(5, 69));
+	star3.setPoint(3, sf::Vector2f(63, 112));
+	star3.setPoint(4, sf::Vector2f(42, 180));
+	star3.setPoint(5, sf::Vector2f(100, 139));
+	star3.setPoint(6, sf::Vector2f(158, 180));
+	star3.setPoint(7, sf::Vector2f(137, 112));
+	star3.setPoint(8, sf::Vector2f(194, 69));
+	star3.setPoint(9, sf::Vector2f(123, 68));
+	star3.setPoint(10, sf::Vector2f(100, 0));
+	star3.setPosition(480, 200);
+	star3.setScale(0.4, 0.4);
+	star3.setFillColor(sf::Color(255, 255, 255));
+
+	sf::ConvexShape star4(11);
+	star4.setOutlineColor(sf::Color::Black);
+	star4.setFillColor(sf::Color(225, 247, 164));
+	star4.setPoint(0, sf::Vector2f(100, 0));
+	star4.setPoint(1, sf::Vector2f(77, 68));
+	star4.setPoint(2, sf::Vector2f(5, 69));
+	star4.setPoint(3, sf::Vector2f(63, 112));
+	star4.setPoint(4, sf::Vector2f(42, 180));
+	star4.setPoint(5, sf::Vector2f(100, 139));
+	star4.setPoint(6, sf::Vector2f(158, 180));
+	star4.setPoint(7, sf::Vector2f(137, 112));
+	star4.setPoint(8, sf::Vector2f(194, 69));
+	star4.setPoint(9, sf::Vector2f(123, 68));
+	star4.setPoint(10, sf::Vector2f(100, 0));
+	star4.setPosition(560, 200);
+	star4.setScale(0.4, 0.4);
+	star4.setFillColor(sf::Color(255, 255, 255));
+
+	sf::ConvexShape star5(11);
+	star5.setOutlineColor(sf::Color::Black);
+	star5.setFillColor(sf::Color(225, 247, 164));
+	star5.setPoint(0, sf::Vector2f(100, 0));
+	star5.setPoint(1, sf::Vector2f(77, 68));
+	star5.setPoint(2, sf::Vector2f(5, 69));
+	star5.setPoint(3, sf::Vector2f(63, 112));
+	star5.setPoint(4, sf::Vector2f(42, 180));
+	star5.setPoint(5, sf::Vector2f(100, 139));
+	star5.setPoint(6, sf::Vector2f(158, 180));
+	star5.setPoint(7, sf::Vector2f(137, 112));
+	star5.setPoint(8, sf::Vector2f(194, 69));
+	star5.setPoint(9, sf::Vector2f(123, 68));
+	star5.setPoint(10, sf::Vector2f(100, 0));
+	star5.setPosition(640, 200);
+	star5.setScale(0.4, 0.4);
+	star5.setFillColor(sf::Color(255, 255, 255));
+
+	bool fill = false;
+	int active = 0;
+	while (window.isOpen())
+	{
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+
+				sf::Vector2i localposition = sf::Mouse::getPosition(window);
+				cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
+				if(localposition.x >= 552 && localposition.x <= 615 && localposition.y >= 103 && localposition.y <= 135) {
+					active = 1;
+					cout << "Number" << endl;
+
+				}
+				else if (localposition.x >= 324 && localposition.x <= 390 && localposition.y >= 201 && localposition.y <= 270) {
+					active = 2;
+					cout << "star 1" << endl;
+
+				}
+				else if (localposition.x >= 403 && localposition.x <= 470 && localposition.y >= 201 && localposition.y <= 270) {
+					active = 3;
+					cout << "star 2" << endl;
+
+				}
+				else if (localposition.x >= 499 && localposition.x <= 540 && localposition.y >= 201 && localposition.y <= 270) {
+					active = 4;
+					cout << "star 3" << endl;
+
+				}
+				else if (localposition.x >= 575 && localposition.x <= 625 && localposition.y >= 201 && localposition.y <= 270) {
+					active = 5;
+					cout << "star 4" << endl;
+
+				}
+				else if (localposition.x >= 649 && localposition.x <= 711 && localposition.y >= 201 && localposition.y <= 270) {
+					active = 6;
+					cout << "star 5" << endl;
+
+				}
+				else
+				{
+					active = 0;
+				}
+			}
+			if (event.type == sf::Event::TextEntered) {
+
+				if (active == 1 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					num += event.text.unicode;
+					textnum.setString(num);
+				}
+				else if (active == 1 && event.text.unicode == 8 && num.getSize() > 0) {
+					num.erase(num.getSize() - 1, num.getSize());
+					textnum.setString(num);
+				}
+			}
+			if(active == 2)
+			{
+				star.setFillColor(sf::Color(255, 255, 0));
+				star2.setFillColor(sf::Color(255, 255, 255));
+				star3.setFillColor(sf::Color(255, 255, 255));
+				star4.setFillColor(sf::Color(255, 255, 255));
+				star5.setFillColor(sf::Color(255, 255, 255));
+			}
+			else if(active == 3)
+			{
+				star.setFillColor(sf::Color(255, 255, 0));
+				star2.setFillColor(sf::Color(255, 255, 0));
+				star3.setFillColor(sf::Color(255, 255, 255));
+				star4.setFillColor(sf::Color(255, 255, 255));
+				star5.setFillColor(sf::Color(255, 255, 255));
+			}
+			else if (active == 4)
+			{
+				star.setFillColor(sf::Color(255, 255, 0));
+				star2.setFillColor(sf::Color(255, 255, 0));
+				star3.setFillColor(sf::Color(255, 255, 0));
+				star4.setFillColor(sf::Color(255, 255, 255));
+				star5.setFillColor(sf::Color(255, 255, 255));
+			}
+			else if (active == 5)
+			{
+				star.setFillColor(sf::Color(255, 255, 0));
+				star2.setFillColor(sf::Color(255, 255, 0));
+				star3.setFillColor(sf::Color(255, 255, 0));
+				star4.setFillColor(sf::Color(255, 255, 0));
+				star5.setFillColor(sf::Color(255, 255, 255));
+			}
+			else if (active == 6)
+			{
+				star.setFillColor(sf::Color(255, 255, 0));
+				star2.setFillColor(sf::Color(255, 255, 0));
+				star3.setFillColor(sf::Color(255, 255, 0));
+				star4.setFillColor(sf::Color(255, 255, 0));
+				star5.setFillColor(sf::Color(255, 255, 0));
+			}
+		}
+
+		window.clear();
+		window.draw(photo);
+		window.draw(star);
+		window.draw(star2);
+		window.draw(star3);
+		window.draw(star4);
+		window.draw(star5);
+		window.draw(choice1);
+		window.draw(textb);
+		window.draw(texta);
+		window.display();
+	}
 }
