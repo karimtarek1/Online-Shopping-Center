@@ -1,0 +1,39 @@
+FROM STRING TO CHAR ARRAY :
+
+string pass;
+char *cstr = new char[(pass.getSize()) + 1];
+					copy(pass.begin(), pass.end(), cstr);
+					cstr[pass.getSize()] = '\0';
+} 
+
+
+FROM INT TO STRING:
+
+	for (int i = 0, k = 0; i < maxOwners; i++) {
+		for (int j = 0; j < maxProds; j++) {
+			if (Owners[i].Shops.products[j].productPrice != 0) {
+
+				long long price2 = Owners[i].Shops.products[j].productPrice;
+
+				while (price2 != 0) {
+					int remainder = price2 % 10;
+					price[k] += remainder + '0';
+					price2 /= 10;
+				}
+
+
+
+				reverse(price[k].begin(), price[k].end());
+				textprice[k].setString(price[k]);
+				n++;
+				k++;
+			}
+		}
+	}
+	
+FROM STRING TO INT:
+
+
+string str = "123";
+
+int n = stoi(str);
