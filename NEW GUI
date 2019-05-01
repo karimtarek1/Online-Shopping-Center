@@ -5037,8 +5037,191 @@ void discount(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 void remove(sf::RenderWindow& window, sf::RectangleShape photo) {
 
-}
+        sf::RectangleShape choice1(sf::Vector2f(400.0f, 20.0f));
+	choice1.setPosition(sf::Vector2f(280, 110));
+	choice1.setFillColor(sf::Color::White);
+	choice1.setOutlineColor(sf::Color::White);
+	choice1.setOutlineThickness(7);
 
+	sf::RectangleShape choice2(sf::Vector2f(150.0f, 30.0f));
+	choice2.setPosition(sf::Vector2f(400, 205));
+	choice2.setFillColor(sf::Color::Transparent);
+	choice2.setOutlineColor(sf::Color::White);
+	choice2.setOutlineThickness(4);
+
+	sf::RectangleShape choice2a(sf::Vector2f(150.0f, 30.0f));
+	choice2a.setPosition(sf::Vector2f(300, 355));
+	choice2a.setFillColor(sf::Color::Transparent);
+	choice2a.setOutlineColor(sf::Color::White);
+	choice2a.setOutlineThickness(5);
+
+	sf::RectangleShape choice2b(sf::Vector2f(150.0f, 30.0f));
+	choice2b.setPosition(sf::Vector2f(500, 355));
+	choice2b.setFillColor(sf::Color::Transparent);
+	choice2b.setOutlineColor(sf::Color::White);
+	choice2b.setOutlineThickness(5);
+
+	sf::RectangleShape choice3(sf::Vector2f(400.0f, 120.0f));
+	choice3.setPosition(sf::Vector2f(270, 300));
+	choice3.setFillColor(sf::Color::Transparent);
+	choice3.setOutlineColor(sf::Color::White);
+	choice3.setOutlineThickness(2);
+
+	sf::RectangleShape choice5(sf::Vector2f(100.0f, 30.0f));
+	choice5.setPosition(sf::Vector2f(745, 20));
+	choice5.setFillColor(sf::Color::Transparent);
+	choice5.setOutlineColor(sf::Color::White);
+	choice5.setOutlineThickness(5);
+
+	sf::Font fontname;
+	fontname.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::String name;
+	sf::Text textname(name, fontname, 25);
+	textname.setFillColor(sf::Color::Black);
+	textname.setPosition(290, 105);
+
+	sf::Font fonta;
+	fonta.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text texta;
+	texta.setFont(fonta);
+	texta.setString(" Product's Name  :  ");
+	texta.setCharacterSize(30);
+	texta.setFillColor(sf::Color::White);
+	texta.setPosition(30, 100);
+	texta.setStyle(sf::Text::Bold);
+
+	sf::Font fontb;
+	fontb.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textb;
+	textb.setFont(fontb);
+	textb.setString(" Remove ");
+	textb.setCharacterSize(30);
+	textb.setFillColor(sf::Color::White);
+	textb.setPosition(415, 200);
+	textb.setStyle(sf::Text::Bold);
+
+	sf::Font fontc;
+	fontc.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textc;
+	textc.setFont(fontc);
+	textc.setString(" Are you sure ? ");
+	textc.setCharacterSize(28);
+	textc.setFillColor(sf::Color::White);
+	textc.setPosition(395, 300);
+	textc.setStyle(sf::Text::Bold);
+
+	sf::Font fontd;
+	fontd.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textd;
+	textd.setFont(fontd);
+	textd.setString(" Yes ");
+	textd.setCharacterSize(30);
+	textd.setFillColor(sf::Color::White);
+	textd.setPosition(340, 350);
+	textd.setStyle(sf::Text::Bold);
+
+	sf::Font fonte;
+	fonte.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text texte;
+	texte.setFont(fonte);
+	texte.setString("  No ");
+	texte.setCharacterSize(30);
+	texte.setFillColor(sf::Color::White);
+	texte.setPosition(545, 350);
+	texte.setStyle(sf::Text::Bold);
+
+	sf::Font fontf;
+	fontf.loadFromFile("Roboto-MediumItalic.ttf");
+	sf::Text textf;
+	textf.setFont(fontf);
+	textf.setString(" Back ");
+	textf.setCharacterSize(28);
+	textf.setFillColor(sf::Color::White);
+	textf.setPosition(750, 15);
+	textf.setStyle(sf::Text::Bold);
+
+
+	bool fill = false;
+	int active = 0;
+	while (window.isOpen())
+	{
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+
+				sf::Vector2i localposition = sf::Mouse::getPosition(window);
+				cout << '(' << localposition.x << ',' << localposition.y << ')' << endl;
+				if (localposition.x >= 282 && localposition.x <= 696 && localposition.y >= 100 && localposition.y <= 135) {
+					active = 1;
+					cout << "Name" << endl;
+
+				}
+				else if (localposition.x >= 395 && localposition.x <= 550 && localposition.y >= 202 && localposition.y <= 235) {
+					active = 2;
+					cout << "Remove" << endl;
+					if(name != "")
+					{
+						fill = true;
+					}
+					else fill = false;
+
+				}
+				else if (localposition.x >= 295 && localposition.x <= 450 && localposition.y >= 350 && localposition.y <= 390) {
+					active = 3;
+					cout << "Yes" << endl;
+
+				}
+				else if (localposition.x >= 495 && localposition.x <= 650 && localposition.y >= 350 && localposition.y <= 390) {
+					active = 4;
+					cout << "No" << endl;
+
+				}
+				else if (localposition.x >= 740 && localposition.x <= 850 && localposition.y >= 15 && localposition.y <= 50) {
+					active = 5;
+					cout << "Back" << endl;
+				}
+				else
+					active = 0;
+			}
+
+			if (event.type == sf::Event::TextEntered) {
+
+				if (active == 1 && event.text.unicode >= 32 && event.text.unicode <= 126 && event.text.unicode != 8) {
+					name += event.text.unicode;
+					textname.setString(name);
+				}
+				else if (active == 1 && event.text.unicode == 8 && name.getSize() > 0) {
+					name.erase(name.getSize() - 1, name.getSize());
+					textname.setString(name);
+				}
+			}
+		}
+		window.clear();
+		window.draw(photo);
+		window.draw(texta);
+		window.draw(textb);
+		window.draw(textf);
+		window.draw(choice1);
+		if (fill) {
+        window.draw(textc);
+		window.draw(textd);
+		window.draw(texte);
+        window.draw(choice2a);
+		window.draw(choice2b);
+		window.draw(choice3);
+		};
+		window.draw(choice2);
+		window.draw(choice5);
+		window.draw(textname);
+
+		window.display();
+	}
+}
 void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 	int number = 1, a[75];
