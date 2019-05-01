@@ -150,6 +150,7 @@ int main() {
 	photo.setTexture(&wallpaper);
 
 	open();
+	homepageOwner(window, photo);
 	scchoice(window, photo);
 	viewproduct(window, photo);
 	welcome(window, photo);
@@ -2004,7 +2005,7 @@ void scchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 	choice01.setFillColor(sf::Color::Transparent);
 	choice01.setOutlineThickness(3);
 	choice01.setOutlineColor(sf::Color::White);
-	
+
 	sf::RectangleShape choice1(sf::Vector2f(320.0f, 80.0f));
 	choice1.setPosition(sf::Vector2f(250, 100));
 	choice1.setFillColor(sf::Color::Transparent);
@@ -2044,7 +2045,7 @@ void scchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 	textz.setFillColor(sf::Color::White);
 	textz.setPosition(770, 15);
 	textz.setStyle(sf::Text::Regular);
-	
+
 	sf::Font fontq;
 	fontq.loadFromFile("Roboto-MediumItalic.ttf");
 	sf::Text textq;
@@ -2139,7 +2140,7 @@ void scchoice(sf::RenderWindow& window, sf::RectangleShape photo) {
 				}
 				else if (localposition.x >= 767 && localposition.x <= 883 && localposition.y >= 45 && localposition.y <= 77) {
 					cout << "logout" << endl;
-				    welcome(window, photo);
+					welcome(window, photo);
 
 				}
 				else if (localposition.x >= 245 && localposition.x <= 570 && localposition.y >= 470 && localposition.y <= 553) {
@@ -3993,7 +3994,7 @@ void editshop(sf::RenderWindow& window, sf::RectangleShape photo) {
 					cout << active;
 
 				}
-				else if (localposition.x >= 698 && localposition.x <= 783 && localposition.y >= 47 && localposition.y <= 75 ) {
+				else if (localposition.x >= 698 && localposition.x <= 783 && localposition.y >= 47 && localposition.y <= 75) {
 					cout << "back" << endl;
 					prodchoice(window, photo);
 
@@ -5294,7 +5295,7 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 				else if (localposition.x >= 316 && localposition.x <= 402 && localposition.y >= 742 && localposition.y <= 776) {
 					//function l add
 					cout << "add" << endl;
-					for (int i = 0; i < 5;i++) {
+					for (int i = 0; i < 5; i++) {
 						c.erase(c.getSize() - 1, c.getSize());
 						textc.setString(c);
 						if (c.getSize() == 0)
@@ -5369,8 +5370,8 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 
 		}
-		     hi = 30, ho = 30.3;
-		for (k=32; k < 70; k++) {
+		hi = 30, ho = 30.3;
+		for (k = 32; k < 70; k++) {
 
 
 			textname[k].setPosition(5, hi);
@@ -5402,9 +5403,9 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 
 
 		}
-    
+
 		window.draw(photo);
-		
+
 		window.draw(text1);
 		window.draw(text2);
 		window.draw(text3);
@@ -5421,32 +5422,32 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 		window.draw(choice6);
 		window.draw(choice7);
 		window.draw(choice8);
-		
+
 		window.draw(choice20);
 		window.draw(choice30);
 		window.draw(choice40);
-		
+
 		window.draw(text10);
-		
+
 		window.draw(text30);
 		window.draw(text50);
-		
-		window.draw(textc);
-        if (next==false){
-		       window.draw(text20);
-			   window.draw(choice10);
-		    for (k = 0; k < 32; k++) {
 
-    			window.draw(textname[k]);
-	    		window.draw(textprice[k]);
-		    	window.draw(textcate[k]);
-		    	window.draw(textquantity[k]);
-		    	window.draw(textrating[k]);
-	    		window.draw(textsize[k]);
-		    	window.draw(texttype[k]);
-		    	window.draw(textcolor[k]);
-		    }
-     	}
+		window.draw(textc);
+		if (next == false) {
+			window.draw(text20);
+			window.draw(choice10);
+			for (k = 0; k < 32; k++) {
+
+				window.draw(textname[k]);
+				window.draw(textprice[k]);
+				window.draw(textcate[k]);
+				window.draw(textquantity[k]);
+				window.draw(textrating[k]);
+				window.draw(textsize[k]);
+				window.draw(texttype[k]);
+				window.draw(textcolor[k]);
+			}
+		}
 		if (next) {
 			window.draw(text40);
 			window.draw(choice50);
@@ -5469,7 +5470,7 @@ void viewproduct(sf::RenderWindow& window, sf::RectangleShape photo) {
 }
 
 void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
-	
+
 	int number = 1;
 	int z = 0;
 	float hi = 50;
@@ -5732,13 +5733,13 @@ void viewproductsOwner(sf::RenderWindow& window, sf::RectangleShape photo) {
 			textprice[k].setPosition(150, hi);
 			textprice[k].setFont(fontprice);
 			textprice[k].setCharacterSize(20);
-			textquantity[k].setPosition(400, hi);
+			textquantity[k].setPosition(320, hi);
 			textquantity[k].setFont(fontprice);
 			textquantity[k].setCharacterSize(20);
 			textrating[k].setPosition(510, hi);
 			textrating[k].setFont(fontprice);
 			textrating[k].setCharacterSize(20);
-			textsize[k].setPosition(620, hi);
+			textsize[k].setPosition(580, hi);
 			textsize[k].setFont(fontname);
 			textsize[k].setCharacterSize(20);
 			texttype[k].setPosition(720, hi);
@@ -6118,7 +6119,7 @@ void editprod(sf::RenderWindow& window, sf::RectangleShape photo) {
 }
 
 void cart(sf::RenderWindow& window, sf::RectangleShape photo) {
-	
+
 	int number = 1;
 	int z = 0;
 	float hi = 50;
@@ -6496,17 +6497,17 @@ void deleteshopper(sf::RenderWindow& window, sf::RectangleShape photo) {
 				if (localposition.x >= 245 && localposition.x <= 352 && localposition.y >= 395 && localposition.y <= 471) {
 					welcome(window, photo);
 					cout << "YES " << endl;
-					
+
 				}
-				else if (localposition.x >= 597 && localposition.x <= 702 && localposition.y >= 397 && localposition.y <= 472 ) {
+				else if (localposition.x >= 597 && localposition.x <= 702 && localposition.y >= 397 && localposition.y <= 472) {
 					scchoice(window, photo);
 					cout << "NO" << endl;
 
-					
+
 
 				}
 			}
-	    }
+		}
 
 		window.clear();
 		window.draw(photo);
